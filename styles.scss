@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   padding: 0;
 }
@@ -10,6 +10,7 @@
     background: linear-gradient(to right, #ff0000, #00ff08);
     border: solid 1px #707070;
     border-radius: 20px;
+    margin-top: 10px;
     -webkit-appearance: none; // Override default CSS styles
   }
   //Style of the moveable indicator
@@ -21,22 +22,22 @@
     border-radius: 100%;
     background: #dbcaca;
     margin: -5px 0;
+    cursor: grab;
   }
   //When you click something on the slider (there used to be a thick black outline)
   input[type="range"]:focus {
     outline: none;
   }
-  .tick-container{
+  .tick-container {
     display: flex;
     justify-content: space-between;
-    margin: 0 31vw;
-  } 
-  .tick {
-    border-left: 6px solid black;
-    height: 15px;
-    width: 1px;
+    margin: -20px 31vw 0;
   }
-  .range-labels{
+  .tick {
+    border-left: 2px solid #dbcaca; //Creating the line of the tick
+    height: 15px; //height of tick
+  }
+  .range-labels {
     display: flex;
     justify-content: space-between;
     list-style-type: none;

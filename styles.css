@@ -14,6 +14,7 @@
   background: linear-gradient(to right, #ff0000, #00ff08);
   border: solid 1px #707070;
   border-radius: 20px;
+  margin-top: 10px;
   -webkit-appearance: none;
 }
 
@@ -25,6 +26,8 @@
   border-radius: 100%;
   background: #dbcaca;
   margin: -5px 0;
+  cursor: -webkit-grab;
+  cursor: grab;
 }
 
 .slide-container input[type="range"]:focus {
@@ -38,13 +41,12 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  margin: 0 31vw;
+  margin: -20px 31vw 0;
 }
 
 .slide-container .tick {
-  border-left: 6px solid black;
+  border-left: 2px solid #dbcaca;
   height: 15px;
-  width: 1px;
 }
 
 .slide-container .range-labels {
