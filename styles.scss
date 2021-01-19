@@ -1,0 +1,45 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+.slide-container {
+  margin-bottom: 50px;
+  text-align: center;
+  input[type="range"] {
+    width: 80vw;
+    background: linear-gradient(to right, #ff0000, #00ff08);
+    border: solid 1px #707070;
+    border-radius: 20px;
+    -webkit-appearance: none; // Override default CSS styles
+  }
+  //Style of the moveable indicator
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: solid 1px black;
+    height: 25px;
+    width: 25px;
+    border-radius: 100%;
+    background: #dbcaca;
+    margin: -5px 0;
+  }
+  //When you click something on the slider (there used to be a thick black outline)
+  input[type="range"]:focus {
+    outline: none;
+  }
+  .tick-container{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 31vw;
+  } 
+  .tick {
+    border-left: 6px solid black;
+    height: 15px;
+    width: 1px;
+  }
+  .range-labels{
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+    margin: 0 5vw;
+  }
+}
