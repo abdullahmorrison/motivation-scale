@@ -69,4 +69,13 @@ body {
   list-style-type: none;
   margin: 0 5vw;
 }
+
+.slider__adder {
+  background: orange;
+  border-radius: 5px;
+  display: block;
+  font-size: 30px;
+  padding: 0 10px;
+  margin: auto;
+}
 /*# sourceMappingURL=styles.css.map */
