@@ -18,3 +18,11 @@ if(document.cookie){//if a cookie exists
 function savePosition(x){
     document.cookie = x+"="+document.getElementById(x).value+"; expires=Tue, 19 Jan 2038 03:14:07 UTC";
 }
+
+function createTitle() {
+    if(event.key === 'Enter') {
+        $('.slider-input-field').replaceWith(function(){
+            return '<h1 class='+this.className+'>'+this.value+'</h1>'
+        })
+    }
+}
