@@ -1,59 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
     <title>The Percieved Goal-Progress Scale</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="slide-container">
-        <h1>Where I Am In Life</h1>
-        <input type="range" min="0" max="100" value="50" class="slider" id="myRange">
-        <div class="tick-container">
-            <div class="tick"></div>
-            <div class="tick"></div>
-            <div class="tick"></div>
-        </div>
-        <ul class="range-labels">
-            <li>Saving What You Can</li>
-            <li>Avoiding Failure</li>
-            <li>Stagnant</li>
-            <li>Chasing Success</li>
-            <li>Achieving Perfection</li>
-        </ul>
-    </div> 
-    <div class="slide-container">
-        <h1>Blogging</h1>
-        <input type="range" min="0" max="100" value="50" class="slider" id="myRange">
-        <div class="tick-container">
-            <div class="tick"></div>
-            <div class="tick"></div>
-            <div class="tick"></div>
-        </div>
-        <ul class="range-labels">
-            <li>Saving What You Can</li>
-            <li>Avoiding Failure</li>
-            <li>Stagnant</li>
-            <li>Chasing Success</li>
-            <li>Achieving Perfection</li>
-        </ul>
+      <h1>Where I Am In Life</h1>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        value="50"
+        class="slider"
+        id="range-1"
+        onchange="savePosition('range-1')"
+      />
+      <div class="tick-container">
+        <div class="tick"></div>
+        <div class="tick"></div>
+        <div class="tick"></div>
+      </div>
+      <ul class="range-labels">
+        <li>Saving What You Can</li>
+        <li>Avoiding Failure</li>
+        <li>Stagnant</li>
+        <li>Chasing Success</li>
+        <li>Achieving Perfection</li>
+      </ul>
     </div>
     <div class="slide-container">
-        <h1>CO-OP Work</h1>
-        <input type="range" min="0" max="100" value="50" class="slider" id="myRange">
-        <div class="tick-container">
-            <div class="tick"></div>
-            <div class="tick"></div>
-            <div class="tick"></div>
-        </div>
-        <ul class="range-labels">
-            <li>Saving What You Can</li>
-            <li>Avoiding Failure</li>
-            <li>Stagnant</li>
-            <li>Chasing Success</li>
-            <li>Achieving Perfection</li>
-        </ul>
+      <h1>Blogging</h1>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        value="50"
+        class="slider"
+        id="range-2"
+        onchange="savePosition('range-2')"
+      />
+      <div class="tick-container">
+        <div class="tick"></div>
+        <div class="tick"></div>
+        <div class="tick"></div>
+      </div>
+      <ul class="range-labels">
+        <li>Saving What You Can</li>
+        <li>Avoiding Failure</li>
+        <li>Stagnant</li>
+        <li>Chasing Success</li>
+        <li>Achieving Perfection</li>
+      </ul>
     </div>
-</body>
+    <div class="slide-container">
+      <h1>Programming the Percieved Goal-Progress Scale</h1>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        value="50"
+        class="slider"
+        id="range-3"
+        onchange="savePosition('range-3')"
+      />
+      <div class="tick-container">
+        <div class="tick"></div>
+        <div class="tick"></div>
+        <div class="tick"></div>
+      </div>
+      <ul class="range-labels">
+        <li>Saving What You Can</li>
+        <li>Avoiding Failure</li>
+        <li>Stagnant</li>
+        <li>Chasing Success</li>
+        <li>Achieving Perfection</li>
+      </ul>
+    </div>
+  </body>
 </html>
+<script src="storeRange.js"></script>
