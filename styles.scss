@@ -2,9 +2,18 @@
   margin: 0;
   padding: 0;
 }
-.slide-container {
+body{
+  padding: 20px;
+}
+.slider{
   margin-bottom: 50px;
   text-align: center;
+
+  &__input{//the input field that creates the title of the each slider
+    display: block;
+    margin: auto;
+    padding: 10px;
+  }
   input[type="range"] {
     width: 80vw;
     background: linear-gradient(to right, #ff0000, #00ff08);
@@ -28,16 +37,16 @@
   input[type="range"]:focus {
     outline: none;
   }
-  .tick-container {
+  &__ticks{//tick container
     display: flex;
     justify-content: space-between;
     margin: -20px 31vw 0;
+    div {//each seperate tick
+      border-left: 2px solid #dbcaca; //Creating the line of the tick
+      height: 15px; //height of tick
+    }
   }
-  .tick {
-    border-left: 2px solid #dbcaca; //Creating the line of the tick
-    height: 15px; //height of tick
-  }
-  .range-labels {
+  &__labels {//each label under a tick
     display: flex;
     justify-content: space-between;
     list-style-type: none;

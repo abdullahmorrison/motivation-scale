@@ -3,27 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- IMPORTS-->
     <link rel="stylesheet" href="styles.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <title>The Percieved Goal-Progress Scale</title>
   </head>
   <body>
-    <div class="slide-container">
-      <h1>Where I Am In Life</h1>
+    <div class="slider">
+      <input type="text" class="slider__input" placeholder="Title" onkeydown="createTitle()" required>
       <input
         type="range"
         min="0"
         max="100"
         value="50"
-        class="slider"
+        class="slider__range"
         id="range-1"
         onchange="savePosition('range-1')"
       />
-      <div class="tick-container">
-        <div class="tick"></div>
-        <div class="tick"></div>
-        <div class="tick"></div>
+      <div class="slider__ticks">
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
-      <ul class="range-labels">
+      <ul class="slider__labels">
         <li>Saving What You Can</li>
         <li>Avoiding Failure</li>
         <li>Stagnant</li>
@@ -31,54 +35,7 @@
         <li>Achieving Perfection</li>
       </ul>
     </div>
-    <div class="slide-container">
-      <h1>Blogging</h1>
-      <input
-        type="range"
-        min="0"
-        max="100"
-        value="50"
-        class="slider"
-        id="range-2"
-        onchange="savePosition('range-2')"
-      />
-      <div class="tick-container">
-        <div class="tick"></div>
-        <div class="tick"></div>
-        <div class="tick"></div>
-      </div>
-      <ul class="range-labels">
-        <li>Saving What You Can</li>
-        <li>Avoiding Failure</li>
-        <li>Stagnant</li>
-        <li>Chasing Success</li>
-        <li>Achieving Perfection</li>
-      </ul>
-    </div>
-    <div class="slide-container">
-      <h1>Programming the Percieved Goal-Progress Scale</h1>
-      <input
-        type="range"
-        min="0"
-        max="100"
-        value="50"
-        class="slider"
-        id="range-3"
-        onchange="savePosition('range-3')"
-      />
-      <div class="tick-container">
-        <div class="tick"></div>
-        <div class="tick"></div>
-        <div class="tick"></div>
-      </div>
-      <ul class="range-labels">
-        <li>Saving What You Can</li>
-        <li>Avoiding Failure</li>
-        <li>Stagnant</li>
-        <li>Chasing Success</li>
-        <li>Achieving Perfection</li>
-      </ul>
-    </div>
+    <button class="slider__adder">+</button>
   </body>
 </html>
 <script src="storeRange.js"></script>
