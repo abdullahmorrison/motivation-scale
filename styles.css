@@ -11,25 +11,24 @@ li {
   margin-left: 20px;
 }
 
-.slider {
-  background: #FEC86B;
+.scale {
+  background: #fec86b;
   border-radius: 20px;
   margin-bottom: 10px;
   padding: 15px 0;
   text-align: center;
 }
 
-.slider li {
+.scale li {
   margin: 0;
 }
 
-.slider__input {
-  display: block;
+.scale__header__input {
   margin: auto;
   padding: 10px;
 }
 
-.slider__range {
+.scale__slider__range {
   width: 80vw;
   background: -webkit-gradient(linear, left top, right top, from(#ff0000), to(#00ff08));
   background: linear-gradient(to right, #ff0000, #00ff08);
@@ -39,23 +38,23 @@ li {
   -webkit-appearance: none;
 }
 
-.slider__range::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  border: solid 1px black;
-  height: 25px;
-  width: 25px;
-  border-radius: 100%;
+.scale__slider__range::-webkit-scale-thumb {
   background: #dbcaca;
-  margin: -5px 0;
+  border: solid 1px black;
+  border-radius: 100%;
   cursor: -webkit-grab;
   cursor: grab;
+  height: 25px;
+  margin: -5px 0;
+  width: 25px;
+  -webkit-appearance: none;
 }
 
-.slider__range:focus {
+.scale__slider__range:focus {
   outline: none;
 }
 
-.slider__ticks {
+.scale__slider__ticks {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -65,12 +64,12 @@ li {
   margin: -20px 31vw 0;
 }
 
-.slider__ticks div {
+.scale__slider__ticks div {
   border-left: 2px solid #dbcaca;
   height: 15px;
 }
 
-.slider__labels {
+.scale__slider__labels {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -81,8 +80,8 @@ li {
   margin: 10px 5vw 20px;
 }
 
-.slider__button__adder {
-  background: orange;
+.scale__adder {
+  background: #ffa500;
   border-radius: 5px;
   display: block;
   font-size: 30px;
