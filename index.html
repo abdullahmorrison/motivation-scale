@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="slider">
-      <input type="text" class="slider__input" placeholder="Title" onkeydown="createTitle()" required>
+      <input type="text" class="slider__input" placeholder="Name of Goal" onkeydown="createTitle()" required>
       <input
         type="range"
         min="0"
@@ -32,10 +32,32 @@
         <li>Avoiding Failure</li>
         <li>Stagnant</li>
         <li>Chasing Success</li>
-        <li>Achieving Perfection</li>
+        <li>Upgrading Your Goal</li>
       </ul>
     </div>
-    <button class="slider__adder">+</button>
+    <div class="slider__button">
+      <input class="slider__button__adder" type="button" value="+" onclick="addSlider()">
+    </div>
+    <div class="description">
+      <h1>What is this tool?</h1>
+      <p>
+        This is a tool that helps you evaluate how you feel about the possibility of acheiving your goals.
+      </p>
+      <h1>Instructions</h1>
+      <p>
+        <ul>
+          <li>
+            Press the orange button to create a new slider.
+          </li>
+          <li>
+            Write the name of the goal you want to achieve.
+          </li>
+          <li>
+            Move the slider in the direction that you feel is correct for how you feel about the possibility of acheiving your goal
+          </li>
+        </ul>
+      </p>
+    </div>
   </body>
 </html>
-<script src="storeRange.js"></script>
+<script src="app.js"></script>
