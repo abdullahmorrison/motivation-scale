@@ -19,10 +19,15 @@ function savePosition(x){
     document.cookie = x+"="+document.getElementById(x).value+"; expires=Tue, 19 Jan 2038 03:14:07 UTC";
 }
 
+//creates the title of each scale
 function createTitle() {
     if(event.key === 'Enter') {
-        $('.slider-input-field').replaceWith(function(){
-            return '<h1 class='+this.className+'>'+this.value+'</h1>'
+        $('.scale__input').replaceWith(function(){
+            return '<h1>'+this.value+'</h1>'
         })
     }
+}
+//creates a new scale
+function addScale(){
+    $(".new-scale").before('<div class="scale"><input type="text" class="scale__input" placeholder="Title" onkeydown="createTitle()" required> <input type="range" min="0" max="100" value="50" class="scale__range" id="range-1" onchange="savePosition(\'range-1\')"/><div class="scale__ticks"><div></div><div></div><div></div></div><ul class="scale__labels"><li>Saving What You Can</li><li>Avoiding Failure</li><li>Stagnant</li><li>Chasing Success</li><li>Upgrading Your Goal</li></ul></div>');
 }
