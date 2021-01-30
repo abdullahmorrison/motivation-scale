@@ -23,9 +23,20 @@ li {
   margin: 0;
 }
 
+.scale__header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .scale__header__input {
   margin: auto;
   padding: 10px;
+}
+
+.scale__slider {
+  /* All the same stuff for Firefox */
+  /* All the same stuff for IE */
 }
 
 .scale__slider__range {
@@ -38,11 +49,33 @@ li {
   -webkit-appearance: none;
 }
 
-.scale__slider__range::-webkit-scale-thumb {
+.scale__slider input[type=range]::-webkit-slider-thumb {
   background: #dbcaca;
   border: solid 1px black;
   border-radius: 100%;
   cursor: -webkit-grab;
+  cursor: grab;
+  height: 25px;
+  margin: -5px 0;
+  width: 25px;
+  -webkit-appearance: none;
+}
+
+.scale__slider input[type=range]::-moz-range-thumb {
+  background: #dbcaca;
+  border: solid 1px black;
+  border-radius: 100%;
+  cursor: grab;
+  height: 25px;
+  margin: -5px 0;
+  width: 25px;
+  -webkit-appearance: none;
+}
+
+.scale__slider input[type=range]::-ms-thumb {
+  background: #dbcaca;
+  border: solid 1px black;
+  border-radius: 100%;
   cursor: grab;
   height: 25px;
   margin: -5px 0;
@@ -80,7 +113,7 @@ li {
   margin: 10px 5vw 20px;
 }
 
-.scale__adder {
+.new-scale {
   background: #ffa500;
   border-radius: 5px;
   display: block;

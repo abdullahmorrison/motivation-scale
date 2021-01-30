@@ -19,6 +19,7 @@ li {
     margin: 0;
   }
   &__header {
+    display: flex;
     &__input {
       //the input field that creates the title of the each scale
       margin: auto;
@@ -35,7 +36,31 @@ li {
       margin-top: 10px;
       -webkit-appearance: none; // Override default CSS styles
     }
-    &__range::-webkit-scale-thumb {
+    input[type=range]::-webkit-slider-thumb {
+      //The moveable indicator
+      background: #dbcaca;
+      border: solid 1px black;
+      border-radius: 100%;
+      cursor: grab;
+      height: 25px;
+      margin: -5px 0;
+      width: 25px;
+      -webkit-appearance: none;
+    }
+    /* All the same stuff for Firefox */
+    input[type=range]::-moz-range-thumb {
+      //The moveable indicator
+      background: #dbcaca;
+      border: solid 1px black;
+      border-radius: 100%;
+      cursor: grab;
+      height: 25px;
+      margin: -5px 0;
+      width: 25px;
+      -webkit-appearance: none;
+    }
+    /* All the same stuff for IE */
+    input[type=range]::-ms-thumb {
       //The moveable indicator
       background: #dbcaca;
       border: solid 1px black;
@@ -69,13 +94,13 @@ li {
       margin: 10px 5vw 20px;
     }
   }
+}
 
-  &__adder {
-    background: #ffa500;
-    border-radius: 5px;
-    display: block;
-    font-size: 30px;
-    padding: 0 10px;
-    margin: auto;
-  }
+.new-scale {
+  background: #ffa500;
+  border-radius: 5px;
+  display: block;
+  font-size: 30px;
+  padding: 0 10px;
+  margin: auto;
 }
