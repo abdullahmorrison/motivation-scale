@@ -113,6 +113,26 @@ li {
   margin: 10px 5vw 20px;
 }
 
+.scale__writing-space {
+  border-top: solid 1px black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 20px;
+}
+
+.scale__writing-space label, .scale__writing-space input {
+  display: block;
+}
+
+.scale__writing-space input {
+  width: 45vw;
+  padding: 10px;
+}
+
 .new-scale {
   background: #ffa500;
   border-radius: 5px;

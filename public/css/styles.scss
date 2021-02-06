@@ -94,6 +94,19 @@ li {
       margin: 10px 5vw 20px;
     }
   }
+  &__writing-space{
+    border-top: solid 1px black;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    label, input{
+      display: block;
+    }
+    input{
+      width: 45vw;
+      padding: 10px;
+    }
+  }
 }
 
 .new-scale {
