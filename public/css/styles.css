@@ -12,8 +12,11 @@ li {
 }
 
 .scale {
-  background: #fec86b;
+  background: #ffffff;
+  border: solid 1px #707070;
   border-radius: 20px;
+  -webkit-box-shadow: 0 3px 6px #00000083;
+          box-shadow: 0 3px 6px #00000083;
   margin-bottom: 10px;
   padding: 15px 0;
   text-align: center;
@@ -49,7 +52,7 @@ li {
   -webkit-appearance: none;
 }
 
-.scale__slider input[type=range]::-webkit-slider-thumb {
+.scale__slider input[type="range"]::-webkit-slider-thumb {
   background: #dbcaca;
   border: solid 1px black;
   border-radius: 100%;
@@ -61,7 +64,7 @@ li {
   -webkit-appearance: none;
 }
 
-.scale__slider input[type=range]::-moz-range-thumb {
+.scale__slider input[type="range"]::-moz-range-thumb {
   background: #dbcaca;
   border: solid 1px black;
   border-radius: 100%;
@@ -72,7 +75,7 @@ li {
   -webkit-appearance: none;
 }
 
-.scale__slider input[type=range]::-ms-thumb {
+.scale__slider input[type="range"]::-ms-thumb {
   background: #dbcaca;
   border: solid 1px black;
   border-radius: 100%;
@@ -114,7 +117,7 @@ li {
 }
 
 .scale__writing-space {
-  border-top: solid 1px black;
+  border-top: solid 1px #b3b3b3;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -124,7 +127,8 @@ li {
   padding: 20px;
 }
 
-.scale__writing-space label, .scale__writing-space input {
+.scale__writing-space label,
+.scale__writing-space input {
   display: block;
 }
 
@@ -134,7 +138,7 @@ li {
 }
 
 .new-scale {
-  background: #ffa500;
+  background: #1eff00;
   border-radius: 5px;
   display: block;
   font-size: 30px;

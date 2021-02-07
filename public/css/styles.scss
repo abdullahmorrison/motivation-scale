@@ -9,8 +9,10 @@ li {
   margin-left: 20px;
 }
 .scale {
-  background: #fec86b;
+  background: #ffffff;
+  border: solid 1px #707070;
   border-radius: 20px;
+  box-shadow: 0 3px 6px #00000083;
   margin-bottom: 10px;
   padding: 15px 0;
   text-align: center; //centers the range scale and text
@@ -36,7 +38,7 @@ li {
       margin-top: 10px;
       -webkit-appearance: none; // Override default CSS styles
     }
-    input[type=range]::-webkit-slider-thumb {
+    input[type="range"]::-webkit-slider-thumb {
       //The moveable indicator
       background: #dbcaca;
       border: solid 1px black;
@@ -48,7 +50,7 @@ li {
       -webkit-appearance: none;
     }
     /* All the same stuff for Firefox */
-    input[type=range]::-moz-range-thumb {
+    input[type="range"]::-moz-range-thumb {
       //The moveable indicator
       background: #dbcaca;
       border: solid 1px black;
@@ -60,7 +62,7 @@ li {
       -webkit-appearance: none;
     }
     /* All the same stuff for IE */
-    input[type=range]::-ms-thumb {
+    input[type="range"]::-ms-thumb {
       //The moveable indicator
       background: #dbcaca;
       border: solid 1px black;
@@ -94,15 +96,16 @@ li {
       margin: 10px 5vw 20px;
     }
   }
-  &__writing-space{
-    border-top: solid 1px black;
+  &__writing-space {
+    border-top: solid 1px #b3b3b3;
     display: flex;
     justify-content: space-between;
     padding: 20px;
-    label, input{
+    label,
+    input {
       display: block;
     }
-    input{
+    input {
       width: 45vw;
       padding: 10px;
     }
@@ -110,7 +113,7 @@ li {
 }
 
 .new-scale {
-  background: #ffa500;
+  background: #1eff00;
   border-radius: 5px;
   display: block;
   font-size: 30px;
