@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 export default class WritingSpace extends Component {
     render() {
         return (
-            <div className="scale__writing-space">
+            <div hidden>
                 <div>
                     <label>Explanation</label>
                     <input type="textarea"/>
