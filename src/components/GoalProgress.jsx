@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import Scale from './Scale';
 
+//packages
+import { v4 as uuidv4 } from 'uuid';
+
 class GoalProgress extends Component {
     state = { 
-        scales: [
-            {id: 1}
-        ] 
+        scales: [] 
     }
-    handleDelete = scaleId =>{
+    handleDeleteScale = scaleId =>{
         //removing the scale by creating a new set of scales without the on we want to remove
         const scales = this.state.scales.filter(s => s.id !== scaleId)
+        this.setState({ scales })
+    }
+    handleAddScale = () =>{
+        const scales = [...this.state.scales, {id: uuidv4()}];
         this.setState({ scales })
     }
 
@@ -17,9 +22,9 @@ class GoalProgress extends Component {
         return ( 
             <>
                 {this.state.scales.map(scale =>(
-                    <Scale key={scale.id} id={scale.id} onDelete={this.handleDelete}/>
+                    <Scale scale={scale} onDelete={this.handleDeleteScale}/>
                 ))}
-                <button className="new-scale" >+</button>
+                <button className="new-scale" onClick={this.handleAddScale}>+</button>
                 <div className="description">
                 <h1>What is this tool?</h1>
                 <p>
