@@ -15,7 +15,7 @@ export default class Scale extends Component {
                 <div className="scale__header">
                     <ScaleTitle />
                     <ExplanationIconClosed alt="Explanation Button (Closed)"/>
-                    <DeleteIcon alt="Delete Button" onClick={()=>this.props.onDelete(this.props.scale.id)}/> 
+                    <DeleteIcon alt="Delete Button"  onClick={()=>this.props.onDelete(this.props.scale.id)}/> 
                 </div>
                 <ScaleSlider />
                 <WritingSpace />
