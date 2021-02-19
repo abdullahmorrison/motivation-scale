@@ -22,7 +22,7 @@ class GoalProgress extends Component {
         return ( 
             <>
                 {this.state.scales.map(scale =>(
-                    <Scale scale={scale} onDelete={this.handleDeleteScale}/>
+                    <Scale key={scale.id} scale={scale} onDelete={this.handleDeleteScale}/>
                 ))}
                 <button className="new-scale" onClick={this.handleAddScale}>+</button>
                 <div className="description">
