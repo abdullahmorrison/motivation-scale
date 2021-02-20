@@ -8,16 +8,15 @@ class GoalProgress extends Component {
     state = { 
         scales: [] 
     }
+    handleAddScale = () =>{
+        const scales = [...this.state.scales, {id: uuidv4()}];
+        this.setState({ scales })
+    }
     handleDeleteScale = scaleId =>{
         //removing the scale by creating a new set of scales without the on we want to remove
         const scales = this.state.scales.filter(s => s.id !== scaleId)
         this.setState({ scales })
     }
-    handleAddScale = () =>{
-        const scales = [...this.state.scales, {id: uuidv4()}];
-        this.setState({ scales })
-    }
-
     render() { 
         return ( 
             <>
