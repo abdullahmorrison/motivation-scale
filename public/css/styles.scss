@@ -22,10 +22,14 @@ li {
   }
   &__header {
     display: flex;
+    justify-content: center;
     &__input {
       //the input field that creates the title of the each scale
-      margin: auto;
       padding: 10px;
+    }
+    &__deleteIcon:hover {
+      background-color: red;
+      cursor: pointer;
     }
   }
   &__slider {
@@ -111,12 +115,19 @@ li {
     }
   }
 }
-
 .new-scale {
-  background: #1eff00;
+  background: #e4e4e4;
   border-radius: 5px;
+  box-shadow: 1px 1px 0 black;
   display: block;
   font-size: 30px;
   padding: 0 10px;
   margin: auto;
+}
+.new-scale:active {
+  box-shadow: 0 0 0;
+}
+.new-scale:hover {
+  background: #c0c0c0;
+  cursor: pointer;
 }
