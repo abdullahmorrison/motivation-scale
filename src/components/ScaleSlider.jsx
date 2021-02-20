@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 
 export default class ScaleSlider extends Component {
-    constructor(){
-        super()
-        this.state = {
-            sliderValue: 50
-        };
-    }
+    state = {
+        sliderValue: 50
+    };
     changeSliderValue = (value) =>{
         this.setState({sliderValue: value})
     }

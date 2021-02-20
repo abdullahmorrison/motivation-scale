@@ -5,12 +5,10 @@ import EditIcon from "./icons/EditIcon";
 
 
 export default class ScaleTitle extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            title: <input type="text" className="scale__header__input" placeholder="Name of Goal" onKeyDown={(event)=>this.handleTitleChange(event, event.target.value)}/>
-        };
-    }
+    state = {
+        title: <input type="text" className="scale__header__input" placeholder="Name of Goal" onKeyDown={(event)=>this.handleTitleChange(event, event.target.value)}/>
+    };
+    
     handleTitleChange = (event, value) =>{
         if(event.key === 'Enter'){//if you press the enter key
             if(value){
