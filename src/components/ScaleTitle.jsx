@@ -6,26 +6,35 @@ import EditIcon from "./icons/EditIcon";
 
 export default class ScaleTitle extends Component {
     state = {
-        title: <input type="text" className="scale__header__input" placeholder="Name of Goal" onKeyDown={(event)=>this.handleTitleChange(event, event.target.value)}/>
+        value: null, //the title
+        displayH1: false //used to determine if you want to display value as h1 or input
     };
     
     handleTitleChange = (event, value) =>{
         if(event.key === 'Enter'){//if you press the enter key
-            if(value){
-                this.setState({title: <h1>{value}</h1>})
-            }else{
-                console.warn("ERROR: Title value doesn't exist")
-            }
+            this.setState({value: value, displayH1: true})
         }
     }
     handleEditTitle = () =>{
-        this.setState({title: <input type="text" className="scale__header__input" placeholder="Name of Goal" onKeyDown={(event)=>this.handleTitleChange(event, event.target.value)}/>})
+        this.setState({displayH1: false})
     }
     render() {
         return (
             <>
-                {this.state.title}
-                <EditIcon alt="Edit Button" onClick={this.handleEditTitle}/>
+                { this.state.displayH1 === true 
+                    ? <h1>{this.state.value}</h1>
+                    :<input 
+                        type="text" 
+                        className="scale__header__input" 
+                        defaultValue={this.state.value} 
+                        placeholder="Name of Goal" 
+                        onKeyDown={(event)=>this.handleTitleChange(event, event.target.value)}   
+                    />
+                }
+                <EditIcon 
+                    alt="Edit Button" 
+                    onClick={this.handleEditTitle}
+                />
             </>
         )
     }

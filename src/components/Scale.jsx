@@ -9,14 +9,10 @@ import DeleteIcon from "./icons/DeleteIcon";
 
 export default class Scale extends Component {
     state = {
-        writingSpace: null
+        writingSpaceVisible: true
     }
     handleWritingSpace = () =>{ //displays writing space visble or removes it
-        if(this.state.writingSpace === null){
-            this.setState({writingSpace: <WritingSpace/>})
-        }else{
-            this.setState({writingSpace: null})
-        }
+        this.setState({writingSpaceVisible: !this.state.writingSpaceVisible})
     }
 
     render() {
@@ -28,7 +24,9 @@ export default class Scale extends Component {
                     <DeleteIcon alt="Delete Button"  onClick={()=>this.props.onDelete(this.props.scale.id)}/> 
                 </div>
                 <ScaleSlider />
-                {this.state.writingSpace}
+                {
+                    this.state.writingSpaceVisible === true ? <WritingSpace/>: null
+                }
             </div>
         )
     }
