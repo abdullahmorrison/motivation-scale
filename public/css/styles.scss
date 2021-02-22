@@ -103,15 +103,21 @@ li {
   &__writing-space {
     border-top: solid 1px #b3b3b3;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding: 20px;
-    label,
-    input {
-      display: block;
+    text-align: left;
+    textarea,
+    h2 {
+      margin: 0 20px;
     }
-    input {
-      width: 45vw;
-      padding: 10px;
+    textarea {
+      border-radius: 5px;
+      color: #707070;
+      font-family: Tahoma, sans-serif;
+      height: 150px;
+      padding: 20px;
+      resize: none;
+      width: 500px;
     }
   }
 }

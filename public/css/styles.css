@@ -128,20 +128,26 @@ li {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   padding: 20px;
+  text-align: left;
 }
 
-.scale__writing-space label,
-.scale__writing-space input {
-  display: block;
+.scale__writing-space textarea,
+.scale__writing-space h2 {
+  margin: 0 20px;
 }
 
-.scale__writing-space input {
-  width: 45vw;
-  padding: 10px;
+.scale__writing-space textarea {
+  border-radius: 5px;
+  color: #707070;
+  font-family: Tahoma, sans-serif;
+  height: 150px;
+  padding: 20px;
+  resize: none;
+  width: 500px;
 }
 
 .new-scale {
