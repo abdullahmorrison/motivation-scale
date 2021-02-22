@@ -9,7 +9,7 @@ import DeleteIcon from "./icons/DeleteIcon";
 
 export default class Scale extends Component {
     state = {
-        writingSpaceVisible: true
+        writingSpaceVisible: false
     }
     handleWritingSpace = () =>{ //displays writing space visble or removes it
         this.setState({writingSpaceVisible: !this.state.writingSpaceVisible})
