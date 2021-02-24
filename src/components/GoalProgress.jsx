@@ -8,14 +8,24 @@ class GoalProgress extends Component {
     state = { 
         scales: [] 
     }
-    handleAddScale = () =>{
+    componentDidMount() {//adding the saved scales from local storage to state
+        const scales = JSON.parse(localStorage.getItem("scales"))
+        if(scales !== null){
+            this.setState({
+                scales
+            })
+        }
+    }
+    handleAddScale = () =>{ //saving new scale to state and local storage
         const scales = [...this.state.scales, {id: uuidv4()}];
         this.setState({ scales })
+        localStorage.setItem("scales", JSON.stringify(scales))
     }
     handleDeleteScale = scaleId =>{
-        //removing the scale by creating a new set of scales without the on we want to remove
+        //removing the scale from state and local storage by creating a new set of scales without the on we want to remove
         const scales = this.state.scales.filter(s => s.id !== scaleId)
         this.setState({ scales })
+        localStorage.setItem("scales", JSON.stringify(scales))
     }
     render() { 
         return ( 
