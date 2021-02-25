@@ -11,7 +11,7 @@ export default class Scale extends Component {
     state = {
         writingSpaceVisible: false
     }
-    handleWritingSpace = () =>{ //displays writing space visble or removes it
+    handleWritingSpace = () =>{ //makes writing space visble or removes it
         this.setState({writingSpaceVisible: !this.state.writingSpaceVisible})
     }
 
