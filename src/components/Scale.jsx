@@ -33,7 +33,13 @@ export default class Scale extends Component {
                     onSliderValueUpdate={this.props.onSliderValueUpdate}//props passed up to parent twice     
                 />
                 {
-                    this.state.writingSpaceVisible === true ? <WritingSpace/>: null
+                    this.state.writingSpaceVisible === true   
+                        ? <WritingSpace 
+                            explanation={this.props.scale.explanation} 
+                            futurePlan={this.props.scale.futurePlan}
+                            onEditTextArea={this.props.onEditTextArea}
+                        />
+                        : null
                 }
             </div>
         )

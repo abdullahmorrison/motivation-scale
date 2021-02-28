@@ -87,6 +87,12 @@ class GoalProgress extends Component {
                                 event
                             )
                         }
+                        onEditTextArea={
+                            (event)=>this.handleValueChange(
+                                scale.id,
+                                event
+                            )
+                        }
                         onDelete={this.handleDeleteScale}
                     />
                 ))}
