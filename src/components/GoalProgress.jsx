@@ -22,6 +22,7 @@ class GoalProgress extends Component {
             {
                 id: uuidv4(),
                 title: null, //value changed through prop drill
+                displayH1: false, //value changed through prop drill, used to determine if you want to display value as h1 or input
                 sliderValue: 50, //value changed through prop drill
                 explanation: "", //value changed through prop drill
                 futurePlan: "" //value changed through prop drill
@@ -36,16 +37,36 @@ class GoalProgress extends Component {
         this.setState({ scales })
         localStorage.setItem("scales", JSON.stringify(scales))
     }
-    handleSliderValueChange = (value, id) =>{
+    handleEditTitle = (scaleId) =>{
         this.setState(prevState => {
-            const scales = [...prevState.scales];
-            const index = scales.findIndex(s => s.id === id);
-      
-            scales[index].sliderValue = value
+            const scales = [...prevState.scales]
+            const index = scales.findIndex(s => s.id === scaleId)
+            scales[index].displayH1 = false
+            localStorage.setItem("scales", JSON.stringify(this.state.scales))
             return { scales };
-          });
-          localStorage.setItem("scales", JSON.stringify(this.state.scales))
+        })
     }
+    handleValueChange = (id, event) =>{
+        this.setState(prevState => {
+            const scales = [...prevState.scales]
+            const index = scales.findIndex(s => s.id === id)
+            if(event.target.className === "scale__slider__range"){
+                scales[index].sliderValue = event.target.value
+            }else if(event.target.className === "scale__header__input"){
+                if(event.target.value && event.key === 'Enter' ){//if you press the enter key and title value exists
+                    scales[index].title = event.target.value
+                    scales[index].displayH1 = true
+                }
+            }else if(event.target.className === "scale__writing-space__Explanation"){
+                scales[index].explanation = event.target.value
+            }else if(event.target.className === "scale__writing-space__future-plan"){
+                scales[index].futurePlan = event.target.value
+            }
+            localStorage.setItem("scales", JSON.stringify(this.state.scales))
+            return { scales };
+        })
+    }
+    
     render() { 
         return ( 
             <>
@@ -53,7 +74,19 @@ class GoalProgress extends Component {
                     <Scale 
                         key={scale.id} 
                         scale={scale} 
-                        onSliderValueUpdate={(event)=>this.handleSliderValueChange(event.target.value, scale.id)}
+                        onTitleChange={
+                            (event)=>this.handleValueChange(
+                                scale.id,
+                                event
+                            )
+                        }
+                        onEditTitle={()=>this.handleEditTitle(scale.id)}
+                        onSliderValueUpdate={
+                            (event)=>this.handleValueChange(
+                                scale.id,
+                                event
+                            )
+                        }
                         onDelete={this.handleDeleteScale}
                     />
                 ))}
