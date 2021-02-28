@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 
 export default class ScaleSlider extends Component {
-    state = {
-        sliderValue: 50
-    };
-    changeSliderValue = (value) =>{
-        this.setState({sliderValue: value})
-    }
-
     render() {
         return (
             <div className="scale__slider">
@@ -15,8 +8,8 @@ export default class ScaleSlider extends Component {
                     type="range"
                     className="scale__slider__range"
                     min="0" max="100" 
-                    value = {this.state.sliderValue}
-                    onChange = {(event) => this.changeSliderValue(event.target.value)}
+                    defaultValue = {this.props.sliderValue}
+                    onChange = {this.props.onSliderValueUpdate}
                 />
                 <div className="scale__slider__ticks">
                     <div></div>

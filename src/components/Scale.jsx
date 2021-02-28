@@ -19,11 +19,14 @@ export default class Scale extends Component {
         return (
             <div className="scale">
                 <div className="scale__header">
-                    <ScaleTitle />
+                    <ScaleTitle scaleTitle={this.props.scale.title}/>
                     <ExplanationIconClosed alt="Explanation Button (Closed)" onClick={this.handleWritingSpace}/>
                     <DeleteIcon alt="Delete Button"  onClick={()=>this.props.onDelete(this.props.scale.id)}/> 
                 </div>
-                <ScaleSlider />
+                <ScaleSlider 
+                    sliderValue={this.props.scale.sliderValue}
+                    onSliderValueUpdate={this.props.onSliderValueUpdate}//props passed up to parent twice     
+                />
                 {
                     this.state.writingSpaceVisible === true ? <WritingSpace/>: null
                 }

@@ -17,7 +17,16 @@ class GoalProgress extends Component {
         }
     }
     handleAddScale = () =>{ //saving new scale to state and local storage
-        const scales = [...this.state.scales, {id: uuidv4()}];
+        const scales = [
+            ...this.state.scales, 
+            {
+                id: uuidv4(),
+                title: null, //value changed through prop drill
+                sliderValue: 50, //value changed through prop drill
+                explanation: "", //value changed through prop drill
+                futurePlan: "" //value changed through prop drill
+            }
+        ]
         this.setState({ scales })
         localStorage.setItem("scales", JSON.stringify(scales))
     }
@@ -27,11 +36,26 @@ class GoalProgress extends Component {
         this.setState({ scales })
         localStorage.setItem("scales", JSON.stringify(scales))
     }
+    handleSliderValueChange = (value, id) =>{
+        this.setState(prevState => {
+            const scales = [...prevState.scales];
+            const index = scales.findIndex(s => s.id === id);
+      
+            scales[index].sliderValue = value
+            return { scales };
+          });
+          localStorage.setItem("scales", JSON.stringify(this.state.scales))
+    }
     render() { 
         return ( 
             <>
                 {this.state.scales.map(scale =>(
-                    <Scale key={scale.id} scale={scale} onDelete={this.handleDeleteScale}/>
+                    <Scale 
+                        key={scale.id} 
+                        scale={scale} 
+                        onSliderValueUpdate={(event)=>this.handleSliderValueChange(event.target.value, scale.id)}
+                        onDelete={this.handleDeleteScale}
+                    />
                 ))}
                 <button className="new-scale" onClick={this.handleAddScale}>+</button>
                 <div className="description">
@@ -40,8 +64,7 @@ class GoalProgress extends Component {
                     This is a tool that helps you evaluate how you feel about the possibility of acheiving your goals.
                 </p>
                 <h1>Instructions</h1>
-                <p>
-                    <ul>
+                <ul>
                     <li>
                         Press the orange button to create a new scale.
                     </li>
@@ -51,8 +74,7 @@ class GoalProgress extends Component {
                     <li>
                         Move the scale in the direction that you feel is correct for how you feel about the possibility of acheiving your goal
                     </li>
-                    </ul>
-                </p>
+                </ul>
                 </div>
             </>
         );
