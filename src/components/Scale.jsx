@@ -5,6 +5,7 @@ import WritingSpace  from "./WritingSpace";
 
 //SVG
 import ExplanationIconClosed from "./icons/ExplanationIconClosed";
+import ExplanationIconOpened from "./icons/ExplanationIconOpened";
 import DeleteIcon from "./icons/DeleteIcon";
 
 export default class Scale extends Component {
@@ -25,7 +26,17 @@ export default class Scale extends Component {
                         onTitleChange={this.props.onTitleChange}
                         onEditTitle={this.props.onEditTitle}
                     />
-                    <ExplanationIconClosed alt="Explanation Button (Closed)" onClick={this.handleWritingSpace}/>
+                    {
+                        this.state.writingSpaceVisible === false   
+                            ?<ExplanationIconClosed 
+                                alt="Explanation Button (Closed)" 
+                                onClick={this.handleWritingSpace}    
+                            />
+                            :<ExplanationIconOpened
+                                alt="Explanation Button (Opened)" 
+                                onClick={this.handleWritingSpace}    
+                            />
+                    }
                     <DeleteIcon alt="Delete Button"  onClick={()=>this.props.onDelete(this.props.scale.id)}/> 
                 </div>
                 <ScaleSlider 

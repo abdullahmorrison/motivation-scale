@@ -5,8 +5,8 @@ function ExplanationIconOpened(props) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      width={81}
-      height={45}
+      width={50}
+      height={35}
       viewBox="0 0 81 45"
       {...props}
     >
