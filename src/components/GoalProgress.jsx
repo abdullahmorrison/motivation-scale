@@ -98,22 +98,22 @@ class GoalProgress extends Component {
                 ))}
                 <button className="new-scale" onClick={this.handleAddScale}>+</button>
                 <div className="description">
-                <h1>What is this tool?</h1>
-                <p>
-                    This is a tool that helps you evaluate how you feel about the possibility of acheiving your goals.
-                </p>
-                <h1>Instructions</h1>
-                <ul>
-                    <li>
-                        Press the orange button to create a new scale.
-                    </li>
-                    <li>
-                        Write the name of the goal you want to achieve.
-                    </li>
-                    <li>
-                        Move the scale in the direction that you feel is correct for how you feel about the possibility of acheiving your goal
-                    </li>
-                </ul>
+                    <h1>What is this tool?</h1>
+                    <p>
+                        This is a tool that helps you evaluate how you feel about the possibility of acheiving your goals.
+                    </p>
+                    <h1>Instructions</h1>
+                    <ul>
+                        <li>
+                            Press the orange button to create a new scale.
+                        </li>
+                        <li>
+                            Write the name of the goal you want to achieve.
+                        </li>
+                        <li>
+                            Move the scale in the direction that you feel is correct for how you feel about the possibility of acheiving your goal
+                        </li>
+                    </ul>
                 </div>
             </>
         );
