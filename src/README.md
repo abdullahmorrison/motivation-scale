@@ -7,8 +7,14 @@
 
 ### Future Additions
     - drag and drop scale up and down (reordering)
-    - Refactor(Hooks)
+    - Refactor
+      - Hooks
+      - CSS
+        - Mobile friendly
+        - Navigation
     - Create a landing page
     - Save state with login (sessions)
     - hide inactive goals
-    - categorize goals (social, career, health)
+    - categorize goals (social, career)
+    - Settings
+      - allow computer to automatically move a scale to the top when the slider is moved
