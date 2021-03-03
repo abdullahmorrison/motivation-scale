@@ -33,6 +33,7 @@ li {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  padding: 0 20px;
 }
 
 .scale__header__input {
@@ -63,12 +64,22 @@ li {
   background: #dbcaca;
   border: solid 1px black;
   border-radius: 100%;
-  cursor: -webkit-grab;
-  cursor: grab;
   height: 25px;
   margin: -5px 0;
   width: 25px;
   -webkit-appearance: none;
+}
+
+.scale__slider input[type="range"]:hover {
+  cursor: move;
+  /* fallback if grab cursor is unsupported */
+  cursor: grab;
+  cursor: -webkit-grab;
+}
+
+.scale__slider input[type="range"]:active {
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
 }
 
 .scale__slider input[type="range"]::-moz-range-thumb {
@@ -142,12 +153,27 @@ li {
 
 .scale__writing-space textarea {
   border-radius: 5px;
-  color: #707070;
   font-family: Tahoma, sans-serif;
   height: 150px;
   padding: 20px;
   resize: none;
   width: 500px;
+}
+
+.scale__writing-space textarea::-webkit-input-placeholder {
+  color: grey;
+}
+
+.scale__writing-space textarea:-ms-input-placeholder {
+  color: grey;
+}
+
+.scale__writing-space textarea::-ms-input-placeholder {
+  color: grey;
+}
+
+.scale__writing-space textarea::placeholder {
+  color: grey;
 }
 
 .new-scale {

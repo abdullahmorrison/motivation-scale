@@ -23,6 +23,7 @@ li {
   &__header {
     display: flex;
     justify-content: center;
+    padding: 0 20px;
     &__input {
       //the input field that creates the title of the each scale
       padding: 10px;
@@ -47,11 +48,21 @@ li {
       background: #dbcaca;
       border: solid 1px black;
       border-radius: 100%;
-      cursor: grab;
       height: 25px;
       margin: -5px 0;
       width: 25px;
       -webkit-appearance: none;
+    }
+    input[type="range"]:hover {
+      cursor: move; /* fallback if grab cursor is unsupported */
+      cursor: grab;
+      cursor: -moz-grab;
+      cursor: -webkit-grab;
+    }
+    input[type="range"]:active {
+      cursor: grabbing;
+      cursor: -moz-grabbing;
+      cursor: -webkit-grabbing;
     }
     /* All the same stuff for Firefox */
     input[type="range"]::-moz-range-thumb {
@@ -112,12 +123,14 @@ li {
     }
     textarea {
       border-radius: 5px;
-      color: #707070;
       font-family: Tahoma, sans-serif;
       height: 150px;
       padding: 20px;
       resize: none;
       width: 500px;
+    }
+    textarea::placeholder {
+      color: grey;
     }
   }
 }
