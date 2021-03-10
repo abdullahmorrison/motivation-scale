@@ -9,14 +9,26 @@ export default class ScaleTitle extends Component {
         value: null, //the title
         displayH1: false //used to determine if you want to display value as h1 or input
     };
-    
+    componentDidMount() {//adding the saved scales from local storage to state
+        const scaleTitle = JSON.parse(localStorage.getItem("scaleTitle-"+this.props.scaleID))
+        if(scaleTitle){ //if you can't find the item on local storage
+            this.setState({
+                value: scaleTitle,
+                displayH1: true
+            })
+        }
+    }
     handleTitleChange = (event, value) =>{
         if(event.key === 'Enter'){//if you press the enter key
             this.setState({value: value, displayH1: true})
+            localStorage.setItem("scaleTitle-"+this.props.scaleID, JSON.stringify(value))
         }
     }
     handleEditTitle = () =>{
         this.setState({displayH1: false})
+    }
+    componentWillUnmount(){
+        localStorage.removeItem("scaleTitle-"+this.props.scaleID)
     }
     render() {
         return (
