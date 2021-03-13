@@ -1,57 +1,53 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 
-export default class WritingSpace extends Component {
-    state = {
-        explanation: null,
-        futurePlan: null
-    }
+const WritingSpace = props =>{
+    const [explanation, setExplanation] = useState(null)
+    const [futurePlan, setFuturePlan] = useState(null)
 
-    componentDidMount(){
-        const explanation = JSON.parse(localStorage.getItem("scaleExplanation-"+this.props.scaleID))
-        const futurePlan = JSON.parse(localStorage.getItem("scaleFuturePlan-"+this.props.scaleID))
+    useEffect(()=>{
+        //*componentDidMount
+        const explanation = JSON.parse(localStorage.getItem("scaleExplanation-"+props.scaleID))
+        const futurePlan = JSON.parse(localStorage.getItem("scaleFuturePlan-"+props.scaleID))
         if(explanation){ //if you can't find the item on local storage
-            this.setState({
-                explanation
-            })
+            setExplanation(explanation)
         }
         if(futurePlan){ //if you can't find the item on local storage
-            this.setState({
-                futurePlan
-            })
+            setFuturePlan(futurePlan)
         }
+    }, [props.scaleID])
+
+    const handleWriteExplanation = (value) =>{
+        setExplanation(value)
+        localStorage.setItem("scaleExplanation-"+props.scaleID, JSON.stringify(value))
     }
 
-    handleWriteExplanation = (value) =>{
-        this.setState({explanation: value})
-        localStorage.setItem("scaleExplanation-"+this.props.scaleID, JSON.stringify(value))
+    const handleWriteFuturePlan= (value) =>{
+        setFuturePlan(value)
+        localStorage.setItem("scaleFuturePlan-"+props.scaleID, JSON.stringify(value))
     }
 
-    handleWriteFuturePlan= (value) =>{
-        this.setState({explanation: value})
-        localStorage.setItem("scaleFuturePlan-"+this.props.scaleID, JSON.stringify(value))
-    }
 
-    render() {
-        return (
-            <div className="scale__writing-space">
-                <div>
-                    <label><h2>Explanation</h2></label>
-                    <textarea 
-                        placeholder="Enter your comment here..."
-                        defaultValue={this.state.explanation}
-                        onKeyUp={(event)=>this.handleWriteExplanation(event.target.value)}
-                    />
-                </div>
-                <div>
-                    <label><h2>Future Plan</h2></label>
-                    <textarea 
-                        placeholder="Enter your comment here..." 
-                        defaultValue={this.state.futurePlan}
-                        onKeyUp={(event)=>this.handleWriteFuturePlan(event.target.value)}
-                    />
-                </div>
+    return (
+        <div className="scale__writing-space">
+            <div>
+                <label><h2>Explanation</h2></label>
+                <textarea 
+                    placeholder="Enter your comment here..."
+                    defaultValue={explanation}
+                    onKeyUp={(event)=>handleWriteExplanation(event.target.value)}
+                />
             </div>
-            
-        )
-    }
+            <div>
+                <label><h2>Future Plan</h2></label>
+                <textarea 
+                    placeholder="Enter your comment here..." 
+                    defaultValue={futurePlan}
+                    onKeyUp={(event)=>handleWriteFuturePlan(event.target.value)}
+                />
+            </div>
+        </div>
+        
+    )
 }
+
+export default WritingSpace
