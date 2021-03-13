@@ -15,22 +15,22 @@ export default class Scale extends Component {
         this.setState({writingSpaceVisible: !this.state.writingSpaceVisible})
     }
 
-    componentWillUnmount(){
-        localStorage.removeItem("scaleExplanation-"+this.props.scale.id)
-        localStorage.removeItem("scaleFuturePlan-"+this.props.scale.id)
+    componentWillUnmount(){ //removing explanation and future plan data
+        localStorage.removeItem("scaleExplanation-"+this.props.scaleID)
+        localStorage.removeItem("scaleFuturePlan-"+this.props.scaleID)
     }
 
     render() {
         return (
             <div className="scale">
                 <div className="scale__header">
-                    <ScaleTitle scaleID={this.props.scale.id}/>
+                    <ScaleTitle scaleID={this.props.scaleID}/>
                     <ExplanationIconClosed alt="Explanation Button (Closed)" onClick={this.handleWritingSpace}/>
-                    <DeleteIcon alt="Delete Button"  onClick={()=>this.props.onDelete(this.props.scale.id)}/> 
+                    <DeleteIcon alt="Delete Button"  onClick={()=>this.props.onDelete(this.props.scaleID)}/> 
                 </div>
-                <ScaleSlider scaleID={this.props.scale.id}/>
+                <ScaleSlider scaleID={this.props.scaleID}/>
                 {
-                    this.state.writingSpaceVisible === true ? <WritingSpace scaleID={this.props.scale.id}/>: null
+                    this.state.writingSpaceVisible === true ? <WritingSpace scaleID={this.props.scaleID}/>: null
                 }
             </div>
         )

@@ -10,7 +10,7 @@ class GoalProgress extends Component {
     }
     componentDidMount() {//adding the saved scales from local storage to state
         const scales = JSON.parse(localStorage.getItem("scales"))
-        if(scales !== null){
+        if(scales !== null){ //if you can't find the item on local storage
             this.setState({
                 scales
             })
@@ -31,7 +31,7 @@ class GoalProgress extends Component {
         return ( 
             <>
                 {this.state.scales.map(scale =>(
-                    <Scale key={scale.id} scale={scale} onDelete={this.handleDeleteScale}/>
+                    <Scale key={scale.id} scaleID={scale.id} onDelete={this.handleDeleteScale}/>
                 ))}
                 <button className="new-scale" onClick={this.handleAddScale}>+</button>
                 <div className="description">
