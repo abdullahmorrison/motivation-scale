@@ -1,5 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GoalProgress from './components/GoalProgress';
+import PGPScale from './components/PGPScale';
 
-ReactDOM.render(<GoalProgress />, document.getElementById('root'));
+ReactDOM.render(<PGPScale />, document.getElementById('root'));
