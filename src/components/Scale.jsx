@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import ScaleTitle from './ScaleTitle';
 import ScaleSlider from './ScaleSlider';
 import WritingSpace  from "./WritingSpace";
@@ -7,32 +7,33 @@ import WritingSpace  from "./WritingSpace";
 import ExplanationIconClosed from "./icons/ExplanationIconClosed";
 import DeleteIcon from "./icons/DeleteIcon";
 
-export default class Scale extends Component {
-    state = {
-        writingSpaceVisible: false
-    }
-    handleWritingSpace = () =>{ //makes writing space visble or removes it
-        this.setState({writingSpaceVisible: !this.state.writingSpaceVisible})
+const Scale = props => {
+    const [writingSpaceVisible, setWritiingSpaceVisible] = useState(false)
+
+    const handleWritingSpace = () =>{ //makes writing space visble or removes it
+        setWritiingSpaceVisible(!writingSpaceVisible)
     }
 
-    componentWillUnmount(){ //removing explanation and future plan data
-        localStorage.removeItem("scaleExplanation-"+this.props.scaleID)
-        localStorage.removeItem("scaleFuturePlan-"+this.props.scaleID)
-    }
-
-    render() {
-        return (
-            <div className="scale">
-                <div className="scale__header">
-                    <ScaleTitle scaleID={this.props.scaleID}/>
-                    <ExplanationIconClosed alt="Explanation Button (Closed)" onClick={this.handleWritingSpace}/>
-                    <DeleteIcon alt="Delete Button"  onClick={()=>this.props.onDelete(this.props.scaleID)}/> 
-                </div>
-                <ScaleSlider scaleID={this.props.scaleID}/>
-                {
-                    this.state.writingSpaceVisible === true ? <WritingSpace scaleID={this.props.scaleID}/>: null
-                }
+    useEffect(()=>{
+        return ()=>{
+            //removing explanation and future plan data
+            localStorage.removeItem("scaleExplanation-"+props.scaleID)
+            localStorage.removeItem("scaleFuturePlan-"+props.scaleID)
+        }
+    })
+    
+    return (
+        <div className="scale">
+            <div className="scale__header">
+                <ScaleTitle scaleID={props.scaleID}/>
+                <ExplanationIconClosed alt="Explanation Button (Closed)" onClick={handleWritingSpace}/>
+                <DeleteIcon alt="Delete Button"  onClick={()=>props.onDelete(props.scaleID)}/> 
             </div>
-        )
-    }
+            <ScaleSlider scaleID={props.scaleID}/>
+            {
+                writingSpaceVisible === true ? <WritingSpace scaleID={props.scaleID}/>: null
+            }
+        </div>
+    )
 }
+export default Scale
