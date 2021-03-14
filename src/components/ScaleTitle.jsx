@@ -28,9 +28,6 @@ const ScaleTitle = props => {
             localStorage.setItem("scaleTitle-"+props.scaleID, JSON.stringify(value))
         }
     }
-    const handleEditTitle = () =>{
-        setDisplayH1(false)
-    }
 
     return (
         <>
@@ -46,7 +43,7 @@ const ScaleTitle = props => {
             }
             <EditIcon 
                 alt="Edit Button" 
-                onClick={handleEditTitle}
+                onClick={()=>setDisplayH1(false)}
             />
         </>
     ) 
