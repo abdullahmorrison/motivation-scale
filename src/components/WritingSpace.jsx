@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from 'react'
 
-const WritingSpace = props =>{
+const WritingSpace = scaleID =>{
     const [explanation, setExplanation] = useState(null)
     const [futurePlan, setFuturePlan] = useState(null)
 
     useEffect(()=>{
         //*componentDidMount
-        const explanation = JSON.parse(localStorage.getItem("scaleExplanation-"+props.scaleID))
-        const futurePlan = JSON.parse(localStorage.getItem("scaleFuturePlan-"+props.scaleID))
+        const explanation = JSON.parse(localStorage.getItem("scaleExplanation-"+scaleID))
+        const futurePlan = JSON.parse(localStorage.getItem("scaleFuturePlan-"+scaleID))
         if(explanation){ //if you can't find the item on local storage
             setExplanation(explanation)
         }
         if(futurePlan){ //if you can't find the item on local storage
             setFuturePlan(futurePlan)
         }
-    }, [props.scaleID])
+    }, [scaleID])
 
     const handleWriteExplanation = (value) =>{
         setExplanation(value)
-        localStorage.setItem("scaleExplanation-"+props.scaleID, JSON.stringify(value))
+        localStorage.setItem("scaleExplanation-"+scaleID, JSON.stringify(value))
     }
 
     const handleWriteFuturePlan= (value) =>{
         setFuturePlan(value)
-        localStorage.setItem("scaleFuturePlan-"+props.scaleID, JSON.stringify(value))
+        localStorage.setItem("scaleFuturePlan-"+scaleID, JSON.stringify(value))
     }
 
 

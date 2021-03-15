@@ -7,7 +7,7 @@ import WritingSpace  from "./WritingSpace";
 import ExplanationIconClosed from "./icons/ExplanationIconClosed";
 import DeleteIcon from "./icons/DeleteIcon";
 
-const Scale = props => {
+const Scale = ({scaleID, onDelete}) => {
     const [writingSpaceVisible, setWritiingSpaceVisible] = useState(false)
 
     const handleWritingSpace = () =>{ //makes writing space visble or removes it
@@ -17,21 +17,21 @@ const Scale = props => {
     useEffect(()=>{
         return ()=>{
             //removing explanation and future plan data
-            localStorage.removeItem("scaleExplanation-"+props.scaleID)
-            localStorage.removeItem("scaleFuturePlan-"+props.scaleID)
+            localStorage.removeItem("scaleExplanation-"+scaleID)
+            localStorage.removeItem("scaleFuturePlan-"+scaleID)
         }
     })
     
     return (
         <div className="scale">
             <div className="scale__header">
-                <ScaleTitle scaleID={props.scaleID}/>
+                <ScaleTitle scaleID={scaleID}/>
                 <ExplanationIconClosed alt="Explanation Button (Closed)" onClick={handleWritingSpace}/>
-                <DeleteIcon alt="Delete Button"  onClick={()=>props.onDelete(props.scaleID)}/> 
+                <DeleteIcon alt="Delete Button"  onClick={()=>onDelete(scaleID)}/> 
             </div>
-            <ScaleSlider scaleID={props.scaleID}/>
+            <ScaleSlider scaleID={scaleID}/>
             {
-                writingSpaceVisible === true ? <WritingSpace scaleID={props.scaleID}/>: null
+                writingSpaceVisible === true ? <WritingSpace scaleID={scaleID}/>: null
             }
         </div>
     )

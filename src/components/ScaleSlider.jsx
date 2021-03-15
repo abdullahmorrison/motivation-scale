@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 
-const ScaleSlider = props => {
+const ScaleSlider = scaleID => {
     const [sliderValue, setSliderValue] = useState(50)
     
     useEffect(()=>{
         //*compoenentDidMount
         //adding the saved scales from local storage to state
-        const sliderValue = JSON.parse(localStorage.getItem("sliderValue-"+props.scaleID))
+        const sliderValue = JSON.parse(localStorage.getItem("sliderValue-"+scaleID))
         if(sliderValue){ //if you can't find the item on local storage
             setSliderValue(sliderValue)
         }
         //*componentWillUnmount
-        return localStorage.removeItem("sliderValue-"+props.scaleID)
-    },[props.scaleID])
+        return localStorage.removeItem("sliderValue-"+scaleID)
+    },[scaleID])
 
     const changeSliderValue = (value) =>{
         setSliderValue(value)
-        localStorage.setItem("sliderValue-"+props.scaleID, JSON.stringify(value))
+        localStorage.setItem("sliderValue-"+scaleID, JSON.stringify(value))
     }
 
     return (
