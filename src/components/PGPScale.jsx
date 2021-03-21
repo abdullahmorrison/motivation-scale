@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Scale from './Scale';
+import Login from './login/Login';
 
 //packages
 import { v4 as uuidv4 } from 'uuid';
@@ -30,6 +31,7 @@ const PGPScale = () => {
     
     return ( 
         <>
+            <Login />
             {scales.map(scale =>(
                 <Scale key={scale.id} scaleID={scale.id} onDelete={handleDeleteScale}/>
             ))}
