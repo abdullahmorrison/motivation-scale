@@ -1,0 +1,14 @@
+{
+  "name": "pgp-scale-backend",
+  "version": "1.0.0",
+  "description": "express backend of pgp scale",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Abdullah Morrison",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
