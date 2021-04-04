@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 
+//cors = cross-origin resource sharing
 const cors = require('cors');
 app.use(cors({origin: 'http://localhost:3000'}))
 
