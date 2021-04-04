@@ -1,11 +1,20 @@
 const express = require('express');
 const app = express();
 
-app.get('/api/users', (req, res)=>{
-    const users = [
-        {id: 1, name: 'Abdullah'}
+const cors = require('cors');
+app.use(cors({origin: 'http://localhost:3000'}))
+
+app.get('/api/scales', (req, res)=>{
+    const scales = [
+            {
+                id: 1, 
+                title: 'Coding the PGP Scale', 
+                sliderValue: 50, 
+                explanation: '',
+                futurePlan: ''
+            }
     ];
-    res.json(users);
+    res.json(scales);
 })
 
 const port = 3001;
