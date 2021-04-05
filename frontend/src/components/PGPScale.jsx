@@ -9,12 +9,10 @@ const PGPScale = () => {
     const [scales, setScales] = useState([])
 
     useEffect(()=>{
-        //*componentDidMount
-        //adding the saved scales from local storage to state
-        const scales = JSON.parse(localStorage.getItem("scales"))
-        if(scales !== null){ //if you can't find the item on local storage
-            setScales(scales)
-        }
+        //adding the saved scales from the backend to state
+        fetch('http://localhost:3001/api/scales')
+            .then(res => res.json())
+            .then(scales => setScales(scales))
     }, [])
 
     const handleAddScale = () =>{ //saving new scale to state and local storage

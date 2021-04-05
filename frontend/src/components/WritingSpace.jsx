@@ -1,19 +1,28 @@
 import React, { useState, useEffect } from 'react'
 
-const WritingSpace = scaleID =>{
+const WritingSpace = ({scaleID}) =>{
     const [explanation, setExplanation] = useState(null)
     const [futurePlan, setFuturePlan] = useState(null)
 
     useEffect(()=>{
-        //*componentDidMount
-        const explanation = JSON.parse(localStorage.getItem("scaleExplanation-"+scaleID))
-        const futurePlan = JSON.parse(localStorage.getItem("scaleFuturePlan-"+scaleID))
-        if(explanation){ //if you can't find the item on local storage
-            setExplanation(explanation)
-        }
-        if(futurePlan){ //if you can't find the item on local storage
-            setFuturePlan(futurePlan)
-        }
+        //!FETCHING TWICE
+        fetch('http://localhost:3001/api/scales')
+        .then(res => res.json())
+        .then(scales =>  {
+                //looping through each object to find the id that corresponds the componenet's parent id
+                for (var i=0; i < scales.length; i++){
+                    //adding the explanation and future plan to the state if it exists
+                    if (scales[i].id === scaleID){
+                        if(scales[i].explanation){
+                            setExplanation(scales[i].explanation)
+                        }
+                        if(scales[i].futurePlan){
+                            setFuturePlan(scales[i].futurePlan)
+                        }
+                    }
+                }
+            }
+        )
     }, [scaleID])
 
     const handleWriteExplanation = (value) =>{

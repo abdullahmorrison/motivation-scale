@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
 
-const ScaleSlider = scaleID => {
+const ScaleSlider = ({scaleID}) => {
     const [sliderValue, setSliderValue] = useState(50)
     
     useEffect(()=>{
-        //*compoenentDidMount
-        //adding the saved scales from local storage to state
-        const sliderValue = JSON.parse(localStorage.getItem("sliderValue-"+scaleID))
-        if(sliderValue){ //if you can't find the item on local storage
-            setSliderValue(sliderValue)
-        }
-        //*componentWillUnmount
-        return localStorage.removeItem("sliderValue-"+scaleID)
+         //!FETCHING TWICE
+         fetch('http://localhost:3001/api/scales')
+         .then(res => res.json())
+         .then(scales =>  {
+                 //looping through each object to find the id that corresponds the componenet's parent id
+                 for (var i=0; i < scales.length; i++){
+                    //adding the slider value to the state if it exists
+                    if (scales[i].id === scaleID && scales[i].sliderValue){
+                        setSliderValue(scales[i].sliderValue)
+                    }
+                 }
+             }
+         )
+        // return localStorage.removeItem("sliderValue-"+scaleID)
     },[scaleID])
 
     const changeSliderValue = (value) =>{
