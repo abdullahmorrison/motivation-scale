@@ -43,8 +43,7 @@ const PGPScale = () => {
                 This is a tool that helps you evaluate how you feel about the possibility of acheiving your goals.
             </p>
             <h1>Instructions</h1>
-            <p>
-                <ul>
+            <ul>
                 <li>
                     Press the orange button to create a new scale.
                 </li>
@@ -54,8 +53,7 @@ const PGPScale = () => {
                 <li>
                     Move the scale in the direction that you feel is correct for how you feel about the possibility of acheiving your goal
                 </li>
-                </ul>
-            </p>
+            </ul>
             </div>
         </>
     );   
