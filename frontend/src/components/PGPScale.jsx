@@ -2,36 +2,39 @@ import React, { useState, useEffect } from 'react';
 import Scale from './Scale';
 import Login from './login/Login';
 
-//packages
-import { v4 as uuidv4 } from 'uuid';
 
 const PGPScale = () => {
     const [scales, setScales] = useState([])
 
     useEffect(()=>{
-        //adding the saved scales from the backend to state
-        fetch('http://localhost:3001/api/scales')
-            .then(res => res.json())
-            .then(scales => setScales(scales))
+        fetchScales()
     }, [])
 
+    const fetchScales = async ()=>{
+        const response = await fetch('http://localhost:3001/api/scales')
+        const data = await response.json()
+        setScales(data)
+    }
+
     const handleAddScale = () =>{ //saving new scale to state and local storage
-        const localScales = [...scales, {id: uuidv4()}];
-        setScales(localScales)
-        localStorage.setItem("scales", JSON.stringify(localScales))
+        fetch('http://localhost:3001/api/scales',{
+            method: 'POST',
+        }).then(res => res.json())
+        .then(fetchScales())//!PROBABLY INEFFICIENT 
     }
     const handleDeleteScale = scaleId =>{
         //removing the scale from state and local storage by creating a new set of scales without the on we want to remove
-        const localScales = scales.filter(s => s.id !== scaleId)
-        setScales(localScales)
-        localStorage.setItem("scales", JSON.stringify(localScales))
+        fetch('http://localhost:3001/api/scales/'+scaleId,{
+            method: 'DELETE',
+        }).then(res => res.json())
+        .then(setScales(scales.filter(s => s._id !== scaleId)))
     }
     
     return ( 
         <>
             <Login />
             {scales.map(scale =>(
-                <Scale key={scale.id} scaleID={scale.id} onDelete={handleDeleteScale}/>
+                <Scale key={scale._id} scaleID={scale._id} onDelete={handleDeleteScale}/>
             ))}
             <button className="new-scale" onClick={handleAddScale}>+</button>
             <div className="description">
