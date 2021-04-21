@@ -14,8 +14,16 @@ app.use(cors({origin: 'http://localhost:3000'}))
 app.get('/api/scales', async (req, res)=>{ //retrieving data
     try {
         const postMessages = await Scale.find();
-                
         res.status(200).json(postMessages);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+});
+
+app.get('/api/scales/:scaleID', async (req, res)=>{ //retrieving data
+    try {
+        const scale_by_ID = await Scale.findById(req.params.scaleID);
+        res.status(200).json(scale_by_ID);
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
@@ -33,12 +41,15 @@ app.post('/api/scales', async (req, res)=>{ //adding data
         res.status(201).json(savedScale);
     } catch (error) {
         res.status(409).json({ message: error.message });
-    }
+    } 
 })
 
 app.patch('/api/scales/:scaleID', async (req, res)=>{//updating data
     try{
-        const updatedScale = await Scale.updateOne({_id: req.params.scaleID})
+        const updatedScale = await Scale.updateOne(
+            {_id: req.params.scaleID},
+            {$set: {title: req.body.title}}
+        )
         res.json(updatedScale)
     }catch(err){
         res.json({message: err})
