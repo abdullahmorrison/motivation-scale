@@ -14,20 +14,12 @@ const Scale = ({scaleID, onDelete}) => {
         setWritiingSpaceVisible(!writingSpaceVisible)
     }
 
-    useEffect(()=>{
-        return ()=>{
-            //removing explanation and future plan data
-            localStorage.removeItem("scaleExplanation-"+scaleID)
-            localStorage.removeItem("scaleFuturePlan-"+scaleID)
-        }
-    })
-    
     return (
         <div className="scale">
             <div className="scale__header">
                 <ScaleTitle scaleID={scaleID}/>
                 <ExplanationIconClosed alt="Explanation Button (Closed)" onClick={handleWritingSpace}/>
-                <DeleteIcon alt="Delete Button"  onClick={()=>onDelete(scaleID)}/> 
+                <DeleteIcon alt="Delete Button" onClick={()=>onDelete(scaleID)}/> 
             </div>
             <ScaleSlider scaleID={scaleID}/>
             {
