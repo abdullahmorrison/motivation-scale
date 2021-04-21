@@ -9,29 +9,30 @@ const ScaleTitle = ({scaleID}) => {
     const [displayH1, setDisplayH1] = useState(false) //used to determine if you want to display value as h1 or input
 
     useEffect(()=>{
-        //fetching the saved scales from the backend
-        //!FETCHING TWICE
-        fetch('http://localhost:3001/api/scales')
-            .then(res => res.json())
-            .then(scales =>  {
-                    //looping through each object to find the id that corresponds the componenet's parent id
-                    for (var i=0; i < scales.length; i++){
-                        //adding the title to the state if it exists
-                        if (scales[i].id === scaleID && scales[i].title){
-                            setValue(scales[i].title)
-                            setDisplayH1(true)
-                        }
-                    }
-                }
-            )
-        // return localStorage.removeItem("scaleTitle-"+scaleID) 
-    }, [scaleID])
+        fetchTitle()
+    }, [])
 
-    const handleTitleChange = (event, value) =>{
-        if(event.key === 'Enter'){//if you press the enter key
+    const fetchTitle = async () =>{
+         //fetching the saved scales from the backend
+        const response = await fetch('http://localhost:3001/api/scales/'+scaleID)
+        const data = await response.json()
+        if(data.title){
+            setDisplayH1(true)
+            setValue(data.title)
+        }
+    }
+
+    const handleTitleChange = async (event, value) =>{
+        if(event.key === 'Enter' && value !== ""){//if you press the enter key
+            await fetch('http://localhost:3001/api/scales/'+scaleID,{
+                method: 'PATCH',
+                body: JSON.stringify({title: value}),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
             setValue(value)
             setDisplayH1(true)
-            localStorage.setItem("scaleTitle-"+scaleID, JSON.stringify(value))
         }
     }
 
