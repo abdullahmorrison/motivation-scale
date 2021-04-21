@@ -6,33 +6,41 @@ const WritingSpace = ({scaleID}) =>{
 
     useEffect(()=>{
         //!FETCHING TWICE
-        fetch('http://localhost:3001/api/scales')
-        .then(res => res.json())
-        .then(scales =>  {
-                //looping through each object to find the id that corresponds the componenet's parent id
-                for (var i=0; i < scales.length; i++){
-                    //adding the explanation and future plan to the state if it exists
-                    if (scales[i].id === scaleID){
-                        if(scales[i].explanation){
-                            setExplanation(scales[i].explanation)
-                        }
-                        if(scales[i].futurePlan){
-                            setFuturePlan(scales[i].futurePlan)
-                        }
-                    }
-                }
-            }
-        )
-    }, [scaleID])
+        fetchExplanationFuturePlan()
+    }, [])
 
-    const handleWriteExplanation = (value) =>{
+    const fetchExplanationFuturePlan = async () =>{
+        //fetching the saved scales from the backend
+        const response = await fetch('http://localhost:3001/api/scales/'+scaleID)
+        const data = await response.json()
+        if(data.explanation){
+            setExplanation(data.explanation)
+        }
+        if(data.futurePlan){
+            setFuturePlan(data.futurePlan)
+        }
+   }
+
+    const handleWriteExplanation = async (value) =>{
+        await fetch('http://localhost:3001/api/scales/explanation/'+scaleID,{
+            method: 'PATCH',
+            body: JSON.stringify({explanation: value}),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
         setExplanation(value)
-        localStorage.setItem("scaleExplanation-"+scaleID, JSON.stringify(value))
     }
 
-    const handleWriteFuturePlan= (value) =>{
+    const handleWriteFuturePlan = async (value) =>{
+        await fetch('http://localhost:3001/api/scales/futurePlan/'+scaleID,{
+            method: 'PATCH',
+            body: JSON.stringify({futurePlan: value}),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
         setFuturePlan(value)
-        localStorage.setItem("scaleFuturePlan-"+scaleID, JSON.stringify(value))
     }
 
 

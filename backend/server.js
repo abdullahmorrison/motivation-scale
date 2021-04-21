@@ -31,10 +31,7 @@ app.get('/api/scales/:scaleID', async (req, res)=>{ //retrieving data
 
 app.post('/api/scales', async (req, res)=>{ //adding data
     const scale = new Scale({
-        title: req.body.title,
-        sliderValue: req.body.sliderValue,
-        explanation: req.body.explanation,
-        futurePlan: req.body.futurePlan
+        
     })
     try {
         const savedScale = await scale.save();
@@ -44,11 +41,47 @@ app.post('/api/scales', async (req, res)=>{ //adding data
     } 
 })
 
-app.patch('/api/scales/:scaleID', async (req, res)=>{//updating data
+app.patch('/api/scales/title/:scaleID', async (req, res)=>{//updating title
     try{
         const updatedScale = await Scale.updateOne(
             {_id: req.params.scaleID},
             {$set: {title: req.body.title}}
+        )
+        res.json(updatedScale)
+    }catch(err){
+        res.json({message: err})
+    }
+})
+
+app.patch('/api/scales/sliderValue/:scaleID', async (req, res)=>{//updating slider value
+    try{
+        const updatedScale = await Scale.updateOne(
+            {_id: req.params.scaleID},
+            {$set: {sliderValue: req.body.sliderValue}}
+        )
+        res.json(updatedScale)
+    }catch(err){
+        res.json({message: err})
+    }
+})
+
+app.patch('/api/scales/explanation/:scaleID', async (req, res)=>{//updating explantion
+    try{
+        const updatedScale = await Scale.updateOne(
+            {_id: req.params.scaleID},
+            {$set: {explanation: req.body.explanation}}
+        )
+        res.json(updatedScale)
+    }catch(err){
+        res.json({message: err})
+    }
+})
+
+app.patch('/api/scales/futurePlan/:scaleID', async (req, res)=>{//updating futurePlan
+    try{
+        const updatedScale = await Scale.updateOne(
+            {_id: req.params.scaleID},
+            {$set: {futurePlan: req.body.futurePlan}}
         )
         res.json(updatedScale)
     }catch(err){

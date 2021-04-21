@@ -5,24 +5,28 @@ const ScaleSlider = ({scaleID}) => {
     
     useEffect(()=>{
          //!FETCHING TWICE
-         fetch('http://localhost:3001/api/scales')
-         .then(res => res.json())
-         .then(scales =>  {
-                 //looping through each object to find the id that corresponds the componenet's parent id
-                 for (var i=0; i < scales.length; i++){
-                    //adding the slider value to the state if it exists
-                    if (scales[i].id === scaleID && scales[i].sliderValue){
-                        setSliderValue(scales[i].sliderValue)
-                    }
-                 }
-             }
-         )
-        // return localStorage.removeItem("sliderValue-"+scaleID)
-    },[scaleID])
+         fetchSliderValue()
+    },[])
 
-    const changeSliderValue = (value) =>{
+    const fetchSliderValue = async () =>{
+        //fetching the saved scales from the backend
+       const response = await fetch('http://localhost:3001/api/scales/'+scaleID)
+       const data = await response.json()
+       if(data.sliderValue){
+            setSliderValue(data.sliderValue)
+       }
+   }
+
+
+    const changeSliderValue = async (value) =>{
+        await fetch('http://localhost:3001/api/scales/sliderValue/'+scaleID,{
+            method: 'PATCH',
+            body: JSON.stringify({sliderValue: value}),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
         setSliderValue(value)
-        localStorage.setItem("sliderValue-"+scaleID, JSON.stringify(value))
     }
 
     return (
