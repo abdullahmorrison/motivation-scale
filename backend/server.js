@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');//connect to db
 const bodyParser = require('body-parser')
 const Scale = require('./models/scale');
+const User = require('./models/user');
 require('dotenv/config')//security (dotenv)
 
 app.use(bodyParser.json({ limit: '30mb', extended: true }))
@@ -31,7 +32,9 @@ app.get('/api/scales/:scaleID', async (req, res)=>{ //retrieving data
 
 app.post('/api/scales', async (req, res)=>{ //adding data
     const scale = new Scale({
-        
+        title: "",
+        explanation: "",
+        futurePlan: ""
     })
     try {
         const savedScale = await scale.save();
@@ -96,6 +99,28 @@ app.delete('/api/scales/:scaleID', async (req, res)=>{//deleting data
     }catch(err){
         res.json({message: err})
     }
+})
+
+//*USER ROUTES
+app.get('/api/users', async (req, res)=>{ //retrieving data
+    try {
+        const postMessages = await User.find();
+        res.status(200).json(postMessages);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+});
+
+app.post('/api/users', async (req, res)=>{ //adding data
+    const username = req.body.username;
+    
+    const newUser = new User({username});
+    try {
+        const savedUser = await newUser.save();
+        res.status(201).json(savedUser);
+    } catch (error) {
+        res.status(409).json({ message: error.message });
+    } 
 })
 
 const port = process.env.PORT || 3001;
