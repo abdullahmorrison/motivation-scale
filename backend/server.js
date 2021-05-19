@@ -4,9 +4,15 @@ const mongoose = require('mongoose');//connect to db
 const bodyParser = require('body-parser')
 const Scale = require('./models/scale');
 const User = require('./models/user');
+
 require('dotenv/config')//security (dotenv)
 
 app.use(bodyParser.json({ limit: '30mb', extended: true }))
+
+const {OAuth2Client} = require('google-auth-library')
+const client = new OAuth2Client('212338543657-jov7gtn2u61p4bst88inr3v4sneda77t.apps.googleusercontent.com')
+
+const jwt = require('jsonwebtoken');
 
 //cors = cross-origin resource sharing
 const cors = require('cors');
@@ -32,12 +38,14 @@ app.get('/api/scales/:scaleID', async (req, res)=>{ //retrieving data
 
 app.post('/api/scales', async (req, res)=>{ //adding data
     const scale = new Scale({
+        username: req.body.username,
         title: "",
         explanation: "",
         futurePlan: ""
     })
     try {
         const savedScale = await scale.save();
+        console.log(savedScale)
         res.status(201).json(savedScale);
     } catch (error) {
         res.status(409).json({ message: error.message });
@@ -123,6 +131,57 @@ app.post('/api/users', async (req, res)=>{ //adding data
     } 
 })
 
+app.post('/api/googlelogin', async (req, res)=>{ //adding data
+    console.log("***************ENTERED**************")
+    const tokenId = req.body.tokenId;
+    client.verifyIdToken({idToken: tokenId, audience: '212338543657-jov7gtn2u61p4bst88inr3v4sneda77t.apps.googleusercontent.com'})
+        .then(response =>{
+            const {email_verified, name, email} = response.payload
+            if(email_verified){
+                console.log("verified email")
+                User.findOne({username: email}).exec((err, user)=>{
+                    if(err){
+                        return res.status(400).json({
+                            error: "error"
+                        })
+                    }else{
+                        if(user){//user already exists
+                            console.log("user exists: ",user._id)
+                            const token = jwt.sign({_id: user._id}, "mysigninkeytest")
+                            const {_id, username} = user;
+                            
+
+                            res.json({
+                                token,
+                                user: {_id, username}
+                            })
+                        }else{//create new user
+                            console.log("create new user")
+                            const newUser = new User({username: email})
+                            newUser.save((err, data)=>{
+                                if(err){
+                                    console.log("error: ",err.message)
+                                    return res.status(400).json({
+                                        error: "somthing went wrong"
+                                    })
+                                }
+                                const token = jwt.sign({_id: data._id}, "mysigninkeytest")
+                                const {_id, username: email} = newUser;
+
+                                console.log("token: ",token)
+                                console.log(newUser)
+
+                                console.log(res.json({
+                                    token,
+                                    user: {_id, username: email}
+                                }))
+                            })
+                        }
+                    }
+                })
+            }
+        })
+})
 const port = process.env.PORT || 3001;
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true})
     .then(()=>{app.listen(port, ()=>console.log(`Server started on port ${port}`))})
