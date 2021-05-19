@@ -1,6 +1,13 @@
 const mongoose = require('mongoose');
 
 const scaleSchema = mongoose.Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        minlength: 3
+    },
     title: String,
     sliderValue: {
         type: Number,
@@ -8,6 +15,9 @@ const scaleSchema = mongoose.Schema({
     },
     explanation: String,
     futurePlan: String
+}, 
+{
+    timestamps: true,
 })
 
 const scale = mongoose.model('scale', scaleSchema);
