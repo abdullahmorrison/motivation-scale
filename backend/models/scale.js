@@ -4,7 +4,6 @@ const scaleSchema = mongoose.Schema({
     username: {
         type: String,
         required: true,
-        unique: true,
         trim: true,
         minlength: 3
     },
