@@ -16,7 +16,7 @@ const PGPScale = () => {
             const data = await response.json()
             setScales(data)
         }else{
-            //alert("no user")
+            console.error("Error: NO USER when fetching scales")
         }
     }
     useEffect(()=>{
