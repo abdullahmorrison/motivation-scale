@@ -8,14 +8,20 @@ const PGPScale = () => {
     const [username, setUsername] = useState("")
 
     useEffect(() => {
-        fetchScales()
     }, [])
 
     const fetchScales = async () => {
-        const response = await fetch('http://localhost:3001/api/scales')
-        const data = await response.json()
-        setScales(data)
+        if(username){
+            const response = await fetch('http://localhost:3001/api/scales/username/'+username)
+            const data = await response.json()
+            setScales(data)
+        }else{
+            //alert("no user")
+        }
     }
+    useEffect(()=>{
+        fetchScales()
+    }, [username])
 
     const handleAddScale = () => { //saving new scale to state and local storage
         fetch('http://localhost:3001/api/scales', {
@@ -43,13 +49,13 @@ const PGPScale = () => {
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
-        }).then(res => {
+        }).then(() => {
             setUsername(response.profileObj.email)
         })
     }
 
     const responseGoogleFailure = (response) => {
-        console.log(response.json());
+        alert(response.json());
     }
 
     return (
@@ -70,7 +76,7 @@ const PGPScale = () => {
                 <h1>What is this tool?</h1>
                 <p>
                     This is a tool that helps you evaluate how you feel about the possibility of acheiving your goals.
-            </p>
+                </p>
                 <h1>Instructions</h1>
                 <ul>
                     <li>

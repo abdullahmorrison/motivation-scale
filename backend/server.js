@@ -45,7 +45,6 @@ app.post('/api/scales', async (req, res)=>{ //adding data
     })
     try {
         const savedScale = await scale.save();
-        console.log(savedScale)
         res.status(201).json(savedScale);
     } catch (error) {
         res.status(409).json({ message: error.message });
@@ -109,6 +108,16 @@ app.delete('/api/scales/:scaleID', async (req, res)=>{//deleting data
     }
 })
 
+//****************GET SCALES OF A SPECIFIC USERNAME */
+app.get('/api/scales/username/:username', async (req, res)=>{ //retrieving data
+    try {
+        const scale_by_username = await Scale.find({username: req.params.username});
+        res.status(200).json(scale_by_username);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+});
+
 //*USER ROUTES
 app.get('/api/users', async (req, res)=>{ //retrieving data
     try {
@@ -118,18 +127,6 @@ app.get('/api/users', async (req, res)=>{ //retrieving data
         res.status(404).json({ message: error.message });
     }
 });
-
-app.post('/api/users', async (req, res)=>{ //adding data
-    const username = req.body.username;
-    
-    const newUser = new User({username});
-    try {
-        const savedUser = await newUser.save();
-        res.status(201).json(savedUser);
-    } catch (error) {
-        res.status(409).json({ message: error.message });
-    } 
-})
 
 app.post('/api/googlelogin', async (req, res)=>{ //adding data
     console.log("***************ENTERED**************")
