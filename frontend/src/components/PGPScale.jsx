@@ -6,6 +6,7 @@ import GoogleLogin from 'react-google-login';
 const PGPScale = () => {
     const [scales, setScales] = useState([])
     const [username, setUsername] = useState("")
+    const [name, setName] = useState("Guest")
 
     useEffect(() => {
     }, [])
@@ -59,6 +60,7 @@ const PGPScale = () => {
             }
         }).then(() => {
             setUsername(response.profileObj.email)
+            setName(response.profileObj.givenName +" " + response.profileObj.familyName)
         })
     }
 
@@ -68,6 +70,7 @@ const PGPScale = () => {
 
     return (
         <>
+            <h3>logged in as {name}</h3>
             <GoogleLogin
                 clientId="212338543657-jov7gtn2u61p4bst88inr3v4sneda77t.apps.googleusercontent.com"
                 buttonText="Continue with Google"
