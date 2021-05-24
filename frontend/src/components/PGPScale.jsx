@@ -24,21 +24,29 @@ const PGPScale = () => {
     }, [username])
 
     const handleAddScale = () => { //saving new scale to state and local storage
-        fetch('http://localhost:3001/scales/', {
-            method: 'POST',
-            body: JSON.stringify({username: username}),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        }).then(res => res.json())
-            .then(fetchScales())//!PROBABLY INEFFICIENT 
+        if(username){
+            fetch('http://localhost:3001/scales/', {
+                method: 'POST',
+                body: JSON.stringify({username: username}),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            }).then(res => res.json())
+                .then(fetchScales())//!PROBABLY INEFFICIENT 
+        }else{
+            alert("Error: Login in order to use app")
+        }
     }
     const handleDeleteScale = scaleId => {
-        //removing the scale from state and local storage by creating a new set of scales without the on we want to remove
-        fetch('http://localhost:3001/scales/' + scaleId, {
-            method: 'DELETE',
-        }).then(res => res.json())
-            .then(setScales(scales.filter(s => s._id !== scaleId)))
+        if(username){
+            //removing the scale from state and local storage by creating a new set of scales without the on we want to remove
+            fetch('http://localhost:3001/scales/' + scaleId, {
+                method: 'DELETE',
+            }).then(res => res.json())
+                .then(setScales(scales.filter(s => s._id !== scaleId)))
+        }else{
+            alert("Error: Login in order to use app")
+        }
     }
 
     const responseGoogleSuccess = async (response) => {
