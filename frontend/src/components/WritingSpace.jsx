@@ -11,7 +11,7 @@ const WritingSpace = ({scaleID}) =>{
 
     const fetchExplanationFuturePlan = async () =>{
         //fetching the saved scales from the backend
-        const response = await fetch('http://localhost:3001/api/scales/'+scaleID)
+        const response = await fetch('http://localhost:3001/scales/'+scaleID)
         const data = await response.json()
         if(data.explanation){
             setExplanation(data.explanation)
@@ -22,7 +22,7 @@ const WritingSpace = ({scaleID}) =>{
    }
 
     const handleWriteExplanation = async (value) =>{
-        await fetch('http://localhost:3001/api/scales/explanation/'+scaleID,{
+        await fetch('http://localhost:3001/scales/explanation/'+scaleID,{
             method: 'PATCH',
             body: JSON.stringify({explanation: value}),
             headers: {
@@ -33,7 +33,7 @@ const WritingSpace = ({scaleID}) =>{
     }
 
     const handleWriteFuturePlan = async (value) =>{
-        await fetch('http://localhost:3001/api/scales/futurePlan/'+scaleID,{
+        await fetch('http://localhost:3001/scales/futureplan/'+scaleID,{
             method: 'PATCH',
             body: JSON.stringify({futurePlan: value}),
             headers: {
