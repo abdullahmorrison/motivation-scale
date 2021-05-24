@@ -88,17 +88,25 @@ const PGPScale = () => {
                 <p>
                     This is a tool that helps you evaluate how you feel about the possibility of acheiving your goals.
                 </p>
+                <h1>Why is this useful?</h1>
+                <p>Your emotion influence your actions. The best way to control your emotions is to understand them. This tools helps you understand tham and makes it easier to pursue your goals</p>
                 <h1>Instructions</h1>
                 <ul>
                     <li>
-                        Press the orange button to create a new scale.
-                </li>
+                        Login with google (the only form of login is with google for security purposes)
+                    </li>
+                    <li>
+                        Press the grey button to create a new scale.
+                    </li>
                     <li>
                         Write the name of the goal you want to achieve.
-                </li>
+                    </li>
                     <li>
-                        Move the scale in the direction that you feel is correct for how you feel about the possibility of acheiving your goal
-                </li>
+                        Pursue your goal and every so often, check on how you are feeling about the possibility you acheiving that goal
+                    </li>
+                    <li>
+                        Move the scale slider in the direction that you feel is correct for how you feel about the possibility of acheiving your goal
+                    </li>
                 </ul>
             </div>
         </>
