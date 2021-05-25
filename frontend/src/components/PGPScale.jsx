@@ -13,7 +13,7 @@ const PGPScale = () => {
 
     const fetchScales = async () => {
         if(username){
-            const response = await fetch('http://localhost:3001/scales/'+username+'/username/')
+            const response = await fetch('/scales/'+username+'/username/')
             const data = await response.json()
             setScales(data)
         }else{
@@ -26,7 +26,7 @@ const PGPScale = () => {
 
     const handleAddScale = () => { //saving new scale to state and local storage
         if(username){
-            fetch('http://localhost:3001/scales/', {
+            fetch('/scales/', {
                 method: 'POST',
                 body: JSON.stringify({username: username}),
                 headers: {
@@ -41,7 +41,7 @@ const PGPScale = () => {
     const handleDeleteScale = scaleId => {
         if(username){
             //removing the scale from state and local storage by creating a new set of scales without the on we want to remove
-            fetch('http://localhost:3001/scales/' + scaleId, {
+            fetch('/scales/' + scaleId, {
                 method: 'DELETE',
             }).then(res => res.json())
                 .then(setScales(scales.filter(s => s._id !== scaleId)))
@@ -52,7 +52,7 @@ const PGPScale = () => {
 
     const responseGoogleSuccess = async (response) => {
         console.log(response)
-        fetch('http://localhost:3001/users/googlelogin/', {
+        fetch('/users/googlelogin/', {
             method: 'POST',
             body: JSON.stringify({tokenId: response.tokenId}),
             headers: {

@@ -10,7 +10,7 @@ const ScaleSlider = ({scaleID}) => {
 
     const fetchSliderValue = async () =>{
         //fetching the saved scales from the backend
-       const response = await fetch('http://localhost:3001/scales/'+scaleID)
+       const response = await fetch('/scales/'+scaleID)
        const data = await response.json()
        if(data.sliderValue){
             setSliderValue(data.sliderValue)
@@ -19,7 +19,7 @@ const ScaleSlider = ({scaleID}) => {
 
 
     const changeSliderValue = async (value) =>{
-        await fetch('http://localhost:3001/scales/slidervalue/'+scaleID,{
+        await fetch('/scales/slidervalue/'+scaleID,{
             method: 'PATCH',
             body: JSON.stringify({sliderValue: value}),
             headers: {

@@ -14,7 +14,7 @@ const ScaleTitle = ({scaleID}) => {
 
     const fetchTitle = async () =>{
          //fetching the saved scales from the backend
-        const response = await fetch('http://localhost:3001/scales/'+scaleID)
+        const response = await fetch('/scales/'+scaleID)
         const data = await response.json()
         if(data.title){
             setDisplayH1(true)
@@ -24,7 +24,7 @@ const ScaleTitle = ({scaleID}) => {
 
     const handleTitleChange = async (event, value) =>{
         if(event.key === 'Enter' && value !== ""){//if you press the enter key
-            await fetch('http://localhost:3001/scales/title/'+scaleID,{
+            await fetch('/scales/title/'+scaleID,{
                 method: 'PATCH',
                 body: JSON.stringify({title: value}),
                 headers: {
