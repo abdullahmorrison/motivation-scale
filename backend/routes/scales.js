@@ -12,7 +12,7 @@ router.get('/', getScales);
 router.get('/:id', getScaleById);
 router.get('/:username/username', getScalesByUsername);
 
-router.post('/:id', createScale);
+router.post('/', createScale);
 
 router.patch('/:id/title', updateScaleTitle);
 router.patch('/:id/slidervalue', updateScaleSliderValue);
