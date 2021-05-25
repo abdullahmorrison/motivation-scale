@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');//connect to db
+const path = require('path')
 
 const app = express();
 
@@ -20,6 +21,15 @@ app.use('/scales', scaleRoutes);
 const userRoutes = require('./routes/users.js');
 app.use('/users', userRoutes);
 
+//server static assets if in production
+if(process.env.NODE_ENV === 'production'){
+    //set static folder
+    app.use(express.static('client/build'))
+
+    app.get('*', (req, res)=>{
+        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+    })
+}
 
 const port = process.env.PORT || 3001;
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true})
