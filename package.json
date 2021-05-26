@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend",
-    "start": "nodemon --prefex backend && npm start --prefix frontend"
+    "start": "nodemon --prefix backend && npm start --prefix frontend"
   },
   "author": "Abdullah Morrison",
   "license": "ISC",
