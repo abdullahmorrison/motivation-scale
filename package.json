@@ -1,11 +1,11 @@
 {
-  "name": "pgp-scale-backend",
+  "name": "pgp-scale",
   "version": "1.0.0",
   "description": "express backend of pgp scale",
-  "main": "server.js",
+  "main": "./backend/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix ../frontend && npm run build --prefix ../frontend",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend",
     "start": "nodemon"
   },
   "author": "Abdullah Morrison",
