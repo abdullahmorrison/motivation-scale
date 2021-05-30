@@ -34,8 +34,8 @@ exports.createScale = async (req, res) => {
     const scale = new Scale({
         username: req.body.username,
         title: "",
-        explanation: "",
-        futurePlan: ""
+        avoidingFailureDescription: "",
+        chasingSuccessDescription: ""
     })
     try {
         const savedScale = await scale.save();
@@ -68,22 +68,22 @@ exports.updateScaleSliderValue = async (req, res) => {
         res.json({message: err})
     }
 }
-exports.updateScaleExplanation = async (req, res) => { 
+exports.updateScaleAvoidingFailureDescription = async (req, res) => { 
     try{
         const updatedScale = await Scale.updateOne(
             {_id: req.params.id},
-            {$set: {explanation: req.body.explanation}}
+            {$set: {avoidingFailureDescription: req.body.avoidingFailureDescription}}
         )
         res.json(updatedScale)
     }catch(err){
         res.json({message: err})
     }
 }
-exports.updateScaleFuturePlan = async (req, res) => { 
+exports.updateScaleChasingSuccessDescription = async (req, res) => { 
     try{
         const updatedScale = await Scale.updateOne(
             {_id: req.params.id},
-            {$set: {futurePlan: req.body.futurePlan}}
+            {$set: {chasingSuccessDescription: req.body.chasingSuccessDescription}}
         )
         res.json(updatedScale)
     }catch(err){

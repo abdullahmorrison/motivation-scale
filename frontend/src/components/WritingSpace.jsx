@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
 const WritingSpace = ({scaleID}) =>{
-    const [explanation, setExplanation] = useState(null)
-    const [futurePlan, setFuturePlan] = useState(null)
+    const [avoidingFailureDescription, setAvoidingFailureDescription] = useState(null)
+    const [chasingSuccessDescription, setChasingSuccessDescription] = useState(null)
 
     useEffect(()=>{
         //!FETCHING TWICE
@@ -13,52 +13,52 @@ const WritingSpace = ({scaleID}) =>{
         //fetching the saved scales from the backend
         const response = await fetch('/scales/'+scaleID)
         const data = await response.json()
-        if(data.explanation){
-            setExplanation(data.explanation)
+        if(data.avoidingFailureDescription){
+            setAvoidingFailureDescription(data.avoidingFailureDescription)
         }
-        if(data.futurePlan){
-            setFuturePlan(data.futurePlan)
+        if(data.chasingSuccessDescription){
+            setChasingSuccessDescription(data.chasingSuccessDescription)
         }
    }
 
     const handleWriteExplanation = async (value) =>{
-        await fetch('/scales/'+scaleID+'/explanation',{
+        await fetch('/scales/'+scaleID+'/avoidingFailureDescription',{
             method: 'PATCH',
-            body: JSON.stringify({explanation: value}),
+            body: JSON.stringify({avoidingFailureDescription: value}),
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
         })
-        setExplanation(value)
+        setAvoidingFailureDescription(value)
     }
 
     const handleWriteFuturePlan = async (value) =>{
-        await fetch('/scales/'+scaleID+'/futureplan',{
+        await fetch('/scales/'+scaleID+'/chasingSuccessDescription',{
             method: 'PATCH',
-            body: JSON.stringify({futurePlan: value}),
+            body: JSON.stringify({chasingSuccessDescription: value}),
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
         })
-        setFuturePlan(value)
+        setChasingSuccessDescription(value)
     }
 
 
     return (
         <div className="scale__writing-space">
             <div>
-                <label><h2>Explanation</h2></label>
+                <label>What would be avoiding failure?</label>
                 <textarea 
                     placeholder="Enter your comment here..."
-                    defaultValue={explanation}
+                    defaultValue={avoidingFailureDescription}
                     onKeyUp={(event)=>handleWriteExplanation(event.target.value)}
                 />
             </div>
             <div>
-                <label><h2>Future Plan</h2></label>
+                <label>What would be chasing success?</label>
                 <textarea 
                     placeholder="Enter your comment here..." 
-                    defaultValue={futurePlan}
+                    defaultValue={chasingSuccessDescription}
                     onKeyUp={(event)=>handleWriteFuturePlan(event.target.value)}
                 />
             </div>

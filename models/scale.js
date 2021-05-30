@@ -12,8 +12,8 @@ const scaleSchema = mongoose.Schema({
         type: Number,
         default: 50
     },
-    explanation: String,
-    futurePlan: String
+    avoidingFailureDescription: String, //Describing (D) what would be avoiding failure (AF)?
+    chasingSuccessDescription: String // Describing (D) what would be chasing success (CS)?
 }, 
 {
     timestamps: true,
