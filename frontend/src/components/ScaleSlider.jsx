@@ -19,7 +19,7 @@ const ScaleSlider = ({scaleID}) => {
 
 
     const changeSliderValue = async (value) =>{
-        await fetch('/scales/slidervalue/'+scaleID,{
+        await fetch('/scales/'+scaleID+'/slidervalue',{
             method: 'PATCH',
             body: JSON.stringify({sliderValue: value}),
             headers: {

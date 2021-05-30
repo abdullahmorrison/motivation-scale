@@ -24,7 +24,7 @@ const ScaleTitle = ({scaleID}) => {
 
     const handleTitleChange = async (event, value) =>{
         if(event.key === 'Enter' && value !== ""){//if you press the enter key
-            await fetch('/scales/title/'+scaleID,{
+            await fetch('/scales/'+scaleID+'/title',{
                 method: 'PATCH',
                 body: JSON.stringify({title: value}),
                 headers: {

@@ -22,7 +22,7 @@ const WritingSpace = ({scaleID}) =>{
    }
 
     const handleWriteExplanation = async (value) =>{
-        await fetch('/scales/explanation/'+scaleID,{
+        await fetch('/scales/'+scaleID+'/explanation',{
             method: 'PATCH',
             body: JSON.stringify({explanation: value}),
             headers: {
@@ -33,7 +33,7 @@ const WritingSpace = ({scaleID}) =>{
     }
 
     const handleWriteFuturePlan = async (value) =>{
-        await fetch('/scales/futureplan/'+scaleID,{
+        await fetch('/scales/'+scaleID+'/futureplan',{
             method: 'PATCH',
             body: JSON.stringify({futurePlan: value}),
             headers: {
