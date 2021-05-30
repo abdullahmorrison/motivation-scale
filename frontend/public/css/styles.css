@@ -14,161 +14,129 @@ li {
 
 .scale {
   background: #ffffff;
-  border: solid 1px #707070;
-  border-radius: 20px;
-  -webkit-box-shadow: 0 3px 6px #00000083;
-          box-shadow: 0 3px 6px #00000083;
-  margin-bottom: 10px;
+  border: solid 1px #00000033;
+  border-radius: 10px;
+  box-shadow: 0 4px 4px #00000040;
+  margin: auto;
+  margin-bottom: 25px;
   padding: 15px 0;
   text-align: center;
+  width: 950px;
 }
-
 .scale li {
   margin: 0;
 }
-
 .scale__header {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
 }
-
 .scale__header__input {
   padding: 10px;
 }
-
 .scale__header__deleteIcon:hover {
   background-color: red;
   cursor: pointer;
 }
-
 .scale__slider {
   /* All the same stuff for Firefox */
   /* All the same stuff for IE */
 }
-
 .scale__slider__range {
-  width: 80vw;
-  background: -webkit-gradient(linear, left top, right top, from(#ff0000), to(#00ff08));
   background: linear-gradient(to right, #ff0000, #00ff08);
-  border: solid 1px #707070;
   border-radius: 20px;
+  height: 25px;
   margin-top: 10px;
+  width: 800px;
   -webkit-appearance: none;
 }
-
-.scale__slider input[type="range"]::-webkit-slider-thumb {
-  background: #dbcaca;
+.scale__slider input[type=range]::-webkit-slider-thumb {
+  background: #ffffff;
   border: solid 1px black;
   border-radius: 100%;
   cursor: -webkit-grab;
   cursor: grab;
-  height: 25px;
+  height: 35px;
   margin: -5px 0;
-  width: 25px;
+  width: 35px;
   -webkit-appearance: none;
 }
-
-.scale__slider input[type="range"]::-moz-range-thumb {
-  background: #dbcaca;
+.scale__slider input[type=range]::-moz-range-thumb {
+  background: #ffffff;
   border: solid 1px black;
   border-radius: 100%;
   cursor: grab;
-  height: 25px;
+  height: 35px;
   margin: -5px 0;
-  width: 25px;
-  -webkit-appearance: none;
+  width: 35px;
 }
-
-.scale__slider input[type="range"]::-ms-thumb {
-  background: #dbcaca;
+.scale__slider input[type=range]::-ms-thumb {
+  background: #ffffff;
   border: solid 1px black;
   border-radius: 100%;
   cursor: grab;
-  height: 25px;
+  height: 35px;
   margin: -5px 0;
-  width: 25px;
-  -webkit-appearance: none;
+  width: 35px;
 }
-
 .scale__slider__range:focus {
   outline: none;
 }
-
 .scale__slider__ticks {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  margin: -20px 31vw 0;
+  justify-content: space-between;
+  margin: -29px 267px 0;
 }
-
 .scale__slider__ticks div {
-  border-left: 2px solid #dbcaca;
-  height: 15px;
+  border-left: 1px solid #000000;
+  height: 25px;
 }
-
 .scale__slider__labels {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
   list-style-type: none;
-  margin: 10px 5vw 20px;
+  margin: 10px 25px 20px;
 }
-
+.scale__slider__labels li {
+  width: 100px;
+}
 .scale__writing-space {
   border-top: solid 1px #b3b3b3;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
   padding: 20px;
   text-align: left;
 }
-
 .scale__writing-space textarea,
 .scale__writing-space h2 {
   margin: 0 20px;
 }
-
 .scale__writing-space textarea {
-  border-radius: 5px;
+  border: solid 1px #00000033;
   color: #707070;
   font-family: Tahoma, sans-serif;
-  height: 150px;
+  height: 130px;
   padding: 20px;
   resize: none;
-  width: 500px;
+  width: 350px;
 }
 
 .new-scale {
-  background: #e4e4e4;
+  background: #ffffff;
   border-radius: 5px;
-  -webkit-box-shadow: 1px 1px 0 black;
-          box-shadow: 1px 1px 0 black;
+  border: solid 1px #00000033;
+  box-shadow: 0 4px 4px #00000033;
   display: block;
   font-size: 30px;
-  padding: 0 10px;
+  width: 50px;
+  height: 50px;
   margin: auto;
 }
 
-.new-scale:active {
-  -webkit-box-shadow: 0 0 0;
-          box-shadow: 0 0 0;
-}
-
 .new-scale:hover {
-  background: #c0c0c0;
+  box-shadow: 0 4px 4px #00000066;
   cursor: pointer;
 }
-/*# sourceMappingURL=styles.css.map */
+
+.new-scale:active {
+  box-shadow: 0 2px 4px #00000066;
+}/*# sourceMappingURL=styles.css.map */
