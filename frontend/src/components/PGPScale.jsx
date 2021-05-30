@@ -6,7 +6,7 @@ import GoogleLogin from 'react-google-login';
 const PGPScale = () => {
     const [scales, setScales] = useState([])
     const [username, setUsername] = useState("")
-    const [name, setName] = useState("Guest")
+    const [name, setName] = useState("Guest") //!DEFAULT "GUEST" MAY CAUSE ERRORS
 
     useEffect(() => {
     }, [])
