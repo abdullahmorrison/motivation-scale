@@ -30,8 +30,20 @@ li {
   display: flex;
   justify-content: center;
 }
+.scale__header h1 {
+  font-size: 24px;
+  max-width: 400px;
+  overflow-wrap: anywhere;
+}
 .scale__header__input {
-  padding: 10px;
+  padding: 10px 5px;
+  border: none;
+  border-bottom: 1px solid black;
+  font-size: 18px;
+}
+.scale__header__input:focus {
+  outline: none;
+  border-bottom: 2px solid black;
 }
 .scale__header__deleteIcon:hover {
   background-color: red;
@@ -107,12 +119,11 @@ li {
   text-align: left;
 }
 .scale__writing-space textarea,
-.scale__writing-space h2 {
+.scale__writing-space label {
   margin: 0 20px;
 }
 .scale__writing-space textarea {
   border: solid 1px #00000033;
-  color: #707070;
   font-family: Tahoma, sans-serif;
   height: 130px;
   padding: 20px;

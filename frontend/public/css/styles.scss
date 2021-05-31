@@ -26,9 +26,21 @@ li {
   &__header {
     display: flex;
     justify-content: center;
+    h1 {
+      font-size: 24px;
+      max-width: 400px;
+      overflow-wrap: anywhere;
+    }
     &__input {
       //the input field that creates the title of the each scale
-      padding: 10px;
+      padding: 10px 5px;
+      border: none;
+      border-bottom: 1px solid black;
+      font-size: 18px;
+    }
+    &__input:focus {
+      outline: none;
+      border-bottom: 2px solid black;
     }
     &__deleteIcon:hover {
       background-color: red;
@@ -111,12 +123,11 @@ li {
     padding: 20px;
     text-align: left;
     textarea,
-    h2 {
+    label {
       margin: 0 20px;
     }
     textarea {
       border: solid 1px #00000033;
-      color: #707070;
       font-family: Tahoma, sans-serif;
       height: 130px;
       padding: 20px;
