@@ -5,7 +5,7 @@ import EditIcon from "./icons/EditIcon"
 
 
 const ScaleTitle = ({scaleID}) => {
-    const [value, setValue] = useState(null) //the title
+    const [title, setTitle] = useState(null) //the title
     const [displayH1, setDisplayH1] = useState(false) //used to determine if you want to display value as h1 or input
 
     useEffect(()=>{
@@ -18,12 +18,12 @@ const ScaleTitle = ({scaleID}) => {
         const data = await response.json()
         if(data.title){
             setDisplayH1(true)
-            setValue(data.title)
+            setTitle(data.title)
         }
     }
 
     const handleTitleChange = async (event) =>{
-        if(event.key === 'Enter' && value !== ""){//if you press the enter key
+        if(event.key === 'Enter' && title !== ""){//if you press the enter key
             await fetch('/scales/'+scaleID+'/title',{
                 method: 'PATCH',
                 body: JSON.stringify({title: event.target.value}),
@@ -31,7 +31,7 @@ const ScaleTitle = ({scaleID}) => {
                     "Content-type": "application/json; charset=UTF-8"
                 }
             })
-            setValue(event.target.value)
+            setTitle(event.target.value)
             setDisplayH1(true)
         }
     }
@@ -39,11 +39,11 @@ const ScaleTitle = ({scaleID}) => {
     return (
         <>
             { displayH1 === true 
-                ? <h1>{value}</h1>
+                ? <h1>{title}</h1>
                 :<input 
                     type="text" 
                     className="scale__header__input" 
-                    defaultValue={value} 
+                    defaultValue={title} 
                     placeholder="Name of Goal" 
                     onKeyDown={handleTitleChange}   
                 />
