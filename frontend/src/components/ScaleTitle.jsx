@@ -22,16 +22,16 @@ const ScaleTitle = ({scaleID}) => {
         }
     }
 
-    const handleTitleChange = async (event, value) =>{
+    const handleTitleChange = async (event) =>{
         if(event.key === 'Enter' && value !== ""){//if you press the enter key
             await fetch('/scales/'+scaleID+'/title',{
                 method: 'PATCH',
-                body: JSON.stringify({title: value}),
+                body: JSON.stringify({title: event.target.value}),
                 headers: {
                     "Content-type": "application/json; charset=UTF-8"
                 }
             })
-            setValue(value)
+            setValue(event.target.value)
             setDisplayH1(true)
         }
     }
@@ -45,7 +45,7 @@ const ScaleTitle = ({scaleID}) => {
                     className="scale__header__input" 
                     defaultValue={value} 
                     placeholder="Name of Goal" 
-                    onKeyDown={(event)=>handleTitleChange(event, event.target.value)}   
+                    onKeyDown={handleTitleChange}   
                 />
             }
             <EditIcon 
