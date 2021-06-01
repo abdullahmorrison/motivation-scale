@@ -7,7 +7,7 @@ import WritingSpace  from "./WritingSpace";
 import ExplanationIconClosed from "./icons/ExplanationIconClosed";
 import ExplanationIconOpened from "./icons/ExplanationIconOpened";
 import DeleteIcon from "./icons/DeleteIcon";
-//import DragDropIcon from './icons/DragDropIcon';
+import DragDropIcon from './icons/DragDropIcon';
 
 const Scale = ({scaleID, onDelete}) => {
     const [writingSpaceVisible, setWritiingSpaceVisible] = useState(false)
@@ -19,7 +19,7 @@ const Scale = ({scaleID, onDelete}) => {
     return (
         <div className="scale">
             <div className="scale__header">
-                {/*<DragDropIcon alt="Drag and Drop Tool"/> */}
+                <DragDropIcon alt="Drag and Drop Tool"/> 
                 <ScaleTitle scaleID={scaleID}/>
                 {
                     writingSpaceVisible !== true 
