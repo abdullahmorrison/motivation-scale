@@ -19,7 +19,7 @@ const Scale = ({scaleID, onDelete}) => {
     return (
         <div className="scale">
             <div className="scale__header">
-                <DragDropIcon alt="Drag and Drop Tool"/> 
+                <DragDropIcon style={{cursor: 'not-allowed'}} alt="Drag and Drop Tool"/> 
                 <ScaleTitle scaleID={scaleID}/>
                 <div className="scale__header__container">
                     {
