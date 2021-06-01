@@ -54,7 +54,8 @@ li {
   /* All the same stuff for IE */
 }
 .scale__slider__range {
-  background: linear-gradient(to right, #ff0000, #00ff08);
+  background: url("../images/inputbackground.svg");
+  background-size: 800px;
   border-radius: 20px;
   height: 25px;
   margin-top: 10px;
@@ -92,15 +93,6 @@ li {
 }
 .scale__slider__range:focus {
   outline: none;
-}
-.scale__slider__ticks {
-  display: flex;
-  justify-content: space-between;
-  margin: -29px 267px 0;
-}
-.scale__slider__ticks div {
-  border-left: 1px solid #000000;
-  height: 25px;
 }
 .scale__slider__labels {
   display: flex;

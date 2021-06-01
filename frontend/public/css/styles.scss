@@ -50,7 +50,8 @@ li {
   &__slider {
     &__range {
       //The scale
-      background: linear-gradient(to right, #ff0000, #00ff08);
+      background: url("../images/inputbackground.svg");
+      background-size: 800px;
       border-radius: 20px;
       height: 25px;
       margin-top: 10px;
@@ -93,17 +94,6 @@ li {
     &__range:focus {
       //When you click something on the scale (there used to be a thick black outline)
       outline: none;
-    }
-    &__ticks {
-      //tick container
-      display: flex;
-      justify-content: space-between;
-      margin: -29px 267px 0;
-      div {
-        //each seperate tick
-        border-left: 1px solid #000000; //Creating the line of the tick
-        height: 25px; //height of tick
-      }
     }
     &__labels {
       //each label under a tick
