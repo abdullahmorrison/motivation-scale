@@ -45,10 +45,6 @@ li {
   outline: none;
   border-bottom: 2px solid black;
 }
-.scale__header__deleteIcon:hover {
-  background-color: red;
-  cursor: pointer;
-}
 .scale__slider {
   /* All the same stuff for Firefox */
   /* All the same stuff for IE */

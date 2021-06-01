@@ -42,10 +42,6 @@ li {
       outline: none;
       border-bottom: 2px solid black;
     }
-    &__deleteIcon:hover {
-      background-color: red;
-      cursor: pointer;
-    }
   }
   &__slider {
     &__range {
