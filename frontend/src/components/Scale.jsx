@@ -21,12 +21,14 @@ const Scale = ({scaleID, onDelete}) => {
             <div className="scale__header">
                 <DragDropIcon alt="Drag and Drop Tool"/> 
                 <ScaleTitle scaleID={scaleID}/>
-                {
-                    writingSpaceVisible !== true 
-                        ? <ExplanationIconClosed alt="Explanation Button (Closed)" onClick={handleWritingSpace}/>
-                        : <ExplanationIconOpened alt="Explanation Button (Opened)" onClick={handleWritingSpace}/>
-                }
-               <DeleteIcon alt="Delete Button" onClick={()=>onDelete(scaleID)}/> 
+                <div className="scale__header__container">
+                    {
+                        writingSpaceVisible !== true 
+                            ? <ExplanationIconClosed alt="Explanation Button (Closed)" onClick={handleWritingSpace}/>
+                            : <ExplanationIconOpened alt="Explanation Button (Opened)" onClick={handleWritingSpace}/>
+                    }
+                    <DeleteIcon alt="Delete Button" onClick={()=>onDelete(scaleID)}/>
+               </div>
             </div>
             <ScaleSlider scaleID={scaleID}/>
             {

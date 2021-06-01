@@ -27,9 +27,16 @@ li {
 }
 .scale__header {
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 10px;
+  justify-content: space-between;
+  padding: 10px 75px;
+}
+.scale__header__container {
+  display: flex;
+  align-items: center;
+}
+.scale__header__container > :first-child {
+  margin: 10px;
 }
 .scale__header h1 {
   font-size: 24px;

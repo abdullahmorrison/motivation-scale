@@ -37,7 +37,7 @@ const ScaleTitle = ({scaleID}) => {
     }
 
     return (
-        <>
+        <div className="scale__header__container">
             { displayH1 === true 
                 ? <h1>{title}</h1>
                 :<input 
@@ -52,7 +52,7 @@ const ScaleTitle = ({scaleID}) => {
                 alt="Edit Button" 
                 onClick={()=>setDisplayH1(false)}
             />
-        </>
+        </div>
     ) 
 }
 export default ScaleTitle
