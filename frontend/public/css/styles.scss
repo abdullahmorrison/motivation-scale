@@ -30,25 +30,26 @@ li {
     &__container {
       display: flex;
       align-items: center;
-      & > :first-child {
-        margin: 10px;
+      & > :nth-child(1) {
+        margin-right: 10px;
       }
-    }
-    h1 {
-      font-size: 24px;
-      max-width: 400px;
-      overflow-wrap: anywhere;
-    }
-    &__input {
-      //the input field that creates the title of the each scale
-      padding: 10px 5px;
-      border: none;
-      border-bottom: 1px solid black;
-      font-size: 18px;
-    }
-    &__input:focus {
-      outline: none;
-      border-bottom: 2px solid black;
+      h1 {
+        font-size: 24px;
+        max-width: 400px;
+        overflow-wrap: anywhere;
+      }
+      &__input {
+        //the input field that creates the title of the each scale
+        padding: 5px;
+        margin-right: -25px;
+        border: none;
+        border-bottom: 1px solid black;
+        font-size: 18px;
+      }
+      &__input:focus {
+        outline: none;
+        border-bottom: 2px solid black;
+      }
     }
   }
   &__slider {
@@ -147,4 +148,37 @@ li {
 }
 .new-scale:active {
   box-shadow: 0 2px 4px #00000066;
+}
+
+@media (max-width: 990px) {
+  .scale {
+    &__header {
+      padding: 10px 5vw;
+    }
+    width: 90vw;
+    &__slider__range {
+      background-size: 80vw;
+      width: 80vw;
+    }
+  }
+}
+@media (max-width: 600px) {
+  .scale {
+    &__header {
+      &__container {
+        h1 {
+          font-size: 16px;
+        }
+        &__input {
+          width: 12ch;
+        }
+      }
+    }
+    &__slider {
+      margin-bottom: 20px;
+      &__labels {
+        display: none;
+      }
+    }
+  }
 }
