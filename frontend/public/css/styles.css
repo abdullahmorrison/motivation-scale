@@ -160,6 +160,20 @@ li {
     background-size: 80vw;
     width: 80vw;
   }
+  .scale__writing-space textarea {
+    width: 35vw;
+  }
+}
+@media (max-width: 700px) {
+  .scale__writing-space {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .scale__writing-space textarea,
+.scale__writing-space label {
+    width: 70vw;
+    margin: 0;
+  }
 }
 @media (max-width: 600px) {
   .scale__header__container h1 {
