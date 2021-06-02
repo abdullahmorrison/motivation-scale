@@ -42,7 +42,7 @@ const ScaleTitle = ({scaleID}) => {
                 ? <h1>{title}</h1>
                 :<input 
                     type="text" 
-                    className="scale__header__input" 
+                    className="scale__header__container__input" 
                     defaultValue={title} 
                     placeholder="Name of Goal" 
                     onKeyDown={handleTitleChange}   
