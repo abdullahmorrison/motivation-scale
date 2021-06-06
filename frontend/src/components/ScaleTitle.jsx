@@ -20,7 +20,7 @@ const ScaleTitle = ({scaleID}) => {
         }
         //!FETCHING TWICE
         fetchTitle()
-    }, [])
+    }, [scaleID])
 
     const handleTitleChange = async (event) =>{
         if(event.key === 'Enter' && title !== ""){//if you press the enter key

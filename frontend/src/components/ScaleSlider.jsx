@@ -14,7 +14,7 @@ const ScaleSlider = ({scaleID}) => {
         }
         //!FETCHING TWICE
         fetchSliderValue()
-    }, [])
+    }, [scaleID])
 
     const changeSliderValue = async (value) =>{
         await fetch('/scales/'+scaleID+'/slidervalue',{

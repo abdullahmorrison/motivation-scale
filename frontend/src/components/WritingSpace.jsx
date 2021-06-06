@@ -18,7 +18,7 @@ const WritingSpace = ({scaleID}) =>{
         }
         //!FETCHING TWICE
         fetchExplanationFuturePlan()
-    }, [])
+    }, [scaleID])
 
     
 
