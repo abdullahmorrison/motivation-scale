@@ -12,7 +12,6 @@ const ScaleSlider = ({scaleID}) => {
                 setSliderValue(data.sliderValue)
            }
         }
-        //!FETCHING TWICE
         fetchSliderValue()
     }, [scaleID])
 

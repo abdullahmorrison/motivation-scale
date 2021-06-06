@@ -16,7 +16,6 @@ const WritingSpace = ({scaleID}) =>{
                 setChasingSuccessDescription(data.chasingSuccessDescription)
             }
         }
-        //!FETCHING TWICE
         fetchExplanationFuturePlan()
     }, [scaleID])
 

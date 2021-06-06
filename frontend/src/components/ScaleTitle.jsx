@@ -18,7 +18,6 @@ const ScaleTitle = ({scaleID}) => {
                setTitle(data.title)
            }
         }
-        //!FETCHING TWICE
         fetchTitle()
     }, [scaleID])
 
