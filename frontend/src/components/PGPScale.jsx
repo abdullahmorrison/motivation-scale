@@ -8,19 +8,16 @@ const PGPScale = () => {
     const [username, setUsername] = useState("")
     const [name, setName] = useState("Guest") //!DEFAULT "GUEST" MAY CAUSE ERRORS
 
-    useEffect(() => {
-    }, [])
-
-    const fetchScales = async () => {
-        if(username){
-            const response = await fetch('/scales/'+username+'/username/')
-            const data = await response.json()
-            setScales(data)
-        }else{
-            console.error("Error: NO USER when fetching scales")
-        }
-    }
     useEffect(()=>{
+        const fetchScales = async () => {
+            if(username){
+                const response = await fetch('/scales/'+username+'/username/')
+                const data = await response.json()
+                setScales(data)
+            }else{
+                console.error("Error: NO USER when fetching scales")
+            }
+        }
         fetchScales()
     }, [username])
 
@@ -32,8 +29,13 @@ const PGPScale = () => {
                 headers: {
                     "Content-type": "application/json; charset=UTF-8"
                 }
-            }).then(res => res.json())
-                .then(fetchScales())//!PROBABLY INEFFICIENT 
+            }).then(
+                (response) => response.json()
+            ).then(
+                data => {
+                    setScales([...scales, data])
+                }
+            )
         }else{
             alert("Error: Login in order to use app")
         }
