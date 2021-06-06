@@ -4,19 +4,17 @@ const ScaleSlider = ({scaleID}) => {
     const [sliderValue, setSliderValue] = useState(50)
     
     useEffect(()=>{
-         //!FETCHING TWICE
-         fetchSliderValue()
-    },[])
-
-    const fetchSliderValue = async () =>{
-        //fetching the saved scales from the backend
-       const response = await fetch('/scales/'+scaleID)
-       const data = await response.json()
-       if(data.sliderValue){
-            setSliderValue(data.sliderValue)
-       }
-   }
-
+        const fetchSliderValue = async () =>{
+            //fetching the saved scales from the backend
+           const response = await fetch('/scales/'+scaleID)
+           const data = await response.json()
+           if(data.sliderValue){
+                setSliderValue(data.sliderValue)
+           }
+        }
+        //!FETCHING TWICE
+        fetchSliderValue()
+    }, [])
 
     const changeSliderValue = async (value) =>{
         await fetch('/scales/'+scaleID+'/slidervalue',{

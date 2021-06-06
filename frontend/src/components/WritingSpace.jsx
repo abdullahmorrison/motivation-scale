@@ -5,21 +5,22 @@ const WritingSpace = ({scaleID}) =>{
     const [chasingSuccessDescription, setChasingSuccessDescription] = useState(null)
 
     useEffect(()=>{
+        const fetchExplanationFuturePlan = async () =>{
+            //fetching the saved scales from the backend
+            const response = await fetch('/scales/'+scaleID)
+            const data = await response.json()
+            if(data.avoidingFailureDescription){
+                setAvoidingFailureDescription(data.avoidingFailureDescription)
+            }
+            if(data.chasingSuccessDescription){
+                setChasingSuccessDescription(data.chasingSuccessDescription)
+            }
+        }
         //!FETCHING TWICE
         fetchExplanationFuturePlan()
     }, [])
 
-    const fetchExplanationFuturePlan = async () =>{
-        //fetching the saved scales from the backend
-        const response = await fetch('/scales/'+scaleID)
-        const data = await response.json()
-        if(data.avoidingFailureDescription){
-            setAvoidingFailureDescription(data.avoidingFailureDescription)
-        }
-        if(data.chasingSuccessDescription){
-            setChasingSuccessDescription(data.chasingSuccessDescription)
-        }
-   }
+    
 
     const handleWriteExplanation = async (value) =>{
         await fetch('/scales/'+scaleID+'/avoidingFailureDescription',{

@@ -9,18 +9,18 @@ const ScaleTitle = ({scaleID}) => {
     const [displayH1, setDisplayH1] = useState(false) //used to determine if you want to display value as h1 or input
 
     useEffect(()=>{
+        const fetchTitle = async () =>{
+            //fetching the saved scales from the backend
+           const response = await fetch('/scales/'+scaleID)
+           const data = await response.json()
+           if(data.title){
+               setDisplayH1(true)
+               setTitle(data.title)
+           }
+        }
+        //!FETCHING TWICE
         fetchTitle()
     }, [])
-
-    const fetchTitle = async () =>{
-         //fetching the saved scales from the backend
-        const response = await fetch('/scales/'+scaleID)
-        const data = await response.json()
-        if(data.title){
-            setDisplayH1(true)
-            setTitle(data.title)
-        }
-    }
 
     const handleTitleChange = async (event) =>{
         if(event.key === 'Enter' && title !== ""){//if you press the enter key
