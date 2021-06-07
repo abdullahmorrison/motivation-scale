@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-const WritingSpace = ({scaleID}) =>{
+const WritingSpace = ({scaleID, visible}) =>{
     const [avoidingFailureDescription, setAvoidingFailureDescription] = useState(null)
     const [chasingSuccessDescription, setChasingSuccessDescription] = useState(null)
 
@@ -45,7 +45,7 @@ const WritingSpace = ({scaleID}) =>{
 
 
     return (
-        <div className="scale__writing-space">
+        <div className="scale__writing-space" style={visible ? {display:"flex"} : {display:"none"}}>
             <div>
                 <label>What would be avoiding failure?</label>
                 <textarea 

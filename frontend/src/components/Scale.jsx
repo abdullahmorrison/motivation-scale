@@ -31,9 +31,7 @@ const Scale = ({scaleID, onDelete}) => {
                </div>
             </div>
             <ScaleSlider scaleID={scaleID}/>
-            {
-                writingSpaceVisible === true ? <WritingSpace scaleID={scaleID}/>: null
-            }
+            <WritingSpace scaleID={scaleID} visible={writingSpaceVisible}/>
         </div>
     )
 }
