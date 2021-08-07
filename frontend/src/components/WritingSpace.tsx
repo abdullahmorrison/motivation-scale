@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react'
 
-const WritingSpace = ({scaleID, visible}) =>{
-    const [avoidingFailureDescription, setAvoidingFailureDescription] = useState(null)
-    const [chasingSuccessDescription, setChasingSuccessDescription] = useState(null)
+interface WritingSpaceProps{
+    scaleID: string,
+    visible: boolean
+}
+
+const WritingSpace: React.FC<WritingSpaceProps> = ({scaleID, visible}) =>{
+    const [avoidingFailureDescription, setAvoidingFailureDescription] = useState<string>()
+    const [chasingSuccessDescription, setChasingSuccessDescription] = useState<string>()
 
     useEffect(()=>{
         const fetchExplanationFuturePlan = async () =>{
@@ -21,7 +26,7 @@ const WritingSpace = ({scaleID, visible}) =>{
 
     
 
-    const handleWriteExplanation = async (value) =>{
+    const handleWriteExplanation = async (value: string) =>{
         await fetch('/scales/'+scaleID+'/avoidingFailureDescription',{
             method: 'PATCH',
             body: JSON.stringify({avoidingFailureDescription: value}),
@@ -32,7 +37,7 @@ const WritingSpace = ({scaleID, visible}) =>{
         setAvoidingFailureDescription(value)
     }
 
-    const handleWriteFuturePlan = async (value) =>{
+    const handleWriteFuturePlan = async (value: string) =>{
         await fetch('/scales/'+scaleID+'/chasingSuccessDescription',{
             method: 'PATCH',
             body: JSON.stringify({chasingSuccessDescription: value}),
@@ -51,7 +56,7 @@ const WritingSpace = ({scaleID, visible}) =>{
                 <textarea 
                     placeholder="Enter your comment here..."
                     defaultValue={avoidingFailureDescription}
-                    onKeyUp={(event)=>handleWriteExplanation(event.target.value)}
+                    onKeyUp={(event)=>handleWriteExplanation((event.target as HTMLTextAreaElement).value)}
                 />
             </div>
             <div>
@@ -59,11 +64,10 @@ const WritingSpace = ({scaleID, visible}) =>{
                 <textarea 
                     placeholder="Enter your comment here..." 
                     defaultValue={chasingSuccessDescription}
-                    onKeyUp={(event)=>handleWriteFuturePlan(event.target.value)}
+                    onKeyUp={(event)=>handleWriteFuturePlan((event.target as HTMLTextAreaElement).value)}
                 />
             </div>
-        </div>
-        
+        </div>   
     )
 }
 
