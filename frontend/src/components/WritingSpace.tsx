@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 
-interface WritingSpaceProps{
+interface Props{
     scaleID: string,
     visible: boolean
 }
 
-const WritingSpace: React.FC<WritingSpaceProps> = ({scaleID, visible}) =>{
+const WritingSpace: React.FC<Props> = ({scaleID, visible}) =>{
     const [avoidingFailureDescription, setAvoidingFailureDescription] = useState<string>()
     const [chasingSuccessDescription, setChasingSuccessDescription] = useState<string>()
 
