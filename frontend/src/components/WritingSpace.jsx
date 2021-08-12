@@ -56,11 +56,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(require("react"));
-var ScaleSlider = function (_a) {
-    var scaleID = _a.scaleID;
-    var _b = react_1.useState(50), sliderValue = _b[0], setSliderValue = _b[1];
+var WritingSpace = function (_a) {
+    var scaleID = _a.scaleID, visible = _a.visible;
+    var _b = react_1.useState(), avoidingFailureDescription = _b[0], setAvoidingFailureDescription = _b[1];
+    var _c = react_1.useState(), chasingSuccessDescription = _c[0], setChasingSuccessDescription = _c[1];
     react_1.useEffect(function () {
-        var fetchSliderValue = function () { return __awaiter(void 0, void 0, void 0, function () {
+        var fetchExplanationFuturePlan = function () { return __awaiter(void 0, void 0, void 0, function () {
             var response, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -70,46 +71,61 @@ var ScaleSlider = function (_a) {
                         return [4 /*yield*/, response.json()];
                     case 2:
                         data = _a.sent();
-                        if (data.sliderValue) {
-                            setSliderValue(data.sliderValue);
+                        if (data.avoidingFailureDescription) {
+                            setAvoidingFailureDescription(data.avoidingFailureDescription);
+                        }
+                        if (data.chasingSuccessDescription) {
+                            setChasingSuccessDescription(data.chasingSuccessDescription);
                         }
                         return [2 /*return*/];
                 }
             });
         }); };
-        fetchSliderValue();
+        fetchExplanationFuturePlan();
     }, [scaleID]);
-    var changeSliderValue = function (value) { return __awaiter(void 0, void 0, void 0, function () {
+    var handleWriteExplanation = function (value) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch('/scales/' + scaleID + '/slidervalue', {
+                case 0: return [4 /*yield*/, fetch('/scales/' + scaleID + '/avoidingFailureDescription', {
                         method: 'PATCH',
-                        body: JSON.stringify({ sliderValue: value }),
+                        body: JSON.stringify({ avoidingFailureDescription: value }),
                         headers: {
                             "Content-type": "application/json; charset=UTF-8"
                         }
                     })];
                 case 1:
                     _a.sent();
-                    setSliderValue(value);
+                    setAvoidingFailureDescription(value);
                     return [2 /*return*/];
             }
         });
     }); };
-    return (<div className="scale__slider">
-            <input type="range" className="scale__slider__range" min="0" max="100" defaultValue={sliderValue} onChange={function (event) { return changeSliderValue(+event.target.value); }}/>
-            <div className="scale__slider__ticks">
-                <div></div>
-                <div></div>
-                <div></div>
+    var handleWriteFuturePlan = function (value) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fetch('/scales/' + scaleID + '/chasingSuccessDescription', {
+                        method: 'PATCH',
+                        body: JSON.stringify({ chasingSuccessDescription: value }),
+                        headers: {
+                            "Content-type": "application/json; charset=UTF-8"
+                        }
+                    })];
+                case 1:
+                    _a.sent();
+                    setChasingSuccessDescription(value);
+                    return [2 /*return*/];
+            }
+        });
+    }); };
+    return (<div className="scale__writing-space" style={visible ? { display: "flex" } : { display: "none" }}>
+            <div>
+                <label>What would be avoiding failure?</label>
+                <textarea placeholder="Enter your comment here..." defaultValue={avoidingFailureDescription} onKeyUp={function (event) { return handleWriteExplanation(event.target.value); }}/>
             </div>
-            <ul className="scale__slider__labels">
-                <li>Saving What You Can</li>
-                <li>Avoiding Failure</li>
-                <li>Stagnant</li>
-                <li>Chasing Success</li>
-                <li>Upgrading Your Goal</li>
-            </ul>
+            <div>
+                <label>What would be chasing success?</label>
+                <textarea placeholder="Enter your comment here..." defaultValue={chasingSuccessDescription} onKeyUp={function (event) { return handleWriteFuturePlan(event.target.value); }}/>
+            </div>
         </div>);
 };
-exports.default = ScaleSlider;
+exports.default = WritingSpace;
