@@ -30,7 +30,7 @@ li {
     &__container {
       display: flex;
       align-items: center;
-      & > :nth-child(1) {
+      & > :nth-child(1) {//adding space for the edit icon
         margin-right: 10px;
       }
       h1 {
