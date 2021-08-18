@@ -9,13 +9,11 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user.js');
 
 exports.googleLogin = async (req, res) => {
-    console.log("***************ENTERED**************")
     const tokenId = req.body.tokenId;
     client.verifyIdToken({idToken: tokenId, audience: '212338543657-jov7gtn2u61p4bst88inr3v4sneda77t.apps.googleusercontent.com'})
         .then(response =>{
             const {email_verified, name, email} = response.payload
             if(email_verified){
-                console.log("verified email")
                 User.findOne({username: email}).exec((err, user)=>{
                     if(err){
                         return res.status(400).json({
@@ -23,7 +21,6 @@ exports.googleLogin = async (req, res) => {
                         })
                     }else{
                         if(user){//user already exists
-                            console.log("user exists: ",user._id)
                             const token = jwt.sign({_id: user._id}, "mysigninkeytest")
                             const {_id, username} = user;
                             
