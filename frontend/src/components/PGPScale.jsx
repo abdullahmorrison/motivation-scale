@@ -66,6 +66,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(require("react"));
 var Scale_1 = __importDefault(require("./Scale"));
 var react_google_login_1 = require("react-google-login");
+var react_beautiful_dnd_1 = require("react-beautiful-dnd");
 var PGPScale = function () {
     var _a = react_1.useState([]), scales = _a[0], setScales = _a[1];
     var _b = react_1.useState(""), username = _b[0], setUsername = _b[1];
@@ -135,18 +136,42 @@ var PGPScale = function () {
                 }
             }).then(function () {
                 setUsername(response.profileObj.email);
-                setName(response.profileObj.givenName + " " + response.profileObj.givenName);
+                setName(response.profileObj.givenName + " " + response.profileObj.familyName);
             });
             return [2 /*return*/];
         });
     }); };
-    var responseGoogleFailure = function (response) {
-        alert(response.json());
-    };
+    // const responseGoogleFailure = (response: {json: ()=>void}) => {
+    //     //alert(response.json());
+    // }
     return (<>
             <h3>logged in as {name}</h3>
-            <react_google_login_1.GoogleLogin clientId="212338543657-jov7gtn2u61p4bst88inr3v4sneda77t.apps.googleusercontent.com" buttonText="Continue with Google" onSuccess={function (res) { return responseGoogleSuccess(res); }} onFailure={responseGoogleFailure} isSignedIn={true} cookiePolicy={'single_host_origin'}/>
-            {scales.map(function (scale) { return (<Scale_1.default key={scale._id} scaleID={scale._id} onDelete={handleDeleteScale}/>); })}
+            <react_google_login_1.GoogleLogin clientId="212338543657-jov7gtn2u61p4bst88inr3v4sneda77t.apps.googleusercontent.com" buttonText="Continue with Google" onSuccess={function (res) { return responseGoogleSuccess(res); }} 
+    //onFailure={responseGoogleFailure}
+    isSignedIn={true} cookiePolicy={'single_host_origin'}/>
+            <div style={{ width: 955, margin: 'auto' }}>{/**Element made to add style to the drag and drop context*/}
+                <react_beautiful_dnd_1.DragDropContext onDragEnd={function (param) {
+            var _a;
+            var srcI = param.source.index;
+            var destI = (_a = param.destination) === null || _a === void 0 ? void 0 : _a.index;
+            var src = scales[srcI];
+            if (destI != null) { //making sure a item isn't dragged outside of draggable area (otherwise a destination wouldn't exist)
+                var removedSrc = scales.filter(function (_, index) { return index !== srcI; });
+                var left = removedSrc.slice(0, destI);
+                var right = removedSrc.slice(destI, removedSrc.length);
+                var newScales = __spreadArray(__spreadArray(__spreadArray([], left), [src]), right);
+                setScales(newScales);
+            }
+        }}>
+                    <react_beautiful_dnd_1.Droppable droppableId="droppable-1">
+                        {function (provided, _) { return ( //!FIX ANY
+        <div ref={provided.innerRef} {...provided.droppableProps}>
+                                {scales.map(function (scale, i) { return (<Scale_1.default index={i} key={scale._id} scaleID={scale._id} onDelete={handleDeleteScale}/>); })}
+                                {provided.placeholder}
+                            </div>); }}
+                    </react_beautiful_dnd_1.Droppable>
+                </react_beautiful_dnd_1.DragDropContext>
+            </div>
             <button className="new-scale" onClick={handleAddScale}>+</button>
             <div className="description">
                 <h1>What is this tool?</h1>

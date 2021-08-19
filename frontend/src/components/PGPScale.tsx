@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Scale from './Scale';
 import {GoogleLogin} from 'react-google-login';
-
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 const PGPScale = () => {
     const [scales, setScales] = useState<Array<{_id: string}>>([])
@@ -63,14 +63,14 @@ const PGPScale = () => {
             }
         }).then(() => {
             setUsername(response.profileObj.email)
-            setName(response.profileObj.givenName +" " + response.profileObj.givenName)
+            setName(response.profileObj.givenName +" " + response.profileObj.familyName)
         })  
     }
 
-    const responseGoogleFailure = (response: {json: ()=>void}) => {
-        alert(response.json());
-    }
-
+    // const responseGoogleFailure = (response: {json: ()=>void}) => {
+    //     //alert(response.json());
+    // }
+    
     return (
         <>
             <h3>logged in as {name}</h3>
@@ -78,13 +78,44 @@ const PGPScale = () => {
                 clientId="212338543657-jov7gtn2u61p4bst88inr3v4sneda77t.apps.googleusercontent.com"
                 buttonText="Continue with Google"
                 onSuccess={(res)=>responseGoogleSuccess(res)}
-                onFailure={responseGoogleFailure}
+                //onFailure={responseGoogleFailure}
                 isSignedIn={true}
                 cookiePolicy={'single_host_origin'}
             />
-            {scales.map((scale: {_id: string})=> (
-                <Scale key={scale._id} scaleID={scale._id} onDelete={handleDeleteScale} />
-            ))}
+            <div style={{width: 955, margin: 'auto'}}>{/**Element made to add style to the drag and drop context*/}
+                <DragDropContext onDragEnd={(param: any)=>{//!FIX ANY
+                    const srcI = param.source.index;
+                    const destI = param.destination?.index;
+
+                    const src = scales[srcI]
+                    if(destI != null){ //making sure a item isn't dragged outside of draggable area (otherwise a destination wouldn't exist)
+                        let removedSrc:any = scales.filter((_: any, index: any) => index !== srcI)
+    
+                        const left = removedSrc.slice(0, destI)
+                        const right = removedSrc.slice(destI, removedSrc.length)
+                        
+                        let newScales:any = [...left, src, ...right]
+    
+                        setScales(newScales)
+                    }
+                }}>
+                    <Droppable droppableId="droppable-1">
+                        {(provided: any, _: any) => ( //!FIX ANY
+                            <div ref={provided.innerRef} {...provided.droppableProps}>
+                                {scales.map((scale: {_id: string}, i: number)=> (
+                                    <Scale 
+                                        index={i}
+                                        key={scale._id}
+                                        scaleID={scale._id}
+                                        onDelete={handleDeleteScale} 
+                                    />
+                                ))}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
+            </div>
             <button className="new-scale" onClick={handleAddScale}>+</button>
             <div className="description">
                 <h1>What is this tool?</h1>
