@@ -25,7 +25,7 @@ const ScaleTitle: React.FC<Props> = ({scaleID}) => {
     }, [scaleID])
 
     const handleTitleChange = async (event: React.KeyboardEvent<HTMLInputElement>) =>{
-        if(event.target && event.key === 'Enter' && title !== ""){//if you press the enter key
+        if(event.key === 'Enter' && (event.target as HTMLInputElement).value !== ""){//if you press the enter key
             await fetch('/scales/'+scaleID+'/title',{
                 method: 'PATCH',
                 body: JSON.stringify({title: (event.target as HTMLInputElement).value}),
@@ -35,8 +35,6 @@ const ScaleTitle: React.FC<Props> = ({scaleID}) => {
             })
             setTitle((event.target as HTMLInputElement).value)
             setDisplayH1(true)
-        }else{
-            throw new Error("Event.target is null")
         }
     }
 

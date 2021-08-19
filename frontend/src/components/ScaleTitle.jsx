@@ -90,7 +90,7 @@ var ScaleTitle = function (_a) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    if (!(event.target && event.key === 'Enter' && title !== "")) return [3 /*break*/, 2];
+                    if (!(event.key === 'Enter' && event.target.value !== "")) return [3 /*break*/, 2];
                     return [4 /*yield*/, fetch('/scales/' + scaleID + '/title', {
                             method: 'PATCH',
                             body: JSON.stringify({ title: event.target.value }),
@@ -102,9 +102,8 @@ var ScaleTitle = function (_a) {
                     _a.sent();
                     setTitle(event.target.value);
                     setDisplayH1(true);
-                    return [3 /*break*/, 3];
-                case 2: throw new Error("Event.target is null");
-                case 3: return [2 /*return*/];
+                    _a.label = 2;
+                case 2: return [2 /*return*/];
             }
         });
     }); };
