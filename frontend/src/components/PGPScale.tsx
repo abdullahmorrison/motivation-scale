@@ -55,6 +55,21 @@ const PGPScale = () => {
             alert("Error: Login in order to use app")
         }
     }
+    const handleReorderScale = (scaleID: string, newOrder: number) => {
+        if(username){
+            fetch('/scales/' + scaleID +'/order', {
+                method: 'PATCH',
+                body: JSON.stringify({order: newOrder}),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            }).then(res => {
+                res.json()
+            })
+        }else{
+            alert("Error: Login in order to use app")
+        }
+    }
     const responseGoogleSuccess = async (response: any) => { //!Fix any
         console.log(response)
         fetch('/users/googlelogin/', {
@@ -68,11 +83,6 @@ const PGPScale = () => {
             setName(response.profileObj.givenName +" " + response.profileObj.familyName)
         })  
     }
-
-    // const responseGoogleFailure = (response: {json: ()=>void}) => {
-    //     //alert(response.json());
-    // }
-    
     return (
         <>
             <h3>logged in as {name}</h3>
@@ -80,7 +90,6 @@ const PGPScale = () => {
                 clientId="212338543657-jov7gtn2u61p4bst88inr3v4sneda77t.apps.googleusercontent.com"
                 buttonText="Continue with Google"
                 onSuccess={(res)=>responseGoogleSuccess(res)}
-                //onFailure={responseGoogleFailure}
                 isSignedIn={true}
                 cookiePolicy={'single_host_origin'}
             />
@@ -97,7 +106,13 @@ const PGPScale = () => {
                         const right = removedSrc.slice(destI, removedSrc.length)
                         
                         let newScales:any = [...left, src, ...right]
-    
+                        
+                        for(var i=0; i<newScales.length; i++){ //looping to find changes in a scale's order in the array
+                            if(newScales[i]._id !== scales[i]._id){//only making api calls if a scale's order has changed
+                                handleReorderScale(newScales[i]._id, i)
+                            }
+                        }
+
                         setScales(newScales)
                     }
                 }}>

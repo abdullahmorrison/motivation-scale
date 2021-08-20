@@ -127,6 +127,22 @@ var PGPScale = function () {
             alert("Error: Login in order to use app");
         }
     };
+    var handleReorderScale = function (scaleID, newOrder) {
+        if (username) {
+            fetch('/scales/' + scaleID + '/order', {
+                method: 'PATCH',
+                body: JSON.stringify({ order: newOrder }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            }).then(function (res) {
+                res.json();
+            });
+        }
+        else {
+            alert("Error: Login in order to use app");
+        }
+    };
     var responseGoogleSuccess = function (response) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             console.log(response);
@@ -143,14 +159,9 @@ var PGPScale = function () {
             return [2 /*return*/];
         });
     }); };
-    // const responseGoogleFailure = (response: {json: ()=>void}) => {
-    //     //alert(response.json());
-    // }
     return (<>
             <h3>logged in as {name}</h3>
-            <react_google_login_1.GoogleLogin clientId="212338543657-jov7gtn2u61p4bst88inr3v4sneda77t.apps.googleusercontent.com" buttonText="Continue with Google" onSuccess={function (res) { return responseGoogleSuccess(res); }} 
-    //onFailure={responseGoogleFailure}
-    isSignedIn={true} cookiePolicy={'single_host_origin'}/>
+            <react_google_login_1.GoogleLogin clientId="212338543657-jov7gtn2u61p4bst88inr3v4sneda77t.apps.googleusercontent.com" buttonText="Continue with Google" onSuccess={function (res) { return responseGoogleSuccess(res); }} isSignedIn={true} cookiePolicy={'single_host_origin'}/>
             <div style={{ width: 955, margin: 'auto' }}>{/**Element made to add style to the drag and drop context*/}
                 <react_beautiful_dnd_1.DragDropContext onDragEnd={function (param) {
             var _a;
@@ -162,6 +173,11 @@ var PGPScale = function () {
                 var left = removedSrc.slice(0, destI);
                 var right = removedSrc.slice(destI, removedSrc.length);
                 var newScales = __spreadArray(__spreadArray(__spreadArray([], left), [src]), right);
+                for (var i = 0; i < newScales.length; i++) { //looping to find changes in a scale's order in the array
+                    if (newScales[i]._id !== scales[i]._id) { //only making api calls if a scale's order has changed
+                        handleReorderScale(newScales[i]._id, i);
+                    }
+                }
                 setScales(newScales);
             }
         }}>
