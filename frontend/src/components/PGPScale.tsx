@@ -13,7 +13,9 @@ const PGPScale = () => {
             if(username){
                 const response = await fetch('/scales/'+username+'/username/')
                 const data = await response.json()
-                setScales(data)
+                setScales(data.sort(function (a: {order: number}, b:{order: number}) {//sorting scales by the order attribute
+                    return a.order - b.order;
+                  }))
             }else{
                 console.error("Error: NO USER when fetching scales")
             }
@@ -25,7 +27,7 @@ const PGPScale = () => {
         if(username){
             fetch('/scales/', {
                 method: 'POST',
-                body: JSON.stringify({username: username}),
+                body: JSON.stringify({username: username, order: scales.length+1}),
                 headers: {
                     "Content-type": "application/json; charset=UTF-8"
                 }

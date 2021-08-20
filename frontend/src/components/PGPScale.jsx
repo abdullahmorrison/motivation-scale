@@ -84,7 +84,9 @@ var PGPScale = function () {
                         return [4 /*yield*/, response.json()];
                     case 2:
                         data = _a.sent();
-                        setScales(data);
+                        setScales(data.sort(function (a, b) {
+                            return a.order - b.order;
+                        }));
                         return [3 /*break*/, 4];
                     case 3:
                         console.error("Error: NO USER when fetching scales");
@@ -99,7 +101,7 @@ var PGPScale = function () {
         if (username) {
             fetch('/scales/', {
                 method: 'POST',
-                body: JSON.stringify({ username: username }),
+                body: JSON.stringify({ username: username, order: scales.length + 1 }),
                 headers: {
                     "Content-type": "application/json; charset=UTF-8"
                 }
