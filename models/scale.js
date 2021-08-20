@@ -13,7 +13,8 @@ const scaleSchema = mongoose.Schema({
         default: 50
     },
     avoidingFailureDescription: String,
-    chasingSuccessDescription: String
+    chasingSuccessDescription: String,
+    order: Number
 }, 
 {
     timestamps: true,

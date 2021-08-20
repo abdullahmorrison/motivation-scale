@@ -35,7 +35,8 @@ exports.createScale = async (req, res) => {
         username: req.body.username,
         title: "",
         avoidingFailureDescription: "",
-        chasingSuccessDescription: ""
+        chasingSuccessDescription: "",
+        order: req.body.order
     })
     try {
         const savedScale = await scale.save();
@@ -90,7 +91,17 @@ exports.updateScaleChasingSuccessDescription = async (req, res) => {
         res.json({message: err})
     }
 }
-
+exports.updateScaleOrder = async (req, res) => { 
+    try{
+        const updatedScale = await Scale.updateOne(
+            {_id: req.params.id},
+            {$set: {order: req.body.order}}
+        )
+        res.json(updatedScale)
+    }catch(err){
+        res.json({message: err})
+    }
+}
 //***********************DELETE************************//
 exports.deleteScaleById = async (req, res) => { 
     try{

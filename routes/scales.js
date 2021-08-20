@@ -4,7 +4,7 @@ const router = express.Router();
 const { 
     getScales, getScaleById, getScalesByUsername, createScale, updateScaleTitle,
     updateScaleSliderValue, updateScaleAvoidingFailureDescription, updateScaleChasingSuccessDescription,
-    deleteScaleById
+    updateScaleOrder, deleteScaleById
 } = require('../controllers/scales.js');
 
 
@@ -18,6 +18,7 @@ router.patch('/:id/title', updateScaleTitle);
 router.patch('/:id/slidervalue', updateScaleSliderValue);
 router.patch('/:id/avoidingFailureDescription', updateScaleAvoidingFailureDescription);
 router.patch('/:id/chasingSuccessDescription', updateScaleChasingSuccessDescription);
+router.patch('/:id/order', updateScaleOrder);
 
 router.delete('/:id', deleteScaleById);
 
