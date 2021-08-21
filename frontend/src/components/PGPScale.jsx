@@ -162,7 +162,7 @@ var PGPScale = function () {
     return (<>
             <h3>logged in as {name}</h3>
             <react_google_login_1.GoogleLogin clientId="212338543657-jov7gtn2u61p4bst88inr3v4sneda77t.apps.googleusercontent.com" buttonText="Continue with Google" onSuccess={function (res) { return responseGoogleSuccess(res); }} isSignedIn={true} cookiePolicy={'single_host_origin'}/>
-            <div style={{ width: 955, margin: 'auto' }}>{/**Element made to add style to the drag and drop context*/}
+            <div className='droppableArea'>{/**Element made to add style to the drag and drop context*/}
                 <react_beautiful_dnd_1.DragDropContext onDragEnd={function (param) {
             var _a;
             var srcI = param.source.index;

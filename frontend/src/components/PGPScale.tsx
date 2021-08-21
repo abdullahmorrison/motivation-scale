@@ -93,7 +93,7 @@ const PGPScale = () => {
                 isSignedIn={true}
                 cookiePolicy={'single_host_origin'}
             />
-            <div style={{width: 955, margin: 'auto'}}>{/**Element made to add style to the drag and drop context*/}
+            <div className='droppableArea'>{/**Element made to add style to the drag and drop context*/}
                 <DragDropContext onDragEnd={(param: any)=>{//!FIX ANY
                     const srcI = param.source.index;
                     const destI = param.destination?.index;

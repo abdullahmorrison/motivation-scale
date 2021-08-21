@@ -149,6 +149,11 @@ li {
   box-shadow: 0 2px 4px #00000066;
 }
 
+.droppableArea {
+  margin: auto;
+  width: 950px;
+}
+
 @media (max-width: 990px) {
   .scale {
     width: 90vw;
@@ -162,6 +167,10 @@ li {
   }
   .scale__writing-space textarea {
     width: 35vw;
+  }
+
+  .droppableArea {
+    width: 90vw;
   }
 }
 @media (max-width: 700px) {

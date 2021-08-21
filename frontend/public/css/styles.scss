@@ -30,7 +30,8 @@ li {
     &__container {
       display: flex;
       align-items: center;
-      & > :nth-child(1) {//adding space for the edit icon
+      & > :nth-child(1) {
+        //adding space for the edit icon
         margin-right: 10px;
       }
       h1 {
@@ -149,7 +150,10 @@ li {
 .new-scale:active {
   box-shadow: 0 2px 4px #00000066;
 }
-
+.droppableArea{
+  margin: auto;
+  width: 950px;
+}
 @media (max-width: 990px) {
   .scale {
     &__header {
@@ -163,6 +167,9 @@ li {
     &__writing-space textarea {
       width: 35vw;
     }
+  }
+  .droppableArea{
+    width: 90vw
   }
 }
 @media (max-width: 700px) {
