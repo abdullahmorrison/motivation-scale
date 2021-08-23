@@ -60,11 +60,15 @@ var Scale = function (_a) {
                         </div>
                         <ScaleTitle_1.default scaleID={scaleID}/>
                         <div className="scale__header__container">
-                            {writingSpaceVisible !== true
+                            <div className="scale__header__icon">
+                                {writingSpaceVisible !== true
                 ? <ExplanationIconClosed_1.default alt="Explanation Button (Closed)" onClick={handleWritingSpace}/>
                 : <ExplanationIconOpened_1.default alt="Explanation Button (Opened)" onClick={handleWritingSpace}/>}
-                            <DeleteIcon_1.default alt="Delete Button" onClick={function () { return onDelete(scaleID); }}/>
-                    </div>
+                            </div>
+                            <div className="scale__header__icon">
+                                <DeleteIcon_1.default alt="Delete Button" onClick={function () { return onDelete(scaleID); }}/>
+                            </div>
+                        </div>
                     </div>
                     <ScaleSlider_1.default scaleID={scaleID}/>
                     <WritingSpace_1.default scaleID={scaleID} visible={writingSpaceVisible}/>

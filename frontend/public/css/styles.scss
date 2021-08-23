@@ -27,9 +27,20 @@ li {
     align-items: center;
     justify-content: space-between;
     padding: 10px 75px;
+    &__icon {
+      display: flex;
+      align-items: center;
+      padding: 3px;
+    }
+    &__icon:hover {
+      box-shadow: 0 4px 4px #00000033;
+      border-radius: 5px;
+      cursor: pointer;
+    }
     &__container {
       display: flex;
       align-items: center;
+      vertical-align: middle;
       & > :nth-child(1) {
         //adding space for the edit icon
         margin-right: 10px;
@@ -150,7 +161,7 @@ li {
 .new-scale:active {
   box-shadow: 0 2px 4px #00000066;
 }
-.droppableArea{
+.droppableArea {
   margin: auto;
   width: 950px;
 }
@@ -168,8 +179,8 @@ li {
       width: 35vw;
     }
   }
-  .droppableArea{
-    width: 90vw
+  .droppableArea {
+    width: 90vw;
   }
 }
 @media (max-width: 700px) {

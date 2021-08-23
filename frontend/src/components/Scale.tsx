@@ -37,13 +37,17 @@ const Scale: React.FC<Props> = ({scaleID, index, onDelete}) => {
                         </div>
                         <ScaleTitle scaleID={scaleID}/>
                         <div className="scale__header__container">
-                            {
-                                writingSpaceVisible !== true 
-                                    ? <ExplanationIconClosed alt="Explanation Button (Closed)" onClick={handleWritingSpace}/>
-                                    : <ExplanationIconOpened alt="Explanation Button (Opened)" onClick={handleWritingSpace}/>
-                            }
-                            <DeleteIcon alt="Delete Button" onClick={()=>onDelete(scaleID)}/>
-                    </div>
+                            <div className="scale__header__icon">
+                                {
+                                    writingSpaceVisible !== true 
+                                        ? <ExplanationIconClosed alt="Explanation Button (Closed)" onClick={handleWritingSpace}/>
+                                        : <ExplanationIconOpened alt="Explanation Button (Opened)" onClick={handleWritingSpace}/>
+                                }
+                            </div>
+                            <div className="scale__header__icon">
+                                <DeleteIcon alt="Delete Button" onClick={()=>onDelete(scaleID)}/>
+                            </div>
+                        </div>
                     </div>
                     <ScaleSlider scaleID={scaleID}/>
                     <WritingSpace scaleID={scaleID} visible={writingSpaceVisible}/>

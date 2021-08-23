@@ -111,7 +111,9 @@ var ScaleTitle = function (_a) {
             {displayH1 === true
             ? <h1>{title}</h1>
             : <input type="text" className="scale__header__container__input" defaultValue={title} placeholder="Name of Goal" onKeyDown={function (event) { return handleTitleChange(event); }}/>}
-            <EditIcon_1.default alt="Edit Button" onClick={function () { return setDisplayH1(false); }}/>
+            <div className="scale__header__icon">
+                <EditIcon_1.default alt="Edit Button" onClick={function () { return setDisplayH1(false); }}/>
+            </div>
         </div>);
 };
 exports.default = ScaleTitle;

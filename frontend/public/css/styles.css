@@ -31,9 +31,20 @@ li {
   justify-content: space-between;
   padding: 10px 75px;
 }
+.scale__header__icon {
+  display: flex;
+  align-items: center;
+  padding: 3px;
+}
+.scale__header__icon:hover {
+  box-shadow: 0 4px 4px #00000033;
+  border-radius: 5px;
+  cursor: pointer;
+}
 .scale__header__container {
   display: flex;
   align-items: center;
+  vertical-align: middle;
 }
 .scale__header__container > :nth-child(1) {
   margin-right: 10px;

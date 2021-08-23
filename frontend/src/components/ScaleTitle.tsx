@@ -50,10 +50,12 @@ const ScaleTitle: React.FC<Props> = ({scaleID}) => {
                     onKeyDown={(event)=>handleTitleChange(event)}   
                 />
             }
-            <EditIcon 
-                alt="Edit Button" 
-                onClick={()=>setDisplayH1(false)}
-            />
+            <div className="scale__header__icon">
+                <EditIcon 
+                    alt="Edit Button" 
+                    onClick={()=>setDisplayH1(false)}
+                />
+            </div>
         </div>
     ) 
 }
