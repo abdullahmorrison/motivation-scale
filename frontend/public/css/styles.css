@@ -12,6 +12,7 @@ li {
   margin-left: 20px;
 }
 
+/*************************  SCALE  ******************************/
 .scale {
   background: #ffffff;
   border: solid 1px #00000033;
@@ -208,4 +209,53 @@ li {
   .scale__slider__labels {
     display: none;
   }
+}
+/*************************  MODAL  ***********************/
+/* Taken From https://www.w3schools.com/howto/howto_css_modals.asp -*/
+.modal {
+  /* The Modal (background) */
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 2;
+  /* Sit on top */
+  padding-top: 15%;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: black;
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.685);
+  /* Black w/ opacity */
+  /* Modal Content */
+}
+.modal-content {
+  background-color: #ffffff;
+  border: 3px solid #000000;
+  border-radius: 5px;
+  margin: auto;
+  font-size: large;
+  width: 300px;
+}
+.modal-content div {
+  padding: 10px 20px;
+}
+.modal-footer {
+  margin: 10px;
+  text-align: right;
+}
+.modal-footer button {
+  padding: 5px;
+  margin: 0 5px;
+}
+.modal-footer #modal-footer-delete {
+  background-color: red;
+  color: white;
 }/*# sourceMappingURL=styles.css.map */
