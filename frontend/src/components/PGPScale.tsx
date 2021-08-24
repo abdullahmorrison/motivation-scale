@@ -43,17 +43,30 @@ const PGPScale = () => {
         }
     }
     const handleDeleteScale = (scaleID: string) => {
-        if(username){
-            //removing the scale from state and local storage by creating a new set of scales without the on we want to remove
-            fetch('/scales/' + scaleID, {
-                method: 'DELETE',
-            }).then(res => {
-                res.json()
-                setScales(scales.filter((s: {_id: string}) => s._id !== scaleID))
-            })
-        }else{
-            alert("Error: Login in order to use app")
+        document.getElementById("myModal")!.style.display = "block"//display confirm modal
+
+        //action if the delete button is clicked
+        const deleteScale =()=> {//nested function created for adding and removing eventlistener
+            if(username){
+                fetch('/scales/' + scaleID, {
+                    method: 'DELETE',
+                }).then(res => {
+                    res.json()
+                    setScales(scales.filter((s: {_id: string}) => s._id !== scaleID))
+                })
+            }else{
+                alert("Error: Login in order to use app")
+            }
+            document.getElementById("myModal")!.style.display = "none";
         }
+        document.getElementById("modal-footer-delete")!.addEventListener("click", deleteScale)
+
+        //remove modal if you click the cancel button
+        document.getElementById("modal-footer-cancel")!.addEventListener("click", function() {
+            document.getElementById("modal-footer-delete")!.removeEventListener("click", deleteScale)
+            document.getElementById("myModal")!.style.display = "none"
+            document.getElementById("modal-footer-cancel")!.removeEventListener("click", deleteScale)
+        })
     }
     const handleReorderScale = (scaleID: string, newOrder: number) => {
         if(username){
@@ -93,6 +106,18 @@ const PGPScale = () => {
                 isSignedIn={true}
                 cookiePolicy={'single_host_origin'}
             />
+            <div id="myModal" className="modal">
+                <div className="modal-content">
+                    <div className="modal-header"><h3>Confirm Action</h3></div>
+                    <div id="modal-question" className="modal-body">
+                        Are you sure you would like to delete this scale?
+                    </div>
+                    <div className="modal-footer">
+                        <button id="modal-footer-delete"><h3>Delete</h3></button>
+                        <button id="modal-footer-cancel"><h3>Cancel</h3></button>
+                    </div>
+                </div>
+            </div>
             <div className='droppableArea'>{/**Element made to add style to the drag and drop context*/}
                 <DragDropContext onDragEnd={(param: any)=>{//!FIX ANY
                     const srcI = param.source.index;

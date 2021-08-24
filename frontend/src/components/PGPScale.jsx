@@ -114,18 +114,29 @@ var PGPScale = function () {
         }
     };
     var handleDeleteScale = function (scaleID) {
-        if (username) {
-            //removing the scale from state and local storage by creating a new set of scales without the on we want to remove
-            fetch('/scales/' + scaleID, {
-                method: 'DELETE',
-            }).then(function (res) {
-                res.json();
-                setScales(scales.filter(function (s) { return s._id !== scaleID; }));
-            });
-        }
-        else {
-            alert("Error: Login in order to use app");
-        }
+        document.getElementById("myModal").style.display = "block"; //display confirm modal
+        //action if the delete button is clicked
+        var deleteScale = function () {
+            if (username) {
+                fetch('/scales/' + scaleID, {
+                    method: 'DELETE',
+                }).then(function (res) {
+                    res.json();
+                    setScales(scales.filter(function (s) { return s._id !== scaleID; }));
+                });
+            }
+            else {
+                alert("Error: Login in order to use app");
+            }
+            document.getElementById("myModal").style.display = "none";
+        };
+        document.getElementById("modal-footer-delete").addEventListener("click", deleteScale);
+        //remove modal if you click the cancel button
+        document.getElementById("modal-footer-cancel").addEventListener("click", function () {
+            document.getElementById("modal-footer-delete").removeEventListener("click", deleteScale);
+            document.getElementById("myModal").style.display = "none";
+            document.getElementById("modal-footer-cancel").removeEventListener("click", deleteScale);
+        });
     };
     var handleReorderScale = function (scaleID, newOrder) {
         if (username) {
@@ -162,6 +173,18 @@ var PGPScale = function () {
     return (<>
             <h3>logged in as {name}</h3>
             <react_google_login_1.GoogleLogin clientId="212338543657-jov7gtn2u61p4bst88inr3v4sneda77t.apps.googleusercontent.com" buttonText="Continue with Google" onSuccess={function (res) { return responseGoogleSuccess(res); }} isSignedIn={true} cookiePolicy={'single_host_origin'}/>
+            <div id="myModal" className="modal">
+                <div className="modal-content">
+                    <div className="modal-header"><h3>Confirm Action</h3></div>
+                    <div id="modal-question" className="modal-body">
+                        Are you sure you would like to delete this scale?
+                    </div>
+                    <div className="modal-footer">
+                        <button id="modal-footer-delete"><h3>Delete</h3></button>
+                        <button id="modal-footer-cancel"><h3>Cancel</h3></button>
+                    </div>
+                </div>
+            </div>
             <div className='droppableArea'>{/**Element made to add style to the drag and drop context*/}
                 <react_beautiful_dnd_1.DragDropContext onDragEnd={function (param) {
             var _a;
