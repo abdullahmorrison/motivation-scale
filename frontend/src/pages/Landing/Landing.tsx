@@ -1,5 +1,6 @@
-import GitHubLogo from './icons/GitHubLogo'
-import MailLogo from './icons/MailLogo'
+import GitHubLogo from './images/githubLogo.png'
+import MailLogo from './images/mailLogo.png'
+import Laptop from './images/laptop.png'
 
 const Landing = () => {
     return (
@@ -7,6 +8,7 @@ const Landing = () => {
         <header>
             <h1>Prevent Your Emotions From Slowing Your Progress</h1>
             <button><h2>Get Started</h2></button>
+            <img src={Laptop} alt="laptop"/>
         </header>
         <div>
             Demo
@@ -18,13 +20,13 @@ const Landing = () => {
             <div>
                 <a href="mailto:abdullahmorrison@gmail.com" target="_blank" rel="noreferrer">
                     Contact Me
-                    <MailLogo/>
+                    <img src={MailLogo} alt="Mail Logo" />
                 </a>
             </div>
             <div>
                 <a href="https://github.com/abdullahmorrison/ThePerceivedGoalProgressScale" target="_blank" rel="noreferrer">
                     View My GitHub
-                    <GitHubLogo/>
+                    <img src={GitHubLogo} alt="GitHub Logo" />
                 </a>
             </div>
         </footer>
