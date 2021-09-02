@@ -6,30 +6,35 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var githubLogo_png_1 = __importDefault(require("./images/githubLogo.png"));
 var mailLogo_png_1 = __importDefault(require("./images/mailLogo.png"));
 var laptop_png_1 = __importDefault(require("./images/laptop.png"));
+var landing_module_css_1 = __importDefault(require("../css/landing.module.css"));
+var react_router_dom_1 = require("react-router-dom");
 var Landing = function () {
+    var history = react_router_dom_1.useHistory();
     return (<>
-        <header>
-            <h1>Prevent Your Emotions From Slowing Your Progress</h1>
-            <button><h2>Get Started</h2></button>
+        <header className={landing_module_css_1.default.hero}>
+            <div>
+                <h1>Prevent Your Emotions From Slowing Your Progress</h1>
+                <button className={landing_module_css_1.default.btn} onClick={function () { return history.push("/pgpscale"); }}><b>Get Started</b></button>
+            </div>
             <img src={laptop_png_1.default} alt="laptop"/>
         </header>
-        <div>
-            Demo
+        <div className={landing_module_css_1.default.demo}>
+            demo
         </div>
-        <div>
+        <div className={landing_module_css_1.default.guideOnTool}>
             <a href="/"><h2>View an In-Depth Guide on This Tool &rarr;</h2></a>
         </div>  
         <footer>
-            <div>
+            <div className={landing_module_css_1.default.actionLink}>
                 <a href="mailto:abdullahmorrison@gmail.com" target="_blank" rel="noreferrer">
-                    Contact Me
-                    <img src={mailLogo_png_1.default} alt="Mail Logo"/>
+                    <img className={landing_module_css_1.default.logo} src={mailLogo_png_1.default} alt="Mail Logo"/>
+                    Email Me
                 </a>
             </div>
-            <div>
+            <div className={landing_module_css_1.default.actionLink}>
                 <a href="https://github.com/abdullahmorrison/ThePerceivedGoalProgressScale" target="_blank" rel="noreferrer">
-                    View My GitHub
-                    <img src={githubLogo_png_1.default} alt="GitHub Logo"/>
+                    <img className={landing_module_css_1.default.logo} src={githubLogo_png_1.default} alt="GitHub Logo"/>
+                    View The GitHub
                 </a>
             </div>
         </footer>

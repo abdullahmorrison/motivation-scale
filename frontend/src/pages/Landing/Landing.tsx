@@ -2,31 +2,38 @@ import GitHubLogo from './images/githubLogo.png'
 import MailLogo from './images/mailLogo.png'
 import Laptop from './images/laptop.png'
 
+import styles from '../css/landing.module.css'
+
+import { useHistory } from 'react-router-dom';
+
 const Landing = () => {
+    const history = useHistory();
     return (
     <>
-        <header>
-            <h1>Prevent Your Emotions From Slowing Your Progress</h1>
-            <button><h2>Get Started</h2></button>
+        <header className={styles.hero}>
+            <div>
+                <h1>Prevent Your Emotions From Slowing Your Progress</h1>
+                <button className={styles.btn} onClick={()=> history.push("/pgpscale")}><b>Get Started</b></button>
+            </div>
             <img src={Laptop} alt="laptop"/>
         </header>
-        <div>
-            Demo
+        <div className={styles.demo}>
+            demo
         </div>
-        <div>
+        <div className={styles.guideOnTool}>
             <a href="/"><h2>View an In-Depth Guide on This Tool &rarr;</h2></a>
         </div>  
         <footer>
-            <div>
+            <div className={styles.actionLink}>
                 <a href="mailto:abdullahmorrison@gmail.com" target="_blank" rel="noreferrer">
-                    Contact Me
-                    <img src={MailLogo} alt="Mail Logo" />
+                    <img className={styles.logo} src={MailLogo} alt="Mail Logo" />
+                    Email Me
                 </a>
             </div>
-            <div>
+            <div className={styles.actionLink}>
                 <a href="https://github.com/abdullahmorrison/ThePerceivedGoalProgressScale" target="_blank" rel="noreferrer">
-                    View My GitHub
-                    <img src={GitHubLogo} alt="GitHub Logo" />
+                    <img className={styles.logo} src={GitHubLogo} alt="GitHub Logo" />
+                    View The GitHub
                 </a>
             </div>
         </footer>
