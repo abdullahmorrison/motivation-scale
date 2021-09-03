@@ -9,10 +9,10 @@ import WritingSpace  from "./WritingSpace";
 import { Draggable } from 'react-beautiful-dnd';
 
 //SVG
-import ExplanationIconClosed from "./icons/ExplanationIconClosed";
-import ExplanationIconOpened from "./icons/ExplanationIconOpened";
-import DeleteIcon from "./icons/DeleteIcon";
-import DragDropIcon from './icons/DragDropIcon';
+import ExplanationIconClosed from "./icons/explanationIconClosed.svg";
+import ExplanationIconOpened from "./icons/explanationIconOpened.svg";
+import DeleteIcon from "./icons/deleteIcon.svg";
+import DragDropIcon from './icons/dragDropIcon.svg';
 
 interface Props{
     scaleID: string
@@ -33,19 +33,19 @@ const Scale: React.FC<Props> = ({scaleID, index, onDelete}) => {
                 <div className="scale" ref={provided.innerRef} {...provided.draggableProps} style={{ ...provided.draggableProps.style, boxShadow: snapshot.isDragging? "0 5px 5px #0000007e": null}}>
                     <div className="scale__header">
                         <div {...provided.dragHandleProps}>
-                            <DragDropIcon alt="Drag and Drop Tool"/> 
+                            <img src={DragDropIcon} alt="Drag and Drop Tool"/> 
                         </div>
                         <ScaleTitle scaleID={scaleID}/>
                         <div className="scale__header__container">
                             <div className="scale__header__icon">
                                 {
                                     writingSpaceVisible !== true 
-                                        ? <ExplanationIconClosed alt="Explanation Button (Closed)" onClick={handleWritingSpace}/>
-                                        : <ExplanationIconOpened alt="Explanation Button (Opened)" onClick={handleWritingSpace}/>
+                                        ? <img src={ExplanationIconClosed} alt="Explanation Button (Closed)" onClick={handleWritingSpace}/>
+                                        : <img src={ExplanationIconOpened} alt="Explanation Button (Opened)" onClick={handleWritingSpace}/>
                                 }
                             </div>
                             <div className="scale__header__icon">
-                                <DeleteIcon alt="Delete Button" onClick={()=>onDelete(scaleID)}/>
+                                <img src={DeleteIcon} alt="Delete Button" onClick={()=>onDelete(scaleID)}/>
                             </div>
                         </div>
                     </div>

@@ -60,7 +60,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(require("react"));
 //SVG
-var EditIcon_1 = __importDefault(require("./icons/EditIcon"));
+var editIcon_svg_1 = __importDefault(require("./icons/editIcon.svg"));
 var ScaleTitle = function (_a) {
     var scaleID = _a.scaleID;
     var _b = react_1.useState(""), title = _b[0], setTitle = _b[1]; //the title
@@ -112,7 +112,7 @@ var ScaleTitle = function (_a) {
             ? <h1>{title}</h1>
             : <input type="text" className="scale__header__container__input" defaultValue={title} placeholder="Name of Goal" onKeyDown={function (event) { return handleTitleChange(event); }}/>}
             <div className="scale__header__icon">
-                <EditIcon_1.default alt="Edit Button" onClick={function () { return setDisplayH1(false); }}/>
+                <img src={editIcon_svg_1.default} alt="Edit Button" onClick={function () { return setDisplayH1(false); }}/>
             </div>
         </div>);
 };

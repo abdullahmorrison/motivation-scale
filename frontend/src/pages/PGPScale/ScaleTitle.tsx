@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 //SVG
-import EditIcon from "./icons/EditIcon"
+import EditIcon from "./icons/editIcon.svg"
 
 interface Props{
     scaleID: string
@@ -51,7 +51,8 @@ const ScaleTitle: React.FC<Props> = ({scaleID}) => {
                 />
             }
             <div className="scale__header__icon">
-                <EditIcon 
+                <img
+                    src={EditIcon} 
                     alt="Edit Button" 
                     onClick={()=>setDisplayH1(false)}
                 />

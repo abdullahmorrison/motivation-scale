@@ -41,10 +41,10 @@ var WritingSpace_1 = __importDefault(require("./WritingSpace"));
 //third party libraries
 var react_beautiful_dnd_1 = require("react-beautiful-dnd");
 //SVG
-var ExplanationIconClosed_1 = __importDefault(require("./icons/ExplanationIconClosed"));
-var ExplanationIconOpened_1 = __importDefault(require("./icons/ExplanationIconOpened"));
-var DeleteIcon_1 = __importDefault(require("./icons/DeleteIcon"));
-var DragDropIcon_1 = __importDefault(require("./icons/DragDropIcon"));
+var explanationIconClosed_svg_1 = __importDefault(require("./icons/explanationIconClosed.svg"));
+var explanationIconOpened_svg_1 = __importDefault(require("./icons/explanationIconOpened.svg"));
+var deleteIcon_svg_1 = __importDefault(require("./icons/deleteIcon.svg"));
+var dragDropIcon_svg_1 = __importDefault(require("./icons/dragDropIcon.svg"));
 var Scale = function (_a) {
     var scaleID = _a.scaleID, index = _a.index, onDelete = _a.onDelete;
     var _b = react_1.useState(false), writingSpaceVisible = _b[0], setWritiingSpaceVisible = _b[1];
@@ -56,17 +56,17 @@ var Scale = function (_a) {
         <div className="scale" ref={provided.innerRef} {...provided.draggableProps} style={__assign(__assign({}, provided.draggableProps.style), { boxShadow: snapshot.isDragging ? "0 5px 5px #0000007e" : null })}>
                     <div className="scale__header">
                         <div {...provided.dragHandleProps}>
-                            <DragDropIcon_1.default alt="Drag and Drop Tool"/> 
+                            <img src={dragDropIcon_svg_1.default} alt="Drag and Drop Tool"/> 
                         </div>
                         <ScaleTitle_1.default scaleID={scaleID}/>
                         <div className="scale__header__container">
                             <div className="scale__header__icon">
                                 {writingSpaceVisible !== true
-                ? <ExplanationIconClosed_1.default alt="Explanation Button (Closed)" onClick={handleWritingSpace}/>
-                : <ExplanationIconOpened_1.default alt="Explanation Button (Opened)" onClick={handleWritingSpace}/>}
+                ? <img src={explanationIconClosed_svg_1.default} alt="Explanation Button (Closed)" onClick={handleWritingSpace}/>
+                : <img src={explanationIconOpened_svg_1.default} alt="Explanation Button (Opened)" onClick={handleWritingSpace}/>}
                             </div>
                             <div className="scale__header__icon">
-                                <DeleteIcon_1.default alt="Delete Button" onClick={function () { return onDelete(scaleID); }}/>
+                                <img src={deleteIcon_svg_1.default} alt="Delete Button" onClick={function () { return onDelete(scaleID); }}/>
                             </div>
                         </div>
                     </div>
