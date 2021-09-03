@@ -6,6 +6,8 @@ import styles from '../css/landing.module.css'
 
 import { useHistory } from 'react-router-dom';
 
+import DemoScale from './components/DemoScale'
+
 const Landing = () => {
     const history = useHistory();
     return (
@@ -18,7 +20,7 @@ const Landing = () => {
             <img src={Laptop} alt="laptop"/>
         </header>
         <div className={styles.demo}>
-            demo
+            <DemoScale/>
         </div>
         <div className={styles.guideOnTool}>
             <a href="/"><h2>View an In-Depth Guide on This Tool &rarr;</h2></a>

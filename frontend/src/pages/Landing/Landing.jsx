@@ -8,6 +8,7 @@ var mailLogo_png_1 = __importDefault(require("./images/mailLogo.png"));
 var laptop_png_1 = __importDefault(require("./images/laptop.png"));
 var landing_module_css_1 = __importDefault(require("../css/landing.module.css"));
 var react_router_dom_1 = require("react-router-dom");
+var DemoScale_1 = __importDefault(require("./components/DemoScale"));
 var Landing = function () {
     var history = react_router_dom_1.useHistory();
     return (<>
@@ -19,7 +20,7 @@ var Landing = function () {
             <img src={laptop_png_1.default} alt="laptop"/>
         </header>
         <div className={landing_module_css_1.default.demo}>
-            demo
+            <DemoScale_1.default />
         </div>
         <div className={landing_module_css_1.default.guideOnTool}>
             <a href="/"><h2>View an In-Depth Guide on This Tool &rarr;</h2></a>
