@@ -112,9 +112,9 @@ const PGPScale = () => {
                     <div id="modal-question" className="modal-body">
                         Are you sure you would like to delete this scale?
                     </div>
-                    <div className="modal-footer">
-                        <button id="modal-footer-delete"><h3>Delete</h3></button>
-                        <button id="modal-footer-cancel"><h3>Cancel</h3></button>
+                       <div className="modal-footer">
+                        <button id="modal-footer-delete">Delete</button>
+                        <button id="modal-footer-cancel">Cancel</button>
                     </div>
                 </div>
             </div>
