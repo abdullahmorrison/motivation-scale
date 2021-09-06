@@ -234,7 +234,7 @@ li {
 
   &-content {
     background-color: #ffffff;
-    border: 3px solid #000000;
+    border: none;
     border-radius: 5px;
     margin: auto;
     font-size: large;
@@ -248,12 +248,25 @@ li {
     margin: 10px;
     text-align: right;
     button {
-      padding: 5px;
+      background: #dfdfdf;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: medium;
+      font-weight: bold;
+      padding: 5px 10px;
       margin: 0 5px;
     }
+    button:hover {
+      background: #b1b1b1;
+    }
+
     #modal-footer-delete {
       background-color: red;
       color: white;
+    }
+    #modal-footer-delete:hover {
+      background: rgb(202, 0, 0);
     }
   }
 }
