@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Scale from './Scale';
-import {GoogleLogin} from 'react-google-login';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 const PGPScale = () => {
@@ -98,14 +97,6 @@ const PGPScale = () => {
     }
     return (
         <>
-            <h3>logged in as {name}</h3>
-            <GoogleLogin
-                clientId="212338543657-jov7gtn2u61p4bst88inr3v4sneda77t.apps.googleusercontent.com"
-                buttonText="Continue with Google"
-                onSuccess={(res)=>responseGoogleSuccess(res)}
-                isSignedIn={true}
-                cookiePolicy={'single_host_origin'}
-            />
             <div id="myModal" className="modal">
                 <div className="modal-content">
                     <div className="modal-header"><h3>Confirm Action</h3></div>
