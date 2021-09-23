@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Scale from './Scale';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 const PGPScale = () => {
     const [scales, setScales] = useState<Array<{_id: string}>>([])
-    const [username, setUsername] = useState<string>("")
-    const [name, setName] = useState<string>("Guest") //!DEFAULT "GUEST" MAY CAUSE ERRORS
+    const [username] = useState<string>("")
+    const [name] = useState<string>("Guest") //!DEFAULT "GUEST" MAY CAUSE ERRORS
 
     useEffect(()=>{
         const fetchScales = async () => {
@@ -82,19 +82,19 @@ const PGPScale = () => {
             alert("Error: Login in order to use app")
         }
     }
-    const responseGoogleSuccess = async (response: any) => { //!Fix any
-        console.log(response)
-        fetch('/users/googlelogin/', {
-            method: 'POST',
-            body: JSON.stringify({tokenId: response.tokenId}),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        }).then(() => {
-            setUsername(response.profileObj.email)
-            setName(response.profileObj.givenName +" " + response.profileObj.familyName)
-        })  
-    }
+    // const responseGoogleSuccess = async (response: any) => { //!Fix any
+    //     console.log(response)
+    //     fetch('/users/googlelogin/', {
+    //         method: 'POST',
+    //         body: JSON.stringify({tokenId: response.tokenId}),
+    //         headers: {
+    //             "Content-type": "application/json; charset=UTF-8"
+    //         }
+    //     }).then(() => {
+    //         setUsername(response.profileObj.email)
+    //         setName(response.profileObj.givenName +" " + response.profileObj.familyName)
+    //     })  
+    // }
     return (
         <>
             <div id="myModal" className="modal">
@@ -109,6 +109,7 @@ const PGPScale = () => {
                     </div>
                 </div>
             </div>
+            {name}
             <div className='droppableArea'>{/**Element made to add style to the drag and drop context*/}
                 <DragDropContext onDragEnd={(param: any)=>{//!FIX ANY
                     const srcI = param.source.index;

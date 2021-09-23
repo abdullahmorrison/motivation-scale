@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import DragDropIcon from '../../PGPScale/icons/dragDropIcon.svg'
 import EditIcon from '../../PGPScale/icons/editIcon.svg'
