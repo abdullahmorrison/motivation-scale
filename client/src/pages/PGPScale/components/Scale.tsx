@@ -9,10 +9,10 @@ import WritingSpace  from "./WritingSpace";
 import { Draggable } from 'react-beautiful-dnd';
 
 //SVG
-import ExplanationIconClosed from "./icons/explanationIconClosed.svg";
-import ExplanationIconOpened from "./icons/explanationIconOpened.svg";
-import DeleteIcon from "./icons/deleteIcon.svg";
-import DragDropIcon from './icons/dragDropIcon.svg';
+import ExplanationIconClosed from "../icons/explanationIconClosed.svg";
+import ExplanationIconOpened from "../icons/explanationIconOpened.svg";
+import DeleteIcon from "../icons/deleteIcon.svg";
+import DragDropIcon from '../icons/dragDropIcon.svg';
 
 interface Props{
     scaleID: string
