@@ -5,7 +5,7 @@ const {
     getScales, getScaleById, getScalesByUsername, createScale, updateScaleTitle,
     updateScaleSliderValue, updateScaleAvoidingFailureDescription, updateScaleChasingSuccessDescription,
     updateScaleOrder, deleteScaleById
-} = require('../../controllers/scales.js.js.js');
+} = require('../controllers/scales.js');
 
 
 router.get('/', getScales);
