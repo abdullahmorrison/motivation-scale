@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import Scale from './Scale';
+import Login from './components/Login';
+import Scale from './components/Scale';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import ConfirmModal from './components/ConfirmModal';
 
 const PGPScale = () => {
     const [scales, setScales] = useState<Array<{_id: string}>>([])
-    const [username] = useState<string>("")
-    const [name] = useState<string>("Guest") //!DEFAULT "GUEST" MAY CAUSE ERRORS
+    const [username, setUsername] = useState<string>("")
+    const [_,setName] = useState<string>("Guest") //!DEFAULT "GUEST" MAY CAUSE ERRORS
 
     useEffect(()=>{
         const fetchScales = async () => {
@@ -82,34 +84,23 @@ const PGPScale = () => {
             alert("Error: Login in order to use app")
         }
     }
-    // const responseGoogleSuccess = async (response: any) => { //!Fix any
-    //     console.log(response)
-    //     fetch('/users/googlelogin/', {
-    //         method: 'POST',
-    //         body: JSON.stringify({tokenId: response.tokenId}),
-    //         headers: {
-    //             "Content-type": "application/json; charset=UTF-8"
-    //         }
-    //     }).then(() => {
-    //         setUsername(response.profileObj.email)
-    //         setName(response.profileObj.givenName +" " + response.profileObj.familyName)
-    //     })  
-    // }
+    const handleResponseGoogleSuccess = async (response: any) => { //!Fix any
+        console.log(response)
+        fetch('/users/googlelogin/', {
+            method: 'POST',
+            body: JSON.stringify({tokenId: response.tokenId}),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        }).then(() => {
+            setUsername(response.profileObj.email)
+            setName(response.profileObj.givenName +" " + response.profileObj.familyName)
+        })  
+    }
     return (
         <>
-            <div id="myModal" className="modal">
-                <div className="modal-content">
-                    <div className="modal-header"><h3>Confirm Action</h3></div>
-                    <div id="modal-question" className="modal-body">
-                        Are you sure you would like to delete this scale?
-                    </div>
-                       <div className="modal-footer">
-                        <button id="modal-footer-delete">Delete</button>
-                        <button id="modal-footer-cancel">Cancel</button>
-                    </div>
-                </div>
-            </div>
-            {name}
+            <Login onResponseGoogleSuccess={handleResponseGoogleSuccess} />
+            <ConfirmModal message="Are you sure you would like to delete this scale?" confirmText="Delete"/>
             <div className='droppableArea'>{/**Element made to add style to the drag and drop context*/}
                 <DragDropContext onDragEnd={(param: any)=>{//!FIX ANY
                     const srcI = param.source.index;
