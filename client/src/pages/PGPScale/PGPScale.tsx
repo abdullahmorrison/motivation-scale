@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+
 import Login from './components/Login';
 import Scale from './components/Scale';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import ConfirmModal from './components/ConfirmModal';
+
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 const PGPScale = () => {
     const [scales, setScales] = useState<Array<{_id: string}>>([])
