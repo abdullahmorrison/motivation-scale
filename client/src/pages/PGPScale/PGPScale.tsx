@@ -7,7 +7,7 @@ import ConfirmModal from './components/ConfirmModal';
 const PGPScale = () => {
     const [scales, setScales] = useState<Array<{_id: string}>>([])
     const [username, setUsername] = useState<string>("")
-    const [_,setName] = useState<string>("Guest") //!DEFAULT "GUEST" MAY CAUSE ERRORS
+    const [,setName] = useState<string>("Guest") //!DEFAULT "GUEST" MAY CAUSE ERRORS
 
     useEffect(()=>{
         const fetchScales = async () => {
