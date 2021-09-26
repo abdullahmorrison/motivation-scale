@@ -8,10 +8,10 @@ const ConfirmModal: React.FC<Props> = ({message, confirmText}) =>{
             <div className="modal-content">
                 <div className="modal-header"><h3>Confirm Action</h3></div>
                 <div id="modal-question" className="modal-body">
-                    {confirmText}
+                    {message}
                 </div>
                     <div className="modal-footer">
-                    <button id="modal-footer-delete">{message}</button>
+                    <button id="modal-footer-delete">{confirmText}</button>
                     <button id="modal-footer-cancel">Cancel</button>
                 </div>
             </div>
