@@ -8,35 +8,12 @@ import { useHistory } from 'react-router-dom';
 
 import DemoScale from './components/DemoScale'
 
-import {GoogleLogin} from 'react-google-login';
 
 const Landing = () => {
     const history = useHistory(); //for react router
 
-    const responseGoogleSuccess = async (response: any) =>{
-        alert("worked")
-    }
-
     return (
     <>
-        <div id="myModal" className="modal">
-            <div className="modal-content">
-                <div className="modal-header"><h3>Confirm Action</h3></div>
-                <div className="modal-body">
-                    <GoogleLogin
-                        clientId="212338543657-jov7gtn2u61p4bst88inr3v4sneda77t.apps.googleusercontent.com"
-                        buttonText="Continue with Google"
-                        onSuccess={(res)=>responseGoogleSuccess(res)}
-                        isSignedIn={true}
-                        cookiePolicy={'single_host_origin'}
-                    />
-                </div>
-                    <div className="modal-footer">
-                    <button id="modal-footer-delete">Delete</button>
-                    <button id="modal-footer-cancel">Cancel</button>
-                </div>
-            </div>
-        </div>
         <header className={styles.hero}>
             <div>
                 <h1>Prevent Your Emotions From Slowing Your Progress</h1>
