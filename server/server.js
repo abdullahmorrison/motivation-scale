@@ -15,11 +15,9 @@ app.use(cors({origin: 'http://localhost:3000'}))
 require('dotenv/config')//security (dotenv)
 
 const scaleRoutes = require('./routes/scales.js');
-app.use('https://pgpscale.netlify.app/pgpscale/scales', scaleRoutes);
 app.use('/scales', scaleRoutes);
 
 const userRoutes = require('./routes/users.js');
-app.use('https://pgpscale.netlify.app/pgpscale/users', userRoutes);
 app.use('/users', userRoutes);
 
 const port = process.env.PORT || 3001;
