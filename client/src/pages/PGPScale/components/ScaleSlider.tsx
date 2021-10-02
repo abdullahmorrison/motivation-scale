@@ -20,7 +20,7 @@ const ScaleSlider: React.FC<Props> = ({scaleID}) => {
     }, [scaleID])
 
     const changeSliderValue = async (value: number) =>{
-        await fetch('/scales/'+scaleID+'/slidervalue',{
+        await fetch('https://pgpscale.herokuapp.com/scales/'+scaleID+'/slidervalue',{
             method: 'PATCH',
             body: JSON.stringify({sliderValue: value}),
             headers: {

@@ -14,7 +14,7 @@ const PGPScale = () => {
     useEffect(()=>{
         const fetchScales = async () => {
             if(username){
-                const response = await fetch('/scales/'+username+'/username/')
+                const response = await fetch('https://pgpscale.herokuapp.com/scales/'+username+'/username/')
                 const data = await response.json()
                 setScales(data.sort(function (a: {order: number}, b:{order: number}) {//sorting scales by the order attribute
                     return a.order - b.order;
@@ -28,7 +28,7 @@ const PGPScale = () => {
 
     const handleAddScale = () => { //saving new scale to state and local storage
         if(username){
-            fetch('/scales/', {
+            fetch('https://pgpscale.herokuapp.com/scales/', {
                 method: 'POST',
                 body: JSON.stringify({username: username, order: scales.length+1}),
                 headers: {
@@ -51,7 +51,7 @@ const PGPScale = () => {
         //action if the delete button is clicked
         const deleteScale =()=> {//nested function created for adding and removing eventlistener
             if(username){
-                fetch('/scales/' + scaleID, {
+                fetch('https://pgpscale.herokuapp.com/scales/' + scaleID, {
                     method: 'DELETE',
                 }).then(res => {
                     res.json()
@@ -73,7 +73,7 @@ const PGPScale = () => {
     }
     const handleReorderScale = (scaleID: string, newOrder: number) => {
         if(username){
-            fetch('/scales/' + scaleID +'/order', {
+            fetch('https://pgpscale.herokuapp.com/scales/' + scaleID +'/order', {
                 method: 'PATCH',
                 body: JSON.stringify({order: newOrder}),
                 headers: {
@@ -88,7 +88,7 @@ const PGPScale = () => {
     }
     const handleResponseGoogleSuccess = async (response: any) => { //!Fix any
         console.log(response)
-        fetch('/users/googlelogin/', {
+        fetch('https://pgpscale.herokuapp.com/users/googlelogin/', {
             method: 'POST',
             body: JSON.stringify({tokenId: response.tokenId}),
             headers: {

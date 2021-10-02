@@ -14,7 +14,7 @@ const ScaleTitle: React.FC<Props> = ({scaleID}) => {
     useEffect(()=>{
         const fetchTitle = async () =>{
             //fetching the saved scales from the backend
-           const response = await fetch('/scales/'+scaleID)
+           const response = await fetch('https://pgpscale.herokuapp.com/scales/'+scaleID)
            const data = await response.json()
            if(data.title){
                setDisplayH1(true)
@@ -26,7 +26,7 @@ const ScaleTitle: React.FC<Props> = ({scaleID}) => {
 
     const handleTitleChange = async (event: React.KeyboardEvent<HTMLInputElement>) =>{
         if(event.key === 'Enter' && (event.target as HTMLInputElement).value !== ""){//if you press the enter key
-            await fetch('/scales/'+scaleID+'/title',{
+            await fetch('https://pgpscale.herokuapp.com/scales/'+scaleID+'/title',{
                 method: 'PATCH',
                 body: JSON.stringify({title: (event.target as HTMLInputElement).value}),
                 headers: {

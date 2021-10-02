@@ -12,7 +12,7 @@ const WritingSpace: React.FC<Props> = ({scaleID, visible}) =>{
     useEffect(()=>{
         const fetchExplanationFuturePlan = async () =>{
             //fetching the saved scales from the backend
-            const response = await fetch('/scales/'+scaleID)
+            const response = await fetch('https://pgpscale.herokuapp.com/scales/'+scaleID)
             const data = await response.json()
             if(data.avoidingFailureDescription){
                 setAvoidingFailureDescription(data.avoidingFailureDescription)
@@ -27,7 +27,7 @@ const WritingSpace: React.FC<Props> = ({scaleID, visible}) =>{
     
 
     const handleWriteExplanation = async (value: string) =>{
-        await fetch('/scales/'+scaleID+'/avoidingFailureDescription',{
+        await fetch('https://pgpscale.herokuapp.com/scales/'+scaleID+'/avoidingFailureDescription',{
             method: 'PATCH',
             body: JSON.stringify({avoidingFailureDescription: value}),
             headers: {
@@ -38,7 +38,7 @@ const WritingSpace: React.FC<Props> = ({scaleID, visible}) =>{
     }
 
     const handleWriteFuturePlan = async (value: string) =>{
-        await fetch('/scales/'+scaleID+'/chasingSuccessDescription',{
+        await fetch('https://pgpscale.herokuapp.com/scales/'+scaleID+'/chasingSuccessDescription',{
             method: 'PATCH',
             body: JSON.stringify({chasingSuccessDescription: value}),
             headers: {
