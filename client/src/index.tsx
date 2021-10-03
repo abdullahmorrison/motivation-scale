@@ -1,11 +1,15 @@
 import ReactDOM from 'react-dom';
 import Landing from './pages/Landing/Landing';
 import PGPScale from './pages/PGPScale/PGPScale';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import NotFound from './pages/404Page/NotFound';
+import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 ReactDOM.render(
     <Router>
-        <Route path="/" exact component={Landing}/>
-        <Route path="/pgpscale" component={PGPScale}/>
+        <Switch>
+            <Route exact path="/" component={Landing}/>
+            <Route exact path="/pgpscale" component={PGPScale}/>
+            <Route exact path="*" component={NotFound} />
+        </Switch>
     </Router>, 
 document.getElementById('root'));
