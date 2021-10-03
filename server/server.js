@@ -10,7 +10,17 @@ app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
 
 //cors = cross-origin resource sharing
 const cors = require('cors');
-app.use(cors({origin: 'http://localhost:3000'}))
+var whitelist = ['http://localhost:3000', 'https://pgpscale.netlify.app']
+app.use(cors({
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+        }
+    }
+))
 
 require('dotenv/config')//security (dotenv)
 
