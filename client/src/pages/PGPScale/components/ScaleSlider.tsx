@@ -10,7 +10,7 @@ const ScaleSlider: React.FC<Props> = ({scaleID}) => {
     useEffect(()=>{
         const fetchSliderValue = async () =>{
             //fetching the saved scales from the backend
-           const response = await fetch('/scales/'+scaleID)
+           const response = await fetch('https://pgpscale.herokuapp.com/scales/'+scaleID)
            const data = await response.json()
            if(data.sliderValue){
                 setSliderValue(data.sliderValue)
