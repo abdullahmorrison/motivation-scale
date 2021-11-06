@@ -2,12 +2,11 @@ import GitHubLogo from './images/githubLogo.png'
 import MailLogo from './images/mailLogo.png'
 import Laptop from './images/laptop.png'
 
-import styles from '../css/landing.module.css'
+import styles from './css/landing.module.css'
 
 import { useHistory } from 'react-router-dom';
 
 import DemoScale from './components/DemoScale'
-
 
 const Landing = () => {
     const history = useHistory(); //for react router
