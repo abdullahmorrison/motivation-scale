@@ -1,14 +1,15 @@
 import Nav from './Nav'
 import CallToAction from './CallToAction'
-import MotivationSource from './MotivationSource'
+import MotivationSource from './MotivationSource.svg'
 import ScaleAnimation from './ScaleAnimation'
+
 const Hero = () =>{
     return(
         <>
             <Nav/>
             <div>
                 <CallToAction/>
-                <MotivationSource/>
+                <img src={MotivationSource} alt="Motivation Source" />
             </div>
             <ScaleAnimation/>
         </>
