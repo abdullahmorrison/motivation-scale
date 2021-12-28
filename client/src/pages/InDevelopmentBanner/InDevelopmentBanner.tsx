@@ -1,4 +1,4 @@
-import styles from './css/inDevelopmentBanner.module.css'
+import styles from './inDevelopmentBanner.module.css'
 
 import Caution from './images/caution.png'
 
