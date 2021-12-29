@@ -1,12 +1,13 @@
 .banner{
-    background-color: #2c2c2c;
+    background-color: #AD0000;
     color: white;
     display: flex;
     justify-content: center;
     padding: 10px;
-    margin-bottom: 10px;
 }
+
 .banner img{
     margin-right: 5px;
     width: 20px;
+    height: 20px;
 }
