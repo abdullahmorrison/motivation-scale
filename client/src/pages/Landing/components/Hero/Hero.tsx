@@ -1,18 +1,18 @@
-import Nav from './Nav'
 import CallToAction from './CallToAction'
 import MotivationSource from './MotivationSource.svg'
 import ScaleAnimation from './ScaleAnimation'
 
+import styles from './hero.module.css'
+
 const Hero = () =>{
     return(
-        <>
-            <Nav/>
-            <div>
+        <section className={styles.hero}>
+            <main>
                 <CallToAction/>
                 <img src={MotivationSource} alt="Motivation Source" />
-            </div>
+            </main>
             <ScaleAnimation/>
-        </>
+        </section>
     )
 }
 export default Hero
