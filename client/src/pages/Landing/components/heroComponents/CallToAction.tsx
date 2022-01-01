@@ -1,6 +1,8 @@
+import styles from './callToAction.module.css'
+
 const CallToAction = () =>{
     return(
-        <div>
+        <div className={styles.callToAction}>
             <h1>The Perceived Goal Progress Scale</h1>
             <h2>Prevent Your Emotions From Slowing Your Progress</h2>
             <button>Get Started</button>

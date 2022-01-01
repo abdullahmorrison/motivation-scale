@@ -1,6 +1,8 @@
+import styles from './heroScale.module.css'
+
 const ScaleAnimation = () =>{
     return(
-        <div>
+        <div className={styles.heroScale}>
             <input type="range" name="scale"/>
         </div>
     )
