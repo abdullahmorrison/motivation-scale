@@ -1,5 +1,5 @@
 import CallToAction from './heroComponents/CallToAction'
-import MotivationSource from './MotivationSource.svg'
+import MotivationSource from './heroComponents/MotivationSource.svg'
 import ScaleAnimation from './heroComponents/HeroScale'
 
 import styles from './hero.module.css'
