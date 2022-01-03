@@ -1,5 +1,8 @@
 import Nav from './components/Nav'
-import Hero from './components/Hero/Hero'
+import Hero from './components/Hero'
+import PGPSlideshow from './components/PGPSlideshow'
+import PGPExplanation from './components/PGPExplanation'
+import PGPDemo from './components/PGPDemo'
 
 import './landing.module.css'
 
@@ -11,7 +14,10 @@ const Landing = () => {
     return (
         <body>
             <Nav/>
-           <Hero/> 
+            <Hero/> 
+            <PGPSlideshow/>
+            <PGPExplanation/>
+            <PGPDemo/>
         </body>
     )
 }
