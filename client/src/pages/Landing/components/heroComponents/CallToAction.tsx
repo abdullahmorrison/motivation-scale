@@ -1,5 +1,8 @@
 import styles from './callToAction.module.css'
 
+import appleStoreButton from './callToActionComponents/appleStoreButton.svg'
+import googlePlayButton from './callToActionComponents/googlePlayButton.svg'
+
 const CallToAction = () =>{
     return(
         <div className={styles.callToAction}>
@@ -7,8 +10,8 @@ const CallToAction = () =>{
             <h2>Prevent Your Emotions From Slowing Your Progress</h2>
             <button>Get Started</button>
             <div className="download-app">
-                Apple
-                Google
+                <a href=''><img src={appleStoreButton} alt="Apple Store Button" /></a>
+                <a href=''><img src={googlePlayButton} alt="Google Play Button" /></a>
             </div>
         </div>
     )
