@@ -1,0 +1,27 @@
+.footer{
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.links{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 100px;
+    width: 100%;
+    justify-items: center;
+}
+.links>*{
+    margin: 10px;
+    max-width: 150px;
+    text-align: center;
+}
+.links>a{
+    text-decoration: none;
+    color: white;
+}
+.links>a>img{
+    margin-bottom: 10px;
+}
