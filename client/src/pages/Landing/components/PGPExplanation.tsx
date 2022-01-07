@@ -1,5 +1,7 @@
 import styles from './pgpExplanation.module.css'
 
+import ManWithMotivation from './manWithMotivation.svg'
+
 const PGPExplanation = () => {
     return (
         <div className={styles.explanation}>
@@ -11,7 +13,7 @@ const PGPExplanation = () => {
                     It does this by improving your self-awareness and helping you plan your goals
                 </p>
             </section>
-            <img src="" alt="Motivation Source on a Man" />
+            <img src={ManWithMotivation} alt="Motivation Source on a Man" />
         </div>
     )
 }
