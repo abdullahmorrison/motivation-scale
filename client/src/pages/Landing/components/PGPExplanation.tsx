@@ -1,6 +1,6 @@
 import styles from './pgpExplanation.module.css'
 
-import ManWithMotivation from './manWithMotivation.svg'
+import ManWithMotivation from './pgpExplanationComponents/manWithMotivation.svg'
 
 const PGPExplanation = () => {
     return (
