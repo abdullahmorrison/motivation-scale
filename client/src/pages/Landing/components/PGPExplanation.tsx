@@ -4,16 +4,18 @@ import ManWithMotivation from './pgpExplanationComponents/manWithMotivation.svg'
 
 const PGPExplanation = () => {
     return (
-        <div className={styles.explanation}>
-            <section>
-                <h2>
-                    This tool helps create motivation and keep it positive
-                </h2>
-                <p>
-                    It does this by improving your self-awareness and helping you plan your goals
-                </p>
-            </section>
-            <img src={ManWithMotivation} alt="Motivation Source on a Man" />
+        <div className={styles.explanationContainer}>
+            <div className={styles.explanation}>
+                <section >
+                    <h2>
+                        This tool helps create motivation and keep it positive
+                    </h2>
+                    <p>
+                        It does this by improving your self-awareness and helping you plan your goals
+                    </p>
+                </section>
+                <img src={ManWithMotivation} alt="Motivation Source on a Man" />
+            </div>
         </div>
     )
 }
