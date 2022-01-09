@@ -1,0 +1,22 @@
+.nav{
+    background-color: black;
+    color: white;
+    padding: 20px 80px;
+}
+.nav ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+}
+.nav .logo{
+    font-size: xx-large;
+    font-weight: bold;
+}
+.nav .unstyled, .nav .logo{
+    text-decoration: none;
+    color: white;
+}
+.nav a{
+    color: blue;
+}
