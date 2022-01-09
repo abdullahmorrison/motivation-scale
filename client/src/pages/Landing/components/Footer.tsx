@@ -11,7 +11,7 @@ const Footer = () =>{
                <button>Get Started</button>
            </div>
            <div className={styles.links}>
-               <a href="">
+               <a href="https://github.com/abdullahmorrison/ThePerceivedGoalProgressScale/wiki/PGP-Scale-Guide" target='__blank'>
                    <img src={InternetIcon} alt="Internet Icon" />
                    <p>Read In-Depth PGP Scale Guide</p>
                </a>
