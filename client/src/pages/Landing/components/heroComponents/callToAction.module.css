@@ -5,3 +5,9 @@
 .callToAction h1{
    font-size: 3rem; 
 }
+.downloadApp{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 350px;
+}
