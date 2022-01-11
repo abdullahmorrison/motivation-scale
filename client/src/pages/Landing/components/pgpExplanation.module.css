@@ -4,7 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 400px;
+    height: 600px;
 }
 .explanation{
     display: grid;
@@ -12,4 +12,8 @@
     justify-items: center;
     align-items: center;
     width: 900px;
+}
+.explanation p{
+    margin-top: 20px;
+    font-size: x-large;
 }
