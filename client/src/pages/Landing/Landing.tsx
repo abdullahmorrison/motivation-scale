@@ -3,6 +3,7 @@ import Hero from './components/Hero'
 import PGPSlideshow from './components/PGPSlideshow'
 import PGPExplanation from './components/PGPExplanation'
 import PGPDemo from './components/PGPDemo'
+import Footer from './components/Footer'
 
 import './landing.module.css'
 
@@ -18,6 +19,7 @@ const Landing = () => {
             <PGPSlideshow/>
             <PGPExplanation/>
             <PGPDemo/>
+            <Footer/>
         </body>
     )
 }
