@@ -1,0 +1,21 @@
+.slideShowContainer{
+    display: flex;
+    justify-content: center;
+}
+.slideShow{
+    display: flex;
+    align-items: center;
+    width: 60vw;
+}
+.slideShow img{
+    margin-right: 50px;
+}
+.mainText{
+    font-size: x-large;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+.example{
+    font-size: large;
+    font-weight: bold;
+}
