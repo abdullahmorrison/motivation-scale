@@ -8,6 +8,11 @@ import 'react-multi-carousel/lib/styles.css';
 //css
 import styles from './pgpSlideShow.module.css'
 
+//images
+import motivationSourceMeasuring from './pgpSlideShowComponents/images/motivationSourceMeasuring.svg'
+import crammingForExam from './pgpSlideShowComponents/images/crammingForExam.svg'
+import jumpingForJoy from './pgpSlideShowComponents/images/jumpingForJoy.svg'
+
 const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -30,10 +35,21 @@ const responsive = {
 
 const slideShowData = [
   {
-    imgSrc: "",
-    imgAltText: "",
-    mainText: "",
-    example: ""
+    imgSrc: motivationSourceMeasuring,
+    imgAltText: "Motivation Source Measuring",
+    mainText: "Motivation can either come from a positive source or negative source.",
+  },
+  {
+    imgSrc: crammingForExam,
+    imgAltText: "Cramming for an Exam",
+    mainText: "Motivation from a negative source comes from anxiety and a fear of failure.",
+    example: "Example: Staying up over night to cram for an exam"
+  },
+  {
+    imgSrc: jumpingForJoy,
+    imgAltText: "Jumping for Joy",
+    mainText: "Motivation from a positive source comes from an excitement to pursue sucess",
+    example: "Example: Hitting a milestone with your goal that inspires you to work harder"
   }
 ]
 
