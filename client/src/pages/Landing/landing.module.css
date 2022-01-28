@@ -10,11 +10,12 @@ button {
   border-radius: 5px;
   color: white;
   font-size: large;
-  padding: 8px;
+  font-weight: bold;
+  padding: 10px 30px;
 }
 
 button:hover{
-  background-color: #60dd5c;
+  background-color: orange;
   border: 1px;
   cursor: pointer;
 }

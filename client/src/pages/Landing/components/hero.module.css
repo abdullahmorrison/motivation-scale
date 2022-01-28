@@ -1,7 +1,8 @@
 .hero{
     background: black;
     color: white;
-    padding: 20px 100px;
+    padding: 0 100px;
+    height: 80vh;
 }
 
 .hero main{
