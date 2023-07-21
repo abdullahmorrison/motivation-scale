@@ -11,18 +11,19 @@ export default function AddScaleButton() {
 
 const styles = StyleSheet.create({
   button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+
     borderColor: 'grey',
     borderWidth: 0.5,
     borderRadius: 10,
-    width: 50,
-    height: 50,
 
-    // shadow
     elevation: 5,
     backgroundColor: 'white',
 
-    alignItems: 'center',
-    justifyContent: 'center',
+    margin: 20,
+    width: 50,
+    height: 50,
   },
   text: {
     fontSize: 30,
