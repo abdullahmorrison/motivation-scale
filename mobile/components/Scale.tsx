@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { StyleSheet, View, Text, Dimensions, TouchableOpacity} from "react-native";
 import { Slider } from '@react-native-assets/slider'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faSortDown, faBars, faEdit} from "@fortawesome/free-solid-svg-icons";
+import { faSortDown, faSortUp, faBars, faEdit} from "@fortawesome/free-solid-svg-icons";
 
 export default function Scale() {
     const [goal, setGoal] = useState<String>("Test")
+    const [expandScale, setExpandScale] = useState<Boolean>(false)
 
     return (
         <View style={styles.container}>
@@ -14,7 +15,7 @@ export default function Scale() {
                     <FontAwesomeIcon icon={faBars} size={20}/>
                 </TouchableOpacity>
                 <Text style={styles.header.goal}>{goal}</Text>
-                <TouchableOpacity>
+                <TouchableOpacity style={styles.header.editIcon}>
                     <FontAwesomeIcon icon={faEdit} size={20}/>
                 </TouchableOpacity>
             </View>
@@ -28,8 +29,20 @@ export default function Scale() {
                 thumbStyle={styles.slider.thumb}
                 trackStyle={styles.slider.track}
             />
-            <TouchableOpacity style={styles.expand}>
-                <FontAwesomeIcon icon={faSortDown} size={25}/>
+            {   expandScale &&
+                <View style={styles.explanations}>
+                    <View>
+                        <Text>Chasing Success</Text>
+                        <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione officia iusto consequuntur esse cum velit vero! Sed inventore id nulla nemo ad odio, quidem, doloribus, ut officia soluta quas autem.</Text>
+                    </View> 
+                    <View>
+                        <Text>Avoiding Failure</Text>
+                        <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione officia iusto consequuntur esse cum velit vero! Sed inventore id nulla nemo ad odio, quidem, doloribus, ut officia soluta quas autem.</Text>
+                    </View> 
+                </View>
+            }
+            <TouchableOpacity style={styles.expand} onPress={()=>setExpandScale(!expandScale)}>
+                <FontAwesomeIcon icon={expandScale ? faSortUp : faSortDown} size={25} style={expandScale ? styles.flippedIcon : undefined}/>
             </TouchableOpacity>
         </View>
     )
@@ -47,11 +60,19 @@ const styles = StyleSheet.create({
 
         elevation: 3,
         backgroundColor: 'white',
+        width: Dimensions.get('window').width * 0.9,
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+
+        editIcon: {
+            elevation: 3,
+            backgroundColor: 'white',
+            borderRadius: 5,
+            padding: 5,
+        } as const,
 
         goal: {
             fontSize: 20,
@@ -75,7 +96,13 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         marginTop: 10,
         height: 40,
-        width: Dimensions.get('window').width * 0.85,
+    },
+    explanations: {
+        borderTopWidth: 0.5,
+        borderTopColor: 'grey',
+        margin: -10,
+        marginTop: 10,
+        padding: 10,
     },
     expand: {
         borderTopWidth: 0.5,
@@ -87,6 +114,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    icon: {
+    flippedIcon: { // fixes icon positioning when it is flipped
+        marginTop: 10,
+        marginBottom: -10,
     }
 })
