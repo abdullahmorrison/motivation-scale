@@ -1,12 +1,27 @@
-import React from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
+import React, { useEffect } from 'react';
+import { BackHandler, View, Text, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
 
 interface ScaleModalProps {
     isModalOpen: Boolean,
+    closeModal: () => void
 }
 export default function ScaleModal(props: ScaleModalProps) {
+    const handleBackButton = () => {
+        props.closeModal()
+        return true
+    }
+    useEffect(() => { // close modal on back button press
+        BackHandler.addEventListener('hardwareBackPress', handleBackButton)
+        return () => {
+            BackHandler.removeEventListener('hardwareBackPress', handleBackButton)
+        }
+    }, [])
     return (
-        <View style={[styles.background, props.isModalOpen ? undefined : styles.hidden]}>
+        <View 
+        onTouchStart={
+            (event)=>{event.preventDefault() 
+            if(event.target == event.currentTarget) props.closeModal()
+        }} style={[styles.background, props.isModalOpen ? undefined : styles.hidden]}>
             <View style={styles.modal}>
                 <View>
                     <View>
@@ -23,7 +38,7 @@ export default function ScaleModal(props: ScaleModalProps) {
                     </View>
                 </View>
                 <View style={styles.modal.buttons}>
-                    <TouchableOpacity style={[styles.button, styles.button.cancel]}>
+                    <TouchableOpacity onPress={props.closeModal} style={[styles.button, styles.button.cancel]}>
                         <Text style={styles.button.text}>Cancel</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.button, styles.button.create]}>
@@ -64,7 +79,6 @@ const styles = StyleSheet.create({
         inputLabel: {
             fontWeight: 'bold',
             fontSize: 18,
-            marginBottom: 5,
         } as const,
         textInput: {
             borderColor: 'grey',

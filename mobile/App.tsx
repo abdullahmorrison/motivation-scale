@@ -16,7 +16,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
-      <ScaleModal isModalOpen={isModalOpen}/>
+      <ScaleModal closeModal={()=>setIsModalOpen(false)} isModalOpen={isModalOpen}/>
       <View>
         <Scale/>
       </View>
