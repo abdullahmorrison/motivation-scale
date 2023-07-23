@@ -1,9 +1,12 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
 
-export default function ScaleModal() {
+interface ScaleModalProps {
+    isModalOpen: Boolean,
+}
+export default function ScaleModal(props: ScaleModalProps) {
     return (
-        <View style={styles.background}>
+        <View style={[styles.background, props.isModalOpen ? undefined : styles.hidden]}>
             <View style={styles.modal}>
                 <View>
                     <View>
@@ -33,6 +36,9 @@ export default function ScaleModal() {
 }
 
 const styles = StyleSheet.create({
+    hidden: {
+        display: 'none',
+    },
     background: {
         backgroundColor: 'rgba(0,0,0,0.5)',
         justifyContent: 'flex-end',

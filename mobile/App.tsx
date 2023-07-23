@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, SafeAreaView, View} from 'react-native';
 
@@ -6,14 +7,20 @@ import Scale from './components/Scale';
 import ScaleModal from './components/ScaleModal';
 
 export default function App() {
+  const [isModalOpen, setIsModalOpen] = useState<Boolean>(false)
+
+  const handleAddScale = () => {
+    setIsModalOpen(true)
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
-      <ScaleModal/>
+      <ScaleModal isModalOpen={isModalOpen}/>
       <View>
         <Scale/>
       </View>
-      <AddScaleButton />
+      <AddScaleButton onPress={handleAddScale}/>
     </SafeAreaView>
   );
 }

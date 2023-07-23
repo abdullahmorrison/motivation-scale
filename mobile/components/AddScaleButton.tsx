@@ -1,9 +1,11 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-export default function AddScaleButton() {
-    const handlePress = () => console.log("pressed");
+interface AddScaleButtonProps {
+    onPress: () => void,
+}
+export default function AddScaleButton(props: AddScaleButtonProps) {
     return(
-        <TouchableOpacity style={styles.button} onPress={handlePress}>
+        <TouchableOpacity style={styles.button} onPress={props.onPress}>
             <Text style={styles.text} >+</Text>
         </TouchableOpacity>
     )
