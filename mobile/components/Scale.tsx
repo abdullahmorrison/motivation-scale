@@ -4,7 +4,11 @@ import { Slider } from '@react-native-assets/slider'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faSortDown, faSortUp, faBars, faEdit} from "@fortawesome/free-solid-svg-icons";
 
-export default function Scale() {
+
+interface ScaleProps {
+    onEdit: () => void
+}
+export default function Scale(props: ScaleProps) {
     const [goal, setGoal] = useState<String>("Test")
     const [expandScale, setExpandScale] = useState<Boolean>(false)
 
@@ -15,7 +19,7 @@ export default function Scale() {
                     <FontAwesomeIcon icon={faBars} size={20}/>
                 </TouchableOpacity>
                 <Text style={styles.header.goal}>{goal}</Text>
-                <TouchableOpacity style={styles.header.editIcon}>
+                <TouchableOpacity style={styles.header.editIcon} onPress={props.onEdit}>
                     <FontAwesomeIcon icon={faEdit} size={20}/>
                 </TouchableOpacity>
             </View>

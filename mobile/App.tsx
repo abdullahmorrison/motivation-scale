@@ -12,13 +12,16 @@ export default function App() {
   const handleAddScale = () => {
     setIsModalOpen(true)
   }
+  const handleEdit = () => {
+    setIsModalOpen(true)
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <ScaleModal closeModal={()=>setIsModalOpen(false)} isModalOpen={isModalOpen}/>
       <View>
-        <Scale/>
+        <Scale onEdit={handleEdit}/>
       </View>
       <AddScaleButton onPress={handleAddScale}/>
     </SafeAreaView>
