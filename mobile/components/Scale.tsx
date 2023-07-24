@@ -31,12 +31,12 @@ export default function Scale() {
             />
             {   expandScale &&
                 <View style={styles.explanations}>
-                    <View>
-                        <Text>Chasing Success</Text>
+                    <View style={styles.explanations.section}>
+                        <Text style={styles.explanations.title}>Chasing Success</Text>
                         <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione officia iusto consequuntur esse cum velit vero! Sed inventore id nulla nemo ad odio, quidem, doloribus, ut officia soluta quas autem.</Text>
                     </View> 
-                    <View>
-                        <Text>Avoiding Failure</Text>
+                    <View style={styles.explanations.section}>
+                        <Text style={styles.explanations.title}>Avoiding Failure</Text>
                         <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione officia iusto consequuntur esse cum velit vero! Sed inventore id nulla nemo ad odio, quidem, doloribus, ut officia soluta quas autem.</Text>
                     </View> 
                 </View>
@@ -103,6 +103,13 @@ const styles = StyleSheet.create({
         margin: -10,
         marginTop: 10,
         padding: 10,
+
+        section: {
+            marginBottom: 10,
+        } as const,
+        title: {
+            fontWeight: 'bold',
+        } as const
     },
     expand: {
         borderTopWidth: 0.5,
