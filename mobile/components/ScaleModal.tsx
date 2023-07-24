@@ -1,14 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BackHandler, View, Text, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
-
+import { Tooltip } from '@rneui/base';
 
 interface ScaleModalProps {
     isModalOpen: Boolean,
     closeModal: () => void
 }
 export default function ScaleModal(props: ScaleModalProps) {
+    const [showChasingSuccessInfo, setShowChasingSuccessInfo] = useState<boolean>(false)
+    const [showAvoidingFailureInfo, setShowAvoidingFailureInfo] = useState<boolean>(false) 
+
     const handleBackButton = () => {
         props.closeModal()
         return true
@@ -20,11 +23,7 @@ export default function ScaleModal(props: ScaleModalProps) {
         }
     }, [])
     return (
-        <View 
-        onTouchStart={
-            (event)=>{event.preventDefault() 
-            if(event.target == event.currentTarget) props.closeModal()
-        }} style={[styles.background, props.isModalOpen ? undefined : styles.hidden]}>
+        <View style={[styles.background, props.isModalOpen ? undefined : styles.hidden]}>
             <View style={styles.modal}>
                 <View>
                     <View>
@@ -34,18 +33,38 @@ export default function ScaleModal(props: ScaleModalProps) {
                     <View>
                         <View style={styles.modal.inputLabel}>
                             <Text style={styles.modal.inputLabel.title}>Chasing Sucess</Text>
-                            <TouchableOpacity>
+                            <Tooltip 
+                                visible={showChasingSuccessInfo}
+                                onOpen={()=>setShowChasingSuccessInfo(true)}
+                                onClose={()=>setShowChasingSuccessInfo(false)}
+                                height={80}
+                                containerStyle={{width: 220}}
+                                popover={
+                                    <Text>
+                                        What things would you have to do to feel like you will achieve your goal faster than expected?
+                                    </Text>
+                                }>
                                 <FontAwesomeIcon icon={faCircleInfo} size={18}/>
-                            </TouchableOpacity>
+                            </Tooltip>
                         </View>
                         <TextInput multiline={true} style={[styles.modal.textInput, styles.modal.textArea]} placeholder="I feel like I'm making good progress when..."/>
                     </View>
                     <View>
                         <View style={styles.modal.inputLabel}>
                             <Text style={styles.modal.inputLabel.title}>Avoiding Failure</Text>
-                            <TouchableOpacity>
+                            <Tooltip 
+                                visible={showAvoidingFailureInfo}
+                                onOpen={()=>setShowAvoidingFailureInfo(true)}
+                                onClose={()=>setShowAvoidingFailureInfo(false)}
+                                height={80}
+                                containerStyle={{width: 220}}
+                                popover={
+                                    <Text>
+                                        What things would you have to do to feel like you are falling behind on achieving your goal?
+                                    </Text>
+                                }>
                                 <FontAwesomeIcon icon={faCircleInfo} size={18}/>
-                            </TouchableOpacity>
+                            </Tooltip>
                         </View>
                         <TextInput multiline={true} style={[styles.modal.textInput, styles.modal.textArea]} placeholder="I feel like I'm falling behind when..."/>
                     </View>
@@ -135,5 +154,8 @@ const styles = StyleSheet.create({
         create: {
             backgroundColor: '#33EC46',
         }
+    },
+    tooltip: {
+        color: 'white',
     }
 })
