@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { BackHandler } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, SafeAreaView, View} from 'react-native';
 
@@ -15,6 +16,17 @@ export default function App() {
   const handleEdit = () => {
     setIsModalOpen(true)
   }
+
+  const handleBackButton = () => {//close app on back button press
+    BackHandler.exitApp()
+    return true
+  }
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton)
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButton)
+    }
+  }, [])
 
   return (
     <SafeAreaView style={styles.container}>
