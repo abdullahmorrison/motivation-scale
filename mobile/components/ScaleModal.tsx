@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react';
 import { BackHandler, View, Text, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+
 
 interface ScaleModalProps {
     isModalOpen: Boolean,
@@ -25,15 +28,25 @@ export default function ScaleModal(props: ScaleModalProps) {
             <View style={styles.modal}>
                 <View>
                     <View>
-                        <Text style={styles.modal.inputLabel}>Goal</Text>
+                        <Text style={styles.modal.inputLabel.title}>Goal</Text>
                         <TextInput style={styles.modal.textInput} placeholder="Ex: Learn a new language"/>
                     </View>
                     <View>
-                        <Text style={styles.modal.inputLabel}>Chasing Sucess</Text>
+                        <View style={styles.modal.inputLabel}>
+                            <Text style={styles.modal.inputLabel.title}>Chasing Sucess</Text>
+                            <TouchableOpacity>
+                                <FontAwesomeIcon icon={faCircleInfo} size={18}/>
+                            </TouchableOpacity>
+                        </View>
                         <TextInput multiline={true} style={[styles.modal.textInput, styles.modal.textArea]} placeholder="I feel like I'm making good progress when..."/>
                     </View>
                     <View>
-                        <Text style={styles.modal.inputLabel}>Avoiding Failure</Text>
+                        <View style={styles.modal.inputLabel}>
+                            <Text style={styles.modal.inputLabel.title}>Avoiding Failure</Text>
+                            <TouchableOpacity>
+                                <FontAwesomeIcon icon={faCircleInfo} size={18}/>
+                            </TouchableOpacity>
+                        </View>
                         <TextInput multiline={true} style={[styles.modal.textInput, styles.modal.textArea]} placeholder="I feel like I'm falling behind when..."/>
                     </View>
                 </View>
@@ -77,8 +90,14 @@ const styles = StyleSheet.create({
         padding: 10,
 
         inputLabel: {
-            fontWeight: 'bold',
-            fontSize: 18,
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 5,
+
+            title: {
+                fontWeight: 'bold',
+                fontSize: 18,
+            }
         } as const,
         textInput: {
             borderColor: 'grey',
@@ -116,5 +135,5 @@ const styles = StyleSheet.create({
         create: {
             backgroundColor: '#33EC46',
         }
-    } 
+    }
 })
