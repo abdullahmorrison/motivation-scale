@@ -4,12 +4,20 @@ import { Slider } from '@react-native-assets/slider'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faSortDown, faSortUp, faBars, faEdit} from "@fortawesome/free-solid-svg-icons";
 
-
+export interface ScaleType{
+    _id: string
+    username: string
+    order: number
+    title: string
+    sliderValue: number
+    avoidingFailureDescription: number
+    chasingSuccessDescription: number
+}
 interface ScaleProps {
     onEdit: () => void
+    scale: ScaleType
 }
 export default function Scale(props: ScaleProps) {
-    const [goal, setGoal] = useState<String>("Test")
     const [expandScale, setExpandScale] = useState<Boolean>(false)
 
     return (
@@ -18,13 +26,13 @@ export default function Scale(props: ScaleProps) {
                 <TouchableOpacity>
                     <FontAwesomeIcon icon={faBars} size={20}/>
                 </TouchableOpacity>
-                <Text style={styles.header.goal}>{goal}</Text>
+                <Text style={styles.header.goal}>{props.scale.title}</Text>
                 <TouchableOpacity style={styles.header.editIcon} onPress={props.onEdit}>
                     <FontAwesomeIcon icon={faEdit} size={20}/>
                 </TouchableOpacity>
             </View>
             <Slider
-                value={50}
+                value={props.scale.sliderValue}
                 minimumValue={0}
                 maximumValue={100}
                 step={1}
@@ -37,11 +45,11 @@ export default function Scale(props: ScaleProps) {
                 <View style={styles.explanations}>
                     <View style={styles.explanations.section}>
                         <Text style={styles.explanations.title}>Chasing Success</Text>
-                        <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione officia iusto consequuntur esse cum velit vero! Sed inventore id nulla nemo ad odio, quidem, doloribus, ut officia soluta quas autem.</Text>
+                        <Text>{props.scale.chasingSuccessDescription}</Text>
                     </View> 
                     <View style={styles.explanations.section}>
                         <Text style={styles.explanations.title}>Avoiding Failure</Text>
-                        <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione officia iusto consequuntur esse cum velit vero! Sed inventore id nulla nemo ad odio, quidem, doloribus, ut officia soluta quas autem.</Text>
+                        <Text>{props.scale.avoidingFailureDescription}</Text>
                     </View> 
                 </View>
             }

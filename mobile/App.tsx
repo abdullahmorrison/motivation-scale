@@ -4,11 +4,13 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, SafeAreaView, View} from 'react-native';
 
 import AddScaleButton from './components/AddScaleButton';
-import Scale from './components/Scale';
+import Scale, { ScaleType } from './components/Scale';
 import ScaleModal from './components/ScaleModal';
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState<Boolean>(false)
+  const [scales, setScales] = useState<Array<ScaleType>>([])
+  const [username, setUsername] = useState<string>("abdullahmorrison@gmail.com")
 
   const handleAddScale = () => {
     setIsModalOpen(true)
@@ -16,6 +18,25 @@ export default function App() {
   const handleEdit = () => {
     setIsModalOpen(true)
   }
+  useEffect(()=>{
+      const fetchScales = async () => {
+          if(username){
+            try{
+              const response = await fetch('http://localhost:3001/scales/'+username+'/username/')
+              const data = await response.json()
+              console.log(data)
+              setScales(data.sort(function (a: {order: number}, b:{order: number}) {//sorting scales by the order attribute
+                  return a.order - b.order;
+                }))
+            }catch(error){
+              console.error(error)
+            }
+          }else{
+              console.error("Error: NO USER when fetching scales")
+          }
+      }
+      fetchScales()
+  }, [username])
 
   const handleBackButton = () => {//close app on back button press
     BackHandler.exitApp()
@@ -33,7 +54,11 @@ export default function App() {
       <StatusBar style="auto" />
       <ScaleModal closeModal={()=>setIsModalOpen(false)} isModalOpen={isModalOpen}/>
       <View>
-        <Scale onEdit={handleEdit}/>
+        {
+          scales.map((scale) => {
+            return <Scale key={scale._id} scale={scale} handleEdit={handleEdit}/>
+          })
+        }
       </View>
       <AddScaleButton onPress={handleAddScale}/>
     </SafeAreaView>
