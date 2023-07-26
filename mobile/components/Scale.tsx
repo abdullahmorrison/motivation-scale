@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { StyleSheet, View, Text, Dimensions, TouchableOpacity} from "react-native";
 import { Slider } from '@react-native-assets/slider'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
@@ -10,15 +10,29 @@ export interface ScaleType{
     order: number
     title: string
     sliderValue: number
-    avoidingFailureDescription: number
-    chasingSuccessDescription: number
+    avoidingFailureDescription: string
+    chasingSuccessDescription: string
 }
 interface ScaleProps {
-    onEdit: () => void
+    handleEdit: (scale: ScaleType) => void
     scale: ScaleType
 }
 export default function Scale(props: ScaleProps) {
     const [expandScale, setExpandScale] = useState<Boolean>(false)
+
+    const handleSliderChange = useCallback(async(value: number) => {
+        try{
+            const response = await fetch('http://localhost:3001/scales/'+props.scale._id+'/sliderValue/', {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({sliderValue: value})
+            })
+        }catch(error){
+            console.error(error)
+        }
+    }, [props.scale.sliderValue])
 
     return (
         <View style={styles.container}>
@@ -27,7 +41,7 @@ export default function Scale(props: ScaleProps) {
                     <FontAwesomeIcon icon={faBars} size={20}/>
                 </TouchableOpacity>
                 <Text style={styles.header.goal}>{props.scale.title}</Text>
-                <TouchableOpacity style={styles.header.editIcon} onPress={props.onEdit}>
+                <TouchableOpacity style={styles.header.editIcon} onPress={()=>props.handleEdit(props.scale)}>
                     <FontAwesomeIcon icon={faEdit} size={20}/>
                 </TouchableOpacity>
             </View>
@@ -40,6 +54,7 @@ export default function Scale(props: ScaleProps) {
                 style={styles.slider}
                 thumbStyle={styles.slider.thumb}
                 trackStyle={styles.slider.track}
+                onValueChange={handleSliderChange}
             />
             {   expandScale &&
                 <View style={styles.explanations}>
