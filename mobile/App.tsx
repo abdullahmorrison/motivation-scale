@@ -1,30 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { BackHandler } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, SafeAreaView, View} from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react'
+import { BackHandler } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import { StyleSheet, SafeAreaView, View} from 'react-native'
 
-import AddScaleButton from './components/AddScaleButton';
-import Scale, { ScaleType } from './components/Scale';
-import ScaleModal from './components/ScaleModal';
+import AddScaleButton from './components/AddScaleButton'
+import Scale, { ScaleType } from './components/Scale'
+import ScaleModal from './components/ScaleModal'
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState<Boolean>(false)
   const [scales, setScales] = useState<Array<ScaleType>>([])
+  const [scaleToEdit, setScaleToEdit] = useState<Partial<ScaleType>|null>(null)
   const [username, setUsername] = useState<string>("abdullahmorrison@gmail.com")
 
-  const handleAddScale = () => {
+  const handleAddScale = useCallback(() => {
     setIsModalOpen(true)
-  }
-  const handleEdit = () => {
-    setIsModalOpen(true)
-  }
+  }, [])
+
+  const handleEdit = useCallback((scale: Partial<ScaleType>) => {
+    setScaleToEdit(scale)
+  }, [])
+
+  useEffect(() => {
+    if(scaleToEdit != null) setIsModalOpen(true)
+  }, [scaleToEdit])
+
   useEffect(()=>{
       const fetchScales = async () => {
           if(username){
             try{
               const response = await fetch('http://localhost:3001/scales/'+username+'/username/')
               const data = await response.json()
-              console.log(data)
               setScales(data.sort(function (a: {order: number}, b:{order: number}) {//sorting scales by the order attribute
                   return a.order - b.order;
                 }))
@@ -49,16 +55,21 @@ export default function App() {
     }
   }, [])
 
+  const handleCloseModal = useCallback(() => {
+    setScaleToEdit(null)
+    setIsModalOpen(false)
+  }, [scaleToEdit])
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
-      <ScaleModal closeModal={()=>setIsModalOpen(false)} isModalOpen={isModalOpen}/>
+      { scaleToEdit != null &&
+        <ScaleModal scaleToEdit={scaleToEdit} closeModal={handleCloseModal} isModalOpen={isModalOpen}/>
+      }
       <View>
-        {
-          scales.map((scale) => {
-            return <Scale key={scale._id} scale={scale} handleEdit={handleEdit}/>
-          })
-        }
+        {scales.map((scale) => {
+          return <Scale key={scale._id} scale={scale} handleEdit={(scale: Partial<ScaleType>)=>handleEdit(scale)}/>
+        })}
       </View>
       <AddScaleButton onPress={handleAddScale}/>
     </SafeAreaView>

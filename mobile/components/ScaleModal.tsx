@@ -1,16 +1,61 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { BackHandler, View, Text, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { Tooltip } from '@rneui/base';
+import { ScaleType } from './Scale';
 
 interface ScaleModalProps {
+    scaleToEdit: Partial<ScaleType> | null
     isModalOpen: Boolean,
     closeModal: () => void
 }
 export default function ScaleModal(props: ScaleModalProps) {
-    const [showChasingSuccessInfo, setShowChasingSuccessInfo] = useState<boolean>(false)
-    const [showAvoidingFailureInfo, setShowAvoidingFailureInfo] = useState<boolean>(false) 
+    const [showChasingSuccessToolTip, setShowChasingSuccessToolTip] = useState<boolean>(false)
+    const [showAvoidingFailureToolTip, setShowAvoidingFailureToolTip] = useState<boolean>(false) 
+
+    const [goalValue, setGoalValue] = useState<string>(props.scaleToEdit?.title || '')
+    const [chasingSuccessValue, setChasingSuccessValue] = useState<string>(props.scaleToEdit?.chasingSuccessDescription || '')
+    const [avoidingFailureValue, setAvoidingFailureValue] = useState<string>(props.scaleToEdit?.avoidingFailureDescription || '')
+
+    const handleEditScale = useCallback(async () => {
+        try{
+            if(props.scaleToEdit?.title != goalValue){
+                await fetch('http://localhost:3001/scales/'+props.scaleToEdit?._id+'/title/', {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({title: goalValue})
+                })
+                console.log("GOAL: "+props.scaleToEdit?.title + " " + goalValue)
+            }
+            if(props.scaleToEdit?.chasingSuccessDescription != chasingSuccessValue){
+                await fetch('http://localhost:3001/scales/'+props.scaleToEdit?._id+'/chasingSuccessDescription/', {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({chasingSuccessDescription: chasingSuccessValue})
+                })
+                console.log("CHASING SUCCESS: "+props.scaleToEdit?.chasingSuccessDescription + " " + chasingSuccessValue)
+            }
+            if(props.scaleToEdit?.avoidingFailureDescription != avoidingFailureValue){
+                console.log(JSON.stringify({avoidingFailureDescription: avoidingFailureValue}))
+                await fetch('http://localhost:3001/scales/'+props.scaleToEdit?._id+'/avoidingFailureDescription/', {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({avoidingFailureDescription: avoidingFailureValue})
+                })
+                console.log("AVOIDING FAILURE: "+props.scaleToEdit?.avoidingFailureDescription + " " + avoidingFailureValue)
+            }
+        }catch(error){
+            console.error(error)
+        }
+        props.closeModal()
+    }, [goalValue, chasingSuccessValue, avoidingFailureValue])
 
     const handleBackButton = () => {
         props.closeModal()
@@ -22,21 +67,22 @@ export default function ScaleModal(props: ScaleModalProps) {
             BackHandler.removeEventListener('hardwareBackPress', handleBackButton)
         }
     }, [])
+
     return (
         <View style={[styles.background, props.isModalOpen ? undefined : styles.hidden]}>
             <View style={styles.modal}>
                 <View>
                     <View>
                         <Text style={styles.modal.inputLabel.title}>Goal</Text>
-                        <TextInput style={styles.modal.textInput} placeholder="Ex: Learn a new language"/>
+                        <TextInput style={styles.modal.textInput} defaultValue={props.scaleToEdit?.title} placeholder="Ex: Learn a new language" onChangeText={setGoalValue} />
                     </View>
                     <View>
                         <View style={styles.modal.inputLabel}>
                             <Text style={styles.modal.inputLabel.title}>Chasing Sucess</Text>
                             <Tooltip 
-                                visible={showChasingSuccessInfo}
-                                onOpen={()=>setShowChasingSuccessInfo(true)}
-                                onClose={()=>setShowChasingSuccessInfo(false)}
+                                visible={showChasingSuccessToolTip}
+                                onOpen={()=>setShowChasingSuccessToolTip(true)}
+                                onClose={()=>setShowChasingSuccessToolTip(false)}
                                 height={80}
                                 containerStyle={{width: 220}}
                                 popover={
@@ -47,15 +93,15 @@ export default function ScaleModal(props: ScaleModalProps) {
                                 <FontAwesomeIcon icon={faCircleInfo} size={18}/>
                             </Tooltip>
                         </View>
-                        <TextInput multiline={true} style={[styles.modal.textInput, styles.modal.textArea]} placeholder="I feel like I'm making good progress when..."/>
+                        <TextInput multiline={true} style={[styles.modal.textInput, styles.modal.textArea]} onChangeText={setChasingSuccessValue} defaultValue={props.scaleToEdit?.chasingSuccessDescription} placeholder="I feel like I'm making good progress when..."/>
                     </View>
                     <View>
                         <View style={styles.modal.inputLabel}>
                             <Text style={styles.modal.inputLabel.title}>Avoiding Failure</Text>
                             <Tooltip 
-                                visible={showAvoidingFailureInfo}
-                                onOpen={()=>setShowAvoidingFailureInfo(true)}
-                                onClose={()=>setShowAvoidingFailureInfo(false)}
+                                visible={showAvoidingFailureToolTip}
+                                onOpen={()=>setShowAvoidingFailureToolTip(true)}
+                                onClose={()=>setShowAvoidingFailureToolTip(false)}
                                 height={80}
                                 containerStyle={{width: 220}}
                                 popover={
@@ -66,14 +112,14 @@ export default function ScaleModal(props: ScaleModalProps) {
                                 <FontAwesomeIcon icon={faCircleInfo} size={18}/>
                             </Tooltip>
                         </View>
-                        <TextInput multiline={true} style={[styles.modal.textInput, styles.modal.textArea]} placeholder="I feel like I'm falling behind when..."/>
+                        <TextInput multiline={true} style={[styles.modal.textInput, styles.modal.textArea]} onChangeText={setAvoidingFailureValue} defaultValue={props.scaleToEdit?.avoidingFailureDescription} placeholder="I feel like I'm falling behind when..."/>
                     </View>
                 </View>
                 <View style={styles.modal.buttons}>
                     <TouchableOpacity onPress={props.closeModal} style={[styles.button, styles.button.cancel]}>
                         <Text style={styles.button.text}>Cancel</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.button, styles.button.create]}>
+                    <TouchableOpacity style={[styles.button, styles.button.create]} onPress={handleEditScale}>
                         <Text style={styles.button.text}>Create</Text>
                     </TouchableOpacity>
                 </View>
