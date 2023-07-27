@@ -19,6 +19,27 @@ export default function ScaleModal(props: ScaleModalProps) {
     const [avoidingFailureValue, setAvoidingFailureValue] = useState<string>(props.scaleToEdit?.avoidingFailureDescription || '')
 
     const handleEditScale = useCallback(async () => {
+        if(props.scaleToEdit?._id == ''){ //create new scale if the scale id is empty
+            try{
+                await fetch('http://localhost:3001/scales/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: props.scaleToEdit?.username,
+                        title: goalValue,
+                        chasingSuccessDescription: chasingSuccessValue,
+                        avoidingFailureDescription: avoidingFailureValue,
+                    })
+                })
+            }catch(error){
+                console.error(error)
+            }
+            props.closeModal()
+            return
+        }
+
         try{
             if(props.scaleToEdit?.title != goalValue){
                 await fetch('http://localhost:3001/scales/'+props.scaleToEdit?._id+'/title/', {

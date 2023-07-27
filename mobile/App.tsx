@@ -14,7 +14,15 @@ export default function App() {
   const [username, setUsername] = useState<string>("abdullahmorrison@gmail.com")
 
   const handleAddScale = useCallback(() => {
-    setIsModalOpen(true)
+    setScaleToEdit({
+      _id: '',
+      username: username,
+      title: '',
+      chasingSuccessDescription: '',
+      avoidingFailureDescription: '',
+      order: scales.length
+    })
+    
   }, [])
 
   const handleEdit = useCallback((scale: Partial<ScaleType>) => {
