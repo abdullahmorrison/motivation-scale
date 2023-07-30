@@ -1,4 +1,4 @@
-import { objectType, extendType } from "nexus";
+import { objectType, extendType, nonNull, stringArg, intArg, idArg } from "nexus";
 import { NexusGenObjects } from "../../nexus-typegen"
 
 export const Scale = objectType({
@@ -38,5 +38,33 @@ export const ScaleQuery = extendType({
                 return scales;
             }
         });
+    }
+})
+
+export const ScaleMutation = extendType({
+    type: "Mutation",
+    definition(t) {
+        t.nonNull.field("createScale", {
+            type: "Scale",
+            args: {
+                id: nonNull(idArg()),
+                goal: nonNull(stringArg()),
+                sliderValue: nonNull(intArg()),
+                chasingSuccessDescription: stringArg(),
+                avoidingFailureDescription: stringArg(),
+            },
+            resolve(parent, args, context) {
+                const scale = {
+                    id: args.id,
+                    goal: args.goal,
+                    sliderValue: args.sliderValue? args.sliderValue : 50,
+                    chasingSuccessDescription: args.chasingSuccessDescription,
+                    avoidingFailureDescription: args.avoidingFailureDescription,
+                }
+
+                scales.push(scale)
+                return scale
+            }
+        })
     }
 })
