@@ -1,13 +1,17 @@
-const mongoose = require('mongoose');
+import { Schema, model } from "mongoose";
 
-const scaleSchema = mongoose.Schema({
+const scaleSchema = new Schema({
     username: {
         type: String,
         required: true,
         trim: true,
         minlength: 3
     },
-    title: String,
+    goal: {
+        type: String,
+        required: true,
+        trim: true
+    },
     sliderValue: {
         type: Number,
         default: 50
@@ -20,5 +24,4 @@ const scaleSchema = mongoose.Schema({
     timestamps: true,
 })
 
-const scale = mongoose.model('scale', scaleSchema);
-module.exports = scale;
+export const ScaleModel = model('scale', scaleSchema);
