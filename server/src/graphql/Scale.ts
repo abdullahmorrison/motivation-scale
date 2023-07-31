@@ -1,10 +1,11 @@
-import { objectType, extendType, nonNull, stringArg, intArg, idArg } from "nexus";
-import { NexusGenObjects } from "../../nexus-typegen"
+import { objectType, extendType, nonNull, stringArg, intArg } from "nexus"
+import { ScaleModel } from "../../models/scale"
 
 export const Scale = objectType({
     name: "Scale",
     definition(t) {
         t.nonNull.id("id");
+        t.nonNull.string("username");
         t.nonNull.string("goal");
         t.nonNull.int("sliderValue");
         t.nullable.string("chasingSuccessDescription");
@@ -12,30 +13,13 @@ export const Scale = objectType({
     },
 })
 
-let scales:  NexusGenObjects["Scale"][] = [
-    {
-        id: "1",
-        goal: "I want to be a better person",
-        sliderValue: 0,
-        chasingSuccessDescription: "I want to be a better person",
-        avoidingFailureDescription: "I don't want to be a bad person",
-    },
-    {
-        id: "2",
-        goal: "I want to be a better person",
-        sliderValue: 0,
-        chasingSuccessDescription: "I want to be a better person",
-        avoidingFailureDescription: "I don't want to be a bad person",
-    }
-]
-
 export const ScaleQuery = extendType({
     type: "Query",
     definition(t) {
         t.nonNull.list.nonNull.field("scales", {
             type: "Scale",
-            resolve(parent, args, context, info) {
-                return scales;
+            resolve() {
+                return ScaleModel.find({}).sort({createdAt: -1})
             }
         });
     }
@@ -46,24 +30,22 @@ export const ScaleMutation = extendType({
     definition(t) {
         t.nonNull.field("createScale", {
             type: "Scale",
+            description: "Create a new scale", 
             args: {
-                id: nonNull(idArg()),
+                username: nonNull(stringArg()),
                 goal: nonNull(stringArg()),
                 sliderValue: nonNull(intArg()),
                 chasingSuccessDescription: stringArg(),
                 avoidingFailureDescription: stringArg(),
             },
-            resolve(parent, args, context) {
-                const scale = {
-                    id: args.id,
-                    goal: args.goal,
-                    sliderValue: args.sliderValue? args.sliderValue : 50,
-                    chasingSuccessDescription: args.chasingSuccessDescription,
-                    avoidingFailureDescription: args.avoidingFailureDescription,
-                }
+            resolve: async (_, args) => {
+                const scale = new ScaleModel(args)
 
-                scales.push(scale)
-                return scale
+                const response = await scale.save()
+                return {
+                    id: response._id,
+                    ...scale.toObject()
+                }
             }
         })
     }
