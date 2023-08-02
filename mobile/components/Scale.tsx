@@ -8,7 +8,7 @@ export interface ScaleType{
     _id: string
     username: string
     order: number
-    title: string
+    goal: string
     sliderValue: number
     avoidingFailureDescription: string
     chasingSuccessDescription: string
@@ -21,17 +21,17 @@ export default function Scale(props: ScaleProps) {
     const [expandScale, setExpandScale] = useState<Boolean>(false)
 
     const handleSliderChange = useCallback(async(value: number) => {
-        try{
-            const response = await fetch('http://localhost:3001/scales/'+props.scale._id+'/sliderValue/', {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({sliderValue: value})
-            })
-        }catch(error){
-            console.error(error)
-        }
+        // try{
+        //     const response = await fetch('http://localhost:3001/scales/'+props.scale._id+'/sliderValue/', {
+        //         method: 'PATCH',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({sliderValue: value})
+        //     })
+        // }catch(error){
+        //     console.error(error)
+        // }
     }, [props.scale.sliderValue])
 
     return (
@@ -40,7 +40,7 @@ export default function Scale(props: ScaleProps) {
                 <TouchableOpacity>
                     <FontAwesomeIcon icon={faBars} size={20}/>
                 </TouchableOpacity>
-                <Text style={styles.header.goal}>{props.scale.title}</Text>
+                <Text style={styles.header.goal}>{props.scale.goal}</Text>
                 <TouchableOpacity style={styles.header.editIcon} onPress={()=>props.handleEdit(props.scale)}>
                     <FontAwesomeIcon icon={faEdit} size={20}/>
                 </TouchableOpacity>

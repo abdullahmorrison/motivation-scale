@@ -14,67 +14,67 @@ export default function ScaleModal(props: ScaleModalProps) {
     const [showChasingSuccessToolTip, setShowChasingSuccessToolTip] = useState<boolean>(false)
     const [showAvoidingFailureToolTip, setShowAvoidingFailureToolTip] = useState<boolean>(false) 
 
-    const [goalValue, setGoalValue] = useState<string>(props.scaleToEdit?.title || '')
+    const [goalValue, setGoalValue] = useState<string>(props.scaleToEdit?.goal || '')
     const [chasingSuccessValue, setChasingSuccessValue] = useState<string>(props.scaleToEdit?.chasingSuccessDescription || '')
     const [avoidingFailureValue, setAvoidingFailureValue] = useState<string>(props.scaleToEdit?.avoidingFailureDescription || '')
 
     const handleEditScale = useCallback(async () => {
         if(props.scaleToEdit?._id == ''){ //create new scale if the scale id is empty
-            try{
-                await fetch('http://localhost:3001/scales/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        username: props.scaleToEdit?.username,
-                        title: goalValue,
-                        chasingSuccessDescription: chasingSuccessValue,
-                        avoidingFailureDescription: avoidingFailureValue,
-                    })
-                })
-            }catch(error){
-                console.error(error)
-            }
+            // try{
+            //     await fetch('http://localhost:3001/scales/', {
+            //         method: 'POST',
+            //         headers: {
+            //             'Content-Type': 'application/json'
+            //         },
+            //         body: JSON.stringify({
+            //             username: props.scaleToEdit?.username,
+            //             title: goalValue,
+            //             chasingSuccessDescription: chasingSuccessValue,
+            //             avoidingFailureDescription: avoidingFailureValue,
+            //         })
+            //     })
+            // }catch(error){
+            //     console.error(error)
+            // }
             props.closeModal()
             return
         }
 
-        try{
-            if(props.scaleToEdit?.title != goalValue){
-                await fetch('http://localhost:3001/scales/'+props.scaleToEdit?._id+'/title/', {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({title: goalValue})
-                })
-                console.log("GOAL: "+props.scaleToEdit?.title + " " + goalValue)
-            }
-            if(props.scaleToEdit?.chasingSuccessDescription != chasingSuccessValue){
-                await fetch('http://localhost:3001/scales/'+props.scaleToEdit?._id+'/chasingSuccessDescription/', {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({chasingSuccessDescription: chasingSuccessValue})
-                })
-                console.log("CHASING SUCCESS: "+props.scaleToEdit?.chasingSuccessDescription + " " + chasingSuccessValue)
-            }
-            if(props.scaleToEdit?.avoidingFailureDescription != avoidingFailureValue){
-                console.log(JSON.stringify({avoidingFailureDescription: avoidingFailureValue}))
-                await fetch('http://localhost:3001/scales/'+props.scaleToEdit?._id+'/avoidingFailureDescription/', {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({avoidingFailureDescription: avoidingFailureValue})
-                })
-                console.log("AVOIDING FAILURE: "+props.scaleToEdit?.avoidingFailureDescription + " " + avoidingFailureValue)
-            }
-        }catch(error){
-            console.error(error)
-        }
+        // try{
+        //     if(props.scaleToEdit?.goal != goalValue){
+        //         await fetch('http://localhost:3001/scales/'+props.scaleToEdit?._id+'/title/', {
+        //             method: 'PATCH',
+        //             headers: {
+        //                 'Content-Type': 'application/json'
+        //             },
+        //             body: JSON.stringify({title: goalValue})
+        //         })
+        //         console.log("GOAL: "+props.scaleToEdit?.goal + " " + goalValue)
+        //     }
+        //     if(props.scaleToEdit?.chasingSuccessDescription != chasingSuccessValue){
+        //         await fetch('http://localhost:3001/scales/'+props.scaleToEdit?._id+'/chasingSuccessDescription/', {
+        //             method: 'PATCH',
+        //             headers: {
+        //                 'Content-Type': 'application/json'
+        //             },
+        //             body: JSON.stringify({chasingSuccessDescription: chasingSuccessValue})
+        //         })
+        //         console.log("CHASING SUCCESS: "+props.scaleToEdit?.chasingSuccessDescription + " " + chasingSuccessValue)
+        //     }
+        //     if(props.scaleToEdit?.avoidingFailureDescription != avoidingFailureValue){
+        //         console.log(JSON.stringify({avoidingFailureDescription: avoidingFailureValue}))
+        //         await fetch('http://localhost:3001/scales/'+props.scaleToEdit?._id+'/avoidingFailureDescription/', {
+        //             method: 'PATCH',
+        //             headers: {
+        //                 'Content-Type': 'application/json'
+        //             },
+        //             body: JSON.stringify({avoidingFailureDescription: avoidingFailureValue})
+        //         })
+        //         console.log("AVOIDING FAILURE: "+props.scaleToEdit?.avoidingFailureDescription + " " + avoidingFailureValue)
+        //     }
+        // }catch(error){
+        //     console.error(error)
+        // }
         props.closeModal()
     }, [goalValue, chasingSuccessValue, avoidingFailureValue])
 
@@ -95,7 +95,7 @@ export default function ScaleModal(props: ScaleModalProps) {
                 <View>
                     <View>
                         <Text style={styles.modal.inputLabel.title}>Goal</Text>
-                        <TextInput style={styles.modal.textInput} defaultValue={props.scaleToEdit?.title} placeholder="Ex: Learn a new language" onChangeText={setGoalValue} />
+                        <TextInput style={styles.modal.textInput} defaultValue={props.scaleToEdit?.goal} placeholder="Ex: Learn a new language" onChangeText={setGoalValue} />
                     </View>
                     <View>
                         <View style={styles.modal.inputLabel}>
