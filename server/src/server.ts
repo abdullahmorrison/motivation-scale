@@ -32,7 +32,7 @@ const server = new ApolloServer({
 } as any)
 
 const port = process.env.PORT || 3001;
-connect(process.env.DB_CONNECTION as string, { useNewUrlParser: true, useUnifiedTopology: true, dbName: 'myFirstDatabase'})
+connect(process.env.DB_CONNECTION as string, { useNewUrlParser: true, useUnifiedTopology: true, dbName: process.env.DB_NAME })
     .then(()=>{server.listen(port, ()=>console.log(`Server started on port ${port}`))})
     .catch((error)=> console.log(error.message))
     
