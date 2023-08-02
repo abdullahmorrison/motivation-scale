@@ -1,5 +1,5 @@
 import { objectType, extendType, nonNull, stringArg, intArg } from "nexus"
-import { ScaleModel } from "../../models/scale"
+import { ScaleModel } from "../models/scale"
 
 export const Scale = objectType({
     name: "Scale",

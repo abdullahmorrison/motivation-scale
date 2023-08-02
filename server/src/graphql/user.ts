@@ -1,5 +1,5 @@
 import { objectType, nonNull, stringArg } from "nexus"
-import { UserModel } from "../../models/user"
+import { UserModel } from "../models/user"
 
 export const User = objectType({
     name: "User",
