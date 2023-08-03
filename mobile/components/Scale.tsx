@@ -50,7 +50,7 @@ export default function Scale(props: ScaleProps) {
                 style={styles.slider}
                 thumbStyle={styles.slider.thumb}
                 trackStyle={styles.slider.track}
-                onValueChange={(value)=>updateScaleSliderValue({
+                onSlidingComplete={(value)=>updateScaleSliderValue({
                     variables: {
                         id: props.scale.id,
                         sliderValue: value
