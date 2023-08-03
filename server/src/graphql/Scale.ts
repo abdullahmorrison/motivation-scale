@@ -34,7 +34,7 @@ export const CreateScale = extendType({
             args: {
                 username: nonNull(stringArg()),
                 goal: nonNull(stringArg()),
-                sliderValue: nonNull(intArg()),
+                sliderValue: intArg(),
                 chasingSuccessDescription: stringArg(),
                 avoidingFailureDescription: stringArg(),
             },
@@ -44,6 +44,7 @@ export const CreateScale = extendType({
                 const response = await scale.save()
                 return {
                     id: response._id,
+                    sliderValue: args.sliderValue? args.sliderValue : 50,
                     ...scale.toObject()
                 }
             }
