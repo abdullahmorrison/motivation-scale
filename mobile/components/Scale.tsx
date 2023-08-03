@@ -3,9 +3,10 @@ import { StyleSheet, View, Text, Dimensions, TouchableOpacity} from "react-nativ
 import { Slider } from '@react-native-assets/slider'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faSortDown, faSortUp, faBars, faEdit} from "@fortawesome/free-solid-svg-icons";
+import { useMutation, gql } from "@apollo/client";
 
 export interface ScaleType{
-    _id: string
+    id: string
     username: string
     order: number
     goal: string
@@ -20,19 +21,14 @@ interface ScaleProps {
 export default function Scale(props: ScaleProps) {
     const [expandScale, setExpandScale] = useState<Boolean>(false)
 
-    const handleSliderChange = useCallback(async(value: number) => {
-        // try{
-        //     const response = await fetch('http://localhost:3001/scales/'+props.scale._id+'/sliderValue/', {
-        //         method: 'PATCH',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({sliderValue: value})
-        //     })
-        // }catch(error){
-        //     console.error(error)
-        // }
-    }, [props.scale.sliderValue])
+    const UPDATE_SCALE_SLIDER_VALUE = gql`
+        mutation UpdateScale($id: String!, $sliderValue: Int){
+            updateScale(id: $id, sliderValue: $sliderValue) {
+                goal
+                sliderValue
+            }
+        }`
+    const [updateScaleSliderValue] = useMutation(UPDATE_SCALE_SLIDER_VALUE)
 
     return (
         <View style={styles.container}>
@@ -54,7 +50,12 @@ export default function Scale(props: ScaleProps) {
                 style={styles.slider}
                 thumbStyle={styles.slider.thumb}
                 trackStyle={styles.slider.track}
-                onValueChange={handleSliderChange}
+                onValueChange={(value)=>updateScaleSliderValue({
+                    variables: {
+                        id: props.scale.id,
+                        sliderValue: value
+                    }
+                })}
             />
             {   expandScale &&
                 <View style={styles.explanations}>
