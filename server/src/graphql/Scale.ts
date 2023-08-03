@@ -13,7 +13,7 @@ export const Scale = objectType({
     },
 })
 
-export const ScaleQuery = extendType({
+export const GetScales = extendType({
     type: "Query",
     definition(t) {
         t.nonNull.list.nonNull.field("scales", {
@@ -21,7 +21,7 @@ export const ScaleQuery = extendType({
             resolve() {
                 return ScaleModel.find({}).sort({createdAt: -1})
             }
-        });
+        })
     }
 })
 
@@ -70,6 +70,26 @@ export const UpdateScale = extendType({
                 const { id, ...scale } = args
 
                 const response = await ScaleModel.findByIdAndUpdate(args.id, scale, {new: true})
+                return {
+                    id: response._id,
+                    ...response.toObject()
+                }
+            }
+        })
+    }
+})
+
+export const DeleteScaleById = extendType({
+    type: "Mutation",
+    definition(t) {
+        t.nonNull.field("deleteScale", {
+            type: "Scale",
+            description: "Delete a scale",
+            args: {
+                id: nonNull(stringArg())
+            },
+            resolve: async (_, args) => {
+                const response = await ScaleModel.findByIdAndDelete(args.id)
                 return {
                     id: response._id,
                     ...response.toObject()
