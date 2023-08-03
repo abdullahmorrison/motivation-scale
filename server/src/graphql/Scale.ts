@@ -25,7 +25,7 @@ export const ScaleQuery = extendType({
     }
 })
 
-export const ScaleMutation = extendType({
+export const CreateScale = extendType({
     type: "Mutation",
     definition(t) {
         t.nonNull.field("createScale", {
@@ -45,6 +45,33 @@ export const ScaleMutation = extendType({
                 return {
                     id: response._id,
                     ...scale.toObject()
+                }
+            }
+        })
+    }
+})
+
+export const UpdateScale = extendType({
+    type: "Mutation",
+    definition(t) {
+        t.nonNull.field("updateScale", {
+            type: "Scale",
+            description: "Update a scale",
+            args: {
+                id: nonNull(stringArg()),
+                username: stringArg(),
+                goal: stringArg(),
+                sliderValue: intArg(),
+                chasingSuccessDescription: stringArg(),
+                avoidingFailureDescription: stringArg(),
+            },
+            resolve: async (_, args) => {
+                const { id, ...scale } = args
+
+                const response = await ScaleModel.findByIdAndUpdate(args.id, scale, {new: true})
+                return {
+                    id: response._id,
+                    ...response.toObject()
                 }
             }
         })
