@@ -10,7 +10,6 @@ import ScaleModal from './components/ScaleModal'
 import { gql, useQuery } from "@apollo/client";
 
 export default function App() {
-  const [isModalOpen, setIsModalOpen] = useState<Boolean>(false)
   const [scaleToEdit, setScaleToEdit] = useState<Partial<ScaleType>|null>(null)
   const [username, setUsername] = useState<string>("abdullahmorrison@gmail.com")
 
@@ -28,24 +27,6 @@ export default function App() {
 
   const { data, loading, error } = useQuery(GET_SCALES)
 
-  const handleAddScale = useCallback(() => {
-    // setScaleToEdit({
-    //   _id: '',
-    //   username: username,
-    //   title: '',
-    //   chasingSuccessDescription: '',
-    //   avoidingFailureDescription: '',
-    // })
-  }, [username])
-
-  const handleEdit = useCallback((scale: Partial<ScaleType>) => {
-    setScaleToEdit(scale)
-  }, [])
-
-  useEffect(() => {
-    if(scaleToEdit != null) setIsModalOpen(true)
-  }, [scaleToEdit])
-
   const handleBackButton = () => {//close app on back button press
     BackHandler.exitApp()
     return true
@@ -57,23 +38,26 @@ export default function App() {
     }
   }, [])
 
-  const handleCloseModal = useCallback(() => {
-    setScaleToEdit(null)
-    setIsModalOpen(false)
-  }, [scaleToEdit])
-
   return (
       <SafeAreaView style={styles.container}>
         <StatusBar style="auto" />
-        { scaleToEdit != null &&
-          <ScaleModal scaleToEdit={scaleToEdit} closeModal={handleCloseModal} isModalOpen={isModalOpen}/>
+        { scaleToEdit &&
+          <ScaleModal 
+            scaleToEdit={scaleToEdit} 
+            closeModal={()=>setScaleToEdit(null)} 
+          />
         }
         <View>
           {data && data?.scales.map((scale: ScaleType) => {
-            return <Scale key={scale._id} scale={scale} handleEdit={(scale: Partial<ScaleType>)=>handleEdit(scale)}/>
+            return <Scale key={scale._id} scale={scale} handleEdit={(scale: Partial<ScaleType>)=>setScaleToEdit(scale)}/>
           })}
         </View>
-        <AddScaleButton onPress={handleAddScale}/>
+        <AddScaleButton onPress={()=>setScaleToEdit({
+            username: username,
+            goal: '',
+            chasingSuccessDescription: '',
+            avoidingFailureDescription: '',
+        })}/>
       </SafeAreaView>
   )
 }

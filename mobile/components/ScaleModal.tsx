@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { BackHandler, View, Text, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
@@ -7,7 +7,6 @@ import { ScaleType } from './Scale';
 
 interface ScaleModalProps {
     scaleToEdit: Partial<ScaleType> | null
-    isModalOpen: Boolean,
     closeModal: () => void
 }
 export default function ScaleModal(props: ScaleModalProps) {
@@ -90,7 +89,7 @@ export default function ScaleModal(props: ScaleModalProps) {
     }, [])
 
     return (
-        <View style={[styles.background, props.isModalOpen ? undefined : styles.hidden]}>
+        <View style={styles.background}>
             <View style={styles.modal}>
                 <View>
                     <View>
@@ -150,9 +149,6 @@ export default function ScaleModal(props: ScaleModalProps) {
 }
 
 const styles = StyleSheet.create({
-    hidden: {
-        display: 'none',
-    },
     background: {
         backgroundColor: 'rgba(0,0,0,0.5)',
         justifyContent: 'flex-end',
