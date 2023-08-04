@@ -50,7 +50,7 @@ export default function App() {
           <ScaleModal 
             scaleToEdit={scaleToEdit} 
             addScale={(scale: ScaleType)=>setScales([...scales, scale])}
-            editScale={(scale: ScaleType)=>setScales(scales.map((s: ScaleType)=>s.id===scale.id?scale:s))}
+            editScale={(scale: ScaleType)=>setScales(scales.map((s: ScaleType)=>s.id===scale.id?{...scale, sliderValue: s.sliderValue}:s))}
             deleteScale={(id: string)=>setScales(scales.filter((s: ScaleType)=>s.id!==id))}
             closeModal={()=>setScaleToEdit(null)} 
           />
