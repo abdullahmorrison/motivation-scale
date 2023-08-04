@@ -4,17 +4,18 @@ import express from 'express'
 import { connect, set } from 'mongoose'
 import { schema } from './schema'
 import bodyParser from 'body-parser'
+import 'dotenv/config'
+import cors from 'cors'
 
 const app = express();
 
 app.use(bodyParser.json({ limit: '30mb'}))
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
 
-const cors = require('cors');
-var whitelist = ['http://localhost:3000', 'https://pgpscale.netlify.app']
+let whitelist = process.env.CLIENT_WHITELIST?.split(',')
 app.use(cors({
     origin: function (origin: any, callback: any) {
-        if (whitelist.indexOf(origin) !== -1) {
+        if (whitelist && whitelist.indexOf(origin) !== -1) {
             callback(null, true)
         } else {
             callback(new Error('Not allowed by CORS'))
@@ -22,8 +23,6 @@ app.use(cors({
         }
     }
 ))
-
-require('dotenv/config')//security (dotenv)
 
 const server = new ApolloServer({ 
     schema,
