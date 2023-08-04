@@ -1,2 +1,2 @@
-export * from "./scale"
-export * from "./User"
+export * from "./Scale"
+export * from "./user"
