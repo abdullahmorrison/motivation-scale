@@ -19,7 +19,7 @@ export const GetScales = extendType({
         t.nonNull.list.nonNull.field("scales", {
             type: "Scale",
             resolve() {
-                return ScaleModel.find({}).sort({createdAt: -1})
+                return ScaleModel.find({})
             }
         })
     }
