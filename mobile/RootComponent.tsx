@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BackHandler } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, SafeAreaView, View} from 'react-native'
@@ -10,6 +10,7 @@ import ScaleModal from './components/ScaleModal'
 import { gql, useQuery } from "@apollo/client";
 
 export default function App() {
+  const [scales, setScales] = useState<ScaleType[]>([])
   const [scaleToEdit, setScaleToEdit] = useState<Partial<ScaleType>|null>(null)
   const [username, setUsername] = useState<string>("abdullahmorrison@gmail.com")
 
@@ -26,6 +27,10 @@ export default function App() {
     }`
 
   const { data, loading, error } = useQuery(GET_SCALES)
+  useEffect(() => {
+    if (data)
+      setScales(data.scales)
+  }, [data])
 
   const handleBackButton = () => {//close app on back button press
     BackHandler.exitApp()
@@ -44,12 +49,15 @@ export default function App() {
         { scaleToEdit &&
           <ScaleModal 
             scaleToEdit={scaleToEdit} 
+            addScale={(scale: ScaleType)=>setScales([...scales, scale])}
+            editScale={(scale: ScaleType)=>setScales(scales.map((s: ScaleType)=>s.id===scale.id?scale:s))}
+            deleteScale={(id: string)=>setScales(scales.filter((s: ScaleType)=>s.id!==id))}
             closeModal={()=>setScaleToEdit(null)} 
           />
         }
         <View>
-          {data && data?.scales.map((scale: ScaleType) => {
-            return <Scale key={scale._id} scale={scale} handleEdit={(scale: Partial<ScaleType>)=>setScaleToEdit(scale)}/>
+          {scales && scales.map((scale: ScaleType) => {
+            return <Scale key={scale.id} scale={scale} handleEdit={(scale: Partial<ScaleType>)=>setScaleToEdit(scale)}/>
           })}
         </View>
         <AddScaleButton onPress={()=>setScaleToEdit({

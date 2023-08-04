@@ -8,7 +8,9 @@ import { useMutation, gql } from '@apollo/client';
 
 interface ScaleModalProps {
     scaleToEdit: Partial<ScaleType> | null
-    updateScaleList: (scaleList: Partial<ScaleType>) => void
+    addScale: (scale: ScaleType) => void
+    editScale: (scale: ScaleType) => void
+    deleteScale: (id: string) => void
     closeModal: () => void
 }
 export default function ScaleModal(props: ScaleModalProps) {
@@ -34,6 +36,7 @@ export default function ScaleModal(props: ScaleModalProps) {
     const UPDATE_SCALE = gql`
     mutation UpdateScale($id: String!, $goal: String, $chasingSuccessDescription: String, $avoidingFailureDescription: String){
         updateScale(id: $id, goal: $goal, chasingSuccessDescription: $chasingSuccessDescription, avoidingFailureDescription: $avoidingFailureDescription) {
+            id
             goal
             chasingSuccessDescription
             avoidingFailureDescription
@@ -50,7 +53,7 @@ export default function ScaleModal(props: ScaleModalProps) {
     const [deleteScale] = useMutation(DELETE_SCALE)
 
     const handleAddScale = useCallback(async () => {
-        await createScale({
+        const response = await createScale({
             variables: {
                 username: props.scaleToEdit?.username,
                 goal: goalValue,
@@ -58,10 +61,11 @@ export default function ScaleModal(props: ScaleModalProps) {
                 avoidingFailureDescription: avoidingFailureValue
             }
         })
+        props.addScale(response.data.createScale)
         props.closeModal()
     }, [goalValue, chasingSuccessValue, avoidingFailureValue])
     const handleEditScale = useCallback(async () => {
-        await updateScale({
+        const response = await updateScale({
             variables: {
                 id: props.scaleToEdit?.id,
                 goal: goalValue,
@@ -69,15 +73,17 @@ export default function ScaleModal(props: ScaleModalProps) {
                 avoidingFailureDescription: avoidingFailureValue
             }
         })
-
+        console.log(response.data)
+        props.editScale(response.data.updateScale)
         props.closeModal()
     }, [goalValue, chasingSuccessValue, avoidingFailureValue])
     const handleDeleteScale = useCallback(async () => {
-        await deleteScale({
+        const response = await deleteScale({
             variables: {
                 id: props.scaleToEdit?.id
             }
         })
+        props.deleteScale(response.data.deleteScale.id)
         props.closeModal()
     }, [])
 
