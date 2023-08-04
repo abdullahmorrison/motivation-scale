@@ -4,7 +4,7 @@ import RootComponent from "./RootComponent"
 
 export default function App() {
     const httpLink = createHttpLink({
-        uri: "http://localhost:3001",
+        uri: "https://motivationscale.up.railway.app",
     })
     const client = new ApolloClient({
         link: httpLink,
