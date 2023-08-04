@@ -73,7 +73,6 @@ export default function ScaleModal(props: ScaleModalProps) {
                 avoidingFailureDescription: avoidingFailureValue
             }
         })
-        console.log(response.data)
         props.editScale(response.data.updateScale)
         props.closeModal()
     }, [goalValue, chasingSuccessValue, avoidingFailureValue])
