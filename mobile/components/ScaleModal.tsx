@@ -8,6 +8,7 @@ import { useMutation, gql } from '@apollo/client';
 
 interface ScaleModalProps {
     scaleToEdit: Partial<ScaleType> | null
+    updateScaleList: (scaleList: Partial<ScaleType>) => void
     closeModal: () => void
 }
 export default function ScaleModal(props: ScaleModalProps) {
@@ -38,7 +39,15 @@ export default function ScaleModal(props: ScaleModalProps) {
             avoidingFailureDescription
         }
     }`
-    const [updateScale] = useMutation(UPDATE_SCALE)
+    const [updateScale, {data, error, loading}] = useMutation(UPDATE_SCALE)
+
+    const DELETE_SCALE = gql`
+    mutation DeleteScale($id: String!) {
+        deleteScale(id: $id) {
+            id
+        }   
+    }`
+    const [deleteScale] = useMutation(DELETE_SCALE)
 
     const handleAddScale = useCallback(async () => {
         await createScale({
@@ -60,8 +69,17 @@ export default function ScaleModal(props: ScaleModalProps) {
                 avoidingFailureDescription: avoidingFailureValue
             }
         })
+
         props.closeModal()
     }, [goalValue, chasingSuccessValue, avoidingFailureValue])
+    const handleDeleteScale = useCallback(async () => {
+        await deleteScale({
+            variables: {
+                id: props.scaleToEdit?.id
+            }
+        })
+        props.closeModal()
+    }, [])
 
     const handleBackButton = () => {
         props.closeModal()
@@ -122,9 +140,11 @@ export default function ScaleModal(props: ScaleModalProps) {
                     </View>
                 </View>
                 <View style={styles.modal.buttons}>
-                    <TouchableOpacity onPress={props.closeModal} style={[styles.button, styles.button.cancel]}>
-                        <Text style={styles.button.text}>Cancel</Text>
-                    </TouchableOpacity>
+                    { props.scaleToEdit?.id &&
+                        <TouchableOpacity onPress={handleDeleteScale} style={[styles.button, styles.button.delete]}>
+                            <Text style={styles.button.text}>Delete</Text>
+                        </TouchableOpacity>
+                    }
                     <TouchableOpacity style={[styles.button, styles.button.create]} onPress={props.scaleToEdit?.id ? handleEditScale : handleAddScale}>
                         <Text style={styles.button.text}>{props.scaleToEdit?.id? 'Update' : 'Create'}</Text>
                     </TouchableOpacity>
@@ -197,8 +217,8 @@ const styles = StyleSheet.create({
         text: {
             fontWeight: 'bold',
         } as const,
-        cancel: {
-            backgroundColor: '#D6D6D6',
+        delete: {
+            backgroundColor: '#f44336',
         },
         create: {
             backgroundColor: '#33EC46',
