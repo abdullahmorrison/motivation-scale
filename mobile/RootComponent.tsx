@@ -45,9 +45,9 @@ export default function App() {
   }, [])
 
   return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView>
         <StatusBar style="auto" />
-        <ScrollView style={{marginTop: Constants.statusBarHeight }}>
+        <ScrollView contentContainerStyle={styles.contentContainer}>
           { scaleToEdit &&
             <ScaleModal 
               scaleToEdit={scaleToEdit} 
@@ -74,10 +74,10 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
+  contentContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: Constants.statusBarHeight,
+    paddingBottom: 100,
   },
 });
