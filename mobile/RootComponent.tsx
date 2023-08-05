@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { BackHandler } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, SafeAreaView, View} from 'react-native'
+import { StyleSheet, SafeAreaView, ScrollView, View} from 'react-native'
 
 import AddScaleButton from './components/AddScaleButton'
 import Scale, { ScaleType } from './components/Scale'
@@ -45,27 +45,29 @@ export default function App() {
 
   return (
       <SafeAreaView style={styles.container}>
-        <StatusBar style="auto" />
-        { scaleToEdit &&
-          <ScaleModal 
-            scaleToEdit={scaleToEdit} 
-            addScale={(scale: ScaleType)=>setScales([...scales, scale])}
-            editScale={(scale: ScaleType)=>setScales(scales.map((s: ScaleType)=>s.id===scale.id?{...scale, sliderValue: s.sliderValue}:s))}
-            deleteScale={(id: string)=>setScales(scales.filter((s: ScaleType)=>s.id!==id))}
-            closeModal={()=>setScaleToEdit(null)} 
-          />
-        }
-        <View>
-          {scales && scales.map((scale: ScaleType) => {
-            return <Scale key={scale.id} scale={scale} handleEdit={(scale: Partial<ScaleType>)=>setScaleToEdit(scale)}/>
-          })}
-        </View>
-        <AddScaleButton onPress={()=>setScaleToEdit({
-            username: username,
-            goal: '',
-            chasingSuccessDescription: '',
-            avoidingFailureDescription: '',
-        })}/>
+        <ScrollView>
+          <StatusBar style="auto" />
+          { scaleToEdit &&
+            <ScaleModal 
+              scaleToEdit={scaleToEdit} 
+              addScale={(scale: ScaleType)=>setScales([...scales, scale])}
+              editScale={(scale: ScaleType)=>setScales(scales.map((s: ScaleType)=>s.id===scale.id?{...scale, sliderValue: s.sliderValue}:s))}
+              deleteScale={(id: string)=>setScales(scales.filter((s: ScaleType)=>s.id!==id))}
+              closeModal={()=>setScaleToEdit(null)} 
+            />
+          }
+          <View>
+            {scales && scales.map((scale: ScaleType) => {
+              return <Scale key={scale.id} scale={scale} handleEdit={(scale: Partial<ScaleType>)=>setScaleToEdit(scale)}/>
+            })}
+          </View>
+          <AddScaleButton onPress={()=>setScaleToEdit({
+              username: username,
+              goal: '',
+              chasingSuccessDescription: '',
+              avoidingFailureDescription: '',
+          })}/>
+        </ScrollView>
       </SafeAreaView>
   )
 }
