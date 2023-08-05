@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { BackHandler } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, SafeAreaView, ScrollView, View} from 'react-native'
+import Constants from 'expo-constants'
 
 import AddScaleButton from './components/AddScaleButton'
 import Scale, { ScaleType } from './components/Scale'
@@ -45,8 +46,8 @@ export default function App() {
 
   return (
       <SafeAreaView style={styles.container}>
-        <ScrollView>
-          <StatusBar style="auto" />
+        <StatusBar style="auto" />
+        <ScrollView style={{marginTop: Constants.statusBarHeight }}>
           { scaleToEdit &&
             <ScaleModal 
               scaleToEdit={scaleToEdit} 
