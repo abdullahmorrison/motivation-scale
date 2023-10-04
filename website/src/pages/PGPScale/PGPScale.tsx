@@ -1,65 +1,27 @@
 import { useState, useEffect } from 'react';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { gql, useQuery } from '@apollo/client';
 
-import Login from './components/Login';
 import Scale from './components/Scale';
 import ConfirmModal from './components/ConfirmModal';
 
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 const PGPScale = () => {
     const [scales, setScales] = useState<Array<{_id: string}>>([])
-    const [username, setUsername] = useState<string>("")
+    const [username, setUsername] = useState<string>("abdullahmorrison@gmail.com")
     const [,setName] = useState<string>("Guest") //!DEFAULT "GUEST" MAY CAUSE ERRORS
 
     useEffect(()=>{
-        const fetchScales = async () => {
-            if(username){
-                const response = await fetch('https://pgpscale.herokuapp.com/scales/'+username+'/username/')
-                const data = await response.json()
-                setScales(data.sort(function (a: {order: number}, b:{order: number}) {//sorting scales by the order attribute
-                    return a.order - b.order;
-                  }))
-            }else{
-                console.error("Error: NO USER when fetching scales")
-            }
-        }
-        fetchScales()
-    }, [username])
+    }, [])
 
     const handleAddScale = () => { //saving new scale to state and local storage
-        if(username){
-            fetch('https://pgpscale.herokuapp.com/scales/', {
-                method: 'POST',
-                body: JSON.stringify({username: username, order: scales.length+1}),
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                }
-            }).then(
-                (response) => response.json()
-            ).then(
-                data => {
-                    setScales([...scales, data])
-                }
-            )
-        }else{
-            alert("Error: Login in order to use app")
-        }
     }
     const handleDeleteScale = (scaleID: string) => {
         document.getElementById("myModal")!.style.display = "block"//display confirm modal
 
         //action if the delete button is clicked
         const deleteScale =()=> {//nested function created for adding and removing eventlistener
-            if(username){
-                fetch('https://pgpscale.herokuapp.com/scales/' + scaleID, {
-                    method: 'DELETE',
-                }).then(res => {
-                    res.json()
-                    setScales(scales.filter((s: {_id: string}) => s._id !== scaleID))
-                })
-            }else{
-                alert("Error: Login in order to use app")
-            }
+            
             document.getElementById("myModal")!.style.display = "none";
         }
         document.getElementById("modal-footer-delete")!.addEventListener("click", deleteScale)
@@ -72,36 +34,9 @@ const PGPScale = () => {
         })
     }
     const handleReorderScale = (scaleID: string, newOrder: number) => {
-        if(username){
-            fetch('https://pgpscale.herokuapp.com/scales/' + scaleID +'/order', {
-                method: 'PATCH',
-                body: JSON.stringify({order: newOrder}),
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                }
-            }).then(res => {
-                res.json()
-            })
-        }else{
-            alert("Error: Login in order to use app")
-        }
-    }
-    const handleResponseGoogleSuccess = async (response: any) => { //!Fix any
-        console.log(response)
-        fetch('https://pgpscale.herokuapp.com/users/googlelogin/', {
-            method: 'POST',
-            body: JSON.stringify({tokenId: response.tokenId}),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        }).then(() => {
-            setUsername(response.profileObj.email)
-            setName(response.profileObj.givenName +" " + response.profileObj.familyName)
-        })  
     }
     return (
         <>
-            <Login onResponseGoogleSuccess={handleResponseGoogleSuccess} />
             <ConfirmModal message="Are you sure you would like to delete this scale?" confirmText="Delete"/>
             <div className='droppableArea'>{/**Element made to add style to the drag and drop context*/}
                 <DragDropContext onDragEnd={(param: any)=>{//!FIX ANY

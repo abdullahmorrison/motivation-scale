@@ -10,44 +10,12 @@ const WritingSpace: React.FC<Props> = ({scaleID, visible}) =>{
     const [chasingSuccessDescription, setChasingSuccessDescription] = useState<string>()
 
     useEffect(()=>{
-        const fetchExplanationFuturePlan = async () =>{
-            //fetching the saved scales from the backend
-            const response = await fetch('https://pgpscale.herokuapp.com/scales/'+scaleID)
-            const data = await response.json()
-            if(data.avoidingFailureDescription){
-                setAvoidingFailureDescription(data.avoidingFailureDescription)
-            }
-            if(data.chasingSuccessDescription){
-                setChasingSuccessDescription(data.chasingSuccessDescription)
-            }
-        }
-        fetchExplanationFuturePlan()
     }, [scaleID])
 
-    
-
     const handleWriteExplanation = async (value: string) =>{
-        await fetch('https://pgpscale.herokuapp.com/scales/'+scaleID+'/avoidingFailureDescription',{
-            method: 'PATCH',
-            body: JSON.stringify({avoidingFailureDescription: value}),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        })
-        setAvoidingFailureDescription(value)
     }
-
     const handleWriteFuturePlan = async (value: string) =>{
-        await fetch('https://pgpscale.herokuapp.com/scales/'+scaleID+'/chasingSuccessDescription',{
-            method: 'PATCH',
-            body: JSON.stringify({chasingSuccessDescription: value}),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        })
-        setChasingSuccessDescription(value)
     }
-
 
     return (
         <div className="scale__writing-space" style={visible ? {display:"flex"} : {display:"none"}}>
