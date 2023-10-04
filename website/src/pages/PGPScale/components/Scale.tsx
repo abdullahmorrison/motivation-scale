@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 //Components
-import ScaleTitle from './ScaleTitle';
+import ScaleGoal from './ScaleGoal';
 import ScaleSlider from './ScaleSlider';
 import WritingSpace  from "./WritingSpace";
 
@@ -14,13 +14,16 @@ import ExplanationIconOpened from "../icons/explanationIconOpened.svg";
 import DeleteIcon from "../icons/deleteIcon.svg";
 import DragDropIcon from '../icons/dragDropIcon.svg';
 
-interface Props{
-    scaleID: string
+export interface ScaleType{
+    id: string
     index: number
+    goal: string
+    sliderValue: number
+    chasingSuccessDescription: string
+    avoidingFailureDescription: string
     onDelete: (scaleID: string) => void 
 }
-
-const Scale: React.FC<Props> = ({scaleID, index, onDelete}) => {
+const Scale = (props: ScaleType) => {
     const [writingSpaceVisible, setWritiingSpaceVisible] = useState<boolean>(false)
 
     const handleWritingSpace = () =>{ //makes writing space visble or removes it
@@ -28,14 +31,14 @@ const Scale: React.FC<Props> = ({scaleID, index, onDelete}) => {
     }
 
     return (
-        <Draggable key={scaleID} draggableId={"draggable-"+scaleID} index={index}>
+        <Draggable key={props.id} draggableId={"draggable-"+props.id} index={props.index}>
             {(provided: any, snapshot: any) => (//!FIX ANY
                 <div className="scale" ref={provided.innerRef} {...provided.draggableProps} style={{ ...provided.draggableProps.style, boxShadow: snapshot.isDragging? "0 5px 5px #0000007e": null}}>
                     <div className="scale__header">
                         <div {...provided.dragHandleProps}>
                             <img src={DragDropIcon} alt="Drag and Drop Tool"/> 
                         </div>
-                        <ScaleTitle scaleID={scaleID}/>
+                        <ScaleGoal id={props.id} goal={props.goal}/>
                         <div className="scale__header__container">
                             <div className="scale__header__icon">
                                 {
@@ -45,12 +48,17 @@ const Scale: React.FC<Props> = ({scaleID, index, onDelete}) => {
                                 }
                             </div>
                             <div className="scale__header__icon">
-                                <img src={DeleteIcon} alt="Delete Button" onClick={()=>onDelete(scaleID)}/>
+                                <img src={DeleteIcon} alt="Delete Button" onClick={()=>props.onDelete(props.id)}/>
                             </div>
                         </div>
                     </div>
-                    <ScaleSlider scaleID={scaleID}/>
-                    <WritingSpace scaleID={scaleID} visible={writingSpaceVisible}/>
+                    <ScaleSlider id={props.id} sliderValue={props.sliderValue}/>
+                    <WritingSpace 
+                        id={props.id} 
+                        isVisible={writingSpaceVisible}
+                        avoidingFailureDescription={props.avoidingFailureDescription}
+                        chasingSuccessDescription={props.chasingSuccessDescription}
+                    />
                 </div>
             )}
          </Draggable>

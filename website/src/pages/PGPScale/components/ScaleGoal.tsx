@@ -3,16 +3,17 @@ import React, { useState, useEffect } from 'react'
 //SVG
 import EditIcon from "../icons/editIcon.svg"
 
-interface Props{
-    scaleID: string
+interface ScaleGoalProps{
+    id: string
+    goal: string
 }
 
-const ScaleTitle: React.FC<Props> = ({scaleID}) => {
+const ScaleGoal = (props: ScaleGoalProps) => {
     const [title, setTitle] = useState<string>("") //the title
     const [displayH1, setDisplayH1] = useState<boolean>(false) //used to determine if you want to display value as h1 or input
 
     useEffect(()=>{
-    }, [scaleID])
+    }, [])
 
     const handleTitleChange = async (event: React.KeyboardEvent<HTMLInputElement>) =>{
         if(event.key === 'Enter' && (event.target as HTMLInputElement).value !== ""){//if you press the enter key
@@ -30,7 +31,7 @@ const ScaleTitle: React.FC<Props> = ({scaleID}) => {
                 :<input 
                     type="text" 
                     className="scale__header__container__input" 
-                    defaultValue={title} 
+                    defaultValue={props.goal} 
                     placeholder="Name of Goal" 
                     onKeyDown={(event)=>handleTitleChange(event)}   
                 />
@@ -45,4 +46,4 @@ const ScaleTitle: React.FC<Props> = ({scaleID}) => {
         </div>
     ) 
 }
-export default ScaleTitle
+export default ScaleGoal

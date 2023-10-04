@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-interface Props{
-    scaleID: string
+interface ScaleSliderProps{
+    id: string
+    sliderValue: number
 }
 
-const ScaleSlider: React.FC<Props> = ({scaleID}) => {
+const ScaleSlider = (props: ScaleSliderProps) => {
     const [sliderValue, setSliderValue] = useState<number>(50)
     
     useEffect(()=>{
@@ -20,7 +21,7 @@ const ScaleSlider: React.FC<Props> = ({scaleID}) => {
                 type="range"
                 className="scale__slider__range"
                 min="0" max="100" 
-                defaultValue = {sliderValue}
+                defaultValue = {props.sliderValue}
                 onChange = {(event) => changeSliderValue(+(event.target as HTMLInputElement).value)}
             />
             <div className="scale__slider__ticks">

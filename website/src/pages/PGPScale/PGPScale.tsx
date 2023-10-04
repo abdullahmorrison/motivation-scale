@@ -5,14 +5,30 @@ import { gql, useQuery } from '@apollo/client';
 import Scale from './components/Scale';
 import ConfirmModal from './components/ConfirmModal';
 
+import { ScaleType } from './components/Scale';
 
 const PGPScale = () => {
-    const [scales, setScales] = useState<Array<{_id: string}>>([])
+    const [scales, setScales] = useState<ScaleType[]>([])
     const [username, setUsername] = useState<string>("abdullahmorrison@gmail.com")
     const [,setName] = useState<string>("Guest") //!DEFAULT "GUEST" MAY CAUSE ERRORS
 
+    const GET_SCALES = gql`
+        {
+          scales {
+            id
+            username
+            goal
+            sliderValue
+            chasingSuccessDescription
+            avoidingFailureDescription
+          }
+        }`
+    const { data } = useQuery(GET_SCALES)
+
     useEffect(()=>{
-    }, [])
+        if(data) setScales(data.scales)
+        console.log(data)
+    }, [data])
 
     const handleAddScale = () => { //saving new scale to state and local storage
     }
@@ -52,23 +68,24 @@ const PGPScale = () => {
                         
                         let newScales:any = [...left, src, ...right]
                         
-                        for(var i=0; i<newScales.length; i++){ //looping to find changes in a scale's order in the array
-                            if(newScales[i]._id !== scales[i]._id){//only making api calls if a scale's order has changed
+                        for(var i=0; i<newScales.length; i++) //looping to find changes in a scale's order in the array
+                            if(newScales[i]._id !== scales[i].id) //only making api calls if a scale's order has changed
                                 handleReorderScale(newScales[i]._id, i)
-                            }
-                        }
-
                         setScales(newScales)
                     }
                 }}>
                     <Droppable droppableId="droppable-1">
                         {(provided: any, _: any) => ( //!FIX ANY
                             <div ref={provided.innerRef} {...provided.droppableProps}>
-                                {scales.map((scale: {_id: string}, i: number)=> (
+                                {scales.map((scale: ScaleType, i: number)=> (
                                     <Scale 
                                         index={i}
-                                        key={scale._id}
-                                        scaleID={scale._id}
+                                        key={scale.id}
+                                        id={scale.id}
+                                        goal={scale.goal}
+                                        sliderValue={scale.sliderValue}
+                                        chasingSuccessDescription={scale.chasingSuccessDescription}
+                                        avoidingFailureDescription={scale.avoidingFailureDescription}
                                         onDelete={handleDeleteScale} 
                                     />
                                 ))}

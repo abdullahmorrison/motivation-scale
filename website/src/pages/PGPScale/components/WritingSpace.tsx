@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react'
 
-interface Props{
-    scaleID: string,
-    visible: boolean
+interface WritingSpaceProps{
+    id: string,
+    isVisible: boolean
+    avoidingFailureDescription: string
+    chasingSuccessDescription: string
 }
-
-const WritingSpace: React.FC<Props> = ({scaleID, visible}) =>{
+const WritingSpace: React.FC<WritingSpaceProps> = (props: WritingSpaceProps) =>{
     const [avoidingFailureDescription, setAvoidingFailureDescription] = useState<string>()
     const [chasingSuccessDescription, setChasingSuccessDescription] = useState<string>()
 
     useEffect(()=>{
-    }, [scaleID])
+    }, [])
 
     const handleWriteExplanation = async (value: string) =>{
     }
@@ -18,12 +19,12 @@ const WritingSpace: React.FC<Props> = ({scaleID, visible}) =>{
     }
 
     return (
-        <div className="scale__writing-space" style={visible ? {display:"flex"} : {display:"none"}}>
+        <div className="scale__writing-space" style={props.isVisible ? {display:"flex"} : {display:"none"}}>
             <div>
                 <label>What would be avoiding failure?</label>
                 <textarea 
                     placeholder="Enter your comment here..."
-                    defaultValue={avoidingFailureDescription}
+                    defaultValue={props.avoidingFailureDescription}
                     onKeyUp={(event)=>handleWriteExplanation((event.target as HTMLTextAreaElement).value)}
                 />
             </div>
@@ -31,7 +32,7 @@ const WritingSpace: React.FC<Props> = ({scaleID, visible}) =>{
                 <label>What would be chasing success?</label>
                 <textarea 
                     placeholder="Enter your comment here..." 
-                    defaultValue={chasingSuccessDescription}
+                    defaultValue={props.chasingSuccessDescription}
                     onKeyUp={(event)=>handleWriteFuturePlan((event.target as HTMLTextAreaElement).value)}
                 />
             </div>
