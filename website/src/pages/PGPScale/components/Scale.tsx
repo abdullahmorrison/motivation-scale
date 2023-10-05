@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 //Components
 import ScaleGoal from './ScaleGoal';
@@ -8,7 +8,8 @@ import WritingSpace  from "./WritingSpace";
 //third party libraries
 import { Draggable } from 'react-beautiful-dnd';
 
-//SVG
+//Styles & SVG
+import styles from './scale.module.scss'
 import ExplanationIconClosed from '../../../assets/icons/explanationIconClosed.svg'
 import ExplanationIconOpened from "../../../assets/icons/explanationIconOpened.svg";
 import DeleteIcon from "../../../assets/icons/deleteIcon.svg";
@@ -33,21 +34,21 @@ const Scale = (props: ScaleType) => {
     return (
         <Draggable key={props.id} draggableId={"draggable-"+props.id} index={props.index}>
             {(provided: any, snapshot: any) => (//!FIX ANY
-                <div className="scale" ref={provided.innerRef} {...provided.draggableProps} style={{ ...provided.draggableProps.style, boxShadow: snapshot.isDragging? "0 5px 5px #0000007e": null}}>
-                    <div className="scale__header">
+                <div className={styles.scale} ref={provided.innerRef} {...provided.draggableProps} style={{ ...provided.draggableProps.style, boxShadow: snapshot.isDragging? "0 5px 5px #0000007e": null}}>
+                    <div className={styles.header}>
                         <div {...provided.dragHandleProps}>
                             <img src={DragDropIcon} alt="Drag and Drop Tool"/> 
                         </div>
                         <ScaleGoal id={props.id} goal={props.goal}/>
-                        <div className="scale__header__container">
-                            <div className="scale__header__icon">
-                                {
-                                    writingSpaceVisible !== true 
-                                        ? <img src={ExplanationIconClosed} alt="Explanation Button (Closed)" onClick={handleWritingSpace}/>
-                                        : <img src={ExplanationIconOpened} alt="Explanation Button (Opened)" onClick={handleWritingSpace}/>
-                                }
+                        <div className={styles.headerIconContainer}>
+                            <div className={styles.headerIcon}>
+                                <img 
+                                    src={writingSpaceVisible? ExplanationIconClosed : ExplanationIconOpened} 
+                                    alt={"Explanation Button "+writingSpaceVisible?"(Closed)":"(Opened)"} 
+                                    onClick={handleWritingSpace}
+                                />
                             </div>
-                            <div className="scale__header__icon">
+                            <div className={styles.headerIcon}>
                                 <img src={DeleteIcon} alt="Delete Button" onClick={()=>props.onDelete(props.id)}/>
                             </div>
                         </div>

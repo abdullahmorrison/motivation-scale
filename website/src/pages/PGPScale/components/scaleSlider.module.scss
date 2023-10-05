@@ -1,0 +1,75 @@
+&__slider {
+    &__range {
+      //The scale
+      background: url("../images/inputbackground.svg");
+      background-size: 800px;
+      border-radius: 20px;
+      height: 25px;
+      margin-top: 10px;
+      width: 800px;
+      -webkit-appearance: none; // Override default CSS styles
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      //The moveable indicator
+      background: #ffffff;
+      border: solid 1px black;
+      border-radius: 100%;
+      cursor: grab;
+      height: 35px;
+      margin: -5px 0;
+      width: 35px;
+      -webkit-appearance: none;
+    }
+    /* All the same stuff for Firefox */
+    input[type="range"]::-moz-range-thumb {
+      //The moveable indicator
+      background: #ffffff;
+      border: solid 1px black;
+      border-radius: 100%;
+      cursor: grab;
+      height: 35px;
+      margin: -5px 0;
+      width: 35px;
+    }
+    /* All the same stuff for IE */
+    input[type="range"]::-ms-thumb {
+      //The moveable indicator
+      background: #ffffff;
+      border: solid 1px black;
+      border-radius: 100%;
+      cursor: grab;
+      height: 35px;
+      margin: -5px 0;
+      width: 35px;
+    }
+    &__range:focus {
+      //When you click something on the scale (there used to be a thick black outline)
+      outline: none;
+    }
+    &__labels {
+      //each label under a tick
+      display: flex;
+      justify-content: space-between;
+      list-style-type: none;
+      margin: 10px 25px 20px;
+      li {
+        width: 100px;
+      }
+    }
+}
+@media (max-width: 990px) {
+    &__slider__range {
+      background-size: 80vw;
+      width: 80vw;
+    }
+}
+@media (max-width: 600px) {
+  .scale {
+    &__slider {
+      margin-bottom: 20px;
+      &__labels {
+        display: none;
+      }
+    }
+  }
+}

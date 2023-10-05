@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
-//SVG
+//styles & SVG
+import styles from "./scaleGoal.module.css"
 import EditIcon from "../../../assets/icons/editIcon.svg"
 
 interface ScaleGoalProps{
@@ -25,18 +26,18 @@ const ScaleGoal = (props: ScaleGoalProps) => {
     }
 
     return (
-        <div className="scale__header__container">
+        <div className={styles.goalHeader}>
             { displayH1 === true 
                 ? <h1>{title}</h1>
                 :<input 
                     type="text" 
-                    className="scale__header__container__input" 
+                    className={styles.goalInput}
                     defaultValue={props.goal} 
                     placeholder="Name of Goal" 
                     onKeyDown={(event)=>handleTitleChange(event)}   
                 />
             }
-            <div className="scale__header__icon">
+            <div className={styles.goalHeaderIcon}>
                 <img
                     src={EditIcon} 
                     alt="Edit Button" 

@@ -4,6 +4,7 @@ import PGPScale from './pages/PGPScale/PGPScale';
 import NotFound from './pages/404Page/NotFound';
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
+import '.index.css'
 
 const httpLink = createHttpLink({
     uri: "https://motivationscale.up.railway.app",

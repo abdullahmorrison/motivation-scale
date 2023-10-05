@@ -1,0 +1,36 @@
+&__writing-space {
+    border-top: solid 1px #b3b3b3;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    text-align: left;
+    textarea,
+    label {
+      margin: 0 20px;
+    }
+    textarea {
+      border: solid 1px #00000033;
+      font-family: Tahoma, sans-serif;
+      height: 130px;
+      padding: 20px;
+      resize: none;
+      width: 350px;
+    }
+}
+
+@media (max-width: 990px) {
+    &__writing-space textarea {
+      width: 35vw;
+    }
+}
+@media (max-width: 700px) {
+  .scale__writing-space {
+    flex-direction: column;
+    justify-content: center;
+    textarea,
+    label {
+      width: 70vw;
+      margin: 0;
+    }
+  }
+}

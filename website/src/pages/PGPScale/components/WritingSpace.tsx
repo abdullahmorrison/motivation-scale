@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import styles from 'writingSpace.module.scss'
 
 interface WritingSpaceProps{
     id: string,

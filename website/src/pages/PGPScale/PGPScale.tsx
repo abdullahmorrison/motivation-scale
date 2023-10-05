@@ -4,8 +4,9 @@ import { gql, useQuery } from '@apollo/client';
 
 import Scale from './components/Scale';
 import ConfirmModal from './components/ConfirmModal';
-
 import { ScaleType } from './components/Scale';
+
+import styles from 'pgpscale.module.scss'
 
 const PGPScale = () => {
     const [scales, setScales] = useState<ScaleType[]>([])
@@ -32,7 +33,7 @@ const PGPScale = () => {
 
     const handleAddScale = () => { //saving new scale to state and local storage
     }
-    const handleDeleteScale = (scaleID: string) => {
+    const handleDeleteScale = (id: string) => {
         document.getElementById("myModal")!.style.display = "block"//display confirm modal
 
         //action if the delete button is clicked
@@ -54,7 +55,7 @@ const PGPScale = () => {
     return (
         <>
             <ConfirmModal message="Are you sure you would like to delete this scale?" confirmText="Delete"/>
-            <div className='droppableArea'>{/**Element made to add style to the drag and drop context*/}
+            <div className={styles.droppableArea}>{/**Element made to add style to the drag and drop context*/}
                 <DragDropContext onDragEnd={(param: any)=>{//!FIX ANY
                     const srcI = param.source.index;
                     const destI = param.destination?.index;
@@ -95,7 +96,7 @@ const PGPScale = () => {
                     </Droppable>
                 </DragDropContext>
             </div>
-            <button className="new-scale" onClick={handleAddScale}>+</button>
+            <button className={styles.newScale} onClick={handleAddScale}>+</button>
         </>
     );
 }

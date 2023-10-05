@@ -1,0 +1,28 @@
+.droppableArea {
+  margin: auto;
+  width: 950px;
+}
+.newScale {
+  background: #ffffff;
+  border-radius: 5px;
+  border: solid 1px #00000033;
+  box-shadow: 0 4px 4px #00000033;
+  display: block;
+  font-size: 30px;
+  width: 50px;
+  height: 50px;
+  margin: auto;
+
+    &:hover {
+      box-shadow: 0 4px 4px #00000066;
+      cursor: pointer;
+    }
+    &:active {
+      box-shadow: 0 2px 4px #00000066;
+    }
+}
+@media (max-width: 990px) {
+  .droppableArea {
+    width: 90vw;
+  }
+}
