@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-import DragDropIcon from '../../PGPScale/icons/dragDropIcon.svg'
-import EditIcon from '../../PGPScale/icons/editIcon.svg'
-import ExplanationIconOpened from '../../PGPScale/icons/explanationIconOpened.svg'
-import ExplanationIconClosed from '../../PGPScale/icons/explanationIconClosed.svg'
-import DeleteIcon from '../../PGPScale/icons/deleteIcon.svg'
+import DragDropIcon from '../../../assets/icons/dragDropIcon.svg'
+import EditIcon from '../../../assets/icons/editIcon.svg'
+import ExplanationIconOpened from '../../../assets/icons/explanationIconOpened.svg'
+import ExplanationIconClosed from '../../../assets/icons/explanationIconClosed.svg'
+import DeleteIcon from '../../../assets/icons/deleteIcon.svg'
 
 const DemoScale = () => {
     const [writingSpaceVisible, setWritiingSpaceVisible] = useState<boolean>(false)
