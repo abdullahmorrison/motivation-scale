@@ -1,35 +1,26 @@
-import { useState, useEffect } from 'react';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { gql, useQuery } from '@apollo/client';
+"use client"
+import { useState, useEffect } from 'react'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
-import Scale from './components/Scale';
-import ConfirmModal from './components/ConfirmModal';
-import { ScaleType } from './components/Scale';
+import Scale, { ScaleType } from './components/scale/Scale'
+import ConfirmModal from './components/confirm-modal/ConfirmModal'
+import { getScales } from '../apollo-client'
 
-import styles from 'pgpscale.module.scss'
+import styles from './page.module.scss'
 
-const PGPScale = () => {
+export default function Dashboard(){
     const [scales, setScales] = useState<ScaleType[]>([])
     const [username, setUsername] = useState<string>("abdullahmorrison@gmail.com")
     const [,setName] = useState<string>("Guest") //!DEFAULT "GUEST" MAY CAUSE ERRORS
 
-    const GET_SCALES = gql`
-        {
-          scales {
-            id
-            username
-            goal
-            sliderValue
-            chasingSuccessDescription
-            avoidingFailureDescription
-          }
-        }`
-    const { data } = useQuery(GET_SCALES)
+    useEffect(() => {
+        async function fetchData() {
+            let data = await getScales()
+            setScales(data.props.scales)
+        }
+        fetchData()
+    }, [])
 
-    useEffect(()=>{
-        if(data) setScales(data.scales)
-        console.log(data)
-    }, [data])
 
     const handleAddScale = () => { //saving new scale to state and local storage
     }
@@ -39,7 +30,7 @@ const PGPScale = () => {
         //action if the delete button is clicked
         const deleteScale =()=> {//nested function created for adding and removing eventlistener
             
-            document.getElementById("myModal")!.style.display = "none";
+            document.getElementById("myModal")!.style.display = "none"
         }
         document.getElementById("modal-footer-delete")!.addEventListener("click", deleteScale)
 
@@ -57,8 +48,8 @@ const PGPScale = () => {
             <ConfirmModal message="Are you sure you would like to delete this scale?" confirmText="Delete"/>
             <div className={styles.droppableArea}>{/**Element made to add style to the drag and drop context*/}
                 <DragDropContext onDragEnd={(param: any)=>{//!FIX ANY
-                    const srcI = param.source.index;
-                    const destI = param.destination?.index;
+                    const srcI = param.source.index
+                    const destI = param.destination?.index
 
                     const src = scales[srcI]
                     if(destI != null){ //making sure a item isn't dragged outside of draggable area (otherwise a destination wouldn't exist)
@@ -98,6 +89,5 @@ const PGPScale = () => {
             </div>
             <button className={styles.newScale} onClick={handleAddScale}>+</button>
         </>
-    );
+    )
 }
-export default PGPScale;

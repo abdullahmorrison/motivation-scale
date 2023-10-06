@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 //styles & SVG
-import styles from "./scaleGoal.module.css"
+import styles from "./scaleGoal.module.scss"
 import EditIcon from "../../../assets/icons/editIcon.svg"
 
 interface ScaleGoalProps{

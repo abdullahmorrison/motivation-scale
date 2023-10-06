@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
 //Components
-import ScaleGoal from './ScaleGoal';
-import ScaleSlider from './ScaleSlider';
-import WritingSpace  from "./WritingSpace";
+import ScaleGoal from '../scale-goal/ScaleGoal';
+import ScaleSlider from '../scale-slider/ScaleSlider';
+import WritingSpace  from "../writing-space/WritingSpace";
 
 //third party libraries
 import { Draggable } from 'react-beautiful-dnd';
