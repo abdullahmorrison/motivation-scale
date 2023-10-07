@@ -1,21 +1,11 @@
-import { useState, useEffect } from 'react';
 import styles from './scaleSlider.module.scss'
+import { updateScaleSlider } from '@/app/apollo-client';
 
 interface ScaleSliderProps{
     id: string
     sliderValue: number
 }
-
 const ScaleSlider = (props: ScaleSliderProps) => {
-    const [sliderValue, setSliderValue] = useState<number>(50)
-    
-    useEffect(()=>{
-    }, [])
-
-    const changeSliderValue = async (value: number) =>{
-        setSliderValue(value)
-    }
-
     return (
         <div className={styles.slider}>
             <input
@@ -23,7 +13,7 @@ const ScaleSlider = (props: ScaleSliderProps) => {
                 className={styles.sliderRange}
                 min="0" max="100" 
                 defaultValue = {props.sliderValue}
-                onChange = {(event) => changeSliderValue(+(event.target as HTMLInputElement).value)}
+                onMouseUp={(event) => updateScaleSlider({ id: props.id, sliderValue: parseInt(event.currentTarget.value)})}
             />
             <div className={styles.sliderRangeTicks}>
                 <div></div>
