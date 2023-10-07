@@ -6,7 +6,7 @@ import ScaleSlider from '../scale-slider/ScaleSlider';
 import WritingSpace  from "../writing-space/WritingSpace";
 
 //third party libraries
-import { Draggable } from 'react-beautiful-dnd';
+import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
 
 //Styles & SVG
 import styles from './scale.module.scss'
@@ -34,10 +34,10 @@ const Scale = (props: ScaleType) => {
 
     return (
         <Draggable key={props.id} draggableId={"draggable-"+props.id} index={props.index}>
-            {(provided: any, snapshot: any) => (//!FIX ANY
+            {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
                 <div className={styles.scale} ref={provided.innerRef} {...provided.draggableProps} style={{ ...provided.draggableProps.style, boxShadow: snapshot.isDragging? "0 5px 5px #0000007e": null}}>
                     <div className={styles.header}>
-                        <div {...provided.dragHandleProps}>
+                        <div {...provided.dragHandleProps} className={styles.dragHandle}>
                             <Image src={DragDropIcon} alt="Drag and Drop Tool"/> 
                         </div>
                         <ScaleGoal id={props.id} goal={props.goal}/>

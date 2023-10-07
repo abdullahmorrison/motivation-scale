@@ -1,6 +1,9 @@
 "use client"
 import { useState, useEffect } from 'react'
-import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+import { DroppableProvided, DroppableStateSnapshot, DropResult } from 'react-beautiful-dnd'
+import dynamic from 'next/dynamic'
+const DragDropContext = dynamic(() => import("react-beautiful-dnd").then((module) => module.DragDropContext));
+const Droppable = dynamic(() => import("react-beautiful-dnd").then((module) => module.Droppable));
 
 import Scale, { ScaleType } from './components/scale/Scale'
 import ConfirmModal from './components/confirm-modal/ConfirmModal'
@@ -28,32 +31,34 @@ export default function Dashboard(){
     }
     const handleReorderScale = (scaleID: string, newOrder: number) => {
     }
-    const handleDragAndDrop = (result: any) => {
+    const handleDragAndDrop = (result: DropResult) => {
+        if(!result.destination) return
+
         const srcI = result.source.index
-        const destI = result.destination?.index
+        const destI = result.destination.index
 
         const src = scales[srcI]
-        if(destI != null){ //making sure a item isn't dragged outside of draggable area (otherwise a destination wouldn't exist)
-            let removedSrc:any = scales.filter((_: any, index: any) => index !== srcI)
+        let removedSrc = scales.filter((_, index: number) => index !== srcI)
 
-            const left = removedSrc.slice(0, destI)
-            const right = removedSrc.slice(destI, removedSrc.length)
-            
-            let newScales:any = [...left, src, ...right]
-            
-            for(var i=0; i<newScales.length; i++) //looping to find changes in a scale's order in the array
-                if(newScales[i]._id !== scales[i].id) //only making api calls if a scale's order has changed
-                    handleReorderScale(newScales[i]._id, i)
-            setScales(newScales)
+        const left = removedSrc.slice(0, destI)
+        const right = removedSrc.slice(destI, removedSrc.length)
+
+        let newScales = [...left, src, ...right]
+
+        for(var i=0; i<newScales.length; i++) {
+            if(newScales[i].id !== scales[i].id) {
+                handleReorderScale(newScales[i].id, i)
+            }
         }
+        setScales(newScales)
     }
     return (
         <>
             <ConfirmModal message="Are you sure you would like to delete this scale?" confirmText="Delete"/>
             <div className={styles.droppableArea}>{/**Element made to add style to the drag and drop context*/}
                 <DragDropContext onDragEnd={handleDragAndDrop}>
-                    <Droppable droppableId="droppable-1">
-                        {(provided: any, _: any) => ( //!FIX ANY
+                    <Droppable droppableId="1">
+                        {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
                             <div ref={provided.innerRef} {...provided.droppableProps}>
                                 {scales.map((scale: ScaleType, i: number)=> (
                                     <Scale 

@@ -16,6 +16,9 @@
     align-items: center;
     justify-content: space-between;
     padding: 10px 75px;
+    .dragHandle {
+      cursor: grab;
+    }
     .headerIconContainer{
       display: flex;
       align-items: center;
