@@ -25,21 +25,6 @@ export default function Dashboard(){
     const handleAddScale = () => { //saving new scale to state and local storage
     }
     const handleDeleteScale = (id: string) => {
-        document.getElementById("myModal")!.style.display = "block"//display confirm modal
-
-        //action if the delete button is clicked
-        const deleteScale =()=> {//nested function created for adding and removing eventlistener
-            
-            document.getElementById("myModal")!.style.display = "none"
-        }
-        document.getElementById("modal-footer-delete")!.addEventListener("click", deleteScale)
-
-        //remove modal if you click the cancel button
-        document.getElementById("modal-footer-cancel")!.addEventListener("click", function() {
-            document.getElementById("modal-footer-delete")!.removeEventListener("click", deleteScale)
-            document.getElementById("myModal")!.style.display = "none"
-            document.getElementById("modal-footer-cancel")!.removeEventListener("click", deleteScale)
-        })
     }
     const handleReorderScale = (scaleID: string, newOrder: number) => {
     }
