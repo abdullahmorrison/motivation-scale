@@ -1,7 +1,7 @@
-&__slider {
-    &__range {
+.slider{
+    .sliderRange{
       //The scale
-      background: url("../images/inputbackground.svg");
+      background: url("./inputbackground.svg");
       background-size: 800px;
       border-radius: 20px;
       height: 25px;
@@ -42,11 +42,11 @@
       margin: -5px 0;
       width: 35px;
     }
-    &__range:focus {
+    .sliderRange:focus {
       //When you click something on the scale (there used to be a thick black outline)
       outline: none;
     }
-    &__labels {
+    .sliderRangeTickLabels{
       //each label under a tick
       display: flex;
       justify-content: space-between;
@@ -58,18 +58,16 @@
     }
 }
 @media (max-width: 990px) {
-    &__slider__range {
+    .sliderRange{
       background-size: 80vw;
       width: 80vw;
     }
 }
 @media (max-width: 600px) {
-  .scale {
-    &__slider {
-      margin-bottom: 20px;
-      &__labels {
-        display: none;
-      }
+  .slider{
+    margin-bottom: 20px;
+    .sliderRangeTickLabels{
+      display: none;
     }
   }
 }

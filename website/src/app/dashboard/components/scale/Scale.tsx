@@ -10,6 +10,7 @@ import { Draggable } from 'react-beautiful-dnd';
 
 //Styles & SVG
 import styles from './scale.module.scss'
+import Image from 'next/image';
 import ExplanationIconClosed from '../../../assets/icons/explanationIconClosed.svg'
 import ExplanationIconOpened from "../../../assets/icons/explanationIconOpened.svg";
 import DeleteIcon from "../../../assets/icons/deleteIcon.svg";
@@ -37,19 +38,19 @@ const Scale = (props: ScaleType) => {
                 <div className={styles.scale} ref={provided.innerRef} {...provided.draggableProps} style={{ ...provided.draggableProps.style, boxShadow: snapshot.isDragging? "0 5px 5px #0000007e": null}}>
                     <div className={styles.header}>
                         <div {...provided.dragHandleProps}>
-                            <img src={DragDropIcon} alt="Drag and Drop Tool"/> 
+                            <Image src={DragDropIcon} alt="Drag and Drop Tool"/> 
                         </div>
                         <ScaleGoal id={props.id} goal={props.goal}/>
                         <div className={styles.headerIconContainer}>
                             <div className={styles.headerIcon}>
-                                <img 
-                                    src={writingSpaceVisible? ExplanationIconClosed : ExplanationIconOpened} 
+                                <Image
+                                    src={writingSpaceVisible? ExplanationIconOpened : ExplanationIconClosed} 
                                     alt={"Explanation Button "+writingSpaceVisible?"(Closed)":"(Opened)"} 
                                     onClick={handleWritingSpace}
                                 />
                             </div>
                             <div className={styles.headerIcon}>
-                                <img src={DeleteIcon} alt="Delete Button" onClick={()=>props.onDelete(props.id)}/>
+                                <Image src={DeleteIcon} alt="Delete Button" onClick={()=>props.onDelete(props.id)}/>
                             </div>
                         </div>
                     </div>

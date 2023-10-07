@@ -17,20 +17,20 @@ const ScaleSlider = (props: ScaleSliderProps) => {
     }
 
     return (
-        <div className="scale__slider">
+        <div className={styles.slider}>
             <input
                 type="range"
-                className="scale__slider__range"
+                className={styles.sliderRange}
                 min="0" max="100" 
                 defaultValue = {props.sliderValue}
                 onChange = {(event) => changeSliderValue(+(event.target as HTMLInputElement).value)}
             />
-            <div className="scale__slider__ticks">
+            <div className={styles.sliderRangeTicks}>
                 <div></div>
                 <div></div>
                 <div></div>
             </div>
-            <ul className="scale__slider__labels">
+            <ul className={styles.sliderRangeTickLabels}>
                 <li>Saving What You Can</li>
                 <li>Avoiding Failure</li>
                 <li>Stagnant</li>

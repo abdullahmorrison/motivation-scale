@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import styles from 'writingSpace.module.scss'
+import styles from './writingSpace.module.scss'
 
 interface WritingSpaceProps{
     id: string,
@@ -20,7 +20,7 @@ const WritingSpace: React.FC<WritingSpaceProps> = (props: WritingSpaceProps) =>{
     }
 
     return (
-        <div className="scale__writing-space" style={props.isVisible ? {display:"flex"} : {display:"none"}}>
+        <div className={styles.writingSpace} style={props.isVisible ? {display:"flex"} : {display:"none"}}>
             <div>
                 <label>What would be avoiding failure?</label>
                 <textarea 

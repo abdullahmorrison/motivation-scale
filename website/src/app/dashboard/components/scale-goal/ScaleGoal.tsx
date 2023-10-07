@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import React, { useState, useEffect } from 'react'
 
 //styles & SVG
@@ -38,7 +39,7 @@ const ScaleGoal = (props: ScaleGoalProps) => {
                 />
             }
             <div className={styles.goalHeaderIcon}>
-                <img
+                <Image
                     src={EditIcon} 
                     alt="Edit Button" 
                     onClick={()=>setDisplayH1(false)}

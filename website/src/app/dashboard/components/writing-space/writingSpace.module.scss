@@ -1,9 +1,10 @@
-&__writing-space {
+.writingSpace {
     border-top: solid 1px #b3b3b3;
     display: flex;
     justify-content: center;
     padding: 20px;
     text-align: left;
+
     textarea,
     label {
       margin: 0 20px;
@@ -19,12 +20,12 @@
 }
 
 @media (max-width: 990px) {
-    &__writing-space textarea {
+    .writingSpace textarea {
       width: 35vw;
     }
 }
 @media (max-width: 700px) {
-  .scale__writing-space {
+  .writingSpace {
     flex-direction: column;
     justify-content: center;
     textarea,
