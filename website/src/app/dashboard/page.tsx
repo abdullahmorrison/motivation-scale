@@ -43,29 +43,30 @@ export default function Dashboard(){
     }
     const handleReorderScale = (scaleID: string, newOrder: number) => {
     }
+    const handleDragAndDrop = (result: any) => {
+        const srcI = result.source.index
+        const destI = result.destination?.index
+
+        const src = scales[srcI]
+        if(destI != null){ //making sure a item isn't dragged outside of draggable area (otherwise a destination wouldn't exist)
+            let removedSrc:any = scales.filter((_: any, index: any) => index !== srcI)
+
+            const left = removedSrc.slice(0, destI)
+            const right = removedSrc.slice(destI, removedSrc.length)
+            
+            let newScales:any = [...left, src, ...right]
+            
+            for(var i=0; i<newScales.length; i++) //looping to find changes in a scale's order in the array
+                if(newScales[i]._id !== scales[i].id) //only making api calls if a scale's order has changed
+                    handleReorderScale(newScales[i]._id, i)
+            setScales(newScales)
+        }
+    }
     return (
         <>
             <ConfirmModal message="Are you sure you would like to delete this scale?" confirmText="Delete"/>
             <div className={styles.droppableArea}>{/**Element made to add style to the drag and drop context*/}
-                <DragDropContext onDragEnd={(param: any)=>{//!FIX ANY
-                    const srcI = param.source.index
-                    const destI = param.destination?.index
-
-                    const src = scales[srcI]
-                    if(destI != null){ //making sure a item isn't dragged outside of draggable area (otherwise a destination wouldn't exist)
-                        let removedSrc:any = scales.filter((_: any, index: any) => index !== srcI)
-    
-                        const left = removedSrc.slice(0, destI)
-                        const right = removedSrc.slice(destI, removedSrc.length)
-                        
-                        let newScales:any = [...left, src, ...right]
-                        
-                        for(var i=0; i<newScales.length; i++) //looping to find changes in a scale's order in the array
-                            if(newScales[i]._id !== scales[i].id) //only making api calls if a scale's order has changed
-                                handleReorderScale(newScales[i]._id, i)
-                        setScales(newScales)
-                    }
-                }}>
+                <DragDropContext onDragEnd={handleDragAndDrop}>
                     <Droppable droppableId="droppable-1">
                         {(provided: any, _: any) => ( //!FIX ANY
                             <div ref={provided.innerRef} {...provided.droppableProps}>
