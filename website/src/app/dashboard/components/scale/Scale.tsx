@@ -49,8 +49,8 @@ const Scale = (props: ScaleType) => {
                                     onClick={handleWritingSpace}
                                 />
                             </div>
-                            <div className={styles.headerIcon}>
-                                <Image src={DeleteIcon} alt="Delete Button" onClick={()=>props.onDelete(props.id)}/>
+                            <div className={styles.headerIcon} onClick={()=>props.onDelete(props.id)}>
+                                <Image src={DeleteIcon} alt="Delete Button"/>
                             </div>
                         </div>
                     </div>
