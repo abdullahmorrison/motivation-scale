@@ -6,7 +6,7 @@ const DragDropContext = dynamic(() => import("react-beautiful-dnd").then((module
 const Droppable = dynamic(() => import("react-beautiful-dnd").then((module) => module.Droppable));
 
 import Scale, { ScaleType } from './components/scale/Scale'
-import ConfirmModal from './components/confirm-modal/ConfirmModal'
+import ConfirmModal from './components/modal/Modal'
 import { getScales } from '../apollo-client'
 
 import styles from './page.module.scss'
@@ -15,6 +15,7 @@ export default function Dashboard(){
     const [scales, setScales] = useState<ScaleType[]>([])
     const [username, setUsername] = useState<string>("abdullahmorrison@gmail.com")
     const [,setName] = useState<string>("Guest") //!DEFAULT "GUEST" MAY CAUSE ERRORS
+    const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false)
 
     useEffect(() => {
         async function fetchData() {
@@ -28,6 +29,7 @@ export default function Dashboard(){
     const handleAddScale = () => { //saving new scale to state and local storage
     }
     const handleDeleteScale = (id: string) => {
+        setShowConfirmModal(true)
     }
     const handleReorderScale = (scaleID: string, newOrder: number) => {
     }
@@ -52,13 +54,22 @@ export default function Dashboard(){
         }
         setScales(newScales)
     }
+
     return (
         <>
-            <ConfirmModal message="Are you sure you would like to delete this scale?" confirmText="Delete"/>
+            <ConfirmModal 
+                title='Confirm Deletion'
+                message="Are you sure you would like to delete this scale?" 
+                isVisible={showConfirmModal}
+                buttons={[
+                    {text: 'Delete', backgroundColor: 'red', onClick:()=> setShowConfirmModal(false)},
+                    {text: 'Cancel', onClick:()=> setShowConfirmModal(false)}
+                ]}
+            /> 
             <div className={styles.droppableArea}>{/**Element made to add style to the drag and drop context*/}
                 <DragDropContext onDragEnd={handleDragAndDrop}>
                     <Droppable droppableId="1">
-                        {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
+                        {(provided: DroppableProvided) => (
                             <div ref={provided.innerRef} {...provided.droppableProps}>
                                 {scales.map((scale: ScaleType, i: number)=> (
                                     <Scale 
