@@ -19,6 +19,7 @@ export async function getScales() {
         sliderValue
         chasingSuccessDescription
         avoidingFailureDescription
+        order
       }
     }`
   })
@@ -29,21 +30,32 @@ export async function getScales() {
     },
   }
 }
-export async function updateScaleSlider(input: { id: string, sliderValue: number }) {
+export async function updateScale(input: {
+  id: string,
+  goal?: string,
+  sliderValue?: number,
+  chasingSuccessDescription?: string,
+  avoidingFailureDescription?: string,
+  order?: number
+}){ 
   const { data } = await client.mutate({
-    mutation: gql
-    `mutation UpdateScale($id: String!, $sliderValue: Int){
-      updateScale(id: $id, sliderValue: $sliderValue) {
-        goal
-        sliderValue
-      }
-    }`
-    , variables: input
+    mutation: gql`
+      mutation UpdateScale($id: String!, $goal: String, $sliderValue: Int, $chasingSuccessDescription: String, $avoidingFailureDescription: String, $order: Int){
+          updateScale(id: $id, goal: $goal, sliderValue: $sliderValue, chasingSuccessDescription: $chasingSuccessDescription, avoidingFailureDescription: $avoidingFailureDescription, order: $order) {
+              id
+              goal
+              sliderValue
+              chasingSuccessDescription
+              avoidingFailureDescription
+              order
+          }
+      }`,
+      variables: input
   })
-                          
+
   return {
     props: {
-      updateScale: data.updateScale,
+      scale: data.updateScale,
     }
   }
 }
