@@ -10,6 +10,7 @@ export const Scale = objectType({
         t.nonNull.int("sliderValue");
         t.nullable.string("chasingSuccessDescription");
         t.nullable.string("avoidingFailureDescription");
+        t.nullable.int("order");
     },
 })
 
@@ -65,6 +66,7 @@ export const UpdateScale = extendType({
                 sliderValue: intArg(),
                 chasingSuccessDescription: stringArg(),
                 avoidingFailureDescription: stringArg(),
+                order: intArg(),
             },
             resolve: async (_, args) => {
                 const { id, ...scale } = args
