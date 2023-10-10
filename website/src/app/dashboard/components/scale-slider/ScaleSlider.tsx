@@ -1,5 +1,5 @@
 import styles from './scaleSlider.module.scss'
-import { updateScaleSlider } from '@/app/apollo-client';
+import { updateScale} from '@/app/apollo-client';
 
 interface ScaleSliderProps{
     id: string
@@ -13,7 +13,7 @@ const ScaleSlider = (props: ScaleSliderProps) => {
                 className={styles.sliderRange}
                 min="0" max="100" 
                 defaultValue = {props.sliderValue}
-                onMouseUp={(event) => updateScaleSlider({ id: props.id, sliderValue: parseInt(event.currentTarget.value)})}
+                onMouseUp={(event) => updateScale({ id: props.id, sliderValue: parseInt(event.currentTarget.value)})}
             />
             <div className={styles.sliderRangeTicks}>
                 <div></div>
