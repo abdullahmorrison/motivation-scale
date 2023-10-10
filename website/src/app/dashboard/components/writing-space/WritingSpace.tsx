@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styles from './writingSpace.module.scss'
+import { updateScale } from '@/app/apollo-client'
 
 interface WritingSpaceProps{
     id: string,
@@ -8,17 +9,6 @@ interface WritingSpaceProps{
     chasingSuccessDescription: string
 }
 const WritingSpace: React.FC<WritingSpaceProps> = (props: WritingSpaceProps) =>{
-    const [avoidingFailureDescription, setAvoidingFailureDescription] = useState<string>()
-    const [chasingSuccessDescription, setChasingSuccessDescription] = useState<string>()
-
-    useEffect(()=>{
-    }, [])
-
-    const handleWriteExplanation = async (value: string) =>{
-    }
-    const handleWriteFuturePlan = async (value: string) =>{
-    }
-
     return (
         <div className={styles.writingSpace} style={props.isVisible ? {display:"flex"} : {display:"none"}}>
             <div>
@@ -26,7 +16,7 @@ const WritingSpace: React.FC<WritingSpaceProps> = (props: WritingSpaceProps) =>{
                 <textarea 
                     placeholder="Enter your comment here..."
                     defaultValue={props.avoidingFailureDescription}
-                    onKeyUp={(event)=>handleWriteExplanation((event.target as HTMLTextAreaElement).value)}
+                    onKeyUp={(event)=>updateScale({id: props.id, avoidingFailureDescription: (event.target as HTMLTextAreaElement).value})}
                 />
             </div>
             <div>
@@ -34,7 +24,7 @@ const WritingSpace: React.FC<WritingSpaceProps> = (props: WritingSpaceProps) =>{
                 <textarea 
                     placeholder="Enter your comment here..." 
                     defaultValue={props.chasingSuccessDescription}
-                    onKeyUp={(event)=>handleWriteFuturePlan((event.target as HTMLTextAreaElement).value)}
+                    onKeyUp={(event)=>updateScale({id: props.id, chasingSuccessDescription: (event.target as HTMLTextAreaElement).value})}
                 />
             </div>
         </div>   
