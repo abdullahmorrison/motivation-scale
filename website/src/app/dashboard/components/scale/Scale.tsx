@@ -19,6 +19,7 @@ import DragDropIcon from '../../../assets/icons/dragDropIcon.svg';
 export interface ScaleType{
     id: string
     index: number
+    order?: number
     goal: string
     sliderValue: number
     chasingSuccessDescription: string
