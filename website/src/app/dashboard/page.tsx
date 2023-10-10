@@ -7,7 +7,7 @@ const Droppable = dynamic(() => import("react-beautiful-dnd").then((module) => m
 
 import Scale, { ScaleType } from './components/scale/Scale'
 import ConfirmModal from './components/modal/Modal'
-import { getScales } from '../apollo-client'
+import { getScales, updateScale } from '../apollo-client'
 
 import styles from './page.module.scss'
 
@@ -19,8 +19,12 @@ export default function Dashboard(){
 
     useEffect(() => {
         async function fetchData() {
-            let data = await getScales()
-            setScales(data.props.scales)
+            let data: ScaleType[] = await getScales()
+            data.sort((a: ScaleType, b: ScaleType) => {
+                if(a.order && b.order) return a.order - b.order
+                else return 0
+            })
+            setScales(data)
         }
         fetchData()
     }, [])
@@ -31,8 +35,6 @@ export default function Dashboard(){
     const handleDeleteScale = (id: string) => {
         setShowConfirmModal(true)
     }
-    const handleReorderScale = (scaleID: string, newOrder: number) => {
-    }
     const handleDragAndDrop = (result: DropResult) => {
         if(!result.destination) return
 
@@ -40,18 +42,16 @@ export default function Dashboard(){
         const destI = result.destination.index
 
         const src = scales[srcI]
-        let removedSrc = scales.filter((_, index: number) => index !== srcI)
+        const removedSrc = scales.filter((_, index: number) => index !== srcI)
 
         const left = removedSrc.slice(0, destI)
         const right = removedSrc.slice(destI, removedSrc.length)
 
         let newScales = [...left, src, ...right]
 
-        for(var i=0; i<newScales.length; i++) {
-            if(newScales[i].id !== scales[i].id) {
-                handleReorderScale(newScales[i].id, i)
-            }
-        }
+        for(var i=0; i<newScales.length; i++) 
+            if(newScales[i].id !== scales[i].id) 
+                updateScale({id: newScales[i].id, order: i})
         setScales(newScales)
     }
 
