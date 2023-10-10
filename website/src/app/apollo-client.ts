@@ -24,11 +24,7 @@ export async function getScales() {
     }`
   })
 
-  return {
-    props: {
-      scales: data.scales,
-    },
-  }
+  return data.scales
 }
 export async function updateScale(input: {
   id: string,
@@ -53,9 +49,5 @@ export async function updateScale(input: {
       variables: input
   })
 
-  return {
-    props: {
-      scale: data.updateScale,
-    }
-  }
+  return data.updateScale
 }
