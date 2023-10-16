@@ -1,13 +1,14 @@
 "use client"
 import { useState, useEffect } from 'react'
-import { DroppableProvided, DroppableStateSnapshot, DropResult } from 'react-beautiful-dnd'
+import { DroppableProvided, DropResult } from 'react-beautiful-dnd'
 import dynamic from 'next/dynamic'
 const DragDropContext = dynamic(() => import("react-beautiful-dnd").then((module) => module.DragDropContext));
 const Droppable = dynamic(() => import("react-beautiful-dnd").then((module) => module.Droppable));
 
 import Scale, { ScaleType } from './components/scale/Scale'
 import ConfirmModal from './components/modal/Modal'
-import { getScales, updateScale } from '../apollo-client'
+import EditScaleModal from './components/modal/Modal'
+import { getScales, updateScale } from '@/app/apollo-client'
 
 import styles from './page.module.scss'
 
@@ -16,6 +17,7 @@ export default function Dashboard(){
     const [username, setUsername] = useState<string>("abdullahmorrison@gmail.com")
     const [,setName] = useState<string>("Guest") //!DEFAULT "GUEST" MAY CAUSE ERRORS
     const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false)
+    const [editScaleData, setEditScaleData] = useState<ScaleType>()
 
     useEffect(() => {
         async function fetchData() {
@@ -59,13 +61,40 @@ export default function Dashboard(){
         <>
             <ConfirmModal 
                 title='Confirm Deletion'
-                message="Are you sure you would like to delete this scale?" 
+                body={
+                    <div>
+                        <p>Are you sure you want to delete this scale?</p>
+                    </div>
+                }
                 isVisible={showConfirmModal}
                 buttons={[
                     {text: 'Delete', backgroundColor: 'red', onClick:()=> setShowConfirmModal(false)},
                     {text: 'Cancel', onClick:()=> setShowConfirmModal(false)}
                 ]}
             /> 
+            <EditScaleModal
+                title='Edit Scale'
+                body={
+                    <div className={styles.editScaleModalBody}>
+                        <fieldset>
+                            <legend><h4>Goal</h4></legend>
+                            <input type="text" defaultValue={editScaleData?.goal} />
+                        </fieldset>
+                        <fieldset>
+                            <legend><h4>Avoiding Failure Description</h4></legend>
+                            <textarea cols={30} rows={10}>{editScaleData?.avoidingFailureDescription}</textarea>
+                        </fieldset> 
+                        <fieldset>
+                            <legend><h4>Chasing Sucess Description</h4></legend>
+                            <textarea cols={30} rows={10}>{editScaleData?.chasingSuccessDescription}</textarea>
+                        </fieldset>
+                    </div>
+                }
+                isVisible={editScaleData !== undefined}
+                buttons={[
+                    {text: 'Update', backgroundColor: '#0bf800', onClick:()=>{}}
+                ]}
+            />
             <div className={styles.droppableArea}>{/**Element made to add style to the drag and drop context*/}
                 <DragDropContext onDragEnd={handleDragAndDrop}>
                     <Droppable droppableId="1">

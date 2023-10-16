@@ -1,3 +1,19 @@
+.editScaleModalBody{
+  fieldset{
+    display: flex;
+    flex-direction: column;
+
+    border:none;
+    margin-bottom: 10px;
+    
+    legend{
+      margin-bottom: 5px;
+    }
+    input{
+      padding: 10px;
+    }
+  }
+}
 .droppableArea {
   margin: auto;
   width: 950px;
