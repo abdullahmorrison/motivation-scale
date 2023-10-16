@@ -2,7 +2,7 @@ import styles from './modal.module.scss'
 
 interface ModalProps{
     title: string
-    message: string,
+    body: JSX.Element
     isVisible: boolean,
     buttons: {
         text: string,
@@ -15,9 +15,7 @@ const ConfirmModal = (props: ModalProps) =>{
         <div className={styles.modal} style={props.isVisible? undefined : {visibility: "hidden"}}>
             <div className={styles.modalContent}>
                 <div className={styles.header}><h3>{props.title}</h3></div>
-                <div>
-                    {props.message}
-                </div>
+                {props.body}
                 <footer>
                     {props.buttons.map((button, index) => (
                         <button 
