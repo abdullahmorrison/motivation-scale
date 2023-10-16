@@ -24,14 +24,11 @@ export interface ScaleType{
     sliderValue: number
     chasingSuccessDescription: string
     avoidingFailureDescription: string
+    onEdit: (id: string) => void
     onDelete: (scaleID: string) => void 
 }
 const Scale = (props: ScaleType) => {
-    const [writingSpaceVisible, setWritiingSpaceVisible] = useState<boolean>(false)
-
-    const handleWritingSpace = () =>{ //makes writing space visble or removes it
-        setWritiingSpaceVisible(!writingSpaceVisible)
-    }
+    const [writingSpaceVisible, setWritingSpaceVisible] = useState<boolean>(false)
 
     return (
         <Draggable key={props.id} draggableId={"draggable-"+props.id} index={props.index}>
@@ -41,13 +38,13 @@ const Scale = (props: ScaleType) => {
                         <div {...provided.dragHandleProps} className={styles.dragHandle}>
                             <Image src={DragDropIcon} alt="Drag and Drop Tool"/> 
                         </div>
-                        <ScaleGoal id={props.id} goal={props.goal}/>
+                        <h2>{props.goal}</h2>
                         <div className={styles.headerIconContainer}>
                             <div className={styles.headerIcon}>
-                                <Image
-                                    src={writingSpaceVisible? ExplanationIconOpened : ExplanationIconClosed} 
-                                    alt={"Explanation Button "+writingSpaceVisible?"(Closed)":"(Opened)"} 
-                                    onClick={handleWritingSpace}
+                                <Image 
+                                    src={ExplanationIconClosed} 
+                                    alt={"Explanation Button (Closed)"} 
+                                    onClick={()=>props.onEdit(props.id)}
                                 />
                             </div>
                             <div className={styles.headerIcon} onClick={()=>props.onDelete(props.id)}>
