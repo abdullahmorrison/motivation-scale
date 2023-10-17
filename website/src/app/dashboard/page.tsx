@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { DroppableProvided, DropResult } from 'react-beautiful-dnd'
 import dynamic from 'next/dynamic'
 const DragDropContext = dynamic(() => import("react-beautiful-dnd").then((module) => module.DragDropContext));
@@ -18,6 +18,10 @@ export default function Dashboard(){
     const [,setName] = useState<string>("Guest") //!DEFAULT "GUEST" MAY CAUSE ERRORS
     const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false)
     const [editScaleData, setEditScaleData] = useState<ScaleType>()
+    
+    const goalRef = useRef<HTMLInputElement>(null);
+    const avoidingFailureDescriptionRef = useRef<HTMLTextAreaElement>(null);
+    const chasingSuccessDescriptionRef = useRef<HTMLTextAreaElement>(null);
 
     useEffect(() => {
         async function fetchData() {
@@ -33,6 +37,24 @@ export default function Dashboard(){
 
 
     const handleAddScale = () => { //saving new scale to state and local storage
+    }
+    const handleEditScale = (id: string) => {
+        updateScale({
+            id,
+            goal: goalRef.current ? goalRef.current.value : "",
+            avoidingFailureDescription: avoidingFailureDescriptionRef.current ? avoidingFailureDescriptionRef.current.value : "",
+            chasingSuccessDescription: chasingSuccessDescriptionRef.current ? chasingSuccessDescriptionRef.current.value : ""
+        })                        
+        setScales(scales.map((scale: ScaleType) => {
+            if(scale.id === id) return {
+                ...scale,
+                goal: goalRef.current ? goalRef.current.value : "",
+                avoidingFailureDescription: avoidingFailureDescriptionRef.current ? avoidingFailureDescriptionRef.current.value : "",
+                chasingSuccessDescription: chasingSuccessDescriptionRef.current ? chasingSuccessDescriptionRef.current.value : ""
+            }
+            else return scale
+        }))
+        setEditScaleData(undefined)
     }
     const handleDeleteScale = (id: string) => {
         setShowConfirmModal(true)
@@ -71,30 +93,33 @@ export default function Dashboard(){
                     {text: 'Delete', backgroundColor: 'red', onClick:()=> setShowConfirmModal(false)},
                     {text: 'Cancel', onClick:()=> setShowConfirmModal(false)}
                 ]}
+                onCloseModal={()=>setShowConfirmModal(false)}
             /> 
+            {editScaleData &&
             <EditScaleModal
                 title='Edit Scale'
                 body={
                     <div className={styles.editScaleModalBody}>
                         <fieldset>
                             <legend><h4>Goal</h4></legend>
-                            <input type="text" defaultValue={editScaleData?.goal} />
+                            <input ref={goalRef} type="text" defaultValue={editScaleData?.goal} />
                         </fieldset>
                         <fieldset>
                             <legend><h4>Avoiding Failure Description</h4></legend>
-                            <textarea cols={30} rows={10}>{editScaleData?.avoidingFailureDescription}</textarea>
+                            <textarea ref={avoidingFailureDescriptionRef} cols={30} rows={10}>{editScaleData?.avoidingFailureDescription}</textarea>
                         </fieldset> 
                         <fieldset>
                             <legend><h4>Chasing Sucess Description</h4></legend>
-                            <textarea cols={30} rows={10}>{editScaleData?.chasingSuccessDescription}</textarea>
+                            <textarea ref={chasingSuccessDescriptionRef} cols={30} rows={10}>{editScaleData?.chasingSuccessDescription}</textarea>
                         </fieldset>
                     </div>
                 }
                 isVisible={editScaleData !== undefined}
                 buttons={[
-                    {text: 'Update', backgroundColor: '#0bf800', onClick:()=>{}}
+                    {text: 'Update', backgroundColor: '#0bf800', onClick:()=>editScaleData? handleEditScale(editScaleData.id):undefined}
                 ]}
-            />
+                onCloseModal={()=> setEditScaleData(undefined)} 
+            />}
             <div className={styles.droppableArea}>{/**Element made to add style to the drag and drop context*/}
                 <DragDropContext onDragEnd={handleDragAndDrop}>
                     <Droppable droppableId="1">
@@ -109,6 +134,7 @@ export default function Dashboard(){
                                         sliderValue={scale.sliderValue}
                                         chasingSuccessDescription={scale.chasingSuccessDescription}
                                         avoidingFailureDescription={scale.avoidingFailureDescription}
+                                        onEdit={(id: string) => setEditScaleData(scales.find((scale: ScaleType) => scale.id === id))}
                                         onDelete={handleDeleteScale} 
                                     />
                                 ))}
