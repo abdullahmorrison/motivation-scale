@@ -9,10 +9,11 @@ interface ModalProps{
         backgroundColor?: string,
         onClick?: () => void
     }[]
+    onCloseModal: () => void
 }
 const ConfirmModal = (props: ModalProps) =>{
     return (
-        <div className={styles.modal} style={props.isVisible? undefined : {visibility: "hidden"}}>
+        <div onClick={(e)=>{e.target==e.currentTarget? props.onCloseModal() : undefined}} className={styles.modal} style={props.isVisible? undefined : {visibility: "hidden"}}>
             <div className={styles.modalContent}>
                 <div className={styles.header}><h3>{props.title}</h3></div>
                 {props.body}
