@@ -77,3 +77,18 @@ export async function updateScale(input: {
 
   return data.updateScale
 }
+export async function deleteScale(input: {
+  id: string
+}){ 
+  const { data } = await client.mutate({
+    mutation: gql`
+      mutation DeleteScale($id: String!){
+          deleteScale(id: $id) {
+              id
+          }
+      }`,
+      variables: input
+  })
+
+  return data.deleteScale
+}
