@@ -8,7 +8,7 @@ const Droppable = dynamic(() => import("react-beautiful-dnd").then((module) => m
 import Scale, { ScaleType } from './components/scale/Scale'
 import ConfirmModal from './components/modal/Modal'
 import EditScaleModal from './components/modal/Modal'
-import { getScales, updateScale } from '@/app/apollo-client'
+import { createScale, getScales, updateScale } from '@/app/apollo-client'
 
 import styles from './page.module.scss'
 
@@ -17,7 +17,7 @@ export default function Dashboard(){
     const [username, setUsername] = useState<string>("abdullahmorrison@gmail.com")
     const [,setName] = useState<string>("Guest") //!DEFAULT "GUEST" MAY CAUSE ERRORS
     const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false)
-    const [editScaleData, setEditScaleData] = useState<ScaleType>()
+    const [editScaleData, setEditScaleData] = useState<Partial<ScaleType>>()
     
     const goalRef = useRef<HTMLInputElement>(null);
     const avoidingFailureDescriptionRef = useRef<HTMLTextAreaElement>(null);
@@ -36,7 +36,15 @@ export default function Dashboard(){
     }, [])
 
 
-    const handleAddScale = () => { //saving new scale to state and local storage
+    const handleAddScale = async () => {
+        const response = await createScale({
+            username: username,
+            goal: goalRef.current ? goalRef.current.value : "",
+            avoidingFailureDescription: avoidingFailureDescriptionRef.current ? avoidingFailureDescriptionRef.current.value : "",
+            chasingSuccessDescription: chasingSuccessDescriptionRef.current ? chasingSuccessDescriptionRef.current.value : ""
+        })
+        setScales((previousScales: ScaleType[]) => [...previousScales, response])
+        setEditScaleData(undefined)
     }
     const handleEditScale = (id: string) => {
         updateScale({
@@ -115,9 +123,11 @@ export default function Dashboard(){
                     </div>
                 }
                 isVisible={editScaleData !== undefined}
-                buttons={[
-                    {text: 'Update', backgroundColor: '#0bf800', onClick:()=>editScaleData? handleEditScale(editScaleData.id):undefined}
-                ]}
+                buttons={[{
+                    text: editScaleData.id? 'Update' : "Create", 
+                    backgroundColor: '#0bf800', 
+                    onClick:()=>editScaleData? (editScaleData.id? handleEditScale(editScaleData.id):handleAddScale()): undefined
+                }]}
                 onCloseModal={()=> setEditScaleData(undefined)} 
             />}
             <div className={styles.droppableArea}>{/**Element made to add style to the drag and drop context*/}
@@ -144,7 +154,7 @@ export default function Dashboard(){
                     </Droppable>
                 </DragDropContext>
             </div>
-            <button className={styles.newScale} onClick={handleAddScale}>+</button>
+            <button className={styles.newScale} onClick={()=>setEditScaleData({})}>+</button>
         </>
     )
 }
