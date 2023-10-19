@@ -8,7 +8,7 @@ const Droppable = dynamic(() => import("react-beautiful-dnd").then((module) => m
 import Scale, { ScaleType } from './components/scale/Scale'
 import ConfirmModal from './components/modal/Modal'
 import EditScaleModal from './components/modal/Modal'
-import { createScale, getScales, updateScale } from '@/app/apollo-client'
+import { createScale, deleteScale, getScales, updateScale } from '@/app/apollo-client'
 
 import styles from './page.module.scss'
 
@@ -16,8 +16,8 @@ export default function Dashboard(){
     const [scales, setScales] = useState<ScaleType[]>([])
     const [username, setUsername] = useState<string>("abdullahmorrison@gmail.com")
     const [,setName] = useState<string>("Guest") //!DEFAULT "GUEST" MAY CAUSE ERRORS
-    const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false)
     const [editScaleData, setEditScaleData] = useState<Partial<ScaleType>>()
+    const [deleteScaleId, setDeleteScaleId] = useState<string>() 
     
     const goalRef = useRef<HTMLInputElement>(null);
     const avoidingFailureDescriptionRef = useRef<HTMLTextAreaElement>(null);
@@ -64,8 +64,10 @@ export default function Dashboard(){
         }))
         setEditScaleData(undefined)
     }
-    const handleDeleteScale = (id: string) => {
-        setShowConfirmModal(true)
+    const handleDeleteScale = async (id: string) => {
+        const response = await deleteScale({id})
+        setScales(scales.filter((scale: ScaleType) => scale.id !== response.id))
+        setDeleteScaleId(undefined)
     }
     const handleDragAndDrop = (result: DropResult) => {
         if(!result.destination) return
@@ -89,6 +91,7 @@ export default function Dashboard(){
 
     return (
         <>
+            {deleteScaleId &&
             <ConfirmModal 
                 title='Confirm Deletion'
                 body={
@@ -96,13 +99,13 @@ export default function Dashboard(){
                         <p>Are you sure you want to delete this scale?</p>
                     </div>
                 }
-                isVisible={showConfirmModal}
+                isVisible={deleteScaleId !== undefined}
                 buttons={[
-                    {text: 'Delete', backgroundColor: 'red', onClick:()=> setShowConfirmModal(false)},
-                    {text: 'Cancel', onClick:()=> setShowConfirmModal(false)}
+                    {text: 'Delete', backgroundColor: 'red', onClick:()=> handleDeleteScale(deleteScaleId)},
+                    {text: 'Cancel', onClick:()=> setDeleteScaleId(undefined)}
                 ]}
-                onCloseModal={()=>setShowConfirmModal(false)}
-            /> 
+                onCloseModal={()=>setDeleteScaleId(undefined)}
+            />}
             {editScaleData &&
             <EditScaleModal
                 title='Edit Scale'
@@ -145,7 +148,7 @@ export default function Dashboard(){
                                         chasingSuccessDescription={scale.chasingSuccessDescription}
                                         avoidingFailureDescription={scale.avoidingFailureDescription}
                                         onEdit={(id: string) => setEditScaleData(scales.find((scale: ScaleType) => scale.id === id))}
-                                        onDelete={handleDeleteScale} 
+                                        onDelete={()=>setDeleteScaleId(scale.id)} 
                                     />
                                 ))}
                                 {provided.placeholder}
