@@ -6,6 +6,10 @@ import { schema } from './schema'
 import bodyParser from 'body-parser'
 import 'dotenv/config'
 import cors from 'cors'
+import { NexusGraphQLSchema } from 'nexus/dist/core';
+import { Express } from 'express';
+import { ApolloServerPlugin } from 'apollo-server-plugin-base';
+import { BaseContext } from 'apollo-server-types';
 
 const app = express();
 
@@ -28,7 +32,7 @@ const server = new ApolloServer({
     schema,
     express: app,
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground()]
-} as any)
+} as { schema: NexusGraphQLSchema, express: Express, plugins: ApolloServerPlugin<BaseContext>[] })
 
 const port = process.env.PORT || 3001;
 connect(process.env.DB_CONNECTION as string, { useNewUrlParser: true, useUnifiedTopology: true, dbName: process.env.DB_NAME })
