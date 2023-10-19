@@ -38,6 +38,7 @@ export const CreateScale = extendType({
                 sliderValue: intArg(),
                 chasingSuccessDescription: stringArg(),
                 avoidingFailureDescription: stringArg(),
+                order: intArg(),
             },
             resolve: async (_, args) => {
                 const scale = new ScaleModel(args)
