@@ -28,6 +28,13 @@ export const GetUsers = extendType({
     }
 })
 
+const isEmailValid = (email: String): boolean =>{
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    ) != null
+}
 export const RegisterUser = extendType({
     type: "Mutation",
     definition(t) {
@@ -41,6 +48,8 @@ export const RegisterUser = extendType({
             resolve: async (_, args) => {
                 const oldUser =  await UserModel.findOne({email: args.email})
                 if(oldUser) throw new ApolloError("User already exists", "USER_ALREADY_EXISTS")
+
+                if(!isEmailValid(args.email)) throw new ApolloError("Invalid Email", "INVALID_EMAIL")
 
                 const encryptedPassword = await bcrypt.hash(args.password, 10)
 
