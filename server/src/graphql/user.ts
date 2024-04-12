@@ -1,8 +1,9 @@
-import { objectType, nonNull, stringArg } from "nexus"
+import { objectType, nonNull, stringArg, extendType } from "nexus"
 import { UserModel } from "../models/user"
 import { ApolloError } from "apollo-server-errors"
-import bcrypt from "bcrypt"
+import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
+import "dotenv/config"
 
 export const User = objectType({
     name: "User",
@@ -14,8 +15,8 @@ export const User = objectType({
     }
 })
 
-export const GetUsers = objectType({
-    name: "Query",
+export const GetUsers = extendType({
+    type: "Query",
     definition(t) {
         t.nonNull.list.nonNull.field("users", {
             type: "User",
@@ -27,12 +28,12 @@ export const GetUsers = objectType({
     }
 })
 
-export const RegisterUser = objectType({
-    name: "Mutation",
+export const RegisterUser = extendType({
+    type: "Mutation",
     definition(t) {
-        t.nonNull.field("createUser", {
+        t.nonNull.field("registerUser", {
             type: "User",
-            description: "Create a new user", 
+            description: "Register a new user", 
             args: {
                 email: nonNull(stringArg()),
                 password: nonNull(stringArg())
@@ -43,18 +44,53 @@ export const RegisterUser = objectType({
 
                 const encryptedPassword = await bcrypt.hash(args.password, 10)
 
-                const newUser = new UserModel(args)
-                newUser.password = encryptedPassword
+                const JWT_SECRET = process.env.JWT_SECRET
+                if(!JWT_SECRET) throw new ApolloError("JWT_SECRET envronment variable not set!", "JWT_SECRET_UNDEFINED")
 
-                const token = jwt.sign({id: newUser._id}, process.env.JWT_SECRET, {expiresIn: "1d"})
-                newUser.token = token
+                const newUser = new UserModel({
+                  ...args,
+                  password: encryptedPassword
+                })
+
+                const token = jwt.sign({id: newUser._id, email: args.email}, JWT_SECRET)
+
+                if(token==undefined){ throw new ApolloError("TOKEN CREATION FAILED: "+token, "TOKEN_CREATION_FAILED") }
+
+                (newUser as any).token = token
 
                 const response = await newUser.save()
-                return {
-                    id: response._id,
-                    ...newUser.toObject()
-                }
+                console.log(response)
+                return response
             }
         })
     }
+})
+
+export const LoginUser = extendType({
+  type: "Mutation",
+  definition(t){
+    t.nonNull.field("loginUser",{
+      type: "User",
+      description: "Login a user",
+      args:{
+        email: nonNull(stringArg()),
+        password: nonNull(stringArg())
+      },
+      resolve: async (_, args) =>{
+        const user = await UserModel.findOne({email: args.email})
+
+        if(!user) throw new ApolloError("User does not exist", "USER_DOES_NOT_EXIST")
+        else if(!bcrypt.compare(args.password, user.password))
+          throw new ApolloError("Incorrect password", "INCORRECT_PASSWORD")
+
+        const JWT_SECRET = process.env.JWT_SECRET
+        if(!JWT_SECRET) throw new ApolloError("JWT_SECRET envronment variable not set!", "JWT_SECRET_UNDEFINED")
+
+        const token = jwt.sign({id: user._id, email: args.email}, JWT_SECRET)
+        user.token = token
+
+        return user
+      }
+    })
+  }
 })
