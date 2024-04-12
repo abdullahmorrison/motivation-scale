@@ -68,7 +68,6 @@ export const RegisterUser = extendType({
                 (newUser as any).token = token
 
                 const response = await newUser.save()
-                console.log(response)
                 return response
             }
         })
