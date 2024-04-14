@@ -5,7 +5,7 @@ export const Scale = objectType({
     name: "Scale",
     definition(t) {
         t.nonNull.id("id");
-        t.nonNull.string("username");
+        t.nonNull.string("email");
         t.nonNull.string("goal");
         t.nonNull.int("sliderValue");
         t.nullable.string("chasingSuccessDescription");
@@ -32,7 +32,7 @@ export const CreateScale = extendType({
             type: "Scale",
             description: "Create a new scale", 
             args: {
-                username: nonNull(stringArg()),
+                email: nonNull(stringArg()),
                 goal: nonNull(stringArg()),
                 sliderValue: intArg(),
                 chasingSuccessDescription: stringArg(),
@@ -60,7 +60,7 @@ export const UpdateScale = extendType({
             description: "Update a scale",
             args: {
                 id: nonNull(stringArg()),
-                username: stringArg(),
+                email: stringArg(),
                 goal: stringArg(),
                 sliderValue: intArg(),
                 chasingSuccessDescription: stringArg(),

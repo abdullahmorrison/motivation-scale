@@ -1,11 +1,10 @@
 import { Schema, model } from "mongoose";
 
 const scaleSchema = new Schema({
-    username: {
+    email: {
         type: String,
         required: true,
         trim: true,
-        minlength: 3
     },
     goal: {
         type: String,
