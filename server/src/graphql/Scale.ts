@@ -42,11 +42,7 @@ export const CreateScale = extendType({
                 const scale = new ScaleModel(args)
 
                 const response = await scale.save()
-                return {
-                    id: response._id,
-                    sliderValue: args.sliderValue? args.sliderValue : 50,
-                    ...scale.toObject()
-                }
+                return response
             }
         })
     }
@@ -70,10 +66,7 @@ export const UpdateScale = extendType({
                 const { id, ...scale } = args
 
                 const response = await ScaleModel.findByIdAndUpdate(args.id, scale, {new: true})
-                return {
-                    id: response._id,
-                    ...response.toObject()
-                }
+                return response
             }
         })
     }
@@ -90,11 +83,9 @@ export const DeleteScaleById = extendType({
             },
             resolve: async (_, args) => {
                 const response = await ScaleModel.findByIdAndDelete(args.id)
-                return {
-                    id: response._id,
-                    ...response.toObject()
-                }
+                return response
             }
         })
     }
 })
+
