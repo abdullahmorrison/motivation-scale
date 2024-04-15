@@ -14,13 +14,17 @@ export const Scale = objectType({
     },
 })
 
-export const GetScales = extendType({
+export const GetScalesOfUser = extendType({
     type: "Query",
     definition(t) {
         t.nonNull.list.nonNull.field("scales", {
             type: "Scale",
-            resolve() {
-                return ScaleModel.find({})
+            description: "Get scales of a user",
+            args: {
+              userId: nonNull(stringArg())
+            },
+            resolve: async (_, args) => {
+                return ScaleModel.find({userId: args.userId})
             }
         })
     }
