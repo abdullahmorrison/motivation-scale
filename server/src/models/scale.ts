@@ -1,10 +1,9 @@
 import { Schema, model } from "mongoose";
 
 const scaleSchema = new Schema({
-    email: {
-        type: String,
-        required: true,
-        trim: true,
+    userId:{
+      type: String,
+      required: true
     },
     goal: {
         type: String,
