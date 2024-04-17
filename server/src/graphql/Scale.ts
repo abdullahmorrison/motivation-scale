@@ -1,6 +1,7 @@
-import { ApolloError } from "apollo-server-errors";
+import { GraphQLError } from "graphql";
 import { objectType, extendType, nonNull, stringArg, intArg } from "nexus"
 import { ScaleModel } from "../models/scale"
+import { UserModel } from "../models/user";
 
 export const Scale = objectType({
     name: "Scale",
@@ -24,13 +25,22 @@ export const GetScalesOfUser = extendType({
               userId: nonNull(stringArg())
             },
             resolve: async (_, args) => {
+                const user = await UserModel.findById(args.userId)
+                if(!user){
+                  throw new GraphQLError("User with that user id does not exist", {
+                    extensions: {
+                      code: "FORBIDDEN"
+                    }
+                  })
+                }
+
                 return ScaleModel.find({userId: args.userId})
             }
         })
     }
 })
 
-export const CreateScale = extendType({
+export const CreateScaleForUser = extendType({
     type: "Mutation",
     definition(t) {
         t.nonNull.field("createScale", {
@@ -44,6 +54,15 @@ export const CreateScale = extendType({
                 avoidingFailureDescription: stringArg(),
             },
             resolve: async (_, args) => {
+                const user = await UserModel.findById(args.userId)
+                if(!user){
+                  throw new GraphQLError("User with that user id does not exist", {
+                    extensions: {
+                      code: "FORBIDDEN"
+                    }
+                  })
+                }
+
                 const scale = new ScaleModel(args)
 
                 const response = await scale.save()
@@ -68,13 +87,33 @@ export const UpdateScale = extendType({
                 avoidingFailureDescription: stringArg(),
             },
             resolve: async (_, args) => {
-                const scale = await ScaleModel.findById(args.id)
-                if(scale.userId != args.userId)
-                  throw new ApolloError("Unauthorized scale update", "UNAUTHORIZED_USER")
+                const user = await UserModel.findById(args.userId)
+                if(!user){
+                  throw new GraphQLError("User with that user id does not exist", {
+                    extensions: {
+                      code: "DATA_NOT_FOUND"
+                    }
+                  })
+                }
+
+                const scale = await ScaleModel.findById(args.id).catch((err: Error)=> console.log(err))
+                if(scale==undefined){
+                  throw new GraphQLError("Scale with that id does not exist", {
+                    extensions: {
+                      code: "DATA_NOT_FOUND"
+                    }
+                  })
+                }else if(scale.userId != args.userId){
+                  throw new GraphQLError("Unauthorized scale mutation", {
+                    extensions: {
+                      code: "FORBIDDEN"
+                    }
+                  })
+                }
 
                 const { id, ...updatedScale } = args
 
-                const response = await ScaleModel.findByIdAndUpdate(args.id, updatedScale, {new: true})
+                const response = await ScaleModel.findByIdAndUpdate(id, updatedScale, {new: true})
                 return response
             }
         })
@@ -92,9 +131,29 @@ export const DeleteScaleById = extendType({
                 userId: nonNull(stringArg())
             },
             resolve: async (_, args) => {
-                const scale = await ScaleModel.findById(args.id)
-                if(scale.userId != args.userId)
-                  throw new ApolloError("Unauthorized scale delete", "UNAUTHORIZED_USER")
+                const user = await UserModel.findById(args.userId)
+                if(!user){
+                  throw new GraphQLError("User with that user id does not exist", {
+                    extensions: {
+                      code: "DATA_NOT_FOUND"
+                    }
+                  })
+                }
+
+                const scale = await ScaleModel.findById(args.id).catch((err: Error)=> console.log(err))
+                if(scale==undefined){
+                  throw new GraphQLError("Scale with that id does not exist", {
+                    extensions: {
+                      code: "DATA_NOT_FOUND"
+                    }
+                  })
+                }else if(scale.userId != args.userId){
+                  throw new GraphQLError("Unauthorized scale mutation", {
+                    extensions: {
+                      code: "FORBIDDEN"
+                    }
+                  })
+                }
 
                 const response = await ScaleModel.findByIdAndDelete(args.id)
                 return response
