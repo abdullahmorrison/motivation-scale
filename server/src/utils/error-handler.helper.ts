@@ -1,4 +1,5 @@
 import { GraphQLError } from "graphql"
+import { ApolloServerErrorCode } from '@apollo/server/errors';
 
 interface ErrorType {
   defaultMessage: string,
@@ -16,6 +17,16 @@ export const ERROR_LIST:{[key: string]: ErrorType} = {
     defaultMessage: 'Authentication failed',
     code: 'AUTHENTICATION_FAILED',
     status: 401
+  },
+  BAD_USER_INPUT: {
+    defaultMessage: "Bad user input",
+    code: ApolloServerErrorCode.BAD_USER_INPUT,
+    status: 400
+  },
+  INTERNAL_SERVER_ERROR:{
+    defaultMessage: "Server failed action",
+    code: ApolloServerErrorCode.INTERNAL_SERVER_ERROR,
+    status: 500
   },
   FORBIDDEN:{
     defaultMessage: 'Unauthorized action',
