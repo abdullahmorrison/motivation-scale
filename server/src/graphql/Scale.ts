@@ -1,4 +1,3 @@
-import { GraphQLError } from "graphql";
 import { objectType, extendType, nonNull, stringArg, intArg } from "nexus"
 import { ScaleModel } from "../models/scale"
 import { UserModel } from "../models/user";
