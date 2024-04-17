@@ -29,7 +29,7 @@ export const GetScalesOfUser = extendType({
                 if(!user){
                   throw new GraphQLError("User with that user id does not exist", {
                     extensions: {
-                      code: "FORBIDDEN"
+                      code: "DATA_NOT_FOUND"
                     }
                   })
                 }
@@ -58,7 +58,7 @@ export const CreateScaleForUser = extendType({
                 if(!user){
                   throw new GraphQLError("User with that user id does not exist", {
                     extensions: {
-                      code: "FORBIDDEN"
+                      code: "DATA_NOT_FOUND"
                     }
                   })
                 }
