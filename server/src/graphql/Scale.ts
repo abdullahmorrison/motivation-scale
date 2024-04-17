@@ -2,6 +2,7 @@ import { GraphQLError } from "graphql";
 import { objectType, extendType, nonNull, stringArg, intArg } from "nexus"
 import { ScaleModel } from "../models/scale"
 import { UserModel } from "../models/user";
+import throwCustomError, { ERROR_LIST } from '../utils/error-handler.helper'
 
 export const Scale = objectType({
     name: "Scale",
@@ -25,14 +26,8 @@ export const GetScalesOfUser = extendType({
               userId: nonNull(stringArg())
             },
             resolve: async (_, args) => {
-                const user = await UserModel.findById(args.userId)
-                if(!user){
-                  throw new GraphQLError("User with that user id does not exist", {
-                    extensions: {
-                      code: "DATA_NOT_FOUND"
-                    }
-                  })
-                }
+                await UserModel.findById(args.userId) //check user exists
+                  .catch(()=> {throwCustomError(ERROR_LIST.NOT_FOUND, "User with that id does not exist")})
 
                 return ScaleModel.find({userId: args.userId})
             }
@@ -54,14 +49,8 @@ export const CreateScaleForUser = extendType({
                 avoidingFailureDescription: stringArg(),
             },
             resolve: async (_, args) => {
-                const user = await UserModel.findById(args.userId)
-                if(!user){
-                  throw new GraphQLError("User with that user id does not exist", {
-                    extensions: {
-                      code: "DATA_NOT_FOUND"
-                    }
-                  })
-                }
+                await UserModel.findById(args.userId) //check user exists
+                  .catch(()=> {throwCustomError(ERROR_LIST.NOT_FOUND, "User with that id does not exist")})
 
                 const scale = new ScaleModel(args)
 
@@ -87,29 +76,12 @@ export const UpdateScale = extendType({
                 avoidingFailureDescription: stringArg(),
             },
             resolve: async (_, args) => {
-                const user = await UserModel.findById(args.userId)
-                if(!user){
-                  throw new GraphQLError("User with that user id does not exist", {
-                    extensions: {
-                      code: "DATA_NOT_FOUND"
-                    }
-                  })
-                }
-
-                const scale = await ScaleModel.findById(args.id).catch((err: Error)=> console.log(err))
-                if(scale==undefined){
-                  throw new GraphQLError("Scale with that id does not exist", {
-                    extensions: {
-                      code: "DATA_NOT_FOUND"
-                    }
-                  })
-                }else if(scale.userId != args.userId){
-                  throw new GraphQLError("Unauthorized scale mutation", {
-                    extensions: {
-                      code: "FORBIDDEN"
-                    }
-                  })
-                }
+                await UserModel.findById(args.userId) //check user exists
+                  .catch(()=> throwCustomError(ERROR_LIST.NOT_FOUND, "User with that id does not exist"))
+                const scale = await ScaleModel.findById(args.id) //check scale exists
+                  .catch(()=> throwCustomError(ERROR_LIST.NOT_FOUND, "Scale with that id does not exist"))
+                if(scale.userId != args.userId)
+                  throwCustomError(ERROR_LIST.FORBIDDEN, "Unauthorized scale update")
 
                 const { id, ...updatedScale } = args
 
@@ -131,29 +103,12 @@ export const DeleteScaleById = extendType({
                 userId: nonNull(stringArg())
             },
             resolve: async (_, args) => {
-                const user = await UserModel.findById(args.userId)
-                if(!user){
-                  throw new GraphQLError("User with that user id does not exist", {
-                    extensions: {
-                      code: "DATA_NOT_FOUND"
-                    }
-                  })
-                }
-
-                const scale = await ScaleModel.findById(args.id).catch((err: Error)=> console.log(err))
-                if(scale==undefined){
-                  throw new GraphQLError("Scale with that id does not exist", {
-                    extensions: {
-                      code: "DATA_NOT_FOUND"
-                    }
-                  })
-                }else if(scale.userId != args.userId){
-                  throw new GraphQLError("Unauthorized scale mutation", {
-                    extensions: {
-                      code: "FORBIDDEN"
-                    }
-                  })
-                }
+                await UserModel.findById(args.userId) //check user exists
+                  .catch(()=> throwCustomError(ERROR_LIST.NOT_FOUND, "User with that id does not exist"))
+                const scale = await ScaleModel.findById(args.id) //check scale exists
+                  .catch(()=> throwCustomError(ERROR_LIST.NOT_FOUND, "Scale with that id does not exist"))
+                if(scale.userId != args.userId)
+                  throwCustomError(ERROR_LIST.FORBIDDEN, "Unauthorized scale delete")
 
                 const response = await ScaleModel.findByIdAndDelete(args.id)
                 return response
