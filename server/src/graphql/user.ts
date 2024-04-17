@@ -1,6 +1,6 @@
 import { objectType, nonNull, stringArg, extendType } from "nexus"
 import { UserModel } from "../models/user"
-import { ApolloError } from "apollo-server-errors"
+import throwCustomError, { ERROR_LIST } from '../utils/error-handler.helper'
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import "dotenv/config"
@@ -47,25 +47,20 @@ export const RegisterUser = extendType({
             },
             resolve: async (_, args) => {
                 const oldUser =  await UserModel.findOne({email: args.email})
-                if(oldUser) throw new ApolloError("User already exists", "USER_ALREADY_EXISTS")
+                if(oldUser) throwCustomError(ERROR_LIST.ALREADY_EXISTS, "User already exists")
 
-                if(!isEmailValid(args.email)) throw new ApolloError("Invalid Email", "INVALID_EMAIL")
+                if(!isEmailValid(args.email)) throwCustomError(ERROR_LIST.BAD_USER_INPUT, "Invalid email")
 
                 const encryptedPassword = await bcrypt.hash(args.password, 10)
 
-                const JWT_SECRET = process.env.JWT_SECRET
-                if(!JWT_SECRET) throw new ApolloError("JWT_SECRET envronment variable not set!", "JWT_SECRET_UNDEFINED")
+                const JWT_SECRET: string = process.env.JWT_SECRET //JWT_SECRET not set up, throw error
+                  || throwCustomError(ERROR_LIST.INTERNAL_SERVER_ERROR, "Failed to set JWT secret")
 
-                const newUser = new UserModel({
+                const newUser: any = new UserModel({ //`any` used to allow adding token
                   ...args,
                   password: encryptedPassword
                 })
-
-                const token = jwt.sign({id: newUser._id, email: args.email}, JWT_SECRET)
-
-                if(token==undefined){ throw new ApolloError("TOKEN CREATION FAILED: "+token, "TOKEN_CREATION_FAILED") }
-
-                (newUser as any).token = token
+                newUser.token = jwt.sign({id: newUser._id, email: args.email}, JWT_SECRET)
 
                 const response = await newUser.save()
                 return response
@@ -87,15 +82,14 @@ export const LoginUser = extendType({
       resolve: async (_, args) =>{
         const user = await UserModel.findOne({email: args.email})
 
-        if(!user) throw new ApolloError("User does not exist", "USER_DOES_NOT_EXIST")
+        if(!user) throwCustomError(ERROR_LIST.AUTHENTICATION_FAILED, `User with email: ${args.email}, does not exist`)
         else if(!bcrypt.compare(args.password, user.password))
-          throw new ApolloError("Incorrect password", "INCORRECT_PASSWORD")
+          throwCustomError(ERROR_LIST.AUTHENTICATION_FAILED, "Incorrect password")
 
-        const JWT_SECRET = process.env.JWT_SECRET
-        if(!JWT_SECRET) throw new ApolloError("JWT_SECRET envronment variable not set!", "JWT_SECRET_UNDEFINED")
+        const JWT_SECRET: string = process.env.JWT_SECRET //JWT_SECRET not set up, throw error
+          || throwCustomError(ERROR_LIST.INTERNAL_SERVER_ERROR, "Failed to set JWT secret")
 
-        const token = jwt.sign({id: user._id, email: args.email}, JWT_SECRET)
-        user.token = token
+        user.token = jwt.sign({id: user._id, email: args.email}, JWT_SECRET)
 
         return user
       }
