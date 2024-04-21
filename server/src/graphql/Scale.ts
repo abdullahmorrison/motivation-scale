@@ -51,7 +51,7 @@ export const CreateScaleForUser = extendType({
                 await UserModel.findById(args.userId) //check user exists
                   .catch(()=> {throwCustomError(ERROR_LIST.NOT_FOUND, "User with that id does not exist")})
 
-                const scale = new ScaleModel(args)
+                const scale: any = new ScaleModel(args)
 
                 const response = await scale.save()
                 return response
