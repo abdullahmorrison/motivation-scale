@@ -6,8 +6,16 @@ interface ErrorType {
   code: string,
   status: number
 }
+interface ErrorList{
+  ALREADY_EXISTS: ErrorType,
+  AUTHENTICATION_FAILED: ErrorType,
+  BAD_USER_INPUT: ErrorType,
+  INTERNAL_SERVER_ERROR: ErrorType,
+  FORBIDDEN: ErrorType,
+  NOT_FOUND: ErrorType
+}
 
-export const ERROR_LIST:{[key: string]: ErrorType} = {
+export const ERROR_LIST: ErrorList = {
   ALREADY_EXISTS:{
     defaultMessage: 'Item already exists',
     code: 'ALREADY_EXISTS',
@@ -40,7 +48,7 @@ export const ERROR_LIST:{[key: string]: ErrorType} = {
   }
 }
 
-export default (error:  ErrorType, customErrorMessage?: string) =>{
+export default (error: ErrorType, customErrorMessage?: string) =>{
   throw new GraphQLError(customErrorMessage || error.defaultMessage, {
     extensions: {
       code: error.code,
