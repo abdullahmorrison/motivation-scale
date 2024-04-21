@@ -1,12 +1,12 @@
 import { GraphQLError } from "graphql"
 import { ApolloServerErrorCode } from '@apollo/server/errors';
 
-interface ErrorType {
+type ErrorType = {
   defaultMessage: string,
   code: string,
   status: number
 }
-interface ErrorList{
+type ErrorList = {
   ALREADY_EXISTS: ErrorType,
   AUTHENTICATION_FAILED: ErrorType,
   BAD_USER_INPUT: ErrorType,
