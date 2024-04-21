@@ -26,7 +26,7 @@ describe("Login/Register", ()=>{
       throw new Error(`environment variable (${env}) not set to test`)
 
     // make sure the test user does not already exits (already registered)
-    const response = await UserModel.find({emai: user.email}).catch()
+    const response = await UserModel.find({email: user.email}).catch()
     if(response.length>0) await UserModel.findByIdAndDelete(response.at(0)._id) //remove from db if exists
   })
   afterAll(async ()=>{
