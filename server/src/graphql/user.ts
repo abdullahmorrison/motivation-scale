@@ -83,7 +83,7 @@ export const LoginUser = extendType({
         const user = await UserModel.findOne({email: args.email})
 
         if(!user) throwCustomError(ERROR_LIST.AUTHENTICATION_FAILED, `User with email: ${args.email}, does not exist`)
-        else if(!bcrypt.compare(args.password, user.password))
+        else if(!(await bcrypt.compare(args.password, user.password)))
           throwCustomError(ERROR_LIST.AUTHENTICATION_FAILED, "Incorrect password")
 
         const JWT_SECRET: string = process.env.JWT_SECRET //JWT_SECRET not set up, throw error
