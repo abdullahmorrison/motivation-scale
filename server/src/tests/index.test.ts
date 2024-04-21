@@ -34,7 +34,7 @@ describe("Login/Register", ()=>{
   //missing: Register: reject user already exists
   
   it("Register: reject invalid email", async ()=>{
-    const invalidEmails = ["invalidemail", "invalidemail@2", "invalidemail.com"]
+    const invalidEmails = ["invalidemail", "invalidemail@2", "invalidemail.com", "invalid@email."]
 
     for(let invalidEmail of invalidEmails){
       let response = await testServer.executeOperation({
