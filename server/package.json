@@ -4,16 +4,20 @@
   "description": "express backend of pgp scale",
   "main": "src/server.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node-dev src/server.ts",
+    "test": "npm run generate && jest --detectOpenHandles",
+    "start": "npm run generate && ts-node-dev src/server.ts",
     "dev": "ts-node-dev --transpile-only --no-notify --exit-child src/index.ts",
     "generate": "ts-node --transpile-only src/schema.ts"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    }
   },
   "author": "Abdullah Morrison",
   "license": "ISC",
   "dependencies": {
     "@apollo/server": "^4.10.3",
-    "@types/jest": "^26.0.24",
     "@types/node": "^16.4.10",
     "@types/react": "^17.0.16",
     "@types/react-dom": "^17.0.9",
@@ -34,8 +38,11 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
+    "@types/jest": "^29.5.12",
     "@types/jsonwebtoken": "^9.0.6",
+    "jest": "^29.7.0",
     "nodemon": "^2.0.14",
+    "ts-jest": "^29.1.2",
     "ts-node-dev": "^2.0.0"
   }
 }
