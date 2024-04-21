@@ -7,7 +7,7 @@ import bodyParser from 'body-parser'
 import 'dotenv/config'
 import cors from 'cors'
 
-const app = express();
+export const app = express();
 
 app.use(bodyParser.json({ limit: '30mb'}))
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
@@ -20,7 +20,7 @@ app.use(cors({
         } else {
             callback(new Error('Not allowed by CORS'))
         }
-        }
+      }
     }
 ))
 
