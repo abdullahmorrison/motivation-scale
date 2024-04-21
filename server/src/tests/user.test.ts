@@ -25,7 +25,7 @@ describe("Login/Register", ()=>{
 
     // make sure the test user does not already exits (already registered)
     const response = await UserModel.find({email}).catch()
-    if(response) await UserModel.findOneAndDelete(response.id) //remove from db if exists
+    if(response.length>0) await UserModel.findByIdAndDelete(response.at(0)._id) //remove from db if exists
   })
   afterAll(async ()=>{
     await testServer.stop()
