@@ -9,8 +9,10 @@ import { ERROR_LIST } from '../utils/error-handler.helper';
 describe("Login/Register", ()=>{
   let testServer: ApolloServer
 
-  const email = "test@gmail.com"
-  const password = "test"
+  const user = {
+    email: "test@gmail.com",
+    password: "test"
+  }
 
   beforeAll(async ()=>{
     testServer = new ApolloServer({
@@ -24,7 +26,7 @@ describe("Login/Register", ()=>{
       throw new Error(`environment variable (${env}) not set to test`)
 
     // make sure the test user does not already exits (already registered)
-    const response = await UserModel.find({email}).catch()
+    const response = await UserModel.find({emai: user.email}).catch()
     if(response.length>0) await UserModel.findByIdAndDelete(response.at(0)._id) //remove from db if exists
   })
   afterAll(async ()=>{
@@ -35,18 +37,19 @@ describe("Login/Register", ()=>{
   it("Registers a new user", async ()=>{
     const response = await testServer.executeOperation({
       query: REGISTER_USER,
-      variables: {email, password}
+      variables: user
     })
     expect(response.errors).toBe(undefined)
-    expect(response.data?.registerUser.email).toBe(email)
+    expect(response.data?.registerUser.email).toBe(user.email)
   })
   it("Register: reject already existing user email", async ()=>{
-    const alreadyExisitingUserEmail = "existingemail@gmail.com"
-    const alreadyExistingUserPassword = "test"
-
+    const alreadyExistingUser = {
+      email: "existingemail@gmail.com",
+      password: "test"
+    }
     const response = await testServer.executeOperation({
       query: REGISTER_USER,
-      variables: { email: alreadyExisitingUserEmail, password: alreadyExistingUserPassword}
+      variables: { email: alreadyExistingUser.email, password: alreadyExistingUser.password}
     })
     expect(response.errors?.at(0)?.extensions?.code).toBe(ERROR_LIST.ALREADY_EXISTS.code)
   })
@@ -56,7 +59,7 @@ describe("Login/Register", ()=>{
     for(let invalidEmail of invalidEmails){
       let response = await testServer.executeOperation({
         query: REGISTER_USER,
-        variables: {email: invalidEmail, password}
+        variables: {email: invalidEmail, password: user.password}
       })
       expect(response.errors?.at(0)?.extensions?.code).toBe(ERROR_LIST.BAD_USER_INPUT.code)
     }
@@ -65,23 +68,23 @@ describe("Login/Register", ()=>{
   it("Login a user", async ()=>{
     const response = await testServer.executeOperation({
       query: LOGIN_USER,
-      variables: { email, password},
+      variables: user
     })
-    expect(response.data?.loginUser.email).toBe(email)
+    expect(response.data?.loginUser.email).toBe(user.email)
   })
   it("Login: rejects nonexistant email", async ()=>{
     let nonexistantEmail = "nonexistantemail@email.com"
 
     const response = await testServer.executeOperation({
       query: LOGIN_USER,
-      variables: { email: nonexistantEmail, password},
+      variables: { email: nonexistantEmail, password: user.password},
     })
     expect(response.errors?.at(0)?.extensions?.code).toBe(ERROR_LIST.AUTHENTICATION_FAILED.code)
   })
   it("Login: rejects incorrect password", async ()=>{
     const response = await testServer.executeOperation({
       query: LOGIN_USER,
-      variables: { email, password: "incorrectpassword"},
+      variables: { email: user.email, password: "incorrectpassword"},
     })
     expect(response.errors?.at(0)?.extensions?.code).toBe(ERROR_LIST.AUTHENTICATION_FAILED.code)
   })
