@@ -1,11 +1,10 @@
 import { ApolloServer } from 'apollo-server';
-import { disconnect } from 'mongoose';
-import { schema } from "../schema"
 import { UserModel } from "../models/user"
+import { schema } from "../schema"
 import { app } from "../server"
+import { disconnect } from 'mongoose';
 import { REGISTER_USER, LOGIN_USER } from "./queries/user"
-import {ERROR_LIST} from '../utils/error-handler.helper';
-
+import { ERROR_LIST } from '../utils/error-handler.helper';
 
 describe("Login/Register", ()=>{
   let testServer: ApolloServer
@@ -87,4 +86,3 @@ describe("Login/Register", ()=>{
     expect(response.errors?.at(0)?.extensions?.code).toBe(ERROR_LIST.AUTHENTICATION_FAILED.code)
   })
 })
-
