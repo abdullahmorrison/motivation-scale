@@ -1,8 +1,8 @@
 import { ApolloServer } from 'apollo-server';
 import { UserModel } from "../models/user"
 import { schema } from "../schema"
-import { app } from "../server"
-import { disconnect } from 'mongoose';
+import express from "express"
+import { connect, disconnect } from 'mongoose';
 import { REGISTER_USER, LOGIN_USER } from "./queries/user"
 import { ERROR_LIST } from '../utils/error-handler.helper';
 
@@ -15,10 +15,16 @@ describe("Login/Register", ()=>{
   }
 
   beforeAll(async ()=>{
+    const app = express()
+
     testServer = new ApolloServer({
       schema,
       express: app
     } as any)
+
+    const port = process.env.PORT || 3003;
+    connect(process.env.DB_CONNECTION as string, { useNewUrlParser: true, useUnifiedTopology: true, dbName: process.env.DB_NAME })
+        .then(()=>{app.listen(port, ()=>console.log(`User test server started on port ${port}`))})
 
     // make sure we are only making queries to the test database
     const env = process.env.DB_NAME
@@ -31,7 +37,7 @@ describe("Login/Register", ()=>{
   })
   afterAll(async ()=>{
     await testServer.stop()
-    await disconnect()
+    disconnect()
   })
 
   it("Registers a new user", async ()=>{

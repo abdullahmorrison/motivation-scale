@@ -7,7 +7,7 @@ import bodyParser from 'body-parser'
 import 'dotenv/config'
 import cors from 'cors'
 
-export const app = express();
+const app = express();
 
 app.use(bodyParser.json({ limit: '30mb'}))
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
@@ -24,15 +24,15 @@ app.use(cors({
     }
 ))
 
-const server = new ApolloServer({ 
-    schema,
-    express: app,
-    plugins: [ApolloServerPluginLandingPageGraphQLPlayground()]
+new ApolloServer({ 
+  schema,
+  express: app,
+  plugins: [ApolloServerPluginLandingPageGraphQLPlayground()]
 } as any)
 
 const port = process.env.PORT || 3001;
 connect(process.env.DB_CONNECTION as string, { useNewUrlParser: true, useUnifiedTopology: true, dbName: process.env.DB_NAME })
-    .then(()=>{server.listen(port, ()=>console.log(`Server started on port ${port}`))})
+    .then(()=>{app.listen(port, ()=>console.log(`Server started on port ${port}`))})
     .catch((error)=> console.log(error.message))
     
 set('useFindAndModify', false)
