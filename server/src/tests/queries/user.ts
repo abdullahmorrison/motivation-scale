@@ -1,4 +1,4 @@
-export const userQueries = {
+const UserQueries = {
   REGISTER_USER: `
     mutation registerUser(
       $email: String!
@@ -26,3 +26,4 @@ export const userQueries = {
     }
   `
 }
+export default UserQueries

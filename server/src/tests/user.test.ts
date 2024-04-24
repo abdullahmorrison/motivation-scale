@@ -3,7 +3,7 @@ import { UserModel } from "../models/user"
 import { schema } from "../schema"
 import express from "express"
 import { connect, disconnect } from 'mongoose';
-import { userQueries } from "./queries/user"
+import UserQueries  from "./queries/user"
 import { ERROR_LIST } from '../utils/error-handler.helper';
 
 describe("Login/Register", ()=>{
@@ -42,7 +42,7 @@ describe("Login/Register", ()=>{
 
   it("Registers a new user", async ()=>{
     const response = await testServer.executeOperation({
-      query: userQueries.REGISTER_USER,
+      query: UserQueries.REGISTER_USER,
       variables: user
     })
     expect(response.errors).toBe(undefined)
@@ -54,7 +54,7 @@ describe("Login/Register", ()=>{
       password: "test"
     }
     const response = await testServer.executeOperation({
-      query: userQueries.REGISTER_USER,
+      query: UserQueries.REGISTER_USER,
       variables: { email: alreadyExistingUser.email, password: alreadyExistingUser.password}
     })
     expect(response.errors?.at(0)?.extensions?.code).toBe(ERROR_LIST.ALREADY_EXISTS.code)
@@ -64,7 +64,7 @@ describe("Login/Register", ()=>{
 
     for(let invalidEmail of invalidEmails){
       let response = await testServer.executeOperation({
-        query: userQueries.REGISTER_USER,
+        query: UserQueries.REGISTER_USER,
         variables: {email: invalidEmail, password: user.password}
       })
       expect(response.errors?.at(0)?.extensions?.code).toBe(ERROR_LIST.BAD_USER_INPUT.code)
@@ -73,7 +73,7 @@ describe("Login/Register", ()=>{
 
   it("Login a user", async ()=>{
     const response = await testServer.executeOperation({
-      query: userQueries.LOGIN_USER,
+      query: UserQueries.LOGIN_USER,
       variables: user
     })
     expect(response.data?.loginUser.email).toBe(user.email)
@@ -82,14 +82,14 @@ describe("Login/Register", ()=>{
     let nonexistantEmail = "nonexistantemail@email.com"
 
     const response = await testServer.executeOperation({
-      query: userQueries.LOGIN_USER,
+      query: UserQueries.LOGIN_USER,
       variables: { email: nonexistantEmail, password: user.password},
     })
     expect(response.errors?.at(0)?.extensions?.code).toBe(ERROR_LIST.AUTHENTICATION_FAILED.code)
   })
   it("Login: rejects incorrect password", async ()=>{
     const response = await testServer.executeOperation({
-      query: userQueries.LOGIN_USER,
+      query: UserQueries.LOGIN_USER,
       variables: { email: user.email, password: "incorrectpassword"},
     })
     expect(response.errors?.at(0)?.extensions?.code).toBe(ERROR_LIST.AUTHENTICATION_FAILED.code)

@@ -1,4 +1,4 @@
-export const ScaleQueries = {
+const ScaleQueries = {
   GET_SCALES:`
     query GetScales($userId: String!) {
       scales(userId: $userId) {
@@ -61,3 +61,4 @@ export const ScaleQueries = {
     }
   `
 }
+export default ScaleQueries
