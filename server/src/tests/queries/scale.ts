@@ -54,6 +54,7 @@ const ScaleQueries = {
       ) {
         id
         goal
+        userId
         sliderValue
         chasingSuccessDescription
         avoidingFailureDescription
