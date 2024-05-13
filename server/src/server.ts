@@ -24,15 +24,17 @@ app.use(cors({
     }
 ))
 
-new ApolloServer({ 
+const server = new ApolloServer({
   schema,
   express: app,
-  plugins: [ApolloServerPluginLandingPageGraphQLPlayground()]
+  plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
+  context: async ({ req }: any) => ({
+    token: req.headers.authorization
+  })
 } as any)
 
 const port = process.env.PORT || 3001;
 connect(process.env.DB_CONNECTION as string, { useNewUrlParser: true, useUnifiedTopology: true, dbName: process.env.DB_NAME })
-    .then(()=>{app.listen(port, ()=>console.log(`Server started on port ${port}`))})
-    .catch((error)=> console.log(error.message))
+    .then(()=>{server.listen(port, ()=>console.log(`Server started on port ${port}`))})
     
 set('useFindAndModify', false)
