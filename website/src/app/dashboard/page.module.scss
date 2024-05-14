@@ -1,25 +1,28 @@
+@use "../variables.scss" as *;
+
 .droppableArea {
   margin: auto;
   width: 950px;
 }
 .newScale {
-  background: #ffffff;
+  background: $primary;
   border-radius: 5px;
   border: solid 1px #00000033;
-  box-shadow: 0 4px 4px #00000033;
+  box-shadow: $box-shadow;
+  color: $text-primary;
   display: block;
   font-size: 30px;
   width: 50px;
   height: 50px;
   margin: auto;
 
-    &:hover {
-      box-shadow: 0 4px 4px #00000066;
-      cursor: pointer;
-    }
-    &:active {
-      box-shadow: 0 2px 4px #00000066;
-    }
+  &:hover {
+    filter: brightness(1.2);
+    cursor: pointer;
+  }
+  &:active {
+    box-shadow: $box-shadow-clicked;
+  }
 }
 @media (max-width: 990px) {
   .droppableArea {
