@@ -6,6 +6,8 @@ import { schema } from './schema'
 import bodyParser from 'body-parser'
 import 'dotenv/config'
 import cors from 'cors'
+import jwt from "jsonwebtoken"
+import throwCustomError, { ERROR_LIST } from './utils/error-handler.helper'
 
 const app = express();
 
@@ -28,12 +30,21 @@ const server = new ApolloServer({
   schema,
   express: app,
   plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
-  context: async ({ req }: any) => ({
-    token: req.headers.authorization
-  })
+  context: ({ req }: any) => {
+    const token = req.headers.authorization
+    if(!token) return null
+
+    const JWT_SECRET: string = process.env.JWT_SECRET //JWT_SECRET not set up, throw error
+      || throwCustomError(ERROR_LIST.INTERNAL_SERVER_ERROR, "Failed to set JWT secret")
+
+    const response: any = jwt.verify(token.replace("Bearer ", ""), JWT_SECRET)
+    if(response.message) throwCustomError(ERROR_LIST.AUTHENTICATION_FAILED, response.message)
+
+    return response
+  },
 } as any)
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3001
 connect(process.env.DB_CONNECTION as string, { useNewUrlParser: true, useUnifiedTopology: true, dbName: process.env.DB_NAME })
     .then(()=>{server.listen(port, ()=>console.log(`Server started on port ${port}`))})
     
