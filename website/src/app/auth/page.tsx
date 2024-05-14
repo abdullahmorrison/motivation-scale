@@ -5,6 +5,7 @@ import { useMutation } from "@apollo/client"
 import { AuthContext } from "@/context/authContext"
 import useForm from "@/hooks/useForm"
 import { LOGIN_USER } from "@/queries/auth"
+import styles from './auth.module.scss'
 
 export default function Auth(){
   const router = useRouter()
@@ -32,18 +33,19 @@ export default function Auth(){
   }
 
   return (
-    <main>
+    <main className={styles.auth}>
       <h2>Login to The Motivation Scale</h2>  
 
       <form onSubmit={onSubmit}>
         <label htmlFor="email">Email</label>
-        <input type="email" name="email" placeholder="Email" onChange={onChange} required />
+        <input type="email" name="email" placeholder="Enter your email..." onChange={onChange} required />
 
         <label htmlFor="password">Password</label>
-        <input type="password" name="password" placeholder="Password" onChange={onChange} required />
+        <input type="password" name="password" placeholder="Entry your password..." onChange={onChange} required />
 
         <input type="submit" value="Login"/>
       </form>
+      <a href="">Don't have an account? Sign up</a>
     </main>
   )
 }
