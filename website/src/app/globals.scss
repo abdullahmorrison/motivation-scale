@@ -1,10 +1,20 @@
+@use 'variables.scss' as *;
+
 * {
   margin: 0;
   padding: 0;
 }
 body {
+  background: $background;
+  color: $text-primary;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  padding: 20px;
+
+  width: 100vw;
+  height: 100vh;
+}
+a{
+  color: $text-link;
+  text-decoration: none;
 }
 li {
   margin-left: 20px;
