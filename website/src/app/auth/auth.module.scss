@@ -26,6 +26,11 @@
       
       &[type='submit']{
         background: $highlight;
+
+        &:hover{
+          filter: brightness(1.25);
+          cursor: pointer;
+        }
       }
     }
   }
