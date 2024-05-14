@@ -24,7 +24,11 @@ export const GetScalesOfUser = extendType({
             args: {
               userId: nonNull(stringArg())
             },
-            resolve: async (_, args) => {
+            resolve: async (_, args, cxt) => {
+                if(!cxt) throwCustomError(ERROR_LIST.FORBIDDEN, "No authenticated user")
+                if(cxt.id != args.userId)
+                  throwCustomError(ERROR_LIST.FORBIDDEN, "Unauthorized action: trying to access a user that isn't you")
+                  
                 await UserModel.findById(args.userId) //check user exists
                   .catch(()=> {throwCustomError(ERROR_LIST.NOT_FOUND, "User with that id does not exist")})
 
@@ -47,7 +51,11 @@ export const CreateScaleForUser = extendType({
                 chasingSuccessDescription: stringArg(),
                 avoidingFailureDescription: stringArg(),
             },
-            resolve: async (_, args) => {
+            resolve: async (_, args, cxt) => {
+                if(!cxt) throwCustomError(ERROR_LIST.FORBIDDEN, "No authenticated user")
+                if(cxt.id != args.userId)
+                  throwCustomError(ERROR_LIST.FORBIDDEN, "Unauthorized action: trying to access a user that isn't you")
+
                 await UserModel.findById(args.userId) //check user exists
                   .catch(()=> {throwCustomError(ERROR_LIST.NOT_FOUND, "User with that id does not exist")})
 
@@ -74,7 +82,11 @@ export const UpdateScale = extendType({
                 chasingSuccessDescription: stringArg(),
                 avoidingFailureDescription: stringArg(),
             },
-            resolve: async (_, args) => {
+            resolve: async (_, args, cxt) => {
+                if(!cxt) throwCustomError(ERROR_LIST.FORBIDDEN, "No authenticated user")
+                if(cxt.id != args.userId)
+                  throwCustomError(ERROR_LIST.FORBIDDEN, "Unauthorized action: trying to access a user that isn't you")
+
                 await UserModel.findById(args.userId) //check user exists
                   .catch(()=> throwCustomError(ERROR_LIST.NOT_FOUND, "User with that id does not exist"))
                 const scale = await ScaleModel.findById(args.id) //check scale exists
@@ -101,7 +113,11 @@ export const DeleteScaleById = extendType({
                 id: nonNull(stringArg()),
                 userId: nonNull(stringArg())
             },
-            resolve: async (_, args) => {
+            resolve: async (_, args, cxt) => {
+                if(!cxt) throwCustomError(ERROR_LIST.FORBIDDEN, "No authenticated user")
+                if(cxt.id != args.userId)
+                  throwCustomError(ERROR_LIST.FORBIDDEN, "Unauthorized action: trying to access a user that isn't you")
+
                 await UserModel.findById(args.userId) //check user exists
                   .catch(()=> throwCustomError(ERROR_LIST.NOT_FOUND, "User with that id does not exist"))
                 const scale = await ScaleModel.findById(args.id) //check scale exists
