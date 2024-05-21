@@ -1,8 +1,10 @@
+@use "../../../variables.scss" as *;
+
 .scale {
-  background: #ffffff;
+  background: $primary;
   border: solid 1px #00000033;
   border-radius: 10px;
-  box-shadow: 0 4px 4px #00000040;
+  box-shadow: $box-shadow;
   margin: auto;
   margin-bottom: 25px;
   text-align: center; //centers the range scale and text
@@ -39,6 +41,17 @@
         //adding space for the edit icon
         margin-right: 10px;
       }
+    }
+  }
+  .dropdown{
+    background: $highlight;
+    border-radius: 0 0 10px 10px;
+    color: black;
+    padding: 5px 0;
+
+    &:hover{
+      cursor: pointer;
+      filter: brightness(1.5);
     }
   }
 }
