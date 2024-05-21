@@ -51,6 +51,13 @@ export default function Dashboard(){
         setScaleToMutate(prev=>({...prev, type: null}))
       }
     })
+    const [deleteScale] = useMutation(ScaleQueries.DELETE_SCALE, {
+      onCompleted(data){
+        const deletedScale = data.deleteScale
+        setScales(scales.filter((scale)=>scale.id!=deletedScale.id))
+        setScaleToMutate(prev=>({...prev, type: null}))
+      }
+    })
 
     useEffect(() => {
       getScales({variables: { userId: user.id} })
@@ -88,7 +95,7 @@ export default function Dashboard(){
                 scale={scaleToMutate?.scale}
                 onEdit={(scaleData)=>editScale({variables: scaleData})}
                 onAdd={(scaleData)=> addScale({variables: { userId: user.id, ...scaleData}})}
-                onDelete={()=>{}}
+                onDelete={(scaleData)=>deleteScale({variables: {userId: user.id, id: scaleData.id}})}
                 onClose={()=>setScaleToMutate(null)}
               /> : null
             }

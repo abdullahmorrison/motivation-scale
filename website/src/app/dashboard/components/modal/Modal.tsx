@@ -55,7 +55,7 @@ const ScaleModal = (props: PropsWithChildren<ScaleModalProps>) =>{
         <div className={styles.buttons}>
           {props.type=="edit" ?
             <>
-            <button className="danger" onClick={props.onDelete}>Delete Scale</button>
+            <button className="danger" onClick={()=>props.onDelete(modalData)}>Delete Scale</button>
             <button className="commit" onClick={()=> props.onEdit(modalData)}>Update Scale</button>
             </>
           :props.type=="add" ?

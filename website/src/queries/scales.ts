@@ -62,6 +62,20 @@ const ScaleQueries = {
         avoidingFailureDescription
       }
     }
+  `,
+  DELETE_SCALE: gql`
+    mutation DeleteScale(
+      $id: String!
+      $userId: String!
+    ){
+      deleteScale(
+        id: $id
+        userId: $userId
+      ){
+        id
+        userId
+      }
+    }
   `
 }
 export default ScaleQueries
