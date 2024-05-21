@@ -1,3 +1,5 @@
+@use "../../../variables.scss" as *;
+
 /* Taken From https://www.w3schools.com/howto/howto_css_modals.asp -*/
 .modal {
   /* The Modal (background) */
@@ -9,38 +11,53 @@
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.685); /* Black w/ opacity */
+  background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
 
   .modalContent{
-    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    background-color: $primary;
     border: none;
     border-radius: 5px;
-    padding: 10px;
+    padding: 30px 40px;
     margin: auto;
     font-size: large;
     max-width: 90vw;
     width: 600px;
 
-    & div {
-      padding: 10px 20px;
+    .closeModal{
+      color: $highlight;
+      font-size: 1.75em;
+      position: absolute;
+      right: 30px;
+      top: 10px;
+      &:hover{
+        cursor: pointer;
+        filter: brightness(1.5);
+      }
     }
-    footer {
+    label{
+      margin-bottom: 5px;
+
+      .required{
+        color: red;
+      }
+    }
+    .header, input, textarea{
+      margin-bottom: 15px;
+    }
+    textarea{
+      height: 100px;
+    }
+
+    .buttons{
       padding-top: 10px;
       text-align: right;
       button {
-        background: #c0c0c0;
-        border: none;
-        border-radius: 5px;
-        font-size: medium;
-        font-weight: bold;
-        padding: 8px 20px;
+        box-shadow: 0 4px 4px #00000050;
         margin: 0 5px;
-
-        &:hover {
-          cursor: pointer;
-          outline: 1px solid black;
-        }
       }
     }
   }
