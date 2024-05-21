@@ -1,5 +1,9 @@
-import { useState, useEffect } from 'react';
 import styles from './scaleSlider.module.scss'
+import { useMutation } from '@apollo/client';
+import ScaleQueries from '@/queries/scales';
+import useStateDebounced from  '@/hooks/useStateDebounced'
+import { useContext } from 'react';
+import { AuthContext } from '@/context/authContext';
 
 interface ScaleSliderProps{
     id: string
@@ -7,14 +11,12 @@ interface ScaleSliderProps{
 }
 
 const ScaleSlider = (props: ScaleSliderProps) => {
-    const [sliderValue, setSliderValue] = useState<number>(50)
-    
-    useEffect(()=>{
-    }, [])
+    const [_, debouncedSliderValue, setSliderValue] = useStateDebounced<number>(props.sliderValue, 500,
+      ()=> editScale({variables: {userId: user.id, id: props.id, sliderValue: debouncedSliderValue}})
+    )
+    const { user }: any = useContext(AuthContext)
 
-    const changeSliderValue = async (value: number) =>{
-        setSliderValue(value)
-    }
+    const [editScale] = useMutation(ScaleQueries.UPDATE_SCALE)
 
     return (
         <div className={styles.slider}>
@@ -23,7 +25,7 @@ const ScaleSlider = (props: ScaleSliderProps) => {
                 className={styles.sliderRange}
                 min="0" max="100" 
                 defaultValue = {props.sliderValue}
-                onChange = {(event) => changeSliderValue(+(event.target as HTMLInputElement).value)}
+                onChange= {(event) => setSliderValue(+(event.target as HTMLInputElement).value)}
             />
             <div className={styles.sliderRangeTicks}>
                 <div></div>
