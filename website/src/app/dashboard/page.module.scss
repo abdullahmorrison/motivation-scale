@@ -6,10 +6,7 @@
 }
 .newScale {
   background: $primary;
-  border-radius: 5px;
   border: solid 1px #00000033;
-  box-shadow: $box-shadow;
-  color: $text-primary;
   display: block;
   font-size: 30px;
   width: 50px;
@@ -18,7 +15,6 @@
 
   &:hover {
     filter: brightness(1.2);
-    cursor: pointer;
   }
   &:active {
     box-shadow: $box-shadow-clicked;

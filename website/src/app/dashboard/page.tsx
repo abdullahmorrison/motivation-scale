@@ -1,36 +1,61 @@
 "use client"
-import { useState, useEffect } from 'react'
-import { DroppableProvided, DroppableStateSnapshot, DropResult } from 'react-beautiful-dnd'
+import { useState, useEffect, useContext } from 'react'
+import { AuthContext } from '@/context/authContext';
+import { DroppableProvided,  DropResult } from 'react-beautiful-dnd'
 import dynamic from 'next/dynamic'
 const DragDropContext = dynamic(() => import("react-beautiful-dnd").then((module) => module.DragDropContext));
 const Droppable = dynamic(() => import("react-beautiful-dnd").then((module) => module.Droppable));
 
 import Scale, { ScaleType } from './components/scale/Scale'
-import ConfirmModal from './components/modal/Modal'
-import { getScales } from '../apollo-client'
+import ScaleModal from './components/modal/Modal'
 
 import styles from './page.module.scss'
+import { useLazyQuery, useMutation } from '@apollo/client';
+import ScaleQueries from '@/queries/scales';
 
 export default function Dashboard(){
     const [scales, setScales] = useState<ScaleType[]>([])
-    const [username, setUsername] = useState<string>("abdullahmorrison@gmail.com")
-    const [,setName] = useState<string>("Guest") //!DEFAULT "GUEST" MAY CAUSE ERRORS
-    const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false)
+    const { user }: any = useContext(AuthContext)
+    type ModalData = null | {
+      type: "add" | "edit" | null,
+      scale?: {
+        id?: string,
+        goal?: string,
+        chasingSuccessDescription?: string,
+        avoidingFailureDescription?: string
+      }
+    }
+    const [scaleToMutate, setScaleToMutate] = useState<ModalData>(null)
+
+    const [getScales]= useLazyQuery(ScaleQueries.GET_SCALES, {
+      onCompleted(data){
+        setScales(data.scales)
+      }
+    })
+    const [addScale] = useMutation(ScaleQueries.CREATE_SCALE, {
+      onCompleted(data){
+        const scale = data.createScale
+        setScales(prev=>[...prev, scale])
+        setScaleToMutate(prev=>({...prev, type: null}))
+      }
+    })
+    const [editScale] = useMutation(ScaleQueries.UPDATE_SCALE, {
+      onCompleted(data){
+        const scale = data.updateScale
+        let i=0
+        for(; i<scales.length; i++){
+          if(scales.at(i)?.id == scale.id) break
+        }
+          
+        setScales(scales.with(i, data.updateScale))
+        setScaleToMutate(prev=>({...prev, type: null}))
+      }
+    })
 
     useEffect(() => {
-        async function fetchData() {
-            let data = await getScales()
-            setScales(data.props.scales)
-        }
-        fetchData()
-    }, [])
+      getScales({variables: { userId: user.id} })
+    }, [user])
 
-
-    const handleAddScale = () => { //saving new scale to state and local storage
-    }
-    const handleDeleteScale = (id: string) => {
-        setShowConfirmModal(true)
-    }
     const handleReorderScale = (scaleID: string, newOrder: number) => {
     }
     const handleDragAndDrop = (result: DropResult) => {
@@ -56,16 +81,17 @@ export default function Dashboard(){
     }
 
     return (
-        <>
-            <ConfirmModal 
-                title='Confirm Deletion'
-                message="Are you sure you would like to delete this scale?" 
-                isVisible={showConfirmModal}
-                buttons={[
-                    {text: 'Delete', backgroundColor: 'red', onClick:()=> setShowConfirmModal(false)},
-                    {text: 'Cancel', onClick:()=> setShowConfirmModal(false)}
-                ]}
-            /> 
+        <main>
+            {scaleToMutate?.type!=null ?
+              <ScaleModal 
+                type={scaleToMutate?.type || null}
+                scale={scaleToMutate?.scale}
+                onEdit={(scaleData)=>editScale({variables: scaleData})}
+                onAdd={(scaleData)=> addScale({variables: { userId: user.id, ...scaleData}})}
+                onDelete={()=>{}}
+                onClose={()=>setScaleToMutate(null)}
+              /> : null
+            }
             <div className={styles.droppableArea}>{/**Element made to add style to the drag and drop context*/}
                 <DragDropContext onDragEnd={handleDragAndDrop}>
                     <Droppable droppableId="1">
@@ -80,7 +106,7 @@ export default function Dashboard(){
                                         sliderValue={scale.sliderValue}
                                         chasingSuccessDescription={scale.chasingSuccessDescription}
                                         avoidingFailureDescription={scale.avoidingFailureDescription}
-                                        onDelete={handleDeleteScale} 
+                                        onEdit={()=>setScaleToMutate({type: "edit", scale})} 
                                     />
                                 ))}
                                 {provided.placeholder}
@@ -89,7 +115,7 @@ export default function Dashboard(){
                     </Droppable>
                 </DragDropContext>
             </div>
-            <button className={styles.newScale} onClick={handleAddScale}>+</button>
-        </>
+            <button className={styles.newScale} onClick={()=>setScaleToMutate({type: "add"})}>+</button>
+        </main>
     )
 }
