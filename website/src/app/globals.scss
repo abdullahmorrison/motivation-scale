@@ -19,3 +19,35 @@ a{
 li {
   margin-left: 20px;
 }
+button{
+  background: $highlight;
+  border: none;
+  border-radius: 5px;
+  box-shadow: $box-shadow;
+  color: $text-primary;
+  font-size: medium;
+  font-weight: bold;
+  padding: 10px;
+
+  &:hover{
+    cursor: pointer;
+    filter: brightness(1.2);
+  }
+}
+.danger{
+  background: $button-danger;
+}
+.commit{
+  background: green;
+}
+
+input:not([type="range"]), textarea{
+  background: none;
+  border: 1px solid $highlight;
+  border-radius: 5px;
+  color: $text-primary;
+  padding: 10px;
+}
+textarea{
+  font-family: inherit;
+}
