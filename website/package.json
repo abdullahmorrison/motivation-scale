@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.8.5",
+    "html-react-parser": "^5.1.10",
     "next": "13.5.4",
     "react": "^18",
     "react-beautiful-dnd": "^13.1.1",
