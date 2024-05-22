@@ -9,7 +9,7 @@ const debounce = (fn: any, delay: number) => {
   }
 }
 
-export default function useStateDebounced<T>(initialValue: T, delay: number, callback: ()=>any) {
+export default function useStateDebounced<T>(initialValue: T, delay: number) {
   const [inputValue, _setInputValue] = useState<T>(initialValue)
 
   const [debouncedInputValue, setDebouncedInputValue] = useState<T>(initialValue)
@@ -18,7 +18,6 @@ export default function useStateDebounced<T>(initialValue: T, delay: number, cal
     () =>
       debounce((value: T) => {
         setDebouncedInputValue(value)
-        callback()
       }, delay),
     [delay]
   )
