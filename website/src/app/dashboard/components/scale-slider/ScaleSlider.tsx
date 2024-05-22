@@ -2,8 +2,9 @@ import styles from './scaleSlider.module.scss'
 import { useMutation } from '@apollo/client';
 import ScaleQueries from '@/queries/scales';
 import useStateDebounced from  '@/hooks/useStateDebounced'
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { AuthContext } from '@/context/authContext';
+import useDidUpdateEffect from '@/hooks/useDidUpdateEffect';
 
 interface ScaleSliderProps{
     id: string
@@ -11,12 +12,14 @@ interface ScaleSliderProps{
 }
 
 const ScaleSlider = (props: ScaleSliderProps) => {
-    const [_, debouncedSliderValue, setSliderValue] = useStateDebounced<number>(props.sliderValue, 500,
-      ()=> editScale({variables: {userId: user.id, id: props.id, sliderValue: debouncedSliderValue}})
-    )
+    const [, debouncedSliderValue, setSliderValue] = useStateDebounced<number>(props.sliderValue, 500)
     const { user }: any = useContext(AuthContext)
 
     const [editScale] = useMutation(ScaleQueries.UPDATE_SCALE)
+
+    useDidUpdateEffect(()=>{
+      editScale({variables: {userId: user.id, id: props.id, sliderValue: debouncedSliderValue}})
+    }, [debouncedSliderValue])
 
     return (
         <div className={styles.slider}>
