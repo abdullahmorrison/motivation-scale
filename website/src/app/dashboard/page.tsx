@@ -7,6 +7,7 @@ const DragDropContext = dynamic(() => import("react-beautiful-dnd").then((module
 const Droppable = dynamic(() => import("react-beautiful-dnd").then((module) => module.Droppable));
 
 import Scale, { ScaleType } from './components/scale/Scale'
+import Nav from '../nav/Nav';
 import ScaleModal from './components/modal/Modal'
 
 import styles from './page.module.scss'
@@ -99,6 +100,7 @@ export default function Dashboard(){
                 onClose={()=>setScaleToMutate(null)}
               /> : null
             }
+            <Nav/>
             <div className={styles.droppableArea}>{/**Element made to add style to the drag and drop context*/}
                 <DragDropContext onDragEnd={handleDragAndDrop}>
                     <Droppable droppableId="1">
