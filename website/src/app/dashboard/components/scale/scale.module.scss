@@ -7,6 +7,7 @@
   box-shadow: $box-shadow;
   margin: auto;
   margin-bottom: 25px;
+  padding-top: 10px;
   text-align: center; //centers the range scale and text
   width: 950px;
 
@@ -43,10 +44,26 @@
       }
     }
   }
+  .metrics{
+    display: flex;
+    justify-content: space-evenly;
+    border-top: solid 1px $highlight;
+    padding: 20px;
+
+    div{
+      text-align: left;
+      h3{
+        font-size: medium;
+      }
+      padding: 5px;
+      min-height: 100px;
+      width: 40%;
+    }
+  }
   .dropdown{
     background: $highlight;
     border-radius: 0 0 10px 10px;
-    color: black;
+    color: $primary;
     padding: 5px 0;
 
     &:hover{
