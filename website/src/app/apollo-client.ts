@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache, createHttpLink, gql } from '@apollo/client'
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client'
 import { setContext } from "@apollo/client/link/context"
 
 const httpLink = createHttpLink({
@@ -21,25 +21,3 @@ export const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 })
-
-export async function getScales() {
-  const { data } = await client.query({
-    query: gql`
-        {
-          scales {
-            id
-            username
-            goal
-            sliderValue
-            chasingSuccessDescription
-            avoidingFailureDescription
-          }
-        }`
-  })
-
-  return {
-    props: {
-      scales: data.scales,
-    },
-  }
-}
