@@ -1,7 +1,6 @@
 import { useContext, useState } from 'react'
 import styles from './settings.module.scss'
 import { AuthContext } from '@/context/authContext'
-import Logo from "../assets/icons/logo.svg"
 
 const Settings = () => {
   const { user }= useContext(AuthContext)
