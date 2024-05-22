@@ -2,11 +2,11 @@
     .sliderRange{
       //The scale
       background: url("./inputbackground.svg");
-      background-size: 800px;
+      background-size: 100%;
       border-radius: 20px;
       height: 25px;
       margin-top: 10px;
-      width: 800px;
+      width: 85%;
       -webkit-appearance: none; // Override default CSS styles
     }
     input[type="range"]::-webkit-slider-thumb {
