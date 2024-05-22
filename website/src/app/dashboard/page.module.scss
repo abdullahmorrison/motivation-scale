@@ -1,26 +1,32 @@
 @use "../variables.scss" as *;
 
-.droppableArea {
-  margin: auto;
-  width: 950px;
-  padding: 20px;
-}
-.newScale {
-  background: $primary;
-  border: solid 1px #00000033;
-  display: block;
-  font-size: 30px;
-  width: 50px;
-  height: 50px;
-  margin: auto;
+.dashboard{
+  padding-bottom: 200px;
 
-  &:hover {
-    filter: brightness(1.2);
+  .droppableArea {
+    margin: auto;
+    width: 950px;
+    padding: 20px;
   }
-  &:active {
-    box-shadow: $box-shadow-clicked;
+  .newScale {
+    background: $primary;
+    border: solid 1px #00000033;
+    display: block;
+    font-size: 30px;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 20px;
+    margin: auto;
+
+    &:hover {
+      filter: brightness(1.2);
+    }
+    &:active {
+      box-shadow: $box-shadow-clicked;
+    }
   }
 }
+
 @media (max-width: 990px) {
   .droppableArea {
     width: 90vw;

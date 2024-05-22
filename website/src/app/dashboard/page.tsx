@@ -89,7 +89,7 @@ export default function Dashboard(){
     }
 
     return (
-        <main>
+        <main className={styles.dashboard}>
             {scaleToMutate?.type!=null ?
               <ScaleModal 
                 type={scaleToMutate?.type || null}
