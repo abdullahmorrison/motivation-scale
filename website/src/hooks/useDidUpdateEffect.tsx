@@ -14,5 +14,5 @@ export default function useDidUpdateEffect(fn: ()=>any, inputs: any) {
     } else {
       isMountingRef.current = false;
     }
-  }, inputs);
+  }, [inputs, fn]);
 }

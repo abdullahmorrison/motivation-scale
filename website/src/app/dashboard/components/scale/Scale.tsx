@@ -33,7 +33,7 @@ const Scale = (props: ScaleType) => {
     return (
         <Draggable key={props.id} draggableId={"draggable-"+props.id} index={props.index}>
             {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
-                <div className={styles.scale} ref={provided.innerRef} {...provided.draggableProps} style={{ ...provided.draggableProps.style, boxShadow: snapshot.isDragging? "0 5px 5px #0000007e": null}}>
+                <div className={styles.scale} ref={provided.innerRef} {...provided.draggableProps} style={{ ...provided.draggableProps.style, boxShadow: snapshot.isDragging? "0 5px 5px #0000007e": undefined}}>
                     <div className={styles.header}>
                         <div {...provided.dragHandleProps} className={styles.dragHandle}>
                             <Image src={DragDropIcon} alt="Drag and Drop Tool"/> 

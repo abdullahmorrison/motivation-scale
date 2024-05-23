@@ -65,7 +65,7 @@ export default function Dashboard(){
     useEffect(() => {
       if(user==null) router.push("/auth/login")
       else getScales({variables: { userId: user.id} })
-    }, [user])
+    }, [user, getScales, router])
 
     const handleReorderScale = (scaleID: string, newOrder: number) => {
     }

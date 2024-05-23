@@ -14,8 +14,8 @@ const Settings = () => {
   }
 
   const userEmail = () =>{
-    if(!user || !user.email) return ""
-    return user.email
+    if(!user) return ""
+    return user["email"]
   }
   const emailFirstLetter = () =>{
     const email = userEmail()
