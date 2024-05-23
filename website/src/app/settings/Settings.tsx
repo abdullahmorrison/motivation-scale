@@ -2,16 +2,16 @@ import { useContext, useState } from 'react'
 import styles from './settings.module.scss'
 import { AuthContext } from '@/context/authContext'
 import { useRouter } from "next/navigation"
+import useDidUpdateEffect from '@/hooks/useDidUpdateEffect'
 
 const Settings = () => {
   const { user, logout}= useContext(AuthContext)
   const router = useRouter()
   const [toggleSettingsOpen, setToggleSettingsOpen] = useState(false)
 
-  function handleLogout(){
-    router.push("/auth/login")
-    logout()
-  }
+  useDidUpdateEffect(()=>{
+    if(user==null) router.push("/auth/login")
+  }, [user])
 
   const userEmail = () =>{
     if(!user) return ""
@@ -31,7 +31,7 @@ const Settings = () => {
         <div className={styles.settings}>
           <h3>Account</h3>
           <p className={styles.email}>{userEmail()}</p>
-          <p onClick={handleLogout} className={styles.logout}>Logout</p>
+          <p onClick={logout} className={styles.logout}>Logout</p>
         </div>
       : null}
     </div>
