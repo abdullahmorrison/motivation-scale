@@ -13,6 +13,7 @@ import ScaleModal from './components/modal/Modal'
 import styles from './page.module.scss'
 import { useLazyQuery, useMutation } from '@apollo/client';
 import ScaleQueries from '@/queries/scales';
+import { useRouter } from 'next/navigation';
 
 export default function Dashboard(){
     const [scales, setScales] = useState<ScaleType[]>([])
@@ -60,8 +61,10 @@ export default function Dashboard(){
       }
     })
 
+    const router = useRouter()
     useEffect(() => {
-      getScales({variables: { userId: user.id} })
+      if(user==null) router.push("/auth")
+      else getScales({variables: { userId: user.id} })
     }, [user])
 
     const handleReorderScale = (scaleID: string, newOrder: number) => {
