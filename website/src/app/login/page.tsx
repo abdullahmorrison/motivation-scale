@@ -5,7 +5,7 @@ import { useMutation } from "@apollo/client"
 import { AuthContext } from "@/context/authContext"
 import useForm from "@/hooks/useForm"
 import { LOGIN_USER } from "@/queries/auth"
-import styles from './auth.module.scss'
+import styles from './login.module.scss'
 
 export default function Auth(){
   const router = useRouter()
@@ -16,8 +16,8 @@ export default function Auth(){
     password: ""
   })
 
-  const [loginUser, { loading }] = useMutation(LOGIN_USER, {
-    update(proxy, { data: { loginUser: userData }}){
+  const [loginUser] = useMutation(LOGIN_USER, {
+    update(_, { data: { loginUser: userData }}){
       context.login(userData)
       router.push("/dashboard")
     },
@@ -45,7 +45,7 @@ export default function Auth(){
 
         <input type="submit" value="Login"/>
       </form>
-      <a href="">Don't have an account? Sign up</a>
+      <a href="/signup">Don't have an account? Sign up</a>
     </main>
   )
 }
