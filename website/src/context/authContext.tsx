@@ -4,11 +4,12 @@ import { createContext, useReducer } from "react";
 let initialState: any = {
   user: null
 }
-
-const token = localStorage.getItem("token")
-if(token){
-  const decodedToken = jwtDecode(token)
-  initialState.user = decodedToken
+if (typeof localStorage !== 'undefined'){
+  const token = localStorage.getItem("token")
+  if(token){
+    const decodedToken = jwtDecode(token)
+    initialState.user = decodedToken
+  }
 }
 
 export const AuthContext = createContext({
