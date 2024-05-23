@@ -63,7 +63,7 @@ export default function Dashboard(){
 
     const router = useRouter()
     useEffect(() => {
-      if(user==null) router.push("/auth")
+      if(user==null) router.push("/auth/login")
       else getScales({variables: { userId: user.id} })
     }, [user])
 

@@ -45,7 +45,7 @@ export default function Auth(){
 
         <input type="submit" value="Sign up"/>
       </form>
-      <a href="/auth">Already have an account? Login</a>
+      <a href="/auth/login">Already have an account? Login</a>
     </main>
   )
 }

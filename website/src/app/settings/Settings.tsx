@@ -9,7 +9,7 @@ const Settings = () => {
   const [toggleSettingsOpen, setToggleSettingsOpen] = useState(false)
 
   function handleLogout(){
-    router.push("/auth")
+    router.push("/auth/login")
     logout()
   }
 
