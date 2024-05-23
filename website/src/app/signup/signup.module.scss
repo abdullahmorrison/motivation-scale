@@ -1,0 +1,33 @@
+@use "../variables.scss" as *;
+
+.auth{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  h2{
+    margin-bottom: 30px;
+  }
+
+  form{
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+
+    input{
+      padding: 10px 15px;
+      margin-bottom: 20px;
+      
+      &[type='submit']{
+        background: $highlight;
+
+        &:hover{
+          filter: brightness(1.25);
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
