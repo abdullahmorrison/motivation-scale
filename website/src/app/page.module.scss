@@ -1,0 +1,144 @@
+@use "./variables.scss" as *;
+@import url('https://fonts.googleapis.com/css2?family=Sansita:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&family=Sansita:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&display=swap');
+
+
+.landing{
+  font-family: "Sansita", sans-serif;
+  font-style: normal;
+
+  nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+
+    .logo{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 5px;
+      font-size: x-large;
+    }
+    .links{
+      display: flex;
+      align-items: center;
+
+      .signup{
+        padding: 5px;
+        border: solid 1px $highlight;
+        border-radius: 5px;
+
+        &:hover{
+          background: $highlight;
+        }
+      }
+    }
+  }
+
+  header{
+    background-color: black;
+    background-image: radial-gradient(circle at 65% 55%, #DA6A6A25 0%, transparent 30%),
+      radial-gradient(circle at 35% 45%, #7ADA6A25 0%, transparent 30%);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+    height: 100vh;
+
+    h1{
+      font-size: 4rem;
+      max-width: 600px;
+      text-align: center;
+      font-weight: 400;
+    }
+    p{
+      font-family: "Hahmlet", serif;
+      max-width: 320px;
+      text-align: center;
+    }
+
+  }
+  section{
+    margin: 100px 0;
+  }
+  .motivationSource{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .scale{
+      background: radial-gradient(circle at center, #DA6A6A35 0, transparent 300px);
+      padding: 200px;
+    }
+  }
+  .awareness{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    h3{
+      max-width: 420px;
+      text-align: center;
+      .highlightText{
+        background-image: linear-gradient(to right, #0047FF, #CC00FF);
+        color: transparent;
+        background-clip: text;
+        -webkit-background-clip: text;
+        .emoji{
+          color: yellow; //color type doesn't matter, this just makes the emoji no longer transparent
+        }
+      }
+    }
+    .morpheus{
+      padding: 100px 0;
+    }
+  }
+
+  .note{
+    font-size: small;
+    color: $primary;
+    text-align: center;
+    max-width: 350px;
+    margin: auto;
+  }
+  footer{
+    margin: auto;
+    width: fit-content;
+    padding: 30px;
+
+    ul li a{
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      color: $highlight;
+    }
+    ul{
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  ul{
+    display: flex;
+    li{
+      list-style: none;
+    }
+  }
+
+  a{ 
+    color: white; 
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  button{
+    box-shadow: none;
+    background: #006F0B;
+  }
+}
