@@ -50,8 +50,8 @@ export default function Home() {
 
       <footer>
         <ul>
-          <li><a href="https://github.com/abdullahmorrison/motivation-scale"><Image src={GitHub} alt='GitHub Logo'/>Contribute to Project</a></li>
-          <li><a href="mailto:abdullahmorrison@gmail.com"><Image src={Email} alt='Email'/>Contact</a></li>
+          <li><a href="mailto:abdullahmorrison@gmail.com"><Image src={Email} alt='Email'/>Contact Me</a></li>
+          <li><a href="https://github.com/abdullahmorrison/motivation-scale"><Image width={22} src={GitHub} alt='GitHub Logo'/>Contribute to the Project</a></li>
         </ul>
       </footer>
     </div>
