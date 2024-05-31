@@ -2,16 +2,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Sansita:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&family=Sansita:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&display=swap');
 
+$red: #DA6A6A75;
+$green: #7ADA6A75;
 
 .landing{
   font-family: "Sansita", sans-serif;
   font-style: normal;
+  scroll-snap-type: y mandatory;
 
   nav{
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 20px;
+    width: calc(100% - 40px);
+    z-index: 1;
 
     .logo{
       display: flex;
@@ -44,17 +50,19 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle, rgba(218, 106, 106, 0.25) 0%, transparent 30%);
-    transition: background 1s ease-in-out;
-    animation: moveSpotlights 2s infinite alternate ease-in-out, changeIntensity1 5s infinite alternate ease-in-out;
     z-index: -1;
   }
   header::before{
+    background: radial-gradient(circle, $red 0%, transparent 30%);
     animation: moveSpotlight1 10s infinite alternate ease-in-out, changeIntensity1 5s infinite alternate ease-in-out;
   }
   header::after {
-    background: radial-gradient(circle, rgba(122, 218, 106, 0.25) 0%, transparent 30%);
+    background: radial-gradient(circle, $green 0%, transparent 30%);
     animation: moveSpotlight2 10s infinite alternate ease-in-out, changeIntensity2 5s infinite alternate ease-in-out;
+  }
+  section{
+    height: 100vh;
+    scroll-snap-align: start;
   }
 
   header{
@@ -82,18 +90,41 @@
     }
 
   }
-  section{
-    margin: 100px 0;
-  }
   .motivationSource{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
+    min-height: 100vh;
 
-    .scale{
-      background: radial-gradient(circle at center, #DA6A6A35 0, transparent 300px);
-      padding: 200px;
+    $animationTime: 10s;
+
+    .positiveSource{ color: transparent; background: #474747; background-clip: text;
+      animation: highlightGreenText $animationTime infinite ease-in;
+    }
+    .negativeSource{ color: transparent; background: #474747; background-clip: text;
+      animation: highlightRedText $animationTime infinite ease-in;
+    }
+    .scale{ 
+      padding: 50px; 
+      width: 500px;
+      height: 500px;
+    }
+    &::before{
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0;
+      background: radial-gradient(circle, $red 0%, transparent 0px),
+        radial-gradient(circle, $green 0%, transparent 0px);
+
+      animation: pulse $animationTime infinite ease-in;
+      transition: background 1s ease-in;
+      z-index: -1;
     }
   }
   .awareness{
@@ -102,9 +133,10 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
+    min-height: 800px;
 
     h3{
-      max-width: 420px;
+      max-width: 520px;
       text-align: center;
       .highlightText{
         background-image: linear-gradient(to right, #0047FF, #CC00FF);
@@ -117,13 +149,13 @@
       }
     }
     .morpheus{
-      padding: 100px 0;
+      padding: 50px 0;
     }
   }
 
   .note{
     font-size: small;
-    color: $primary;
+    color: $highlight;
     text-align: center;
     max-width: 350px;
     margin: auto;
@@ -153,6 +185,12 @@
     }
   }
 
+  h2{
+    font-size: xx-large;
+  }
+  h3{
+    font-size: x-large;
+  }
   a{ 
     color: white; 
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -176,13 +214,66 @@
 }
 
 @keyframes changeIntensity1 {
-  0% { opacity: 0.50; }
-  50% { opacity: 0.60; }
-  100% { opacity: 0.50; }
+  0% { opacity: 1; }
+  30% { opacity: 0.50; }
+  100% { opacity: 1; }
 }
 
 @keyframes changeIntensity2 {
-  0% { opacity: 0.50; }
-  50% { opacity: 0.60; }
-  100% { opacity: 0.50; }
+  0% { opacity: 1; }
+  70% { opacity: 0.50; }
+  100% { opacity: 1; }
 }
+
+@keyframes pulse{
+  0% { 
+    opacity: 0; 
+    background: radial-gradient(circle, $green 0%, transparent 400px);
+  }
+  25% { 
+    opacity: 1; 
+    background: radial-gradient(circle, $green 0%, transparent 400px);
+  }
+  50% { 
+    opacity: 0;
+  }
+  75% { 
+    opacity: 1; 
+    background: radial-gradient(circle, $red 0%, transparent 400px);
+  }
+  100% { 
+    opacity: 0;
+    background: radial-gradient(circle, $red 0%, transparent 400px);
+  }
+}
+
+@keyframes highlightGreenText{
+  0%{
+    color: transparent; 
+  }
+  25%{
+    color: #42FF00;
+  }
+  50% { 
+    color: transparent; 
+  }
+  100% {
+    color: transparent; 
+  }
+}
+
+@keyframes highlightRedText{
+  0%{
+    color: transparent; 
+  }
+  50%{
+    color: transparent;
+  }
+  75%{
+    color: red; 
+  }
+  100% {
+    color: transparent;
+  }
+}
+

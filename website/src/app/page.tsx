@@ -30,12 +30,13 @@ export default function Home() {
 
       <section className={styles.motivationSource}>
         <h2>Motivation can either come from a... 👇</h2>
-        <h3>Positive Source 😃 OR Negative Source 😰</h3>
+        <h3><span className={styles.positiveSource}>Positive Source 😃 </span> OR <span className={styles.negativeSource}>Negative Source 😰</span></h3>
         <Image className={styles.scale} src={Scale} alt="Scale"/>
       </section>
 
       <section className={styles.awareness}>
         <h3>This tool helps you be aware of these sources... 🤔</h3>
+        <p>by giving you a platform to track how your goals can effect your mood.</p>
         <Image className={styles.morpheus} src={Morpheus} alt="Morpheus"/>
         <h3>
           So that you can tip the scale in your favor and 
