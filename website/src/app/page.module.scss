@@ -97,18 +97,35 @@ $green: #7ADA6A75;
     justify-content: center;
     align-items: center;
     position: relative;
-    min-height: 100vh;
-
 
     $animationTime: 10s;
+    &::before{ //background pulse
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0;
+      background: transparent;
+      animation: pulse $animationTime infinite ease-in;
+      transition: background 1s ease-in;
+      z-index: -1;
+    }
 
-    .positiveSource{ color: transparent; background: #474747; background-clip: text;
+    .positiveSource{ //text
+      color: transparent;
+      background: #474747;
+      background-clip: text;
       animation: highlightGreenText $animationTime infinite ease-in;
     }
-    .negativeSource{ color: transparent; background: #474747; background-clip: text;
+    .negativeSource{ //text
+      color: transparent;
+      background: #474747;
+      background-clip: text;
       animation: highlightRedText $animationTime infinite ease-in;
     }
-    .scaleContainer{
+    .scaleContainer{//scale svg
       padding: 50px; 
       width: 500px;
       height: 500px;
@@ -126,21 +143,6 @@ $green: #7ADA6A75;
         } 
       }
     }
-    &::before{
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      opacity: 0;
-      background: radial-gradient(circle, $red 0%, transparent 0px),
-        radial-gradient(circle, $green 0%, transparent 0px);
-
-      animation: pulse $animationTime infinite ease-in;
-      transition: background 1s ease-in;
-      z-index: -1;
-    }
   }
   .awareness{
     display: flex;
@@ -148,7 +150,6 @@ $green: #7ADA6A75;
     justify-content: center;
     align-items: center;
     gap: 20px;
-    min-height: 800px;
 
     h3{
       max-width: 520px;
@@ -180,21 +181,18 @@ $green: #7ADA6A75;
     width: fit-content;
     padding: 30px;
 
-    ul li a{
+    ul li a{ //footer links
       display: flex;
       align-items: center;
       gap: 3px;
 
       color: $highlight;
     }
-    ul{
-      display: flex;
-      align-items: center;
-    }
   }
 
   ul{
     display: flex;
+    align-items: center;
     li{
       list-style: none;
     }
@@ -215,6 +213,7 @@ $green: #7ADA6A75;
   }
 }
 
+//***** HERO ANIMATIONS *****//
 @keyframes moveSpotlight1 {
   0% { transform: translate(10%, 10%); }
   50% { transform: translate(-9%, 0%); }
@@ -239,56 +238,26 @@ $green: #7ADA6A75;
   100% { opacity: 1; }
 }
 
+//***** SCALE ANIMATIONS *****//
 @keyframes pulse{
-  0% { 
-    opacity: 0; 
-    background: radial-gradient(circle, $green 0%, transparent 400px);
-  }
-  25% { 
-    opacity: 1; 
-    background: radial-gradient(circle, $green 0%, transparent 400px);
-  }
-  50% { 
-    opacity: 0;
-  }
-  75% { 
-    opacity: 1; 
-    background: radial-gradient(circle, $red 0%, transparent 400px);
-  }
-  100% { 
-    opacity: 0;
-    background: radial-gradient(circle, $red 0%, transparent 400px);
-  }
+  0% { opacity: 0; background: radial-gradient(circle, $green 0%, transparent 400px); }
+  25% { opacity: 1; background: radial-gradient(circle, $green 0%, transparent 400px); }
+  50% { opacity: 0; }
+  75% { opacity: 1; background: radial-gradient(circle, $red 0%, transparent 400px); }
+  100% { opacity: 0; background: radial-gradient(circle, $red 0%, transparent 400px); }
 }
 
 @keyframes highlightGreenText{
-  0%{
-    color: transparent; 
-  }
-  25%{
-    color: #42FF00;
-  }
-  50% { 
-    color: transparent; 
-  }
-  100% {
-    color: transparent; 
-  }
+  0%{ color: transparent; }
+  25%{ color: #42FF00; }
+  50% { color: transparent; }
+  100% { color: transparent; }
 }
-
 @keyframes highlightRedText{
-  0%{
-    color: transparent; 
-  }
-  50%{
-    color: transparent;
-  }
-  75%{
-    color: red; 
-  }
-  100% {
-    color: transparent;
-  }
+  0%{ color: transparent; }
+  50%{ color: transparent; }
+  75%{ color: red; }
+  100% { color: transparent; }
 }
 
 $distance: 30px;
