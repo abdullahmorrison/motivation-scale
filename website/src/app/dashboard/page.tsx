@@ -5,6 +5,8 @@ import { DroppableProvided,  DropResult } from 'react-beautiful-dnd'
 import dynamic from 'next/dynamic'
 const DragDropContext = dynamic(() => import("react-beautiful-dnd").then((module) => module.DragDropContext));
 const Droppable = dynamic(() => import("react-beautiful-dnd").then((module) => module.Droppable));
+import Image from 'next/image';
+import Arrow from "../assets/arrow.png"
 
 import Scale, { ScaleType } from './components/scale/Scale'
 import Nav from '../nav/Nav';
@@ -127,7 +129,18 @@ export default function Dashboard(){
                     </Droppable>
                 </DragDropContext>
             </div>
-            <button className={styles.newScale} onClick={()=>setScaleToMutate({type: "add"})}>+</button>
+            <div className={styles.arrow}></div>
+            {scales.length==0 ?
+            <>
+            <span className={styles.starterInformation}>Have a goal you want to achieve? <br/> Click here to start tracking your motivation for it!</span> 
+            <Image className={styles.arrow} src={Arrow} alt='Arrow'/>
+            </>
+            : undefined}
+            <button 
+              className={styles.newScale} 
+              style={scales.length==0 ? {marginTop: "100px"} : undefined}  
+              onClick={()=>setScaleToMutate({type: "add"})}
+            >+</button>
         </main>
     )
 }
