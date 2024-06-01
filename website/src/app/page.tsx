@@ -2,7 +2,7 @@
 import styles from './page.module.scss'
 import Image from 'next/image'
 import Logo from './assets/icons/logo.svg'
-import Scale from './assets/Scale'
+import ScaleSVG from './assets/ScaleSVG'
 import Morpheus from './assets/morpheus.png'
 import Email from './assets/Email.svg'
 import GitHub from './assets/GitHub.svg'
@@ -31,7 +31,7 @@ export default function Home() {
       <section className={styles.motivationSource}>
         <h2>Motivation can either come from a... 👇</h2>
         <h3><span className={styles.positiveSource}>Positive Source 😃 </span> OR <span className={styles.negativeSource}>Negative Source 😰</span></h3>
-        <Scale />
+        <ScaleSVG />
       </section>
 
       <section className={styles.awareness}>
