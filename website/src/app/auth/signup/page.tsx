@@ -17,7 +17,7 @@ export default function Auth(){
   })
 
   useEffect(() => {
-    if(context.user!=null) router.push("/router")
+    if(context.user!=null) router.push("/dashboard")
   }, [context.user, router])
 
   const [regisiterUser, { loading }] = useMutation(REGISTER_USER, {
