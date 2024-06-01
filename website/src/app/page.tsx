@@ -2,7 +2,7 @@
 import styles from './page.module.scss'
 import Image from 'next/image'
 import Logo from './assets/icons/logo.svg'
-import Scale from './assets/Scale.svg'
+import Scale from './assets/Scale'
 import Morpheus from './assets/morpheus.png'
 import Email from './assets/Email.svg'
 import GitHub from './assets/GitHub.svg'
@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <div className={styles.landing}>
       <nav>
-        <h3 className={styles.logo}><Image src={Logo} alt='logo' width={40}/>Motivation Scale</h3> 
+        <a href="/"><h3 className={styles.logo}><Image src={Logo} alt='logo' width={40}/>Motivation Scale</h3></a>
 
         <ul className={styles.links}>
           <li><a href="/auth/login">Login</a></li>
@@ -31,7 +31,7 @@ export default function Home() {
       <section className={styles.motivationSource}>
         <h2>Motivation can either come from a... 👇</h2>
         <h3><span className={styles.positiveSource}>Positive Source 😃 </span> OR <span className={styles.negativeSource}>Negative Source 😰</span></h3>
-        <Image className={styles.scale} src={Scale} alt="Scale"/>
+        <Scale />
       </section>
 
       <section className={styles.awareness}>

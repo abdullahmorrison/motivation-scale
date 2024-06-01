@@ -5,6 +5,7 @@
 $red: #DA6A6A75;
 $green: #7ADA6A75;
 
+
 .landing{
   font-family: "Sansita", sans-serif;
   font-style: normal;
@@ -29,7 +30,7 @@ $green: #7ADA6A75;
     .links{
       display: flex;
       align-items: center;
-
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       .signup{
         padding: 5px;
         border: solid 1px $highlight;
@@ -98,6 +99,7 @@ $green: #7ADA6A75;
     position: relative;
     min-height: 100vh;
 
+
     $animationTime: 10s;
 
     .positiveSource{ color: transparent; background: #474747; background-clip: text;
@@ -106,10 +108,23 @@ $green: #7ADA6A75;
     .negativeSource{ color: transparent; background: #474747; background-clip: text;
       animation: highlightRedText $animationTime infinite ease-in;
     }
-    .scale{ 
+    .scaleContainer{
       padding: 50px; 
       width: 500px;
       height: 500px;
+
+      .scale{
+        .topBar{
+          transform-origin: 50% 50px;
+          animation: topBarAnimation $animationTime infinite ease;
+        }
+        .greenMeasure{
+          animation: greenMeasureAnimation $animationTime infinite ease;
+        } 
+        .redMeasure{
+          animation: redMeasureAnimation $animationTime infinite ease;
+        } 
+      }
     }
     &::before{
       content: '';
@@ -192,8 +207,7 @@ $green: #7ADA6A75;
     font-size: x-large;
   }
   a{ 
-    color: white; 
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: $text-primary; 
   }
   button{
     box-shadow: none;
@@ -277,3 +291,26 @@ $green: #7ADA6A75;
   }
 }
 
+$distance: 30px;
+@keyframes greenMeasureAnimation{
+  0%{ transform: none;}
+  25%{ transform: translateY($distance); }
+  50%{transform: none;  }
+  75%{ transform: translateY(-$distance);  }
+  100% { transform: none; }
+}
+
+@keyframes redMeasureAnimation{
+  0%{ transform: none;}
+  25%{ transform: translateY(-$distance);  }
+  50%{transform: none;  }
+  75%{ transform: translateY($distance); }
+  100% { transform: none;}
+}
+@keyframes topBarAnimation{
+  0%{ transform: none;}
+  25%{ transform: rotateZ(-25deg);  }
+  50%{transform: none;  }
+  75%{ transform: rotateZ(25deg); }
+  100% { transform: none;}
+}
