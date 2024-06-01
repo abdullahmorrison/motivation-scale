@@ -6,7 +6,7 @@ import Image from 'next/image'
 const Nav = () => {
   return (
     <nav className={styles.nav}>
-      <Image src={Logo} width={75} alt="logo"/> 
+      <a href="/"><Image src={Logo} width={75} alt="logo"/></a>
       <Settings/>
     </nav>
   )
