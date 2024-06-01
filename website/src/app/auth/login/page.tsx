@@ -1,5 +1,5 @@
 "use client"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useMutation } from "@apollo/client"
 import { AuthContext } from "@/context/authContext"
@@ -15,6 +15,10 @@ export default function Auth(){
     email: "",
     password: ""
   })
+
+  useEffect(() => {
+    if(context.user!=null) router.push("/dashboard")
+  }, [context.user, router])
 
   const [loginUser] = useMutation(LOGIN_USER, {
     update(_, { data: { loginUser: userData }}){
