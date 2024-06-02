@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { BackHandler } from 'react-native'
+import { BackHandler, Dimensions, TouchableOpacity, Text } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, SafeAreaView, ScrollView, View} from 'react-native'
 import Constants from 'expo-constants'
 
-import AddScaleButton from './components/AddScaleButton'
 import Scale, { ScaleType } from './components/Scale'
 import ScaleModal from './components/ScaleModal'
 
@@ -62,12 +61,14 @@ export default function App() {
               return <Scale key={scale.id} scale={scale} handleEdit={(scale: Partial<ScaleType>)=>setScaleToEdit(scale)}/>
             })}
           </View>
-          <AddScaleButton onPress={()=>setScaleToEdit({
+          <TouchableOpacity style={styles.button} onPress={()=>setScaleToEdit({
               username: username,
               goal: '',
               chasingSuccessDescription: '',
               avoidingFailureDescription: '',
-          })}/>
+          })}>
+              <Text style={styles.text} >+</Text>
+          </TouchableOpacity>
         </ScrollView>
       </SafeAreaView>
   )
@@ -79,5 +80,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: Constants.statusBarHeight,
     paddingBottom: 100,
+    flexGrow: 1,
+    width: Dimensions.get('window').width
   },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    borderColor: 'grey',
+    borderWidth: 0.5,
+    borderRadius: 10,
+
+    elevation: 5,
+    backgroundColor: 'white',
+
+    margin: 20,
+    width: 50,
+    height: 50,
+  },
+  text: {
+    fontSize: 30,
+    color: 'black',
+  }
 });
