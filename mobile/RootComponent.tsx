@@ -6,6 +6,7 @@ import Constants from 'expo-constants'
 
 import Scale, { ScaleType } from './components/Scale'
 import ScaleModal from './components/ScaleModal'
+import variables from "./styles.variables"
 
 import { gql, useQuery } from "@apollo/client";
 
@@ -76,23 +77,19 @@ export default function App() {
 
 const styles = StyleSheet.create({
   contentContainer: {
+    backgroundColor: variables.background,
     alignItems: 'center',
-    justifyContent: 'center',
     marginTop: Constants.statusBarHeight,
+    paddingTop: 100,
     paddingBottom: 100,
     flexGrow: 1,
     width: Dimensions.get('window').width
   },
   button: {
     alignItems: 'center',
-    justifyContent: 'center',
-
-    borderColor: 'grey',
-    borderWidth: 0.5,
+    backgroundColor: variables.primary,
     borderRadius: 10,
-
     elevation: 5,
-    backgroundColor: 'white',
 
     margin: 20,
     width: 50,
@@ -100,6 +97,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 30,
-    color: 'black',
+    color: variables.textPrimary,
   }
 });

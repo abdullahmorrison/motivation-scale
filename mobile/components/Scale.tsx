@@ -4,6 +4,7 @@ import { Slider } from '@react-native-assets/slider'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faSortDown, faSortUp, faBars, faEdit} from "@fortawesome/free-solid-svg-icons";
 import { useMutation, gql } from "@apollo/client";
+import variables from "../styles.variables";
 
 export interface ScaleType{
     id: string
@@ -34,11 +35,11 @@ export default function Scale(props: ScaleProps) {
         <View style={styles.container}>
             <View style={styles.header}>
                 <TouchableOpacity>
-                    <FontAwesomeIcon icon={faBars} size={20}/>
+                    <FontAwesomeIcon icon={faBars} style={styles.header.dragNDrop} size={20}/>
                 </TouchableOpacity>
                 <Text style={styles.header.goal}>{props.scale.goal}</Text>
                 <TouchableOpacity style={styles.header.editIcon} onPress={()=>props.handleEdit(props.scale)}>
-                    <FontAwesomeIcon icon={faEdit} size={20}/>
+                    <FontAwesomeIcon icon={faEdit} style={styles.header.editIcon.icon} size={20}/>
                 </TouchableOpacity>
             </View>
             <Slider
@@ -61,11 +62,11 @@ export default function Scale(props: ScaleProps) {
                 <View style={styles.explanations}>
                     <View style={styles.explanations.section}>
                         <Text style={styles.explanations.title}>Chasing Success</Text>
-                        <Text>{props.scale.chasingSuccessDescription}</Text>
+                        <Text style={styles.explanations.chasingSuccessDescription}>{props.scale.chasingSuccessDescription}</Text>
                     </View> 
                     <View style={styles.explanations.section}>
                         <Text style={styles.explanations.title}>Avoiding Failure</Text>
-                        <Text>{props.scale.avoidingFailureDescription}</Text>
+                        <Text style={styles.explanations.avoidingFailureDescription}>{props.scale.avoidingFailureDescription}</Text>
                     </View> 
                 </View>
             }
@@ -78,72 +79,83 @@ export default function Scale(props: ScaleProps) {
 
 const styles = StyleSheet.create({
     container: {
-        borderWidth: 0.5,
-        borderColor: 'grey',
         borderRadius: 10,
 
-        padding: 10,
+        paddingHorizontal: 30,
+        paddingTop: 10,
+        paddingBottom: 20,
         marginTop: 10,
         marginBottom: 10,
 
         elevation: 3,
-        backgroundColor: 'white',
+        backgroundColor: variables.primary,
         width: Dimensions.get('window').width * 0.9,
+        maxWidth: 950,
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
 
+        dragNDrop: {
+          color: variables.secondary
+        },
         editIcon: {
             elevation: 3,
-            backgroundColor: 'white',
             borderRadius: 5,
             padding: 5,
+
+            icon: { 
+              color: variables.secondary 
+            },
         } as const,
 
         goal: {
-            fontSize: 20,
+            color: variables.textPrimary,
+            fontSize: 30,
             fontWeight: 'bold',
         } as const
     },
     slider: {
+        paddingVertical: 20,
         thumb: {
             borderRadius: 30,
-            backgroundColor: 'white',
-            borderColor: 'grey',
-            borderWidth: 0.5,
+            backgroundColor: variables.secondary,
 
-            height: 30,
-            width: 30,
+            height: 35,
+            width: 35,
         },
         track: {
-            height: 20,
-            borderRadius: 10,
+            backgroundColor: "red",
+            height: 25,
+            borderRadius: 15,
         },
         marginBottom: 5,
         marginTop: 10,
         height: 40,
     },
     explanations: {
-        borderTopWidth: 0.5,
-        borderTopColor: 'grey',
         margin: -10,
-        marginTop: 10,
+        marginTop: 30,
         padding: 10,
 
         section: {
             marginBottom: 10,
         } as const,
         title: {
+            fontSize: 18,
             fontWeight: 'bold',
-        } as const
+            color: variables.secondary
+        } as const,
+        chasingSuccessDescription: { color: variables.secondary },
+        avoidingFailureDescription: { color: variables.secondary }
     },
     expand: {
-        borderTopWidth: 0.5,
-        borderTopColor: 'grey',
-        margin: -10,
-        marginTop: 10,
+        backgroundColor: variables.highlight,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        margin: -30,
+        marginTop: 30,
         paddingBottom: 10,
 
         alignItems: 'center',
