@@ -2,8 +2,18 @@ import { Dimensions, StyleSheet } from "react-native"
 import Constants from 'expo-constants'
 import { View, Image } from "react-native"
 import variables from "./styles.variables"
+import storage from "./Storage"
+import { useEffect } from "react"
 
-export default function SplashScreen(){
+export default function SplashScreen({ navigation }: {navigation: any}){
+  useEffect(()=>{
+    storage.load({key: "app-opened"}).then(()=>{
+      storage.load({key: "token"})
+        .then(()=> navigation.navigate("Dashboard"))
+        .catch(()=> navigation.navigate("Login"))
+    }).catch(()=> navigation.navigate("Signup"))
+  }, [])
+
   return (
     <View style={styles.contentContainer}>
       <Image source={require("./assets/logo.svg")} style={styles.img}/>
