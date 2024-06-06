@@ -18,7 +18,7 @@ const ScaleSlider = (props: ScaleSliderProps) => {
     const [editScale] = useMutation(ScaleQueries.UPDATE_SCALE)
 
     useDidUpdateEffect(()=>{
-      editScale({variables: {userId: user.id, id: props.id, sliderValue: debouncedSliderValue}})
+      if(user) editScale({variables: {userId: user.id, id: props.id, sliderValue: debouncedSliderValue}})
     }, [debouncedSliderValue])
 
     return (
