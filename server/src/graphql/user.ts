@@ -82,7 +82,7 @@ export const LoginUser = extendType({
       resolve: async (_, args) =>{
         const user = await UserModel.findOne({email: args.email})
 
-        if(!user) throwCustomError(ERROR_LIST.AUTHENTICATION_FAILED, `User with email: ${args.email}, does not exist`)
+        if(!user) throwCustomError(ERROR_LIST.AUTHENTICATION_FAILED, `Incorrect email`)
         else if(!(await bcrypt.compare(args.password, user.password)))
           throwCustomError(ERROR_LIST.AUTHENTICATION_FAILED, "Incorrect password")
 
