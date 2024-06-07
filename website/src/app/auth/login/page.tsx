@@ -1,5 +1,5 @@
 "use client"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useMutation } from "@apollo/client"
 import { AuthContext } from "@/context/authContext"
@@ -10,6 +10,7 @@ import styles from './login.module.scss'
 export default function Auth(){
   const router = useRouter()
   const context = useContext(AuthContext)
+  const [errors, setErrors] = useState<string>()
 
   const { onChange, onSubmit, values } = useForm(handleSubmit, {
     email: "",
@@ -25,8 +26,8 @@ export default function Auth(){
       context.login(userData)
       router.push("/dashboard")
     },
-    onError({ graphQLErrors }){
-      console.log(graphQLErrors)
+    onError(e){
+      setErrors(e.message)
     },
     variables: { email: values.email,  password: values.password }
   })
@@ -50,6 +51,9 @@ export default function Auth(){
         <input type="submit" value="Login"/>
       </form>
       <a href="/auth/signup">Don&apos;t have an account? Sign up</a>
+      {errors ?
+        <p className={styles.errors}>{errors}</p>
+      : undefined}
     </main>
   )
 }
