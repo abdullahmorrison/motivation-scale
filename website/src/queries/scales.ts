@@ -2,8 +2,8 @@ import { gql } from "@apollo/client"
 
 const ScaleQueries = {
   GET_SCALES: gql`
-    query GetScales($userId: String!) {
-      scales(userId: $userId) {
+    query GetScales{
+      scales{
         id
         userId
         goal
@@ -15,14 +15,12 @@ const ScaleQueries = {
   `,
   CREATE_SCALE: gql`
     mutation CreateScale(
-      $userId: String!
       $goal: String!
       $sliderValue: Int
       $chasingSuccessDescription: String
       $avoidingFailureDescription: String
     ) {
       createScale(
-        userId: $userId
         goal: $goal
         sliderValue: $sliderValue
         chasingSuccessDescription: $chasingSuccessDescription
@@ -40,7 +38,6 @@ const ScaleQueries = {
   UPDATE_SCALE: gql`
     mutation UpdateScale(
       $id: String!
-      $userId: String!
       $goal: String
       $sliderValue: Int
       $chasingSuccessDescription: String
@@ -48,7 +45,6 @@ const ScaleQueries = {
     ) {
       updateScale(
         id: $id
-        userId: $userId
         goal: $goal
         sliderValue: $sliderValue
         chasingSuccessDescription: $chasingSuccessDescription
@@ -66,11 +62,9 @@ const ScaleQueries = {
   DELETE_SCALE: gql`
     mutation DeleteScale(
       $id: String!
-      $userId: String!
     ){
       deleteScale(
         id: $id
-        userId: $userId
       ){
         id
         userId

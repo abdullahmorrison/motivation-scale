@@ -19,13 +19,12 @@ export const reorderScales = extendType({
             type: "ScaleOrder",
             description: "Reorder a scale",
             args: {
-                userId: nonNull(stringArg()),
                 scaleOrder: nonNull(list(stringArg()))
             },
-            resolve: async (_, args) => {
-                await UserModel.findById(args.userId) //check user exists
+            resolve: async (_, args, ctx) => {
+                await UserModel.findById(ctx.id) //check user exists
                   .catch(()=> throwCustomError(ERROR_LIST.NOT_FOUND, "User with that id does not exist"))
-                const scales = await ScaleModel.find({userId: args.userId}) //check scale exists
+                const scales = await ScaleModel.find({userId: ctx.id}) //check scale exists
                   .catch(()=> throwCustomError(ERROR_LIST.NOT_FOUND, "Scales with that user id does not exist"))
 
                 for(let scale of scales){
@@ -33,7 +32,7 @@ export const reorderScales = extendType({
                     throwCustomError(ERROR_LIST.FORBIDDEN, "Unauthorized scale reorder")
                 }
 
-                return await ScaleOrderModel.findOneAndReplace({userId: args.userId}, {...args, scaleOrder: args.scaleOrder})
+                return await ScaleOrderModel.findOneAndReplace({userId: ctx.id}, {...args, scaleOrder: args.scaleOrder})
             }
         })
     }
