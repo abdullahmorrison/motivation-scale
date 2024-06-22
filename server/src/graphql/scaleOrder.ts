@@ -32,7 +32,11 @@ export const reorderScales = extendType({
                     throwCustomError(ERROR_LIST.FORBIDDEN, "Unauthorized scale reorder")
                 }
 
-                return await ScaleOrderModel.findOneAndReplace({userId: ctx.id}, {...args, scaleOrder: args.scaleOrder})
+                return await ScaleOrderModel.findOneAndUpdate(
+                    { userId: ctx.id },
+                    { $set: { scaleOrder: args.scaleOrder} },
+                    { new: true }
+                )
             }
         })
     }

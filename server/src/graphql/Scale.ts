@@ -39,7 +39,15 @@ export const GetScalesOfUser = extendType({
                   return scales.map((_: unknown, idx: number)=>scalesMap.get(scaleOrder.at(idx)))
                 }
 
-                return await ScaleModel.find({userId: ctx.id})
+                const result = await ScaleModel.find({userId: ctx.id})
+
+                const newScaleOrder = new ScaleOrderModel({
+                  userId: ctx.id,
+                  scaleOrder: result.map((scale: any)=>scale._id)
+                })
+                await newScaleOrder.save()
+
+                return result
             }
         })
     }
@@ -80,8 +88,8 @@ export const CreateScaleForUser = extendType({
                     { new: true }
                   ).catch((e: Error)=>console.log(`ERROR ADDING TO SCALE ORDER WHEN CREATING NEW SCALE: ${e}`))
                 }else{
-                  const u = new ScaleOrderModel({userId: ctx.id, scaleOrder: [response._id]})
-                  await u.save().catch(()=>console.log("NEW SCALE ORDER FAIL"))
+                  const newScaleOrder = new ScaleOrderModel({userId: ctx.id, scaleOrder: [response._id]})
+                  await newScaleOrder.save().catch(()=>console.log("NEW SCALE ORDER FAIL"))
                     .catch((e: Error)=>console.log(`ERROR CREATING NEW SCALE_ORDER WHEN CREATING NEW SCALE: ${e}`))
                 }
 
