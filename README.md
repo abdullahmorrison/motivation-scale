@@ -1,6 +1,26 @@
 <h1><img width=400 src="https://github.com/abdullahmorrison/motivation-scale/assets/49528805/1963ecbb-16de-44f8-bd7c-1a81ddd29770" /></h1>
 
-<p>A mindfulness tool that helps users visualize a mental framework for how their motivation effects the emotions.</p>
+<p>A mindfulness tool that helps users visualize a mental framework for how their motivation effects the emotions (and vice versa).</p>
+
+## What problem does this solve?
+<p>
+  In University, I was procrastinating studying for a test I had the following day. When I could not put it off any longer and started to study, I realized that I vastly underestimated how much studying I needed to do.
+</p>
+<p>
+  That put me into the following anxiety death-spiral:
+</p>
+<br/>
+<div align="center">
+  <img width=600 src="https://github.com/user-attachments/assets/73aad7f6-5774-4b34-91bc-e773b62ada23" />
+</div>
+<br/>
+<p>
+  This went on for hours without any studying being accomplished until I just gave up and decided to got to sleep and accept whatever grade I got. That caused me evaluate all the ways my emotions can effect the way I pursue my goals, which caused me to create a framework for understanding this so that scenerio never happens again. That framework is called the Motivation Scale!
+</p>
+<p>
+  The framework was helpful, but it was difficult to keep track of all my goals and their correlation to my mood, so I created this tool to do that.
+</p>
+
 
 ## Tech Stack
 
