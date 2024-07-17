@@ -1,5 +1,7 @@
 ## Motivation
-Motivation sits on a spectrum. The further you move within the spectrum determines the intesity of that motivation. 
+Motivation sits on a spectrum, as shown below. The further you move within the spectrum determines the intesity of that motivation. 
+
+<img width=700 src="https://github.com/user-attachments/assets/a55555bb-886c-4c65-bd83-7d9ddfe6c799" />
 
 ## States of Motivation
 There are 5 states within that specturm that you can sit in:
@@ -16,8 +18,8 @@ Understanding these states and where you lie within its spectrum allows you to p
 For every goal that you have, click the '+' button in your dashboard to create a new motivation scale to help you measure your motivation in achieving that goal. 
 
 A modal will pop up. That modal will contain 3 inputs:
-1. Goal: What goal you are trying to achieve.
-2. Chasing Success Metrics: The things that need to happen in order for you to feel like you are in a state of chasing succcess.
-3. Avoiding Failure Metrics: The things that need to happen in order for you to feel like you are falling into a state of avoiding failure.
+1. **Goal:** What goal you are trying to achieve.
+2. **Chasing Success Metrics:** The things that need to happen in order for you to feel like you are in a state of chasing succcess.
+3. **Avoiding Failure Metrics:** The things that need to happen in order for you to feel like you are falling into a state of avoiding failure.
 
 Once you filled in the inputs and pressed the 'create scale' button, a scale will pop up in your dashboard containing all the information you added to the modal. Every time your mood changes, look at all the goals you have and see which ones caused this mood shift and use that information to shift the slider to the state you think it is in. The more you do this the more your knowledge in yourself and your emotions will grow, thus allowing you to gain more control over them and achieve your goals on your terms!
