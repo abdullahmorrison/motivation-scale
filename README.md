@@ -22,7 +22,7 @@
   The framework was helpful, but it was difficult to keep track of all my goals and their correlation to my mood, so I created this tool to do that.
 </p>
 
-[Here is a  Guide to use this tool.](https://github.com/abdullahmorrison/motivation-scale/blob/main/guide.md) 
+[Here is a guide to use this tool.](https://github.com/abdullahmorrison/motivation-scale/blob/main/guide.md) 
 
 ## Tech Stack
 
