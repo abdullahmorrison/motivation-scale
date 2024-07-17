@@ -3,7 +3,7 @@
 <p>A mindfulness tool that helps users visualize a mental framework for how their motivation effects the emotions (and vice versa).</p>
 
 ## What problem does this solve?
-***This tool prevents your emotions from getting in the way of your goals. Here's an example:***
+***This tool prevents your emotions from getting in the way of your goals through awareness. Here's an example:***
 <p>
   In University, I was procrastinating studying for a test I had the following day. When I could not put it off any longer and started to study, I realized that I vastly underestimated how much studying I needed to do.
 </p>
