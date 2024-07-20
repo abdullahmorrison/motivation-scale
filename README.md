@@ -33,3 +33,30 @@
 
 ## Architecture Diagram
 ![01 -06-24 09 49 53](https://github.com/abdullahmorrison/motivation-scale/assets/49528805/5658d119-b7f9-4af8-9355-d5296e5050ea)
+
+# Local Setup
+## Server
+Navigate to the `/server` directory and install dependencies
+```
+npm install
+```
+Create a .env file and add the following to it
+```
+DB_NAME=test
+DB_CONNECTION=
+CLIENT_WHITELIST=http://localhost:3000
+JWT_SECRET=test
+```
+Request the `DB_CONNECTION` string from @abdullahmorrison and add it after `DB_CONNECTION=`
+
+## Website
+Navigate to the `/website` directory and install dependencies
+```
+npm install
+```
+
+## Mobile
+Navigate to the `/mobile` directory and install dependencies
+```
+npm install
+```
