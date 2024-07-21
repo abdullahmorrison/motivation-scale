@@ -49,11 +49,18 @@ JWT_SECRET=test
 ```
 Request the `DB_CONNECTION` string from @abdullahmorrison and add it after `DB_CONNECTION=`
 
+run `npm start` to start the local server
+
 ## Website
 Navigate to the `/website` directory and install dependencies
 ```
 npm install
 ```
+Create a .env file and add the following to it
+```
+NEXT_PUBLIC_SERVER_URL=http://localhost:3001
+```
+run `npm run dev` to run the website
 
 ## Mobile
 Navigate to the `/mobile` directory and install dependencies

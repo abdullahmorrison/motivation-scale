@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client'
 import { setContext } from "@apollo/client/link/context"
 
 const httpLink = createHttpLink({
-    uri: "https://motivationscale.up.railway.app",
+    uri: process.env.NEXT_PUBLIC_SERVER_URL,
 })
 
 //sending auth token with every server reqest
