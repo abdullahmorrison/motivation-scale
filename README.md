@@ -35,6 +35,10 @@
 ![01 -06-24 09 49 53](https://github.com/abdullahmorrison/motivation-scale/assets/49528805/5658d119-b7f9-4af8-9355-d5296e5050ea)
 
 # Local Setup
+Clone the repo
+```
+git clone https://github.com/abdullahmorrison/motivation-scale.git
+```
 ## Server
 Navigate to the `/server` directory and install dependencies
 ```
