@@ -2,24 +2,50 @@ import { View, Dimensions, Button, Text, TextInput, StyleSheet } from "react-nat
 import { Link } from "@react-navigation/native" 
 import variables from "../styles.variables"
 import Constants from 'expo-constants'
+import useForm from "../hooks/useForm"
+import { useMutation } from "@apollo/client"
+import { LOGIN_USER } from "../queries/auth"
+import { useContext } from "react"
+import { AuthContext } from "../context/authContext"
 
 export default function LoginScreen({ navigation }: {navigation: any}){
-  function Login(){
-    navigation.navigate("Dashboard")
+  const context = useContext(AuthContext)
+
+  const { onChange, onSubmit, values } = useForm(handleSubmit, {
+    email: "",
+    password: ""
+  })
+
+  async function handleSubmit(){
+    console.log(values)
+    loginUser()
   }
+
+  const [loginUser] = useMutation(LOGIN_USER, {
+    onCompleted({loginUser}){
+      console.log(loginUser)
+      context.login(loginUser)
+      navigation.navigate("Dashboard")
+    },
+    onError(e){
+      console.log("ERROR")
+      console.log(e.message)
+    },
+    variables: { email: values.email,  password: values.password }
+  })
 
   return (
     <View style={styles.contentContainer}>
-      <h2 style={styles.h2}>Login to The Motivation Scale</h2>  
+      <Text style={styles.h2}>Login to The Motivation Scale</Text>
 
       <View style={styles.form}>
         <Text style={styles.text}>Email</Text>
-        <TextInput style={styles.textInput} placeholder="Enter you email" placeholderTextColor={variables.highlight}/>
+        <TextInput style={styles.textInput} onChangeText={(value)=>onChange("email", value)} placeholder="Enter you email" placeholderTextColor={variables.highlight}/>
 
         <Text style={styles.text}>Password</Text>
-        <TextInput style={styles.textInput} placeholder="Enter you password" placeholderTextColor={variables.highlight}/>
+        <TextInput style={styles.textInput} onChangeText={(value)=>onChange("password", value)} placeholder="Enter you password" placeholderTextColor={variables.highlight}/>
 
-        <Button color={variables.highlight} title="Login" onPress={()=>Login()}/>
+        <Button color={variables.highlight} title="Login" onPress={onSubmit}/>
       </View>
 
       <Link to={{screen: "Signup"}} style={styles.link}>Don't have an account? Sign up</Link>
