@@ -35,7 +35,7 @@ export default function App() {
     return (
       <NavigationContainer>
         <ApolloProvider client={client}>
-          <Stack.Navigator>
+          <Stack.Navigator screenOptions={{headerShown: false}}>
             <Stack.Screen name="Splash Screen" component={SplashScreen} />
             <Stack.Screen name="Signup" component={SignupScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
