@@ -16,6 +16,7 @@ import styles from './page.module.scss'
 import { useLazyQuery, useMutation } from '@apollo/client';
 import ScaleQueries from '@/queries/scales';
 import { useRouter } from 'next/navigation';
+import { REORDER_SCALES } from '@/queries/scaleOrder';
 
 export default function Dashboard(){
     const [scales, setScales] = useState<ScaleType[]>([])
@@ -62,6 +63,7 @@ export default function Dashboard(){
         setScaleToMutate(prev=>({...prev, type: null}))
       }
     })
+    const [reorderScales] = useMutation(REORDER_SCALES)
 
     const router = useRouter()
     useEffect(() => {
@@ -69,8 +71,6 @@ export default function Dashboard(){
       else getScales({variables: { userId: user.id} })
     }, [user, getScales, router])
 
-    const handleReorderScale = (scaleID: string, newOrder: number) => {
-    }
     const handleDragAndDrop = (result: DropResult) => {
         if(!result.destination) return
 
@@ -85,11 +85,8 @@ export default function Dashboard(){
 
         let newScales = [...left, src, ...right]
 
-        for(var i=0; i<newScales.length; i++) {
-            if(newScales[i].id !== scales[i].id) {
-                handleReorderScale(newScales[i].id, i)
-            }
-        }
+        reorderScales({variables: {userId: user.id, scaleOrder: newScales.map(scale => scale.id)}})
+
         setScales(newScales)
     }
 
