@@ -8,9 +8,10 @@ import SignupScreen from './Auth/Signup'
 import SplashScreen from "./SplashScreen"
 import { setContext } from "@apollo/client/link/context"
 import storage from './Storage'
+import { SERVER_URL } from '@env'
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:3001/",
+  uri: SERVER_URL,
 })
 
 //sending auth token with every server reqest
