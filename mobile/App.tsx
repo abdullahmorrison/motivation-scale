@@ -14,8 +14,9 @@ const httpLink = createHttpLink({
 })
 
 //sending auth token with every server reqest
-const authLink = setContext((_, { headers })=>{
-  const token = storage.load({key: "token"})
+const authLink = setContext(async (_, { headers }) => {
+  const token = await storage.load({ key: "token" })
+  .catch(()=>null)//make token null if token not found in storage
 
   return {
     headers: {
