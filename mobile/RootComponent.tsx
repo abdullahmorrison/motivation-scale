@@ -83,7 +83,8 @@ const styles = StyleSheet.create({
     paddingTop: 100,
     paddingBottom: 100,
     flexGrow: 1,
-    width: Dimensions.get('window').width
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height
   },
   button: {
     alignItems: 'center',
