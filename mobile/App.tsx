@@ -9,6 +9,7 @@ import SplashScreen from "./SplashScreen"
 import { setContext } from "@apollo/client/link/context"
 import storage from './Storage'
 import { SERVER_URL } from '@env'
+import { screens } from './screens'
 
 const httpLink = createHttpLink({
   uri: SERVER_URL,
@@ -38,10 +39,10 @@ export default function App() {
       <NavigationContainer>
         <ApolloProvider client={client}>
           <Stack.Navigator screenOptions={{headerShown: false}}>
-            <Stack.Screen name="Splash Screen" component={SplashScreen} />
-            <Stack.Screen name="Signup" component={SignupScreen} />
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Dashboard" component={RootComponent} />
+            <Stack.Screen name={screens.SplashScreen} component={SplashScreen} />
+            <Stack.Screen name={screens.Signup} component={SignupScreen} />
+            <Stack.Screen name={screens.Login} component={LoginScreen} />
+            <Stack.Screen name={screens.Dashboard} component={RootComponent} />
           </Stack.Navigator>
         </ApolloProvider>
       </NavigationContainer>

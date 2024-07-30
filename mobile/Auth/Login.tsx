@@ -7,6 +7,7 @@ import { useMutation } from "@apollo/client"
 import { LOGIN_USER } from "../queries/auth"
 import { useContext } from "react"
 import { AuthContext } from "../context/authContext"
+import { screens } from "../screens"
 
 export default function LoginScreen({ navigation }: {navigation: any}){
   const context = useContext(AuthContext)
@@ -25,7 +26,7 @@ export default function LoginScreen({ navigation }: {navigation: any}){
     onCompleted({loginUser}){
       console.log(loginUser)
       context.login(loginUser)
-      navigation.navigate("Dashboard")
+      navigation.navigate(screens.Dashboard)
     },
     onError(e){
       console.log("ERROR")

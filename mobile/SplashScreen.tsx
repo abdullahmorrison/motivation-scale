@@ -4,14 +4,15 @@ import { View, Image } from "react-native"
 import variables from "./styles.variables"
 import storage from "./Storage"
 import { useEffect } from "react"
+import { screens } from "./screens"
 
 export default function SplashScreen({ navigation }: {navigation: any}){
   useEffect(()=>{
     storage.load({key: "app-opened"}).then(()=>{
       storage.load({key: "token"})
-        .then(()=> navigation.navigate("Dashboard"))
-        .catch(()=> navigation.navigate("Login"))
-    }).catch(()=> navigation.navigate("Signup"))
+        .then(()=> navigation.navigate(screens.Dashboard))
+        .catch(()=> navigation.navigate(screens.Login))
+    }).catch(()=> navigation.navigate(screens.Signup))
   }, [])
 
   return (
