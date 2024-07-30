@@ -5,13 +5,10 @@ import storage from "../Storage"
 let initialState: any = {
   user: null
 }
-if (typeof localStorage !== 'undefined'){
-  const token = localStorage.getItem("token")
-  if(token){
-    const decodedToken = jwtDecode(token)
-    initialState.user = decodedToken
-  }
-}
+storage.load({ key: "token" }).then((token)=>{
+  const decodedToken = jwtDecode(token)
+  initialState.user = decodedToken
+}).catch(()=>{})
 
 export const AuthContext = createContext({
   user: null,
@@ -41,11 +38,7 @@ export default function AuthProvider({children}: any){
 
   function login(userData: any){
     storage.save({key: "token", data: userData.token })
-    storage.save({key: "app-opened", data: true })
-    dispatch({
-      type: "LOGIN",
-      payload: userData
-    })
+    dispatch({ type: "LOGIN", payload: userData })
   }
   function logout(){
     storage.remove({key: "token"})

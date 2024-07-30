@@ -10,6 +10,7 @@ import { setContext } from "@apollo/client/link/context"
 import storage from './Storage'
 import { SERVER_URL } from '@env'
 import { screens } from './screens'
+import AuthProvider from './context/authContext'
 
 const httpLink = createHttpLink({
   uri: SERVER_URL,
@@ -37,14 +38,16 @@ const Stack = createNativeStackNavigator()
 export default function App() {
     return (
       <NavigationContainer>
-        <ApolloProvider client={client}>
-          <Stack.Navigator screenOptions={{headerShown: false}}>
-            <Stack.Screen name={screens.SplashScreen} component={SplashScreen} />
-            <Stack.Screen name={screens.Signup} component={SignupScreen} />
-            <Stack.Screen name={screens.Login} component={LoginScreen} />
-            <Stack.Screen name={screens.Dashboard} component={RootComponent} />
-          </Stack.Navigator>
-        </ApolloProvider>
+        <AuthProvider>
+          <ApolloProvider client={client}>
+            <Stack.Navigator screenOptions={{headerShown: false}}>
+              <Stack.Screen name={screens.SplashScreen} component={SplashScreen} />
+              <Stack.Screen name={screens.Signup} component={SignupScreen} />
+              <Stack.Screen name={screens.Login} component={LoginScreen} />
+              <Stack.Screen name={screens.Dashboard} component={RootComponent} />
+            </Stack.Navigator>
+          </ApolloProvider>
+        </AuthProvider>
       </NavigationContainer>
     )
 }
