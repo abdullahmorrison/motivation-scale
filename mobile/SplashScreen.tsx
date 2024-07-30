@@ -8,11 +8,9 @@ import { screens } from "./screens"
 
 export default function SplashScreen({ navigation }: {navigation: any}){
   useEffect(()=>{
-    storage.load({key: "app-opened"}).then(()=>{
-      storage.load({key: "token"})
-        .then(()=> navigation.navigate(screens.Dashboard))
-        .catch(()=> navigation.navigate(screens.Login))
-    }).catch(()=> navigation.navigate(screens.Signup))
+    storage.load({key: "token"})
+      .then(()=> navigation.navigate(screens.Dashboard))
+      .catch(()=> navigation.navigate(screens.Signup))
   }, [])
 
   return (
