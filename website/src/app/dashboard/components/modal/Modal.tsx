@@ -1,21 +1,9 @@
-import { PropsWithChildren, useState } from 'react'
+import { useState } from 'react'
 import styles from './modal.module.scss'
+import { ScaleModalProps, ScaleInput, emptyScaleInput } from '@/types/scale'
 
-type ScaleModalProps = {
-  type: "add" | "edit" | null,
-  scale?: {
-    id?: string,
-    goal?: string,
-    chasingSuccessDescription?: string,
-    avoidingFailureDescription?: string
-  }
-  onEdit: (scaleData: any)=> void
-  onAdd: (scaleData: any)=> void
-  onDelete: (scaleData: any)=> void
-  onClose: ()=>void
-}
-const ScaleModal = (props: PropsWithChildren<ScaleModalProps>) =>{
-  const [modalData, setModalData] = useState(props.scale)
+const ScaleModal = (props: ScaleModalProps) =>{
+  const [modalData, setModalData] = useState<ScaleInput>(props.type=="edit" ? props.scale : emptyScaleInput)
 
   return (
     <div className={styles.modal}>
@@ -55,7 +43,7 @@ const ScaleModal = (props: PropsWithChildren<ScaleModalProps>) =>{
         <div className={styles.buttons}>
           {props.type=="edit" ?
             <>
-            <button className="danger" onClick={()=>props.onDelete(modalData)}>Delete Scale</button>
+            <button className="danger" onClick={()=>props.onDelete(props.scale.id)}>Delete Scale</button>
             <button className="commit" onClick={()=> props.onEdit(modalData)}>Update Scale</button>
             </>
           :props.type=="add" ?

@@ -8,7 +8,7 @@ const Droppable = dynamic(() => import("react-beautiful-dnd").then((module) => m
 import Image from 'next/image';
 import Arrow from "../assets/arrow.png"
 
-import Scale, { ScaleType } from './components/scale/Scale'
+import Scale from './components/scale/Scale'
 import Nav from '../nav/Nav';
 import ScaleModal from './components/modal/Modal'
 
@@ -17,20 +17,12 @@ import { useLazyQuery, useMutation } from '@apollo/client';
 import ScaleQueries from '@/queries/scales';
 import { useRouter } from 'next/navigation';
 import { REORDER_SCALES } from '@/queries/scaleOrder';
+import { AddScale, EditScale, ScaleData } from '@/types/scale';
 
 export default function Dashboard(){
-    const [scales, setScales] = useState<ScaleType[]>([])
+    const [scales, setScales] = useState<ScaleData[]>([])
     const { user }: any = useContext(AuthContext)
-    type ModalData = null | {
-      type: "add" | "edit" | null,
-      scale?: {
-        id?: string,
-        goal?: string,
-        chasingSuccessDescription?: string,
-        avoidingFailureDescription?: string
-      }
-    }
-    const [scaleToMutate, setScaleToMutate] = useState<ModalData>(null)
+    const [scaleToMutate, setScaleToMutate] = useState<AddScale | EditScale | null>(null)
 
     const [getScales]= useLazyQuery(ScaleQueries.GET_SCALES, {
       onCompleted(data){
@@ -41,7 +33,7 @@ export default function Dashboard(){
       onCompleted(data){
         const scale = data.createScale
         setScales(prev=>[...prev, scale])
-        setScaleToMutate(prev=>({...prev, type: null}))
+        setScaleToMutate(null)
       }
     })
     const [editScale] = useMutation(ScaleQueries.UPDATE_SCALE, {
@@ -53,14 +45,14 @@ export default function Dashboard(){
         }
           
         setScales(scales.with(i, data.updateScale))
-        setScaleToMutate(prev=>({...prev, type: null}))
+        setScaleToMutate(null)
       }
     })
     const [deleteScale] = useMutation(ScaleQueries.DELETE_SCALE, {
       onCompleted(data){
         const deletedScale = data.deleteScale
         setScales(scales.filter((scale)=>scale.id!=deletedScale.id))
-        setScaleToMutate(prev=>({...prev, type: null}))
+        setScaleToMutate(null)
       }
     })
     const [reorderScales] = useMutation(REORDER_SCALES)
@@ -92,13 +84,18 @@ export default function Dashboard(){
 
     return (
         <main className={styles.dashboard}>
-            {scaleToMutate?.type!=null ?
+            {scaleToMutate?.type=="add"?
               <ScaleModal 
-                type={scaleToMutate?.type || null}
-                scale={scaleToMutate?.scale}
-                onEdit={(scaleData)=>editScale({variables: scaleData})}
+                type={scaleToMutate.type}
                 onAdd={(scaleData)=> addScale({variables: { userId: user.id, ...scaleData}})}
-                onDelete={(scaleData)=>deleteScale({variables: {userId: user.id, id: scaleData.id}})}
+                onClose={()=>setScaleToMutate(null)}
+              /> : 
+              scaleToMutate?.type=="edit" ?
+              <ScaleModal 
+                type={scaleToMutate.type}
+                scale={scaleToMutate.scale}
+                onEdit={(scaleData)=>editScale({variables: scaleData})}
+                onDelete={(id)=>deleteScale({variables: {userId: user.id, id}})}
                 onClose={()=>setScaleToMutate(null)}
               /> : null
             }
@@ -108,7 +105,7 @@ export default function Dashboard(){
                     <Droppable droppableId="1">
                         {(provided: DroppableProvided) => (
                             <div ref={provided.innerRef} {...provided.droppableProps}>
-                                {scales.map((scale: ScaleType, i: number)=> (
+                                {scales.map((scale: ScaleData, i: number)=> (
                                     <Scale 
                                         index={i}
                                         key={scale.id}

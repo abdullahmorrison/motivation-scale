@@ -12,17 +12,13 @@ import styles from './scale.module.scss'
 import Image from 'next/image';
 import EditIcon from "../../../assets/icons/editIcon.svg"
 import DragDropIcon from '../../../assets/icons/dragDropIcon.svg';
+import { ScaleData } from '@/types/scale';
 
-export interface ScaleType{
-    id: string
+type ScaleProps = ScaleData & {
     index: number
-    goal: string
-    sliderValue: number
-    chasingSuccessDescription: string
-    avoidingFailureDescription: string
     onEdit: (scaleID: string) => void 
 }
-const Scale = (props: ScaleType) => {
+const Scale = (props: ScaleProps) => {
     const [isMetricsVisible, setMetricsVisible] = useState<boolean>(false)
 
     function renderText(htmlString: string | undefined){
