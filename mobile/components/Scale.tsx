@@ -5,19 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faSortDown, faSortUp, faBars, faEdit} from "@fortawesome/free-solid-svg-icons";
 import { useMutation, gql } from "@apollo/client";
 import variables from "../styles.variables";
+import { ScaleData } from "../types/scale";
 
-export interface ScaleType{
-    id: string
-    username: string
-    order: number
-    goal: string
-    sliderValue: number
-    avoidingFailureDescription: string
-    chasingSuccessDescription: string
-}
 interface ScaleProps {
-    handleEdit: (scale: ScaleType) => void
-    scale: ScaleType
+    handleEdit: (scale: ScaleData) => void
+    scale: ScaleData
 }
 export default function Scale(props: ScaleProps) {
     const [expandScale, setExpandScale] = useState<Boolean>(false)
