@@ -6,6 +6,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import LoginScreen from './Auth/Login'
 import SignupScreen from './Auth/Signup'
 import SplashScreen from "./SplashScreen"
+import MutateScale from './MutateScale'
 import { setContext } from "@apollo/client/link/context"
 import storage from './Storage'
 import { SERVER_URL } from '@env'
@@ -45,6 +46,7 @@ export default function App() {
               <Stack.Screen name={screens.Signup} component={SignupScreen} />
               <Stack.Screen name={screens.Login} component={LoginScreen} />
               <Stack.Screen name={screens.Dashboard} component={RootComponent} />
+              <Stack.Screen name={screens.MutateScale} component={MutateScale} />
             </Stack.Navigator>
           </ApolloProvider>
         </AuthProvider>
