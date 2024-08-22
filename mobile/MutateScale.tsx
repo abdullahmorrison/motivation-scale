@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Dimensions} from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Dimensions, BackHandler} from 'react-native';
 import Constants from 'expo-constants'
 import variables from "./styles.variables"
 import { screens } from './screens';
@@ -6,17 +6,49 @@ import ScaleQueries from './queries/scale';
 import { useMutation } from '@apollo/client';
 import { ScaleInput } from './types/scale';
 import useForm from './hooks/useForm';
+import { useEffect } from 'react';
 
-export default function MutateScale({route, navigation}: {route: any, navigation: any}) {
-  const [addScale] = useMutation(ScaleQueries.CREATE_SCALE)
-  
-  const { onChange, onSubmit, values } = useForm<ScaleInput>(createScale, route.params)
+export default function MutateScale({route, navigation}: any) {
+  const { onChange, values } = useForm<ScaleInput>(route.params)
 
-  function createScale(){
-    addScale({variables: values})
-      .then(()=>navigation.navigate(screens.Dashboard))
-      .catch((e)=>console.log(e.message))
+  const [addScale] = useMutation(ScaleQueries.CREATE_SCALE, {
+    variables: values,
+    onCompleted(data){ 
+      navigation.navigate(screens.Dashboard, {mutationType: "add", scale: data.createScale}) 
+    },
+    onError(e){
+      console.log(e)
+    }
+  })
+  const [updateScale] = useMutation(ScaleQueries.UPDATE_SCALE, {
+    variables: {...route.params.input, ...values},
+    onCompleted(data){
+      navigation.navigate(screens.Dashboard, {mutationType: "edit", scale: data.updateScale}) 
+    },
+    onError(e){
+      console.log(e)
+    }
+  })
+  const [deleteScale] = useMutation(ScaleQueries.DELETE_SCALE, {
+    variables: {id: route.params.input.id},
+    onCompleted(data){
+      navigation.navigate(screens.Dashboard, {mutationType: "delete", scale: data.deleteScale}) 
+    },
+    onError(e){
+      console.log(e)
+    }
+  })
+
+  const handleBackButton = () => {
+    navigation.goBack()
+    return true
   }
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton)
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButton)
+    }
+  }, [])
 
   return (
     <View style={styles.contentContainer}>
@@ -24,7 +56,7 @@ export default function MutateScale({route, navigation}: {route: any, navigation
         <View>
             <Text style={styles.form.inputLabel}>Goal</Text>
             <TextInput
-              defaultValue={route.params.goal}
+              defaultValue={route.params.input.goal}
               style={styles.form.textInput}
               onChangeText={value=>onChange("goal", value)}
               placeholder="Ex: Learn a new language"
@@ -34,7 +66,7 @@ export default function MutateScale({route, navigation}: {route: any, navigation
         <View>
             <Text style={styles.form.inputLabel}>Metrics for Chasing Sucess</Text>
             <TextInput
-              defaultValue={route.params.chasingSuccessDescription}
+              defaultValue={route.params.input.chasingSuccessDescription}
               multiline={true}
               style={styles.form.textArea}
               onChangeText={value=>onChange("chasingSuccessDescription", value)}
@@ -45,7 +77,7 @@ export default function MutateScale({route, navigation}: {route: any, navigation
         <View>
             <Text style={styles.form.inputLabel}>Metrics for Avoiding Failure</Text>
             <TextInput
-              defaultValue={route.params.avoidingFailureDescription}
+              defaultValue={route.params.input.avoidingFailureDescription}
               multiline={true}
               style={styles.form.textArea}
               onChangeText={value=>onChange("avoidingFailureDescription", value)}
@@ -54,17 +86,32 @@ export default function MutateScale({route, navigation}: {route: any, navigation
             />
         </View>
       </View>
+
       <View style={styles.buttons}>
-        <TouchableOpacity style={[styles.buttons.button, styles.buttons.button.cancel]}>
-          <Text style={styles.buttons.button.text} onPress={()=>navigation.goBack()}>Cancel</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.buttons.button, styles.buttons.button.create]} onPress={()=>onSubmit()}>
-          <Text style={styles.buttons.button.text}>Create</Text>
-        </TouchableOpacity>
+        {route.params.modalType == "add" ?
+        <>
+          <TouchableOpacity style={[styles.buttons.button, styles.buttons.button.neutral]}>
+            <Text style={styles.buttons.button.text} onPress={()=>navigation.goBack()}>Cancel</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.buttons.button, styles.buttons.button.confirm]} onPress={()=>addScale()}>
+            <Text style={styles.buttons.button.text}>Create</Text>
+          </TouchableOpacity>
+        </>
+        :route.params.modalType == "edit" ?
+        <>
+          <TouchableOpacity style={[styles.buttons.button, styles.buttons.button.danger]}>
+            <Text style={styles.buttons.button.text} onPress={()=>deleteScale()}>Delete</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.buttons.button, styles.buttons.button.confirm]} onPress={()=>updateScale()}>
+            <Text style={styles.buttons.button.text}>Update</Text>
+          </TouchableOpacity>
+        </>
+        :null}
       </View>
     </View>
   )
 }
+
 const styles = StyleSheet.create({
   contentContainer: {
     backgroundColor: variables.background,
@@ -121,13 +168,13 @@ const styles = StyleSheet.create({
             fontWeight: 'bold',
             color: variables.textPrimary
         },
-        delete: {
+        danger: {
             backgroundColor: variables.buttonDanger,
         },
-        create: {
+        confirm: {
             backgroundColor: variables.buttonCommit,
         },
-        cancel: {
+        neutral: {
           backgroundColor: variables.highlight
         }
     } as const

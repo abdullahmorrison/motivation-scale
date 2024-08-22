@@ -10,7 +10,7 @@ import { useQuery } from "@apollo/client";
 import ScaleQueries from './queries/scale'
 import { screens } from "./screens"
 
-export default function App({ navigation }: {navigation: any}) {
+export default function App({ navigation, route }: any) {
   const [scales, setScales] = useState<ScaleData[]>([])
 
   useQuery(ScaleQueries.GET_SCALES, {
@@ -18,6 +18,17 @@ export default function App({ navigation }: {navigation: any}) {
       setScales(data.scales)
     }
   })
+
+  useEffect(()=>{
+    const mutationType = route.params?.mutationType
+    const scale: ScaleData = route.params?.scale
+    if(mutationType=="add")
+        setScales(prev=>[...prev, scale])
+    else if(mutationType=="edit")
+        setScales(prev=>prev.map((oldScale)=>oldScale.id==scale.id ? scale : oldScale))
+    else if(mutationType=="delete")
+        setScales(prev=>prev.filter(s=>s.id!=scale.id))
+  }, [route.params])
 
   const handleBackButton = () => {//close app on back button press
     BackHandler.exitApp()
@@ -39,11 +50,11 @@ export default function App({ navigation }: {navigation: any}) {
             <Scale
               key={scale.id}
               scale={scale}
-              handleEdit={()=>{navigation.navigate(screens.MutateScale, scale)}}
+              handleEdit={()=>{navigation.navigate(screens.MutateScale, {modalType:"edit", input: scale})}}
             />
           )}
         </View>
-        <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate(screens.MutateScale, emptyScaleInput)}}>
+        <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate(screens.MutateScale, {modalType: "add", input: emptyScaleInput})}}>
           <Text style={styles.text} >+</Text>
         </TouchableOpacity>
       </ScrollView>
