@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, SafeAreaView, ScrollView, View} from 'react-native'
 import Constants from 'expo-constants'
 import Scale from './components/Scale'
-import { ScaleData } from './types/scale'
+import { emptyScaleInput, ScaleData } from './types/scale'
 import variables from "./styles.variables"
 import { useQuery } from "@apollo/client";
 import ScaleQueries from './queries/scale'
@@ -39,11 +39,11 @@ export default function App({ navigation }: {navigation: any}) {
             <Scale
               key={scale.id}
               scale={scale}
-              handleEdit={()=>{}}
+              handleEdit={()=>{navigation.navigate(screens.MutateScale, scale)}}
             />
           )}
         </View>
-        <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate(screens.MutateScale)}}>
+        <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate(screens.MutateScale, emptyScaleInput)}}>
           <Text style={styles.text} >+</Text>
         </TouchableOpacity>
       </ScrollView>

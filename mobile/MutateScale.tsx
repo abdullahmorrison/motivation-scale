@@ -2,32 +2,63 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity, Dimensions} from '
 import Constants from 'expo-constants'
 import variables from "./styles.variables"
 import { screens } from './screens';
+import ScaleQueries from './queries/scale';
+import { useMutation } from '@apollo/client';
+import { ScaleInput } from './types/scale';
+import useForm from './hooks/useForm';
 
-export default function MutateScale({navigation}: {navigation: any}) {
-  function cancelMutation(){
-    navigation.navigate(screens.Dashboard)
+export default function MutateScale({route, navigation}: {route: any, navigation: any}) {
+  const [addScale] = useMutation(ScaleQueries.CREATE_SCALE)
+  
+  const { onChange, onSubmit, values } = useForm<ScaleInput>(createScale, route.params)
+
+  function createScale(){
+    addScale({variables: values})
+      .then(()=>navigation.navigate(screens.Dashboard))
+      .catch((e)=>console.log(e.message))
   }
+
   return (
     <View style={styles.contentContainer}>
       <View style={styles.form}>
         <View>
             <Text style={styles.form.inputLabel}>Goal</Text>
-            <TextInput style={styles.form.textInput} placeholder="Ex: Learn a new language" placeholderTextColor={variables.highlight}/>
+            <TextInput
+              defaultValue={route.params.goal}
+              style={styles.form.textInput}
+              onChangeText={value=>onChange("goal", value)}
+              placeholder="Ex: Learn a new language"
+              placeholderTextColor={variables.highlight}
+            />
         </View>
         <View>
             <Text style={styles.form.inputLabel}>Metrics for Chasing Sucess</Text>
-            <TextInput multiline={true} style={styles.form.textArea}  placeholder="I feel like I'm making good progress when..." placeholderTextColor={variables.highlight}/>
+            <TextInput
+              defaultValue={route.params.chasingSuccessDescription}
+              multiline={true}
+              style={styles.form.textArea}
+              onChangeText={value=>onChange("chasingSuccessDescription", value)}
+              placeholder="I feel like I'm making good progress when..."
+              placeholderTextColor={variables.highlight}
+            />
         </View>
         <View>
             <Text style={styles.form.inputLabel}>Metrics for Avoiding Failure</Text>
-            <TextInput multiline={true} style={styles.form.textArea}  placeholder="I feel like I'm falling behind when..." placeholderTextColor={variables.highlight}/>
+            <TextInput
+              defaultValue={route.params.avoidingFailureDescription}
+              multiline={true}
+              style={styles.form.textArea}
+              onChangeText={value=>onChange("avoidingFailureDescription", value)}
+              placeholder="I feel like I'm falling behind when..."
+              placeholderTextColor={variables.highlight}
+            />
         </View>
       </View>
       <View style={styles.buttons}>
         <TouchableOpacity style={[styles.buttons.button, styles.buttons.button.cancel]}>
-          <Text style={styles.buttons.button.text} onPress={()=>cancelMutation()}>Cancel</Text>
+          <Text style={styles.buttons.button.text} onPress={()=>navigation.goBack()}>Cancel</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.buttons.button, styles.buttons.button.create]}>
+        <TouchableOpacity style={[styles.buttons.button, styles.buttons.button.create]} onPress={()=>onSubmit()}>
           <Text style={styles.buttons.button.text}>Create</Text>
         </TouchableOpacity>
       </View>
