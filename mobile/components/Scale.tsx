@@ -1,11 +1,12 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, Dimensions, TouchableOpacity} from "react-native";
 import { Slider } from '@react-native-assets/slider'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faSortDown, faSortUp, faBars, faEdit} from "@fortawesome/free-solid-svg-icons";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import variables from "../styles.variables";
 import { ScaleData } from "../types/scale";
+import ScaleQueries from "../queries/scale";
 
 interface ScaleProps {
     handleEdit: (scale: ScaleData) => void
@@ -14,14 +15,7 @@ interface ScaleProps {
 export default function Scale(props: ScaleProps) {
     const [expandScale, setExpandScale] = useState<Boolean>(false)
 
-    const UPDATE_SCALE_SLIDER_VALUE = gql`
-        mutation UpdateScale($id: String!, $sliderValue: Int){
-            updateScale(id: $id, sliderValue: $sliderValue) {
-                goal
-                sliderValue
-            }
-        }`
-    const [updateScaleSliderValue] = useMutation(UPDATE_SCALE_SLIDER_VALUE)
+    const [updateScaleSliderValue] = useMutation(ScaleQueries.UPDATE_SCALE)
 
     return (
         <View style={styles.container}>
