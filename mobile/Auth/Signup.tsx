@@ -8,34 +8,24 @@ import { REGISTER_USER } from "../queries/auth"
 import { useContext } from "react"
 import { AuthContext } from "../context/authContext"
 import { screens } from "../screens"
-
+import { AuthInput, emptyAuthInput } from "../types/auth"
 
 export default function SignupScreen({ navigation }: {navigation: any}){
   const context = useContext(AuthContext)
 
-  const { onChange, onSubmit, values } = useForm(handleSubmit, {
-    email: "",
-    password: ""
-  })
+  const { onChange, onSubmit, values } = useForm<AuthInput>(handleSubmit, emptyAuthInput)
 
   async function handleSubmit(){
-    console.log(values)
-    registerUser()
+    registerUser({variables: values})
   }
 
   const [registerUser] = useMutation(REGISTER_USER, {
     onCompleted({loginUser: registerUser}){
-      console.log(registerUser)
       context.login(registerUser)
       navigation.navigate(screens.Dashboard)
     },
-    onError(e){
-      console.log("ERROR")
-      console.log(e.message)
-    },
-    variables: { email: values.email,  password: values.password }
+    onError(e){ console.log(e.message) }
   })
-
 
   return (
     <View style={styles.contentContainer}>
@@ -43,10 +33,10 @@ export default function SignupScreen({ navigation }: {navigation: any}){
 
       <View style={styles.form}>
         <Text style={styles.text}>Email</Text>
-        <TextInput style={styles.textInput} onChangeText={(value)=>onChange("email", value)} placeholder="Enter you email" placeholderTextColor={variables.highlight}/>
+        <TextInput style={styles.textInput} onChangeText={email=>onChange("email", email)} placeholder="Enter you email" placeholderTextColor={variables.highlight}/>
 
         <Text style={styles.text}>Password</Text>
-        <TextInput style={styles.textInput} onChangeText={(value)=>onChange("password", value)} placeholder="Enter you password" placeholderTextColor={variables.highlight}/>
+        <TextInput style={styles.textInput} onChangeText={password=>onChange("password", password)} placeholder="Enter you password" placeholderTextColor={variables.highlight}/>
 
         <Button color={variables.highlight} title="Sign up" onPress={onSubmit}/>
       </View>
