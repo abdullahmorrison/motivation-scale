@@ -43,7 +43,7 @@ export default function App({ navigation, route }: any) {
 
   return (
     <SafeAreaView>
-      <StatusBar/>
+      <StatusBar backgroundColor={variables.background} style='inverted'/>
       <View style={styles.contentContainer}>
         <ScrollView contentContainerStyle={styles.scalesContainer}>
           {scales && scales.map((scale: ScaleData) =>
