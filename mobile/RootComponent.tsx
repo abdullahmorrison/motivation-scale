@@ -43,9 +43,9 @@ export default function App({ navigation, route }: any) {
 
   return (
     <SafeAreaView>
-      <StatusBar style="auto" />
-      <ScrollView contentContainerStyle={styles.contentContainer}>
-        <View>
+      <StatusBar/>
+      <View style={styles.contentContainer}>
+        <ScrollView contentContainerStyle={styles.scalesContainer}>
           {scales && scales.map((scale: ScaleData) =>
             <Scale
               key={scale.id}
@@ -53,11 +53,13 @@ export default function App({ navigation, route }: any) {
               handleEdit={()=>{navigation.navigate(screens.MutateScale, {modalType:"edit", input: scale})}}
             />
           )}
+        </ScrollView>
+        <View style={styles.actionBar}>
+          <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate(screens.MutateScale, {modalType: "add", input: emptyScaleInput})}}>
+            <Text style={styles.text} >+</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate(screens.MutateScale, {modalType: "add", input: emptyScaleInput})}}>
-          <Text style={styles.text} >+</Text>
-        </TouchableOpacity>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   )
 }
@@ -67,24 +69,37 @@ const styles = StyleSheet.create({
     backgroundColor: variables.background,
     alignItems: 'center',
     marginTop: Constants.statusBarHeight,
-    paddingTop: 100,
-    paddingBottom: 100,
+    paddingTop: 20,
     flexGrow: 1,
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height
+    height: Dimensions.get('window').height - Constants.statusBarHeight,
+  },
+  scalesContainer:{
+    paddingBottom: 150,
+    gap: 30
   },
   button: {
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: variables.primary,
     borderRadius: 10,
     elevation: 5,
 
-    margin: 20,
     width: 50,
     height: 50,
   },
   text: {
     fontSize: 30,
     color: variables.textPrimary,
+  },
+  actionBar: {
+    backgroundColor: variables.background,
+    borderTopColor: variables.highlight,
+    borderWidth: 2,
+    position: 'absolute',
+    bottom: 0,
+    alignItems: 'center',
+    padding: 10,
+    width: Dimensions.get('window').width
   }
 });
