@@ -7,6 +7,7 @@ import { useMutation } from "@apollo/client";
 import variables from "../styles.variables";
 import { ScaleData } from "../types/scale";
 import ScaleQueries from "../queries/scale";
+import { LinearGradient } from 'expo-linear-gradient'
 
 interface ScaleProps {
     handleEdit: (scale: ScaleData) => void
@@ -28,23 +29,31 @@ export default function Scale(props: ScaleProps) {
                     <FontAwesomeIcon icon={faEdit} style={styles.header.editIcon.icon} size={20}/>
                 </TouchableOpacity>
             </View>
-            <Slider
-                value={props.scale.sliderValue}
-                minimumValue={0}
-                maximumValue={100}
-                step={1}
-                slideOnTap={false}
-                style={styles.slider}
-                thumbStyle={styles.slider.thumb}
-                trackStyle={styles.slider.track}
-                onSlidingComplete={(value)=>updateScaleSliderValue({
-                    variables: {
-                        id: props.scale.id,
-                        sliderValue: value
-                    }
-                })}
-            />
-            {   expandScale &&
+            <View style={styles.sliderContainer}>
+              <LinearGradient
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
+                colors={['red', 'green']}
+                style={styles.slider.track}
+              />
+              <Slider
+                  value={props.scale.sliderValue}
+                  minimumValue={0}
+                  maximumValue={100}
+                  step={1}
+                  slideOnTap={false}
+                  style={styles.slider}
+                  thumbStyle={styles.slider.thumb}
+                  trackStyle={{backgroundColor: 'transparent'}}
+                  onSlidingComplete={(value)=>updateScaleSliderValue({
+                      variables: {
+                          id: props.scale.id,
+                          sliderValue: value
+                      }
+                  })}
+              />
+            </View>
+            { expandScale &&
                 <View style={styles.explanations}>
                     <View style={styles.explanations.section}>
                         <Text style={styles.explanations.title}>Chasing Success</Text>
@@ -70,8 +79,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 30,
         paddingTop: 10,
         paddingBottom: 20,
-        marginTop: 10,
-        marginBottom: 10,
 
         elevation: 3,
         backgroundColor: variables.primary,
@@ -98,12 +105,19 @@ const styles = StyleSheet.create({
 
         goal: {
             color: variables.textPrimary,
-            fontSize: 30,
+            fontSize: 20,
             fontWeight: 'bold',
+            textAlign: 'center',
         } as const
     },
+    sliderContainer:{
+      justifyContent: 'center',
+      marginTop: 20
+    },
     slider: {
-        paddingVertical: 20,
+        position: 'absolute',
+        width: '100%',
+        height: 40,
         thumb: {
             borderRadius: 30,
             backgroundColor: variables.secondary,
@@ -112,13 +126,9 @@ const styles = StyleSheet.create({
             width: 35,
         },
         track: {
-            backgroundColor: "red",
             height: 25,
             borderRadius: 15,
-        },
-        marginBottom: 5,
-        marginTop: 10,
-        height: 40,
+        }
     },
     explanations: {
         margin: -10,
