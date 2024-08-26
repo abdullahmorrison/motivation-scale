@@ -44,7 +44,8 @@ export default function App({ navigation, route }: any) {
   return (
     <SafeAreaView>
       <StatusBar backgroundColor={variables.background} style='inverted'/>
-      <View style={styles.contentContainer}>
+
+      <View style={styles.contentContainer} >
         <ScrollView contentContainerStyle={styles.scalesContainer}>
           {scales && scales.map((scale: ScaleData) =>
             <Scale
@@ -54,11 +55,12 @@ export default function App({ navigation, route }: any) {
             />
           )}
         </ScrollView>
-        <View style={styles.actionBar}>
-          <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate(screens.MutateScale, {modalType: "add", input: emptyScaleInput})}}>
-            <Text style={styles.text} >+</Text>
-          </TouchableOpacity>
-        </View>
+      </View>
+
+      <View style={styles.actionBar}>
+        <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate(screens.MutateScale, {modalType: "add", input: emptyScaleInput})}}>
+          <Text style={styles.text} >+</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   )
