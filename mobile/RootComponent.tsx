@@ -9,6 +9,8 @@ import variables from "./styles.variables"
 import { useQuery } from "@apollo/client";
 import ScaleQueries from './queries/scale'
 import { screens } from "./screens"
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faUser } from '@fortawesome/free-regular-svg-icons'
 
 export default function App({ navigation, route }: any) {
   const [scales, setScales] = useState<ScaleData[]>([])
@@ -58,8 +60,11 @@ export default function App({ navigation, route }: any) {
       </View>
 
       <View style={styles.actionBar}>
-        <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate(screens.MutateScale, {modalType: "add", input: emptyScaleInput})}}>
+        <TouchableOpacity style={styles.actionBar.addScaleButton} onPress={()=>{navigation.navigate(screens.MutateScale, {modalType: "add", input: emptyScaleInput})}}>
           <Text style={styles.text} >+</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.actionBar.account}>
+          <FontAwesomeIcon icon={faUser} color={variables.highlight}  size={30}/>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -80,16 +85,6 @@ const styles = StyleSheet.create({
     paddingBottom: 150,
     gap: 30
   },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: variables.primary,
-    borderRadius: 10,
-    elevation: 5,
-
-    width: 50,
-    height: 50,
-  },
   text: {
     fontSize: 30,
     color: variables.textPrimary,
@@ -100,8 +95,26 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     position: 'absolute',
     bottom: 0,
+    flexDirection: 'row', 
+    justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
-    width: Dimensions.get('window').width
+    width: Dimensions.get('window').width,
+
+    addScaleButton: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: variables.primary,
+      borderRadius: 10,
+      elevation: 5,
+
+      width: 50,
+      height: 50,
+    } as const,
+    account: {
+      position: 'absolute',
+      right: 0,
+      padding: 20,
+    } as const
   }
-});
+})
