@@ -2,15 +2,16 @@ import { Dimensions, StyleSheet } from "react-native"
 import Constants from 'expo-constants'
 import { View, Image } from "react-native"
 import variables from "./styles.variables"
-import storage from "./Storage"
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { screens } from "./screens"
+import { AuthContext } from "./context/authContext"
 
 export default function SplashScreen({ navigation }: {navigation: any}){
+  const { user } = useContext(AuthContext)
+
   useEffect(()=>{
-    storage.load({key: "token"})
-      .then(()=> navigation.navigate(screens.Dashboard))
-      .catch(()=> navigation.navigate(screens.Signup))
+    if(user) navigation.navigate(screens.Dashboard)
+    else navigation.navigate(screens.Signup)
   }, [])
 
   return (
