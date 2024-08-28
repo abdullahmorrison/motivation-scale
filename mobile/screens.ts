@@ -3,5 +3,6 @@ export const screens = {
   Signup: "Signup",
   Login: "Login",
   Dashboard: "Dashboard",
-  MutateScale: "MutateScale"
+  MutateScale: "MutateScale",
+  UserAccount: "UserAccount"
 }

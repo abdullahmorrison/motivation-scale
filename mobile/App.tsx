@@ -12,6 +12,7 @@ import storage from './Storage'
 import { SERVER_URL } from '@env'
 import { screens } from './screens'
 import AuthProvider from './context/authContext'
+import UserAccount from './UserAccount'
 
 const httpLink = createHttpLink({
   uri: SERVER_URL,
@@ -47,6 +48,7 @@ export default function App() {
               <Stack.Screen name={screens.Login} component={LoginScreen} />
               <Stack.Screen name={screens.Dashboard} component={RootComponent} />
               <Stack.Screen name={screens.MutateScale} component={MutateScale} />
+              <Stack.Screen name={screens.UserAccount} component={UserAccount} />
             </Stack.Navigator>
           </ApolloProvider>
         </AuthProvider>

@@ -63,7 +63,7 @@ export default function App({ navigation, route }: any) {
         <TouchableOpacity style={styles.actionBar.addScaleButton} onPress={()=>{navigation.navigate(screens.MutateScale, {modalType: "add", input: emptyScaleInput})}}>
           <Text style={styles.text} >+</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.actionBar.account}>
+        <TouchableOpacity style={styles.actionBar.account} onPress={()=>{navigation.navigate(screens.UserAccount)}}>
           <FontAwesomeIcon icon={faUser} color={variables.highlight}  size={30}/>
         </TouchableOpacity>
       </View>
