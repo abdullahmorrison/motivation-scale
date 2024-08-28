@@ -36,7 +36,7 @@ export default function SignupScreen({ navigation }: {navigation: any}){
         <TextInput style={styles.textInput} onChangeText={email=>onChange("email", email)} placeholder="Enter you email" placeholderTextColor={variables.highlight}/>
 
         <Text style={styles.text}>Password</Text>
-        <TextInput style={styles.textInput} onChangeText={password=>onChange("password", password)} placeholder="Enter you password" placeholderTextColor={variables.highlight}/>
+        <TextInput secureTextEntry={true} style={styles.textInput} onChangeText={password=>onChange("password", password)} placeholder="Enter you password" placeholderTextColor={variables.highlight}/>
 
         <Button color={variables.highlight} title="Sign up" onPress={onSubmit}/>
       </View>
