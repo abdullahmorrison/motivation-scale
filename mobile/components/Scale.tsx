@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Dimensions, TouchableOpacity} from "react-native";
 import { Slider } from '@react-native-assets/slider'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
@@ -8,6 +8,7 @@ import variables from "../styles.variables";
 import { ScaleData } from "../types/scale";
 import ScaleQueries from "../queries/scale";
 import { LinearGradient } from 'expo-linear-gradient'
+import Tooltip from "./Tooltip";
 
 interface ScaleProps {
     handleEdit: (scale: ScaleData) => void
@@ -15,6 +16,8 @@ interface ScaleProps {
 }
 export default function Scale(props: ScaleProps) {
     const [expandScale, setExpandScale] = useState<Boolean>(false)
+    const [sliderValue, setSliderValue] = useState(props.scale.sliderValue)
+    const [showToolTip, setShowToolTip] = useState(false)
 
     const [updateScaleSliderValue] = useMutation(ScaleQueries.UPDATE_SCALE)
 
@@ -30,6 +33,7 @@ export default function Scale(props: ScaleProps) {
                 </TouchableOpacity>
             </View>
             <View style={styles.sliderContainer}>
+              {showToolTip ? <Tooltip sliderValue={sliderValue}/> :null }
               <LinearGradient
                 start={{x: 0, y: 0}}
                 end={{x: 1, y: 0}}
@@ -37,7 +41,7 @@ export default function Scale(props: ScaleProps) {
                 style={styles.slider.track}
               />
               <Slider
-                  value={props.scale.sliderValue}
+                  value={sliderValue}
                   minimumValue={0}
                   maximumValue={100}
                   step={1}
@@ -45,6 +49,9 @@ export default function Scale(props: ScaleProps) {
                   style={styles.slider}
                   thumbStyle={styles.slider.thumb}
                   trackStyle={{backgroundColor: 'transparent'}}
+                  onTouchStart={()=>setShowToolTip(true)}
+                  onTouchEnd={()=>setShowToolTip(false)}
+                  onValueChange={(value)=>setSliderValue(value)}
                   onSlidingComplete={(value)=>updateScaleSliderValue({
                       variables: {
                           id: props.scale.id,
