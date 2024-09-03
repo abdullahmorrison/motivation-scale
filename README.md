@@ -1,6 +1,6 @@
 <h1><img width=400 src="https://github.com/abdullahmorrison/motivation-scale/assets/49528805/1963ecbb-16de-44f8-bd7c-1a81ddd29770" /></h1>
 
-<p>A mindfulness tool that helps users visualize a mental framework for how their motivation effects the emotions (and vice versa).</p>
+<p>A mindfulness tool that helps users visualize a mental framework for how their motivation affects the emotions (and vice versa).</p>
 
 ## What problem does this solve?
 ***This tool prevents your emotions from getting in the way of your goals through self-awareness. Here's an example:***
