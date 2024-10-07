@@ -55,16 +55,7 @@ export default function App({ navigation, route }: any) {
             data={scales}
             onDragEnd={({data})=>{
               setScales(data)
-              reorderScales({
-                variables: {scaleOrder: data.map(scale => scale.id)},
-                optimisticResponse: {
-                  __typename: "Mutation",
-                  reorderScales: data.map(scale => ({
-                    __typename: "Scale",
-                    id: scale.id,
-                  })),
-                },
-              })
+              reorderScales({ variables: {scaleOrder: data.map(scale => scale.id)} })
             }}
             keyExtractor={(item)=>item.id}
             contentContainerStyle={styles.scalesContainer}
