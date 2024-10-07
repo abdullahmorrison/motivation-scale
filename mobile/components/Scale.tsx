@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, Dimensions, TouchableOpacity} from "react-native";
 import { Slider } from '@react-native-assets/slider'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
@@ -13,6 +13,7 @@ import Tooltip from "./Tooltip";
 interface ScaleProps {
     handleEdit: (scale: ScaleData) => void
     scale: ScaleData
+    onDrag: ()=>void
 }
 export default function Scale(props: ScaleProps) {
     const [expandScale, setExpandScale] = useState<Boolean>(false)
@@ -24,7 +25,7 @@ export default function Scale(props: ScaleProps) {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity>
+                <TouchableOpacity onLongPress={props.onDrag}>
                     <FontAwesomeIcon icon={faBars} style={styles.header.dragNDrop} size={20}/>
                 </TouchableOpacity>
                 <Text style={styles.header.goal}>{props.scale.goal}</Text>
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
         elevation: 3,
         backgroundColor: variables.primary,
         width: Dimensions.get('window').width * 0.9,
-        maxWidth: 950,
+        maxWidth: 950
     },
     header: {
         flexDirection: 'row',

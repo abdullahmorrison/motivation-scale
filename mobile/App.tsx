@@ -13,6 +13,7 @@ import { SERVER_URL } from '@env'
 import { screens } from './screens'
 import AuthProvider from './context/authContext'
 import UserAccount from './UserAccount'
+import { GestureHandlerRootView } from "react-native-gesture-handler"
 
 const httpLink = createHttpLink({
   uri: SERVER_URL,
@@ -39,6 +40,7 @@ export const client = new ApolloClient({
 const Stack = createNativeStackNavigator()
 export default function App() {
     return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <NavigationContainer>
         <AuthProvider>
           <ApolloProvider client={client}>
@@ -53,6 +55,7 @@ export default function App() {
           </ApolloProvider>
         </AuthProvider>
       </NavigationContainer>
+    </GestureHandlerRootView>
     )
 }
 AppRegistry.registerComponent('MotivationScale', () => App)

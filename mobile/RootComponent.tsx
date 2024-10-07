@@ -6,11 +6,13 @@ import Constants from 'expo-constants'
 import Scale from './components/Scale'
 import { emptyScaleInput, ScaleData } from './types/scale'
 import variables from "./styles.variables"
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import ScaleQueries from './queries/scale'
 import { screens } from "./screens"
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faUser } from '@fortawesome/free-regular-svg-icons'
+import DraggableFlatList, { ScaleDecorator } from 'react-native-draggable-flatlist'
+import { REORDER_SCALES } from './queries/scaleOrder'
 
 export default function App({ navigation, route }: any) {
   const [scales, setScales] = useState<ScaleData[]>([])
@@ -20,6 +22,7 @@ export default function App({ navigation, route }: any) {
       setScales(data.scales)
     }
   })
+  const [reorderScales] = useMutation(REORDER_SCALES)
 
   useEffect(()=>{
     const mutationType = route.params?.mutationType
@@ -44,46 +47,65 @@ export default function App({ navigation, route }: any) {
   }, [])
 
   return (
-    <SafeAreaView>
-      <StatusBar backgroundColor={variables.background} style='inverted'/>
+      <SafeAreaView>
+        <StatusBar backgroundColor={variables.background} style='inverted'/>
 
-      <View style={styles.contentContainer} >
-        <ScrollView contentContainerStyle={styles.scalesContainer}>
-          {scales && scales.map((scale: ScaleData) =>
-            <Scale
-              key={scale.id}
-              scale={scale}
-              handleEdit={()=>{navigation.navigate(screens.MutateScale, {modalType:"edit", input: scale})}}
-            />
-          )}
-        </ScrollView>
-      </View>
+        <View style={styles.contentContainer} >
+          <DraggableFlatList
+            data={scales}
+            onDragEnd={({data})=>{
+              setScales(data)
+              reorderScales({
+                variables: {scaleOrder: data.map(scale => scale.id)},
+                optimisticResponse: {
+                  __typename: "Mutation",
+                  reorderScales: data.map(scale => ({
+                    __typename: "Scale",
+                    id: scale.id,
+                  })),
+                },
+              })
+            }}
+            keyExtractor={(item)=>item.id}
+            contentContainerStyle={styles.scalesContainer}
+            renderItem={({item, drag})=>
+              <ScaleDecorator>
+                <Scale
+                  key={item.id.toString()}
+                  scale={item}
+                  onDrag={drag}
+                  handleEdit={()=>{navigation.navigate(screens.MutateScale, {modalType:"edit", input: item})}}
+                />
+              </ScaleDecorator>
+            }
+          />
+        </View>
 
-      <View style={styles.actionBar}>
-        <TouchableOpacity style={styles.actionBar.addScaleButton} onPress={()=>{navigation.navigate(screens.MutateScale, {modalType: "add", input: emptyScaleInput})}}>
-          <Text style={styles.text} >+</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.actionBar.account} onPress={()=>{navigation.navigate(screens.UserAccount)}}>
-          <FontAwesomeIcon icon={faUser} color={variables.highlight}  size={30}/>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+        <View style={styles.actionBar}>
+          <TouchableOpacity style={styles.actionBar.addScaleButton} onPress={()=>{navigation.navigate(screens.MutateScale, {modalType: "add", input: emptyScaleInput})}}>
+            <Text style={styles.text} >+</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.actionBar.account} onPress={()=>{navigation.navigate(screens.UserAccount)}}>
+            <FontAwesomeIcon icon={faUser} color={variables.highlight}  size={30}/>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   contentContainer: {
     backgroundColor: variables.background,
-    alignItems: 'center',
     marginTop: Constants.statusBarHeight,
-    paddingTop: 20,
     flexGrow: 1,
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height - Constants.statusBarHeight,
   },
-  scalesContainer:{
-    paddingBottom: 150,
-    gap: 30
+  scalesContainer: {
+    alignItems: "center",
+    gap: 30,
+    paddingTop: 20,
+    paddingBottom: 100
   },
   text: {
     fontSize: 30,
