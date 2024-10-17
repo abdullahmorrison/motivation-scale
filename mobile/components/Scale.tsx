@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, Dimensions, TouchableOpacity} from "react-native";
+import { StyleSheet, View, Text, Dimensions, TouchableOpacity, GestureResponderHandlers, LayoutChangeEvent} from "react-native";
 import { Slider } from '@react-native-assets/slider'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faSortDown, faSortUp, faBars, faEdit} from "@fortawesome/free-solid-svg-icons";
@@ -11,9 +11,11 @@ import { LinearGradient } from 'expo-linear-gradient'
 import Tooltip from "./Tooltip";
 
 interface ScaleProps {
-    handleEdit: (scale: ScaleData) => void
     scale: ScaleData
-    onDrag: ()=>void
+    handleEdit: (scale: ScaleData) => void
+    onLayout: (event: LayoutChangeEvent) => void
+    dragNDropHandlers: GestureResponderHandlers
+    isDragging: boolean
 }
 export default function Scale(props: ScaleProps) {
     const [expandScale, setExpandScale] = useState<Boolean>(false)
@@ -23,11 +25,11 @@ export default function Scale(props: ScaleProps) {
     const [updateScaleSliderValue] = useMutation(ScaleQueries.UPDATE_SCALE)
 
     return (
-        <View style={styles.container}>
+        <View style={props.isDragging ? styles.hidden: styles.container} onLayout={(e)=>props.onLayout(e)}>
             <View style={styles.header}>
-                <TouchableOpacity onLongPress={props.onDrag}>
+                <View {...props.dragNDropHandlers}>
                     <FontAwesomeIcon icon={faBars} style={styles.header.dragNDrop} size={20}/>
-                </TouchableOpacity>
+                </View>
                 <Text style={styles.header.goal}>{props.scale.goal}</Text>
                 <TouchableOpacity style={styles.header.editIcon} onPress={()=>props.handleEdit(props.scale)}>
                     <FontAwesomeIcon icon={faEdit} style={styles.header.editIcon.icon} size={20}/>
@@ -81,6 +83,11 @@ export default function Scale(props: ScaleProps) {
 }
 
 const styles = StyleSheet.create({
+    hidden:{
+      opacity: 0,
+      paddingTop: 10,
+      paddingBottom: 20,
+    },
     container: {
         borderRadius: 10,
 
