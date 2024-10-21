@@ -14,6 +14,7 @@ import { screens } from './screens'
 import AuthProvider from './context/authContext'
 import UserAccount from './UserAccount'
 import { GestureHandlerRootView } from "react-native-gesture-handler"
+import variables from './styles.variables'
 
 const httpLink = createHttpLink({
   uri: SERVER_URL,
@@ -44,7 +45,7 @@ export default function App() {
       <NavigationContainer>
         <AuthProvider>
           <ApolloProvider client={client}>
-            <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Navigator screenOptions={{headerShown: false, navigationBarColor: variables.background}}>
               <Stack.Screen name={screens.SplashScreen} component={SplashScreen} />
               <Stack.Screen name={screens.Signup} component={SignupScreen} />
               <Stack.Screen name={screens.Login} component={LoginScreen} />
