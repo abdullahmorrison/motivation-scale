@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
             fontSize: 20,
             fontWeight: 'bold',
             textAlign: 'center',
+            maxWidth: '80%'
         } as const
     },
     sliderContainer:{

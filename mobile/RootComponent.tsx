@@ -161,13 +161,13 @@ const styles = StyleSheet.create({
     marginTop: Constants.statusBarHeight,
     flexGrow: 1,
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    height: Dimensions.get('window').height-Constants.statusBarHeight,
   },
   scalesContainer: {
     alignItems: "center",
     gap: 30,
-    paddingTop: 20,
-    paddingBottom: 100
+    paddingTop: 10,
+    paddingBottom: 150
   },
   text: {
     fontSize: 30,

@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     backgroundColor: variables.background,
     marginTop: Constants.statusBarHeight,
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height
+    height: Dimensions.get('window').height-Constants.statusBarHeight
   },
   accountInformation:{
     justifyContent: 'space-between',
