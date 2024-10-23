@@ -1,7 +1,6 @@
-import { View, Dimensions, Button, Text, TextInput, StyleSheet } from "react-native"
+import { View, Dimensions, Button, Text, TextInput, StyleSheet, SafeAreaView } from "react-native"
 import { Link } from "@react-navigation/native" 
 import variables from "../styles.variables"
-import Constants from 'expo-constants'
 import useForm from "../hooks/useForm"
 import { useMutation } from "@apollo/client"
 import { LOGIN_USER } from "../queries/auth"
@@ -28,8 +27,8 @@ export default function LoginScreen({ navigation }: {navigation: any}){
   })
 
   return (
-    <View style={styles.contentContainer}>
-      <Text style={styles.h2}>Login to The Motivation Scale</Text>
+    <SafeAreaView style={styles.contentContainer}>
+      <Text style={styles.h2}>Login to the Motivation Scale</Text>
 
       <View style={styles.form}>
         <Text style={styles.text}>Email</Text>
@@ -42,7 +41,7 @@ export default function LoginScreen({ navigation }: {navigation: any}){
       </View>
 
       <Link to={{screen: "Signup"}} style={styles.link}>Don't have an account? Sign up</Link>
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -51,18 +50,20 @@ const styles = StyleSheet.create({
     backgroundColor: variables.background,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: Constants.statusBarHeight,
+    gap: 20,
     flexGrow: 1,
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height
   },
   h2:{
     color: variables.textPrimary,
-    fontSize: 25
+    fontSize: 22,
+    fontWeight: 'bold'
   },
   text: {
     color: variables.textPrimary,
-    fontSize: 15
+    fontSize: 18,
+    marginBottom: 5
   },
   textInput: {
     color: variables.textPrimary,
@@ -71,12 +72,13 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderRadius: 5,
     fontSize: 15,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     marginBottom: 15
   },
   link: {
     color: variables.textLink,
+    fontSize: 15,
     marginTop: 15
   },
   form: {
