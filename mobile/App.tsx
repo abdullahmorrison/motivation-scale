@@ -9,7 +9,7 @@ import SplashScreen from "./SplashScreen"
 import MutateScale from './MutateScale'
 import { setContext } from "@apollo/client/link/context"
 import storage from './Storage'
-import { SERVER_URL } from '@env'
+import { EXPO_PUBLIC_SERVER_URL } from '@env'
 import { screens } from './screens'
 import AuthProvider from './context/authContext'
 import UserAccount from './UserAccount'
@@ -17,7 +17,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler"
 import variables from './styles.variables'
 
 const httpLink = createHttpLink({
-  uri: SERVER_URL,
+  uri: EXPO_PUBLIC_SERVER_URL,
 })
 
 //sending auth token with every server reqest

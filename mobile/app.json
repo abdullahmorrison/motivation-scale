@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "motivation-measurement-tool",
+    "name": "Motivation Scale",
     "slug": "motivation-measurement-tool",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,10 +21,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.abdullahmorrison.motivationmeasurementtool"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "42e3c639-ce05-4092-ab81-ead5591e0a58"
+      }
+    },
+    "owner": "abdullahmorrison"
   }
 }

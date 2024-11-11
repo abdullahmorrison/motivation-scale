@@ -1,0 +1,28 @@
+{
+  "cli": {
+    "version": ">= 12.5.4",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "env": {
+        "EXPO_PUBLIC_SERVER_URL": "http://192.168.55.14:3001"
+      },
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "extends": "production",
+      "distribution": "internal"
+    },
+    "production": {
+      "env": {
+        "EXPO_PUBLIC_SERVER_URL": "https://motivationscale.up.railway.app"
+      },
+      "autoIncrement": true
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
