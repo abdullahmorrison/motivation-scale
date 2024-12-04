@@ -12,7 +12,7 @@ export default function SplashScreen({ navigation }: {navigation: any}){
   useEffect(()=>{
     if(user) navigation.navigate(screens.Dashboard)
     else navigation.navigate(screens.Signup)
-  }, [])
+  }, [user])
 
   return (
     <View style={styles.contentContainer}>
