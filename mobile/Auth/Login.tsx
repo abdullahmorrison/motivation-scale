@@ -1,4 +1,5 @@
 import { View, Dimensions, Button, Text, TextInput, StyleSheet, KeyboardAvoidingView, Platform, Keyboard, SafeAreaView } from "react-native"
+import Constants from 'expo-constants'
 import { Link } from "@react-navigation/native" 
 import variables from "../styles.variables"
 import useForm from "../hooks/useForm"
@@ -77,8 +78,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 20,
     flexGrow: 1,
+    marginTop: Constants.statusBarHeight,
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height
+    height: Dimensions.get('window').height-Constants.statusBarHeight
   },
   h2:{
     color: variables.textPrimary,
