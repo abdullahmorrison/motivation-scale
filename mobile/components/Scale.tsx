@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, Dimensions, TouchableOpacity, GestureResponderHandlers, LayoutChangeEvent} from "react-native";
-import { Slider } from '@react-native-assets/slider'
+import { Slider } from '@miblanchard/react-native-slider'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faSortDown, faSortUp, faBars, faEdit} from "@fortawesome/free-solid-svg-icons";
 import { useMutation } from "@apollo/client";
@@ -16,6 +16,7 @@ interface ScaleProps {
     onLayout: (event: LayoutChangeEvent) => void
     dragNDropHandlers: GestureResponderHandlers
     isDragging: boolean
+    onSliderDrag: (val: boolean)=> void
 }
 export default function Scale(props: ScaleProps) {
     const [expandScale, setExpandScale] = useState<Boolean>(false)
@@ -48,19 +49,24 @@ export default function Scale(props: ScaleProps) {
                   minimumValue={0}
                   maximumValue={100}
                   step={1}
-                  slideOnTap={false}
-                  style={styles.slider}
+                  containerStyle={styles.slider}
                   thumbStyle={styles.slider.thumb}
                   trackStyle={{backgroundColor: 'transparent'}}
-                  onTouchStart={()=>setShowToolTip(true)}
-                  onTouchEnd={()=>setShowToolTip(false)}
-                  onValueChange={(value)=>setSliderValue(value)}
-                  onSlidingComplete={(value)=>updateScaleSliderValue({
+                  minimumTrackStyle={{backgroundColor: 'transparent'}}
+                  onSlidingStart={()=>{
+                    setShowToolTip(true)
+                    props.onSliderDrag(true)
+                  }}
+                  onValueChange={(value)=>setSliderValue(value[0])}
+                  onSlidingComplete={(value)=>{
+                    setShowToolTip(false)
+                    props.onSliderDrag(false)
+                    updateScaleSliderValue({
                       variables: {
                           id: props.scale.id,
                           sliderValue: value
                       }
-                  })}
+                  })}}
               />
             </View>
             { expandScale &&
