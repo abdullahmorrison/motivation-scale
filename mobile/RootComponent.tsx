@@ -15,6 +15,7 @@ import { REORDER_SCALES } from './queries/scaleOrder'
 
 export default function App({ navigation, route }: any) {
   const [scales, setScales] = useState<ScaleData[]>([])
+  const [sliderDragging, setSliderDragging] = useState(false)
   const scalesRef = useRef<ScaleData[]>([])
   useEffect(()=>{
     scalesRef.current = scales
@@ -121,13 +122,14 @@ export default function App({ navigation, route }: any) {
               dragNDropHandlers={panResponder.panHandlers}
               isDragging={false}
               onLayout={(e)=> scaleHeight.current = e.nativeEvent.layout.height + 30 }
+              onSliderDrag={()=>{}}
             />
           </Animated.View>
         }
         
         <FlatList
           data={scales}
-          scrollEnabled={!draggingScale}
+          scrollEnabled={!draggingScale && !sliderDragging}
           contentContainerStyle={styles.scalesContainer}
           keyExtractor={(item=>item.id.toString())}
           renderItem={({item})=>
@@ -137,6 +139,7 @@ export default function App({ navigation, route }: any) {
               dragNDropHandlers={panResponder.panHandlers}
               isDragging={draggingScale?.id == item.id}
               onLayout={(e)=> scaleHeight.current = e.nativeEvent.layout.height + 30 }
+              onSliderDrag={(isDragging)=>setSliderDragging(isDragging)}
             />
           }
           onScroll={(e)=>scrollOffset.current = e.nativeEvent.contentOffset.y}
