@@ -1,4 +1,5 @@
 import { View, Dimensions, Button, Text, TextInput, StyleSheet, SafeAreaView } from "react-native"
+import { StatusBar } from 'expo-status-bar'
 import Constants from 'expo-constants'
 import { Link } from "@react-navigation/native" 
 import variables from "../styles.variables"
@@ -31,6 +32,8 @@ export default function SignupScreen({ navigation }: {navigation: any}){
 
   return (
     <SafeAreaView style={styles.contentContainer}>
+      <StatusBar backgroundColor={variables.background} style='inverted'/>
+
       {loginError &&
         <View style={styles.popup}>
           <Text style={styles.popup.text}>{loginError}</Text>
