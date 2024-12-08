@@ -1,15 +1,18 @@
 {
   "expo": {
     "name": "Motivation Scale",
-    "slug": "motivation-measurement-tool",
+    "description": "A tool that helps users measure how their motivation in pursuing a goal effects their emotions",
+    "githubUrl": "https://github.com/abdullahmorrison/motivation-scale",
+    "slug": "motivation-scale",
+    "owner": "abdullahmorrison",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#010101"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -20,18 +23,27 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#010101"
       },
-      "package": "com.abdullahmorrison.motivationmeasurementtool"
+      "package": "com.abdullahmorrison.motivationscale"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "42e3c639-ce05-4092-ab81-ead5591e0a58"
+        "projectId": "7a2f38be-efdf-4d14-8703-6356fbb6330f"
       }
     },
-    "owner": "abdullahmorrison"
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/42e3c639-ce05-4092-ab81-ead5591e0a58"
+    },
+    "newArchEnabled": true,
+    "plugins": [
+      "expo-font"
+    ]
   }
 }
