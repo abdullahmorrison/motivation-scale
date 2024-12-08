@@ -3,15 +3,15 @@ import { BackHandler, Dimensions, TouchableOpacity, Text, FlatList, Animated, Pa
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, SafeAreaView, View} from 'react-native'
 import Constants from 'expo-constants'
-import Scale from './components/Scale'
-import { emptyScaleInput, ScaleData } from './types/scale'
-import variables from "./styles.variables"
+import Scale from '../components/Scale'
+import { emptyScaleInput, ScaleData } from '../utils/types/scale'
+import variables from "../styles.variables"
 import { useMutation, useQuery } from "@apollo/client";
-import ScaleQueries from './queries/scale'
-import { screens } from "./screens"
+import ScaleQueries from '../utils/queries/scale'
+import { screens } from "../screens"
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faUser } from '@fortawesome/free-regular-svg-icons'
-import { REORDER_SCALES } from './queries/scaleOrder'
+import { REORDER_SCALES } from '../utils/queries/scaleOrder'
 
 export default function App({ navigation, route }: any) {
   const [scales, setScales] = useState<ScaleData[]>([])

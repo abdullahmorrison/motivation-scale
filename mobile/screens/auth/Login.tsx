@@ -2,14 +2,14 @@ import { View, Dimensions, Button, Text, TextInput, StyleSheet, KeyboardAvoiding
 import { StatusBar } from 'expo-status-bar'
 import Constants from 'expo-constants'
 import { Link } from "@react-navigation/native" 
-import variables from "../styles.variables"
-import useForm from "../hooks/useForm"
+import variables from "../../styles.variables"
+import useForm from "../../utils/hooks/useForm"
 import { useMutation } from "@apollo/client"
-import { LOGIN_USER } from "../queries/auth"
+import { LOGIN_USER } from "../../utils/queries/auth"
 import { useContext, useState } from "react"
-import { AuthContext } from "../context/authContext"
-import { screens } from "../screens"
-import { AuthInput, emptyAuthInput } from "../types/auth"
+import { AuthContext } from "../../utils/context/authContext"
+import { screens } from "../../screens"
+import { AuthInput, emptyAuthInput } from "../../utils/types/auth"
 
 export default function LoginScreen({ navigation }: {navigation: any}){
   const context = useContext(AuthContext)

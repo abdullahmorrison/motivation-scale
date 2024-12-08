@@ -1,12 +1,12 @@
 import { Dimensions, StyleSheet, Text, TouchableOpacity } from "react-native"
 import Constants from 'expo-constants'
 import { View } from "react-native"
-import variables from "./styles.variables"
+import variables from "../styles.variables"
 import { useContext, useEffect } from "react"
-import { screens } from "./screens"
+import { screens } from "../screens"
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons"
-import { AuthContext } from "./context/authContext"
+import { AuthContext } from "../utils/context/authContext"
 
 export default function UserAccount({ navigation }: any){
   const { user, logout}= useContext(AuthContext)
