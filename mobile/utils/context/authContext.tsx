@@ -1,14 +1,10 @@
 import { jwtDecode } from "jwt-decode"
-import { createContext, useReducer } from "react"
+import { createContext, useEffect, useReducer } from "react"
 import storage from "../Storage"
 
 let initialState: any = {
   user: null
 }
-storage.load({ key: "token" }).then((token)=>{
-  const decodedToken = jwtDecode(token)
-  initialState.user = decodedToken
-}).catch(()=>{})
 
 export const AuthContext = createContext({
   user: null,
@@ -36,8 +32,16 @@ function authReducer(state: any, action: any){
 export default function AuthProvider({children}: any){
   const [state, dispatch] = useReducer(authReducer, initialState)
 
+  useEffect(()=>{
+    storage.load({ key: "token" }).then((token)=>{
+      const decodedToken = jwtDecode(token)
+      dispatch({ type: "LOGIN", payload: decodedToken})
+    }).catch((e)=>{console.log("failed to load storage: "+e)})
+  }, [])
+
   function login(userData: any){
     storage.save({key: "token", data: userData.token })
+    .catch(()=>console.log("failed to SAVE token"))
     dispatch({ type: "LOGIN", payload: userData })
   }
   function logout(){

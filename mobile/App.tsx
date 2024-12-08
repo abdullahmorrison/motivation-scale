@@ -1,19 +1,25 @@
 import { AppRegistry } from 'react-native'
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from "@apollo/client"
-import RootComponent from "./RootComponent"
 import { NavigationContainer } from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
-import LoginScreen from './Auth/Login'
-import SignupScreen from './Auth/Signup'
-import SplashScreen from "./SplashScreen"
 import { setContext } from "@apollo/client/link/context"
-import storage from './Storage'
-import { SERVER_URL } from '@env'
+import { GestureHandlerRootView } from "react-native-gesture-handler"
+
+import storage from './storage'
+import AuthProvider from './utils/context/authContext'
+import { EXPO_PUBLIC_SERVER_URL } from '@env'
+
+import variables from './styles/styles.variables'
+
 import { screens } from './screens'
-import AuthProvider from './context/authContext'
+import Dashboard from "./screens/home/Dashboard"
+import LoginScreen from './screens/auth/Login'
+import SignupScreen from './screens/auth/Signup'
+import UserAccount from './screens/account/UserAccount'
+import MutateScale from './screens/home/MutateScale'
 
 const httpLink = createHttpLink({
-  uri: SERVER_URL,
+  uri: process.env.EXPO_PUBLIC_SERVER_URL,
 })
 
 //sending auth token with every server reqest
@@ -36,19 +42,22 @@ export const client = new ApolloClient({
 
 const Stack = createNativeStackNavigator()
 export default function App() {
-    return (
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <NavigationContainer>
         <AuthProvider>
           <ApolloProvider client={client}>
-            <Stack.Navigator screenOptions={{headerShown: false}}>
-              <Stack.Screen name={screens.SplashScreen} component={SplashScreen} />
+            <Stack.Navigator screenOptions={{headerShown: false, navigationBarColor: variables.background}}>
               <Stack.Screen name={screens.Signup} component={SignupScreen} />
               <Stack.Screen name={screens.Login} component={LoginScreen} />
-              <Stack.Screen name={screens.Dashboard} component={RootComponent} />
+              <Stack.Screen name={screens.Dashboard} component={Dashboard} />
+              <Stack.Screen name={screens.MutateScale} component={MutateScale} />
+              <Stack.Screen name={screens.UserAccount} component={UserAccount} />
             </Stack.Navigator>
           </ApolloProvider>
         </AuthProvider>
       </NavigationContainer>
-    )
+    </GestureHandlerRootView>
+  )
 }
 AppRegistry.registerComponent('MotivationScale', () => App)

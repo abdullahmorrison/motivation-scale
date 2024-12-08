@@ -32,7 +32,7 @@
 
 
 ## Architecture Diagram
-![01 -06-24 09 49 53](https://github.com/abdullahmorrison/motivation-scale/assets/49528805/5658d119-b7f9-4af8-9355-d5296e5050ea)
+![image](https://github.com/user-attachments/assets/1682727e-3949-4122-8396-8885ddf0dafc)
 
 # Local Setup
 Clone the repo

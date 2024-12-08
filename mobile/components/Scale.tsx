@@ -1,64 +1,79 @@
-import React, { useCallback, useState } from "react";
-import { StyleSheet, View, Text, Dimensions, TouchableOpacity} from "react-native";
-import { Slider } from '@react-native-assets/slider'
+import React, { useState } from "react";
+import { StyleSheet, View, Text, Dimensions, TouchableOpacity, GestureResponderHandlers, LayoutChangeEvent} from "react-native";
+import { Slider } from '@miblanchard/react-native-slider'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faSortDown, faSortUp, faBars, faEdit} from "@fortawesome/free-solid-svg-icons";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import variables from "../styles.variables";
+import { ScaleData } from "../utils/types/scale";
+import ScaleQueries from "../utils/queries/scale";
+import { LinearGradient } from 'expo-linear-gradient'
+import Tooltip from "./Tooltip";
 
-export interface ScaleType{
-    id: string
-    username: string
-    order: number
-    goal: string
-    sliderValue: number
-    avoidingFailureDescription: string
-    chasingSuccessDescription: string
-}
 interface ScaleProps {
-    handleEdit: (scale: ScaleType) => void
-    scale: ScaleType
+    scale: ScaleData
+    handleEdit: (scale: ScaleData) => void
+    onLayout: (event: LayoutChangeEvent) => void
+    dragNDropHandlers: GestureResponderHandlers
+    isDragging: boolean
+    onSliderDrag: (val: boolean)=> void
 }
 export default function Scale(props: ScaleProps) {
     const [expandScale, setExpandScale] = useState<Boolean>(false)
+    const [sliderValue, setSliderValue] = useState(props.scale.sliderValue)
+    const [showToolTip, setShowToolTip] = useState(false)
 
-    const UPDATE_SCALE_SLIDER_VALUE = gql`
-        mutation UpdateScale($id: String!, $sliderValue: Int){
-            updateScale(id: $id, sliderValue: $sliderValue) {
-                goal
-                sliderValue
-            }
-        }`
-    const [updateScaleSliderValue] = useMutation(UPDATE_SCALE_SLIDER_VALUE)
+    const [updateScaleSliderValue] = useMutation(ScaleQueries.UPDATE_SCALE,{
+      onError(e){
+        console.log(e)
+      }
+    })
 
     return (
-        <View style={styles.container}>
+        <View style={props.isDragging ? styles.hidden: styles.container} onLayout={(e)=>props.onLayout(e)}>
             <View style={styles.header}>
-                <TouchableOpacity>
+                <View {...props.dragNDropHandlers}>
                     <FontAwesomeIcon icon={faBars} style={styles.header.dragNDrop} size={20}/>
-                </TouchableOpacity>
+                </View>
                 <Text style={styles.header.goal}>{props.scale.goal}</Text>
                 <TouchableOpacity style={styles.header.editIcon} onPress={()=>props.handleEdit(props.scale)}>
                     <FontAwesomeIcon icon={faEdit} style={styles.header.editIcon.icon} size={20}/>
                 </TouchableOpacity>
             </View>
-            <Slider
-                value={props.scale.sliderValue}
-                minimumValue={0}
-                maximumValue={100}
-                step={1}
-                slideOnTap={false}
-                style={styles.slider}
-                thumbStyle={styles.slider.thumb}
-                trackStyle={styles.slider.track}
-                onSlidingComplete={(value)=>updateScaleSliderValue({
-                    variables: {
-                        id: props.scale.id,
-                        sliderValue: value
-                    }
-                })}
-            />
-            {   expandScale &&
+            <View style={styles.sliderContainer}>
+              {showToolTip ? <Tooltip sliderValue={sliderValue}/> :null }
+              <LinearGradient
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
+                colors={['red', 'green']}
+                style={styles.slider.track}
+              />
+              <Slider
+                  value={sliderValue}
+                  minimumValue={0}
+                  maximumValue={100}
+                  step={1}
+                  containerStyle={styles.slider}
+                  thumbStyle={styles.slider.thumb}
+                  trackStyle={{backgroundColor: 'transparent'}}
+                  minimumTrackStyle={{backgroundColor: 'transparent'}}
+                  onSlidingStart={()=>{
+                    setShowToolTip(true)
+                    props.onSliderDrag(true)
+                  }}
+                  onValueChange={(value)=>setSliderValue(value[0])}
+                  onSlidingComplete={(value)=>{
+                    setShowToolTip(false)
+                    props.onSliderDrag(false)
+                    updateScaleSliderValue({
+                      variables: {
+                          id: props.scale.id,
+                          sliderValue: value[0]
+                      }
+                  })}}
+              />
+            </View>
+            { expandScale &&
                 <View style={styles.explanations}>
                     <View style={styles.explanations.section}>
                         <Text style={styles.explanations.title}>Chasing Success</Text>
@@ -78,19 +93,22 @@ export default function Scale(props: ScaleProps) {
 }
 
 const styles = StyleSheet.create({
+    hidden:{
+      opacity: 0,
+      paddingTop: 10,
+      paddingBottom: 20,
+    },
     container: {
         borderRadius: 10,
 
         paddingHorizontal: 30,
         paddingTop: 10,
         paddingBottom: 20,
-        marginTop: 10,
-        marginBottom: 10,
 
         elevation: 3,
         backgroundColor: variables.primary,
         width: Dimensions.get('window').width * 0.9,
-        maxWidth: 950,
+        maxWidth: 950
     },
     header: {
         flexDirection: 'row',
@@ -112,12 +130,20 @@ const styles = StyleSheet.create({
 
         goal: {
             color: variables.textPrimary,
-            fontSize: 30,
+            fontSize: 20,
             fontWeight: 'bold',
+            textAlign: 'center',
+            maxWidth: '80%'
         } as const
     },
+    sliderContainer:{
+      justifyContent: 'center',
+      marginTop: 20
+    },
     slider: {
-        paddingVertical: 20,
+        position: 'absolute',
+        width: '100%',
+        height: 40,
         thumb: {
             borderRadius: 30,
             backgroundColor: variables.secondary,
@@ -126,13 +152,9 @@ const styles = StyleSheet.create({
             width: 35,
         },
         track: {
-            backgroundColor: "red",
             height: 25,
             borderRadius: 15,
-        },
-        marginBottom: 5,
-        marginTop: 10,
-        height: 40,
+        }
     },
     explanations: {
         margin: -10,
