@@ -6,13 +6,17 @@ import variables from "../styles.variables"
 import useForm from "../hooks/useForm"
 import { useMutation } from "@apollo/client"
 import { REGISTER_USER } from "../queries/auth"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../context/authContext"
 import { screens } from "../screens"
 import { AuthInput, emptyAuthInput } from "../types/auth"
 
 export default function SignupScreen({ navigation }: {navigation: any}){
   const context = useContext(AuthContext)
+
+  useEffect(()=>{
+    if(context.user) navigation.navigate(screens.Dashboard)
+  }, [context.user])
 
   const [loginError, setLoginError] = useState<string>()
 
