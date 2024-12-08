@@ -23,7 +23,11 @@ export default function Scale(props: ScaleProps) {
     const [sliderValue, setSliderValue] = useState(props.scale.sliderValue)
     const [showToolTip, setShowToolTip] = useState(false)
 
-    const [updateScaleSliderValue] = useMutation(ScaleQueries.UPDATE_SCALE)
+    const [updateScaleSliderValue] = useMutation(ScaleQueries.UPDATE_SCALE,{
+      onError(e){
+        console.log(e)
+      }
+    })
 
     return (
         <View style={props.isDragging ? styles.hidden: styles.container} onLayout={(e)=>props.onLayout(e)}>
@@ -64,7 +68,7 @@ export default function Scale(props: ScaleProps) {
                     updateScaleSliderValue({
                       variables: {
                           id: props.scale.id,
-                          sliderValue: value
+                          sliderValue: value[0]
                       }
                   })}}
               />
