@@ -5,3 +5,21 @@ services:
       - 127.0.0.1:3000:3000
     environment:
       NEXT_PUBLIC_SERVER_URL: http://localhost:3001
+    depends_on:
+      - server
+
+  server:
+    build: ./server
+    ports:
+      - 127.0.0.1:3001:3001
+    environment:
+      DB_NAME: local
+      DB_CONNECTION: mongodb://db:27017
+      JWT_SECRET: test
+    depends_on:
+      - db
+
+  db:
+    image: mongodb/mongodb-community-server:6.0-ubi8
+    ports:
+      - 127.0.0.1:27017:27017
