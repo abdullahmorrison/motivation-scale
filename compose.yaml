@@ -23,3 +23,8 @@ services:
     image: mongodb/mongodb-community-server:6.0-ubi8
     ports:
       - 127.0.0.1:27017:27017
+    volumes:
+      - db_data:/data/db
+
+volumes:
+  db_data:
