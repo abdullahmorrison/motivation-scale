@@ -11,7 +11,7 @@ services:
     ports:
       - 127.0.0.1:3001:3001
     environment:
-      DB_NAME: local
+      DB_NAME: motivation_scale_data
       DB_CONNECTION: mongodb://db:27017
       JWT_SECRET: test
     depends_on:
