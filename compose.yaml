@@ -7,6 +7,17 @@ services:
       NEXT_PUBLIC_SERVER_URL: ${NEXT_PUBLIC_SERVER_URL}
     depends_on:
       - server
+    profiles: ["web"]
+
+  mobile:
+    build: ./mobile
+    ports:
+      - 127.0.0.1:3001:3001
+    environment:
+      EXPO_PUBLIC_SERVER_URL: ${EXPO_PUBLIC_SERVER_URL}
+    depends_on:
+      - server
+    profiles: ["mobile"]
 
   server:
     build: ./server
