@@ -1,0 +1,12 @@
+#creating aliases for terminal commands I use too often
+
+#[d]ocker
+#[c]ompose 
+#[u]p
+#[m]obile
+#[w]eb
+#[b]oth
+
+dcuw="docker compose --profile web up"
+dcum="docker compose --profile mobile up" 
+dcub="docker compose --profile web --profile mobile up"
