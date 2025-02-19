@@ -7,6 +7,8 @@ services:
       NEXT_PUBLIC_SERVER_URL: ${NEXT_PUBLIC_SERVER_URL}
     depends_on:
       - server
+    networks:
+      - app_network
     profiles: ["web"]
 
   mobile:
@@ -17,6 +19,8 @@ services:
       EXPO_PUBLIC_SERVER_URL: ${EXPO_PUBLIC_SERVER_URL}
     depends_on:
       - server
+    networks:
+      - app_network
     profiles: ["mobile"]
 
   server:
@@ -30,6 +34,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - app_network
 
   db:
     image: mongodb/mongodb-community-server:6.0-ubi8
@@ -42,6 +48,12 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - app_network
 
 volumes:
   db_data:
+
+networks:
+  app_network:
+    driver: bridge
