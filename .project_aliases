@@ -5,10 +5,16 @@
 #[d]ocker
 #[c]ompose 
 #[u]p
+#[d]own
 #[m]obile
 #[w]eb
 #[b]oth
 
 alias dcuw="docker compose --profile web up"
+alias dcdw="docker compose --profile web down"
+
 alias dcum="docker compose --profile mobile up"
+alias dcdm="docker compose --profile mobile down"
+
 alias dcub="docker compose --profile web --profile mobile up"
+alias dcdb="docker compose --profile web --profile mobile down"
