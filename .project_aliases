@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 #creating aliases for terminal commands I use too often
 
 #[d]ocker
@@ -7,6 +9,6 @@
 #[w]eb
 #[b]oth
 
-dcuw="docker compose --profile web up"
-dcum="docker compose --profile mobile up" 
-dcub="docker compose --profile web --profile mobile up"
+alias dcuw="docker compose --profile web up"
+alias dcum="docker compose --profile mobile up"
+alias dcub="docker compose --profile web --profile mobile up"
