@@ -25,3 +25,5 @@ yarn-error.log*
 
 schema.graphql
 nexus-typegen.ts
+
+next-env.d.ts
