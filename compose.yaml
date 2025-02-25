@@ -3,8 +3,17 @@ services:
     build: ./website
     ports:
       - 3000:3000
+    volumes:
+      - type: bind
+        source: ./website
+        target: /app
+      - type: volume # Preserve node_modules
+        source: node_modules
+        target: /app/node_modules
     environment:
       NEXT_PUBLIC_SERVER_URL: ${NEXT_PUBLIC_SERVER_URL}
+      CHOKIDAR_USEPOLLING: "true"  # Enable file watching in Docker
+      WATCHPACK_POLLING: "true"
     depends_on:
       - server
     networks:
@@ -42,7 +51,9 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - db_data:/data/db
+      - type: volume
+        source: db_data
+        target: /data/db
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 10s
@@ -53,6 +64,7 @@ services:
 
 volumes:
   db_data:
+  node_modules: # website's node_modules
 
 networks:
   app_network:
