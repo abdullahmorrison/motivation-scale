@@ -1,41 +1,8 @@
 services:
-  website:
-    build: ./website
-    ports:
-      - 3000:3000
-    volumes:
-      - type: bind
-        source: ./website
-        target: /app
-      - type: volume # Preserve node_modules
-        source: node_modules
-        target: /app/node_modules
-    environment:
-      NEXT_PUBLIC_SERVER_URL: ${NEXT_PUBLIC_SERVER_URL}
-      CHOKIDAR_USEPOLLING: "true"  # Enable file watching in Docker
-      WATCHPACK_POLLING: "true"
-    depends_on:
-      - server
-    networks:
-      - app_network
-    profiles: ["web"]
-
-  mobile:
-    build: ./mobile
-    ports:
-      - 3001:3001
-    environment:
-      EXPO_PUBLIC_SERVER_URL: ${EXPO_PUBLIC_SERVER_URL}
-    depends_on:
-      - server
-    networks:
-      - app_network
-    profiles: ["mobile"]
-
   server:
     build: ./server
     ports:
-      - 3002:3002
+      - 3001:3001
     environment:
       DB_NAME: motivation_scale_data
       DB_CONNECTION: mongodb://db:27017
@@ -64,7 +31,6 @@ services:
 
 volumes:
   db_data:
-  node_modules: # website's node_modules
 
 networks:
   app_network:
