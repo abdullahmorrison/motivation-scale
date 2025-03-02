@@ -39,35 +39,30 @@ Clone the repo
 ```
 git clone https://github.com/abdullahmorrison/motivation-scale.git
 ```
-## Server
-Navigate to the `/server` directory and install dependencies
-```
-npm install
-```
-Create a .env file and add the following to it
-```
-DB_NAME=test
-DB_CONNECTION=
-CLIENT_WHITELIST=http://localhost:3000
-JWT_SECRET=test
-```
-Request the `DB_CONNECTION` string from @abdullahmorrison and add it after `DB_CONNECTION=`
+## Server & DB
+The server and database is set up with docker
 
-run `npm start` to start the local server
+Install docker desktop (https://docs.docker.com/desktop/)
+
+run `docker compose up` to start the server and spin up the db.
+
+> [!NOTE]  
+> You can view the data using [mongodb compass](https://www.mongodb.com/docs/compass/current/install/)
 
 ## Website
 Navigate to the `/website` directory and install dependencies
 ```
 npm install
 ```
-Create a .env file and add the following to it
-```
-NEXT_PUBLIC_SERVER_URL=http://localhost:3001
-```
 run `npm run dev` to run the website
 
 ## Mobile
+Install android studio (https://developer.android.com/studio/install)
+
+Set up your react native expo environment (https://reactnative.dev/docs/set-up-your-environment)
+
 Navigate to the `/mobile` directory and install dependencies
 ```
 npm install
 ```
+run `npm start` to run the app
