@@ -11,6 +11,8 @@ import Arrow from "../assets/arrow.png"
 import Scale from './components/scale/Scale'
 import Nav from '../nav/Nav';
 import ScaleModal from './components/modal/Modal'
+import Loading from '../loading/Loading';
+import ErrorPopup from '../error/ErrorPopup';
 
 import styles from './page.module.scss'
 import { useLazyQuery, useMutation } from '@apollo/client';
@@ -24,19 +26,19 @@ export default function Dashboard(){
     const { user }: any = useContext(AuthContext)
     const [scaleToMutate, setScaleToMutate] = useState<AddScale | EditScale | null>(null)
 
-    const [getScales]= useLazyQuery(ScaleQueries.GET_SCALES, {
+    const [getScales, {loading: getScalesLoading, error: getScalesError}]= useLazyQuery(ScaleQueries.GET_SCALES, {
       onCompleted(data){
         setScales(data.scales)
       }
     })
-    const [addScale] = useMutation(ScaleQueries.CREATE_SCALE, {
+    const [addScale, {loading: addScaleLoading, error: addScaleError}] = useMutation(ScaleQueries.CREATE_SCALE, {
       onCompleted(data){
         const scale = data.createScale
         setScales(prev=>[...prev, scale])
         setScaleToMutate(null)
       }
     })
-    const [editScale] = useMutation(ScaleQueries.UPDATE_SCALE, {
+    const [editScale, {loading: editScaleLoading, error: editScaleError}] = useMutation(ScaleQueries.UPDATE_SCALE, {
       onCompleted(data){
         const scale = data.updateScale
         let i=0
@@ -48,14 +50,14 @@ export default function Dashboard(){
         setScaleToMutate(null)
       }
     })
-    const [deleteScale] = useMutation(ScaleQueries.DELETE_SCALE, {
+    const [deleteScale, {loading: deleteScaleLoading, error: deleteScaleError}] = useMutation(ScaleQueries.DELETE_SCALE, {
       onCompleted(data){
         const deletedScale = data.deleteScale
         setScales(scales.filter((scale)=>scale.id!=deletedScale.id))
         setScaleToMutate(null)
       }
     })
-    const [reorderScales] = useMutation(REORDER_SCALES)
+    const [reorderScales, {error: reorderScaleError}] = useMutation(REORDER_SCALES)
 
     const router = useRouter()
     useEffect(() => {
@@ -75,15 +77,24 @@ export default function Dashboard(){
         const left = removedSrc.slice(0, destI)
         const right = removedSrc.slice(destI, removedSrc.length)
 
-        let newScales = [...left, src, ...right]
-
-        reorderScales({variables: {userId: user.id, scaleOrder: newScales.map(scale => scale.id)}})
+        const oldScales = [...scales]
+        const newScales = [...left, src, ...right]
 
         setScales(newScales)
+        reorderScales({
+          variables: {userId: user.id, scaleOrder: newScales.map(scale => scale.id)},
+          onError: ()=> setScales(oldScales)
+        })
     }
+
+    const isLoading = getScalesLoading || addScaleLoading || editScaleLoading || deleteScaleLoading
+    if(isLoading) return <Loading/>
+
+    const isError = getScalesError || addScaleError || editScaleError || deleteScaleError || reorderScaleError
 
     return (
         <main className={styles.dashboard}>
+            {isError && <ErrorPopup/>}
             {scaleToMutate?.type=="add"?
               <ScaleModal 
                 type={scaleToMutate.type}
