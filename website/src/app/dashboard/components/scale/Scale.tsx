@@ -7,11 +7,9 @@ import ScaleSlider from '../scale-slider/ScaleSlider';
 //third party libraries
 import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
 
-//Styles & SVG
+//Styles
 import styles from './scale.module.scss'
 import Image from 'next/image';
-import EditIcon from "../../../assets/icons/editIcon.svg"
-import DragDropIcon from '../../../assets/icons/dragDropIcon.svg';
 import { ScaleData } from '@/types/scale';
 
 type ScaleProps = ScaleData & {
@@ -32,12 +30,12 @@ const Scale = (props: ScaleProps) => {
                 <div className={styles.scale} ref={provided.innerRef} {...provided.draggableProps} style={{ ...provided.draggableProps.style, boxShadow: snapshot.isDragging? "0 5px 5px #0000007e": undefined}}>
                     <div className={styles.header}>
                         <div {...provided.dragHandleProps} className={styles.dragHandle}>
-                            <Image src={DragDropIcon} alt="Drag and Drop Tool"/> 
+                            <Image src="/icons/dragDropIcon.svg" alt="Drag and Drop Tool" width={25} height={25}/> 
                         </div>
                         <h2>{props.goal}</h2>
                         <div className={styles.headerIconContainer}>
                             <div className={styles.headerIcon} onClick={()=>props.onEdit(props.id)}>
-                                <Image src={EditIcon} alt="Edit Button"/>
+                                <Image src="/icons/editIcon.svg" alt="Edit Button" width={20} height={20}/>
                             </div>
                         </div>
                     </div>

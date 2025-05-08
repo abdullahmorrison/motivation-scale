@@ -1,11 +1,7 @@
 "use client"
 import styles from './page.module.scss'
 import Image from 'next/image'
-import Logo from './assets/icons/logo.svg'
 import ScaleSVG from './assets/ScaleSVG'
-import Morpheus from './assets/morpheus.png'
-import Email from './assets/Email.svg'
-import GitHub from './assets/GitHub.svg'
 import { useRouter } from 'next/navigation'
 
 export default function Home() {
@@ -14,7 +10,7 @@ export default function Home() {
   return (
     <div className={styles.landing}>
       <nav>
-        <a href="/"><h3 className={styles.logo}><Image src={Logo} alt='logo' width={40}/>Motivation Scale</h3></a>
+        <a href="/"><h3 className={styles.logo}><Image src="/icons/logo.svg" alt='logo' width={40} height={40}/>Motivation Scale</h3></a>
 
         <ul className={styles.links}>
           <li><a href="/auth/login">Login</a></li>
@@ -37,7 +33,7 @@ export default function Home() {
       <section className={styles.awareness}>
         <h3>This tool helps you be aware of these sources... 🤔</h3>
         <p>by giving you a platform to track how your goals can effect your mood.</p>
-        <Image className={styles.morpheus} src={Morpheus} alt="Morpheus"/>
+        <Image className={styles.morpheus} src="/morpheus.png" alt="Morpheus" width={450} height={400}/>
         <h3>
           So that you can tip the scale in your favor and 
           <span className={styles.highlightText}> achieve your goals on 
@@ -51,8 +47,8 @@ export default function Home() {
 
       <footer>
         <ul>
-          <li><a href="mailto:abdullahmorrison@gmail.com"><Image src={Email} alt='Email'/>Contact Me</a></li>
-          <li><a href="https://github.com/abdullahmorrison/motivation-scale"><Image width={22} src={GitHub} alt='GitHub Logo'/>Contribute to the Project</a></li>
+          <li><a href="mailto:abdullahmorrison@gmail.com"><Image src="/Email.svg" alt='Email' width={20} height={20}/>Contact Me</a></li>
+          <li><a href="https://github.com/abdullahmorrison/motivation-scale"><Image width={22} height={22} src="/GitHub.svg" alt='GitHub Logo'/>Contribute to the Project</a></li>
         </ul>
       </footer>
     </div>

@@ -6,7 +6,6 @@ import dynamic from 'next/dynamic'
 const DragDropContext = dynamic(() => import("react-beautiful-dnd").then((module) => module.DragDropContext));
 const Droppable = dynamic(() => import("react-beautiful-dnd").then((module) => module.Droppable));
 import Image from 'next/image';
-import Arrow from "../assets/arrow.png"
 
 import Scale from './components/scale/Scale'
 import Nav from '../nav/Nav';
@@ -138,7 +137,7 @@ export default function Dashboard(){
             {scales.length==0 ?
             <>
             <span className={styles.starterInformation}>Have a goal you want to achieve? <br/> Click here to start tracking your motivation for it!</span> 
-            <Image className={styles.arrow} src={Arrow} alt='Arrow'/>
+            <Image className={styles.arrow} src="/arrow.png" alt='Arrow' width={100} height={80}/>
             </>
             : undefined}
             <button 
