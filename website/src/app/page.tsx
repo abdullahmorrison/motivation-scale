@@ -1,7 +1,7 @@
 "use client"
 import styles from './page.module.scss'
 import Image from 'next/image'
-import ScaleSVG from './assets/ScaleSVG'
+import ScaleSVG from '../assets/ScaleSVG'
 import { useRouter } from 'next/navigation'
 
 export default function Home() {
