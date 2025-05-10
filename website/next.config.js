@@ -3,7 +3,7 @@ const path = require('path')
 
 const nextConfig = {
     sassOptions: {
-        includePaths: [path.join(__dirname, 'src/app')],
+        includePaths: [path.join(__dirname, 'src/styles')],
     },
 }
 
