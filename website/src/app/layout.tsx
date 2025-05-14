@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { client } from './apollo-client'
 import { ApolloProvider } from '@apollo/client'
-import AuthProvider from '@/context/authContext'
+import AuthProvider from '@context/authContext'
 
 const inter = Inter({ subsets: ['latin'] })
 

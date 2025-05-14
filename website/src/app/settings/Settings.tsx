@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react'
 import styles from './settings.module.scss'
-import { AuthContext } from '@/context/authContext'
 import { useRouter } from "next/navigation"
-import useDidUpdateEffect from '@/hooks/useDidUpdateEffect'
+import useDidUpdateEffect from '@hooks/useDidUpdateEffect'
+import { AuthContext } from '@context/authContext'
 
 const Settings = () => {
   const { user, logout}= useContext(AuthContext)

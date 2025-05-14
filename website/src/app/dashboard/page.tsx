@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect, useContext } from 'react'
-import { AuthContext } from '@/context/authContext';
+import { AuthContext } from '@context/authContext';
 import { DroppableProvided,  DropResult } from 'react-beautiful-dnd'
 import dynamic from 'next/dynamic'
 const DragDropContext = dynamic(() => import("react-beautiful-dnd").then((module) => module.DragDropContext));
@@ -8,17 +8,17 @@ const Droppable = dynamic(() => import("react-beautiful-dnd").then((module) => m
 import Image from 'next/image';
 
 import Scale from './components/scale/Scale'
-import Nav from '../nav/Nav';
+import Nav from '@app/nav/Nav';
 import ScaleModal from './components/modal/Modal'
-import Loading from '../loading/Loading';
-import ErrorPopup from '../error/ErrorPopup';
+import Loading from '@app/loading/Loading';
+import ErrorPopup from '@app/error/ErrorPopup';
 
 import styles from './page.module.scss'
 import { useLazyQuery, useMutation } from '@apollo/client';
-import ScaleQueries from '@/queries/scales';
+import ScaleQueries from '@queries/scales';
 import { useRouter } from 'next/navigation';
-import { REORDER_SCALES } from '@/queries/scaleOrder';
-import { AddScale, EditScale, ScaleData } from '@/types/scale';
+import { REORDER_SCALES } from '@queries/scaleOrder';
+import type { AddScale, EditScale, ScaleData } from '@custom-types/scale';
 
 export default function Dashboard(){
     const [scales, setScales] = useState<ScaleData[]>([])

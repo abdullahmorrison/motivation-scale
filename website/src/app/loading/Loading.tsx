@@ -1,4 +1,4 @@
-import Nav from "../nav/Nav";
+import Nav from "@app/nav/Nav";
 import styles from "./loading.module.scss"
 
 export default function Loading(){

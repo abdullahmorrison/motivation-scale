@@ -1,4 +1,4 @@
-import Settings from '../settings/Settings'
+import Settings from '@app/settings/Settings'
 import styles from './nav.module.scss'
 import Image from 'next/image'
 

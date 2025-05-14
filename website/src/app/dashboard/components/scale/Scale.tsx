@@ -10,7 +10,7 @@ import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beau
 //Styles
 import styles from './scale.module.scss'
 import Image from 'next/image';
-import { ScaleData } from '@/types/scale';
+import type { ScaleData } from '@custom-types/scale';
 
 type ScaleProps = ScaleData & {
     index: number

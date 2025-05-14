@@ -2,9 +2,9 @@
 import { useContext, useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useMutation } from "@apollo/client"
-import { AuthContext } from "@/context/authContext"
-import useForm from "@/hooks/useForm"
-import { LOGIN_USER } from "@/queries/auth"
+import { AuthContext } from "@context/authContext"
+import useForm from "@hooks/useForm"
+import { LOGIN_USER } from "@queries/auth"
 import styles from './login.module.scss'
 
 export default function Auth(){

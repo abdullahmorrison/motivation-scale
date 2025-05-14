@@ -1,10 +1,10 @@
 import styles from './scaleSlider.module.scss'
 import { useMutation } from '@apollo/client';
-import ScaleQueries from '@/queries/scales';
-import useStateDebounced from  '@/hooks/useStateDebounced'
+import ScaleQueries from '@queries/scales';
+import useStateDebounced from  '@hooks/useStateDebounced'
 import { useContext } from 'react';
-import { AuthContext } from '@/context/authContext';
-import useDidUpdateEffect from '@/hooks/useDidUpdateEffect';
+import { AuthContext } from '@context/authContext';
+import useDidUpdateEffect from '@hooks/useDidUpdateEffect';
 
 interface ScaleSliderProps{
     id: string

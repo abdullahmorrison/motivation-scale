@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import styles from './modal.module.scss'
-import { ScaleModalProps, ScaleInput, emptyScaleInput } from '@/types/scale'
+import { ScaleModalProps, ScaleInput, emptyScaleInput } from '@custom-types/scale'
 
 const ScaleModal = (props: ScaleModalProps) =>{
   const [modalData, setModalData] = useState<ScaleInput>(props.type=="edit" ? props.scale : emptyScaleInput)
