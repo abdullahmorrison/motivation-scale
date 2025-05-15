@@ -44,6 +44,8 @@ The server and database is set up with docker
 
 Install docker desktop (https://docs.docker.com/desktop/)
 
+create a .env file and add the contents of the .env.local file to it.
+
 run `docker compose up` to start the server and spin up the db.
 
 > [!NOTE]  

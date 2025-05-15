@@ -8,10 +8,10 @@ const Droppable = dynamic(() => import("react-beautiful-dnd").then((module) => m
 import Image from 'next/image';
 
 import Scale from './components/scale/Scale'
-import Nav from '@app/nav/Nav';
+import Nav from '@components/nav/Nav';
 import ScaleModal from './components/modal/Modal'
 import Loading from '@app/loading/Loading';
-import ErrorPopup from '@app/error/ErrorPopup';
+import ErrorPopup from '@components/error-popup/ErrorPopup';
 
 import styles from './page.module.scss'
 import { useLazyQuery, useMutation } from '@apollo/client';

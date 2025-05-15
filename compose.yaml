@@ -3,6 +3,8 @@ services:
     build: ./server
     ports:
       - 3001:3001
+    env_file: 
+    - ${ENV_FILE:-./.env.local} # use .env.local if ENV_FILE variable is not set
     environment:
       DB_NAME: motivation_scale_data
       DB_CONNECTION: mongodb://db:27017
