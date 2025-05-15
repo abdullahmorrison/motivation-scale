@@ -86,10 +86,10 @@ export default function Dashboard(){
         })
     }
 
+    const isError = getScalesError || addScaleError || editScaleError || deleteScaleError || reorderScaleError
+
     const isLoading = getScalesLoading || addScaleLoading || editScaleLoading || deleteScaleLoading
     if(isLoading) return <Loading/>
-
-    const isError = getScalesError || addScaleError || editScaleError || deleteScaleError || reorderScaleError
 
     return (
         <main className={styles.dashboard}>
