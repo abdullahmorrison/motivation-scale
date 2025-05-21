@@ -207,9 +207,11 @@ $green: #7ADA6A75;
   a{ 
     color: $text-primary; 
   }
-  button{
-    box-shadow: none;
+  .button{
+    padding: 10px 20px;
+    border-radius: 5px;
     background: #006F0B;
+    font-weight: bold;
   }
 }
 
