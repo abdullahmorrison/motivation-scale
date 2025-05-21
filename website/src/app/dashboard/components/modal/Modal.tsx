@@ -1,3 +1,4 @@
+"use client"
 import { useState } from 'react'
 import styles from './modal.module.scss'
 import { ScaleModalProps, ScaleInput, emptyScaleInput } from '@custom-types/scale'

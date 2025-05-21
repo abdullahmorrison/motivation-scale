@@ -1,3 +1,4 @@
+"use client"
 import styles from './scaleSlider.module.scss'
 import { useMutation } from '@apollo/client';
 import ScaleQueries from '@queries/scales';
