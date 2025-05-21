@@ -1,3 +1,4 @@
+"use client"
 //Code from: https://stackoverflow.com/questions/64579144/how-to-add-debounce-to-react-onchange-input
 import { useMemo, useState } from 'react'
 

@@ -1,3 +1,4 @@
+"use client"
 import { jwtDecode } from "jwt-decode"
 import { createContext, useReducer } from "react";
 

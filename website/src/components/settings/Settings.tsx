@@ -1,3 +1,4 @@
+"use client"
 import { useContext, useState } from 'react'
 import styles from './settings.module.scss'
 import { useRouter } from "next/navigation"
