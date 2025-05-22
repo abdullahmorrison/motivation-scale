@@ -19,6 +19,7 @@ import ScaleQueries from '@queries/scales';
 import { useRouter } from 'next/navigation';
 import { REORDER_SCALES } from '@queries/scaleOrder';
 import type { AddScale, EditScale, ScaleData } from '@custom-types/scale';
+import routes from '@lib/routes';
 
 export default function Dashboard(){
     const [scales, setScales] = useState<ScaleData[]>([])
@@ -60,7 +61,7 @@ export default function Dashboard(){
 
     const router = useRouter()
     useEffect(() => {
-      if(user==null) router.push("/auth/login")
+      if(user==null) router.push(routes.login)
       else getScales({variables: { userId: user.id} })
     }, [user, getScales, router])
 

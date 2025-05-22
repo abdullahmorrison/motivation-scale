@@ -4,6 +4,7 @@ import styles from './settings.module.scss'
 import { useRouter } from "next/navigation"
 import useDidUpdateEffect from '@hooks/useDidUpdateEffect'
 import { AuthContext } from '@context/authContext'
+import routes from '@lib/routes'
 
 const Settings = () => {
   const { user, logout}= useContext(AuthContext)
@@ -11,7 +12,7 @@ const Settings = () => {
   const [toggleSettingsOpen, setToggleSettingsOpen] = useState(false)
 
   useDidUpdateEffect(()=>{
-    if(user==null) router.push("/auth/login")
+    if(!user) router.push(routes.login)
   }, [user])
 
   const userEmail = () =>{

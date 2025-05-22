@@ -2,6 +2,7 @@ import styles from './page.module.scss'
 import Image from 'next/image'
 import ScaleSVG from './ScaleSVG'
 import Link from 'next/link'
+import routes from '@lib/routes'
 
 export default function Home() {
   return (
@@ -18,7 +19,7 @@ export default function Home() {
       <header>
         <h1>Gain Control of Your Motivation</h1>
         <p>This tool helps you know where your motivation resides and plan accordingly.</p>
-        <Link href="/auth/signup" className={styles.button}>Try it - Free</Link>
+        <Link href={routes.signup} className={styles.button}>Try it - Free</Link>
       </header>
 
       <section className={styles.motivationSource}>
@@ -37,7 +38,7 @@ export default function Home() {
             <span className={styles.emoji}>🫵 </span> YOUR terms! <span className={styles.emoji}>🎉</span>
           </span>
         </h3>
-        <Link href="/auth/signup" className={styles.button}>Try it - Free</Link>
+        <Link href={routes.signup} className={styles.button}>Try it - Free</Link>
       </section>
 
       <p className={styles.note}>Psst.. if you see this and like what I do... I’m looking for software development jobs... pls refer me to your company. &lt;3</p>

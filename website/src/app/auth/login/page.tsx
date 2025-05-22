@@ -6,6 +6,8 @@ import { AuthContext } from "@context/authContext"
 import useForm from "@hooks/useForm"
 import { LOGIN_USER } from "@queries/auth"
 import styles from './login.module.scss'
+import routes from "@lib/routes"
+import Link from "next/link"
 
 export default function Auth(){
   const router = useRouter()
@@ -18,13 +20,13 @@ export default function Auth(){
   })
 
   useEffect(() => {
-    if(context.user!=null) router.push("/dashboard")
+    if(context.user!=null) router.push(routes.dashboard)
   }, [context.user, router])
 
   const [loginUser] = useMutation(LOGIN_USER, {
     update(_, { data: { loginUser: userData }}){
       context.login(userData)
-      router.push("/dashboard")
+      router.push(routes.dashboard)
     },
     onError(e){
       setErrors(e.message)
@@ -50,7 +52,7 @@ export default function Auth(){
 
         <input type="submit" value="Login"/>
       </form>
-      <a href="/auth/signup">Don&apos;t have an account? Sign up</a>
+      <Link href={routes.signup}>Don&apos;t have an account? Sign up</Link>
       {errors ?
         <p className={styles.errors}>{errors}</p>
       : undefined}
