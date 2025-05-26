@@ -8,6 +8,7 @@ import { LOGIN_USER } from "@queries/auth"
 import styles from './login.module.scss'
 import routes from "@lib/routes"
 import Link from "next/link"
+import Nav from "@components/nav/Nav"
 
 export default function Auth(){
   const router = useRouter()
@@ -41,6 +42,8 @@ export default function Auth(){
 
   return (
     <main className={styles.auth}>
+      <Nav/>
+
       <h2>Login to The Motivation Scale</h2>  
 
       <form onSubmit={onSubmit}>

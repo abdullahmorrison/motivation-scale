@@ -3,18 +3,12 @@ import Image from 'next/image'
 import ScaleSVG from './ScaleSVG'
 import Link from 'next/link'
 import routes from '@lib/routes'
+import Nav from '@components/nav/Nav'
 
 export default function Home() {
   return (
     <div className={styles.landing}>
-      <nav>
-        <a href="/"><h3 className={styles.logo}><Image src="/icons/logo.svg" alt='logo' width={40} height={40}/>Motivation Scale</h3></a>
-
-        <ul className={styles.links}>
-          <li><a href="/auth/login">Login</a></li>
-          <li><a className={styles.signup} href="/auth/signup">Sign up</a></li>
-        </ul>
-      </nav>
+      <Nav/>
 
       <header>
         <h1>Gain Control of Your Motivation</h1>

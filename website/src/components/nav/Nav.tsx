@@ -1,16 +1,12 @@
-import Settings from '@components/settings/Settings'
+import HomeLink from '@components/nav/home-link/HomeLink'
+import NavControls from '@components/nav/nav-controls/NavControls'
 import styles from './nav.module.scss'
-import Image from 'next/image'
-import Link from 'next/link'
 
-const Nav = () => {
+export default function Nav(){
   return (
     <nav className={styles.nav}>
-      <Link href="/">
-        <Image src="/icons/logo.svg" width={75} height={75} alt="logo"/>
-      </Link>
-      <Settings/>
+      <HomeLink/>
+      <NavControls/>
     </nav>
   )
 }
-export default Nav
