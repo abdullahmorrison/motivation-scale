@@ -26,6 +26,7 @@ const Settings = () => {
     return email.charAt(0).toUpperCase()
   }
 
+  if(!user) return null
   return (
     <div className={styles.account}>
       <div className={styles.icon} onClick={()=>setToggleSettingsOpen(prev=>!prev)}>{emailFirstLetter()}</div>
