@@ -1,16 +1,9 @@
 "use client"
 import { jwtDecode } from "jwt-decode"
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useEffect } from "react";
 
 let initialState: any = {
   user: null
-}
-if (typeof localStorage !== 'undefined'){
-  const token = localStorage.getItem("token")
-  if(token){
-    const decodedToken = jwtDecode(token)
-    initialState.user = decodedToken
-  }
 }
 
 export const AuthContext = createContext({
@@ -38,6 +31,17 @@ function authReducer(state: any, action: any){
 
 export default function AuthProvider({children}: any){
   const [state, dispatch] = useReducer(authReducer, initialState)
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if (token) {
+      const decodedToken = jwtDecode(token)
+      dispatch({
+        type: "LOGIN",
+        payload: { token, ...decodedToken }
+      })
+    }
+  }, [])
 
   function login(userData: any){
     localStorage.setItem("token", userData.token)
