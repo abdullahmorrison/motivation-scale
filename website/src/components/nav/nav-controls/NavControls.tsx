@@ -9,13 +9,13 @@ import routes from '@lib/routes'
 
 export default function NavControls(){
   const context = useContext(AuthContext)
-  const pathname = usePathname()
+  const curPath = usePathname()
 
   return (
     <div>
       {context.user!=null?
         <Settings/>
-      :!pathname.includes("/auth")?
+      :!curPath.includes("/auth")?
         <ul className={styles.links}>
           <li><Link href={routes.login}>Login</Link></li>
           <li><Link className={styles.signup} href={routes.signup}>Sign up</Link></li>
