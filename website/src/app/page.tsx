@@ -3,13 +3,10 @@ import Image from 'next/image'
 import ScaleSVG from './ScaleSVG'
 import Link from 'next/link'
 import routes from '@lib/routes'
-import Nav from '@components/nav/Nav'
 
 export default function Home() {
   return (
     <div className={styles.landing}>
-      <Nav/>
-
       <header>
         <h1>Gain Control of Your Motivation</h1>
         <p>This tool helps you know where your motivation resides and plan accordingly.</p>

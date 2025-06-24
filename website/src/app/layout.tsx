@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google'
 import { client } from '@lib/apollo-client'
 import { ApolloProvider } from '@apollo/client'
 import AuthProvider from '@context/authContext'
+import Nav from '@components/nav/Nav'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,6 +23,7 @@ export default function RootLayout({
     <AuthProvider>
       <ApolloProvider client={client}>
         <html lang="en">
+          <Nav />
           <body className={inter.className}>{children}</body>
         </html>
       </ApolloProvider>
