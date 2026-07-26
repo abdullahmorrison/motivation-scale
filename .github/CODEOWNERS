@@ -1,0 +1,4 @@
+# Default owner for everything in the repo.
+# Note: GitHub never requests review from the author of a PR, so this has no
+# effect on your own PRs — it exists to route review for outside contributors.
+* @abdullahmorrison

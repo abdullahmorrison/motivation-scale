@@ -1,0 +1,40 @@
+name: PR title
+
+# Separate from ci.yml so that editing a PR title re-checks the title without
+# re-running the test, build, and typecheck jobs.
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, edited, reopened, synchronize]
+
+permissions:
+  pull-requests: read
+
+jobs:
+  conventional-commit:
+    name: Conventional commit format
+    runs-on: ubuntu-latest
+    steps:
+      # PRs are squash-merged, so the PR title becomes the commit message on
+      # main. It is the only message that survives, so it is the one we check.
+      - uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            feat
+            fix
+            docs
+            refactor
+            test
+            perf
+            build
+            ci
+            chore
+          scopes: |
+            server
+            website
+            mobile
+            docs
+            infra
+          requireScope: false
