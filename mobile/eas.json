@@ -6,7 +6,7 @@
   "build": {
     "development": {
       "env": {
-        "EXPO_PUBLIC_SERVER_URL": "http://192.168.55.14:3001"
+        "EXPO_PUBLIC_SERVER_URL": "https://abdullah-morrison-macbook-pro.tail4e587b.ts.net"
       },
       "developmentClient": true,
       "distribution": "internal"
@@ -17,7 +17,7 @@
     },
     "production": {
       "env": {
-        "EXPO_PUBLIC_SERVER_URL": "https://motivationscale.up.railway.app"
+        "EXPO_PUBLIC_SERVER_URL": "https://abdullah-morrison-macbook-pro.tail4e587b.ts.net"
       },
       "autoIncrement": true
     }

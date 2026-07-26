@@ -6,7 +6,7 @@ import Constants from 'expo-constants'
 import Scale from '../../components/Scale'
 import { emptyScaleInput, ScaleData } from '../../utils/types/scale'
 import variables from "../../styles/styles.variables"
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client/react"
 import ScaleQueries from '../../utils/queries/scale'
 import { screens } from "../../utils/screens"
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
@@ -42,10 +42,8 @@ export default function App({ navigation, route }: any) {
     return true
   }
   useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', handleBackButton)
-    return () => {
-      BackHandler.removeEventListener('hardwareBackPress', handleBackButton)
-    }
+    const subscription = BackHandler.addEventListener('hardwareBackPress', handleBackButton)
+    return () => subscription.remove()
   }, [])
 
   const [draggingScale, setDraggingScale] = useState<ScaleData | undefined>()

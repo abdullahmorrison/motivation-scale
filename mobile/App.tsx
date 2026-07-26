@@ -1,5 +1,6 @@
 import { AppRegistry } from 'react-native'
-import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from "@apollo/client"
+import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client"
+import { ApolloProvider } from "@apollo/client/react"
 import { NavigationContainer } from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import { setContext } from "@apollo/client/link/context"

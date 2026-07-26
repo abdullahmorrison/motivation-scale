@@ -3,7 +3,7 @@ import Constants from 'expo-constants'
 import variables from "../../styles/styles.variables"
 import { screens } from '../../utils/screens';
 import ScaleQueries from '../../utils/queries/scale';
-import { useMutation } from '@apollo/client';
+import { useMutation } from "@apollo/client/react"
 import { ScaleInput } from '../../utils/types/scale';
 import useForm from '../../utils/hooks/useForm';
 import { useEffect } from 'react';
@@ -44,10 +44,8 @@ export default function MutateScale({route, navigation}: any) {
     return true
   }
   useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', handleBackButton)
-    return () => {
-      BackHandler.removeEventListener('hardwareBackPress', handleBackButton)
-    }
+    const subscription = BackHandler.addEventListener('hardwareBackPress', handleBackButton)
+    return () => subscription.remove()
   }, [])
 
   return (

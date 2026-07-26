@@ -4,7 +4,7 @@ import Constants from 'expo-constants'
 import { Link } from "@react-navigation/native" 
 import variables from "../../styles/styles.variables"
 import useForm from "../../utils/hooks/useForm"
-import { useMutation } from "@apollo/client"
+import { useMutation } from "@apollo/client/react"
 import { REGISTER_USER } from "../../utils/queries/auth"
 import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../../utils/context/authContext"
