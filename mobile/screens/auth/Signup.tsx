@@ -39,7 +39,7 @@ export default function SignupScreen({ navigation }: {navigation: any}){
       <StatusBar backgroundColor={variables.background} style='inverted'/>
 
       {loginError &&
-        <View style={styles.popup}>
+        <View style={styles.popup.container}>
           <Text style={styles.popup.text}>{loginError}</Text>
         </View>
       }
@@ -79,7 +79,8 @@ export default function SignupScreen({ navigation }: {navigation: any}){
   )
 }
 
-const styles = StyleSheet.create({
+const styles = {
+  ...StyleSheet.create({
   contentContainer: {
     backgroundColor: variables.background,
     alignItems: 'center',
@@ -120,18 +121,20 @@ const styles = StyleSheet.create({
     width: 300,
     maxWidth: Dimensions.get("window").width * 0.9
   },
-  popup: {
-    borderWidth: 1,
-    borderColor: 'red',
-    borderRadius: 5,
-    padding: 8,
-    position: 'absolute',
-    top: 20,
-
+  }),
+  popup: StyleSheet.create({
+    container: {
+      borderWidth: 1,
+      borderColor: 'red',
+      borderRadius: 5,
+      padding: 8,
+      position: 'absolute',
+      top: 20,
+    },
     text: {
       color: 'pink',
       fontSize: 18,
-    }as const
-  }
-})
+    }
+  }),
+}
 

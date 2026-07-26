@@ -52,7 +52,7 @@ export default function MutateScale({route, navigation}: any) {
 
   return (
     <View style={styles.contentContainer}>
-      <View style={styles.form}>
+      <View style={styles.form.container}>
         <View>
             <Text style={styles.form.inputLabel}>Goal</Text>
             <TextInput
@@ -87,22 +87,22 @@ export default function MutateScale({route, navigation}: any) {
         </View>
       </View>
 
-      <View style={styles.buttons}>
+      <View style={styles.buttons.container}>
         {route.params.modalType == "add" ?
         <>
-          <TouchableOpacity style={[styles.buttons.button, styles.buttons.button.neutral]}>
+          <TouchableOpacity style={[styles.buttons.button.container, styles.buttons.button.neutral]}>
             <Text style={styles.buttons.button.text} onPress={()=>navigation.goBack()}>Cancel</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.buttons.button, styles.buttons.button.confirm]} onPress={()=>addScale()}>
+          <TouchableOpacity style={[styles.buttons.button.container, styles.buttons.button.confirm]} onPress={()=>addScale()}>
             <Text style={styles.buttons.button.text}>Create</Text>
           </TouchableOpacity>
         </>
         :route.params.modalType == "edit" ?
         <>
-          <TouchableOpacity style={[styles.buttons.button, styles.buttons.button.danger]}>
+          <TouchableOpacity style={[styles.buttons.button.container, styles.buttons.button.danger]}>
             <Text style={styles.buttons.button.text} onPress={()=>deleteScale()}>Delete</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.buttons.button, styles.buttons.button.confirm]} onPress={()=>updateScale()}>
+          <TouchableOpacity style={[styles.buttons.button.container, styles.buttons.button.confirm]} onPress={()=>updateScale()}>
             <Text style={styles.buttons.button.text}>Update</Text>
           </TouchableOpacity>
         </>
@@ -112,23 +112,26 @@ export default function MutateScale({route, navigation}: any) {
   )
 }
 
-const styles = StyleSheet.create({
-  contentContainer: {
-    backgroundColor: variables.background,
-    marginTop: Constants.statusBarHeight,
-    padding: 20,
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-  },
-  form:{
-    flex: 9, //make it 9/10s of screen
-    gap: 20,
-
+const styles = {
+  ...StyleSheet.create({
+    contentContainer: {
+      backgroundColor: variables.background,
+      marginTop: Constants.statusBarHeight,
+      padding: 20,
+      width: Dimensions.get('window').width,
+      height: Dimensions.get('window').height,
+    },
+  }),
+  form: StyleSheet.create({
+    container: {
+      flex: 9, //make it 9/10s of screen
+      gap: 20,
+    },
     inputLabel: {
       fontSize: 15,
       fontWeight: 'bold',
       color: variables.textPrimary,
-    } as const,
+    },
     textInput: {
       borderColor: 'grey',
       borderWidth: 0.5,
@@ -136,7 +139,7 @@ const styles = StyleSheet.create({
       color: variables.textPrimary,
       paddingVertical: 5,
       paddingHorizontal: 10,
-    } as const,
+    },
     textArea: {
       borderColor: 'grey',
       borderWidth: 0.5,
@@ -145,25 +148,29 @@ const styles = StyleSheet.create({
       height: 150,
       textAlignVertical: 'top',
       padding: 10,
-    } as const,
-  },
+    },
+  }),
   buttons: {
-    flex: 1, //push buttons to bottom by making it 1/10 of screen
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-evenly',
-    gap: 5,
-
-    button: {
-        alignItems: 'center',
-        backgroundColor: 'white',
-        borderColor: 'grey',
-        borderWidth: 0.5,
-        borderRadius: 5,
-        elevation: 3,
-        padding: 8,
-        width: '40%',
-
+    ...StyleSheet.create({
+      container: {
+        flex: 1, //push buttons to bottom by making it 1/10 of screen
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        justifyContent: 'space-evenly',
+        gap: 5,
+      },
+    }),
+    button: StyleSheet.create({
+        container: {
+            alignItems: 'center',
+            backgroundColor: 'white',
+            borderColor: 'grey',
+            borderWidth: 0.5,
+            borderRadius: 5,
+            elevation: 3,
+            padding: 8,
+            width: '40%',
+        },
         text: {
             fontWeight: 'bold',
             color: variables.textPrimary
@@ -177,6 +184,6 @@ const styles = StyleSheet.create({
         neutral: {
           backgroundColor: variables.highlight
         }
-    } as const
+    }),
   }
-})
+}

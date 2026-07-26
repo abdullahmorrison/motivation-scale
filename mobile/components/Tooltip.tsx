@@ -40,7 +40,7 @@ export default function Tooltip({sliderValue}: toolTipProps) {
 
     return (
       <View 
-        style={[ styles.tooltip,{ 
+        style={[ styles.tooltip.container,{ 
           left: thumbPosition, 
           backgroundColor: `rgb(${tooltipColor.red}, ${tooltipColor.green}, 0)`
         }]}
@@ -51,19 +51,20 @@ export default function Tooltip({sliderValue}: toolTipProps) {
     )
 }
 
-const styles = StyleSheet.create({
-  tooltip: {
-    alignItems: 'center',
-    position: 'absolute',
-    borderRadius: 5,
-    padding: 5,
-    top: -40,
-    zIndex: 1,
-
+const styles = {
+  tooltip: StyleSheet.create({
+    container: {
+      alignItems: 'center',
+      position: 'absolute',
+      borderRadius: 5,
+      padding: 5,
+      top: -40,
+      zIndex: 1,
+    },
     text: {
       fontSize: 16,
       fontWeight: 'bold',
       color: variables.textPrimary
     }
-  } as const,
-})
+  }),
+}

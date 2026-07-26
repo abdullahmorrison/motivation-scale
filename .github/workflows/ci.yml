@@ -78,11 +78,6 @@ jobs:
     name: Mobile typecheck
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    # Non-blocking: tsc currently fails on pre-existing issues — Metro resolves
-    # imports like './storage' and '../styles.variables' through its own
-    # aliasing, which tsc can't follow, plus some StyleSheet.create typing
-    # errors. Reported so the debt stays visible; flip this off once fixed.
-    continue-on-error: true
 
     defaults:
       run:
