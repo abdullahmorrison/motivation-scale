@@ -35,9 +35,13 @@ describe("Scale", ()=>{
 
   beforeAll(async ()=>{
     const app = express()
+    // Apollo defaults context to {} when none is given. {} is truthy, so the
+    // `if(!ctx)` guard in the resolvers passes and they run with ctx.id
+    // undefined — silently operating on a user that does not exist.
     testServer = new ApolloServer({
       schema,
-      express: app
+      express: app,
+      context: ()=> ({ id: testUser.id })
     } as any)
 
     const port = process.env.PORT || 3002;
