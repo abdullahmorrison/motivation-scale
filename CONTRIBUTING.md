@@ -18,7 +18,10 @@ If the work has an issue, put the number after the type: `feat/75-scale-reorder`
 | | |
 | --- | --- |
 | **Types** | `feat` `fix` `docs` `refactor` `test` `perf` `build` `ci` `chore` |
-| **Scopes** | `server` `website` `mobile` `docs` `infra` `ci` — optional, but it makes `git log --grep "(mobile)"` useful |
+| **Scopes** | `server` `website` `mobile` `docs` `infra` — optional, but it makes `git log --grep "(mobile)"` useful |
+
+`ci` and `build` are types, not scopes: workflow changes are `ci: ...`, not `fix(ci): ...`.
+Reserve `feat` and `fix` for product behavior so they stay greppable.
 
 ```
 feat(mobile): add drag-to-reorder on the dashboard
