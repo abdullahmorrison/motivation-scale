@@ -13,6 +13,13 @@ describe("Login/Register", ()=>{
     password: "test"
   }
 
+  // Seeded below. This test previously assumed the address was already in the
+  // database, which only held true against a dev database with leftover data.
+  const existingUser = {
+    email: "existingemail@gmail.com",
+    password: "test"
+  }
+
   beforeAll(async ()=>{
     testServer = new ApolloServer({ schema } as any)
 
@@ -28,8 +35,13 @@ describe("Login/Register", ()=>{
     // make sure the test user does not already exits (already registered)
     const response = await UserModel.find({email: user.email}).catch()
     if(response.length>0) await UserModel.findByIdAndDelete(response.at(0)._id) //remove from db if exists
+
+    await UserModel.deleteMany({email: existingUser.email})
+    await UserModel.create({...existingUser, token: "existingUserNonJWTTestToken"})
   })
   afterAll(async ()=>{
+    await UserModel.deleteMany({email: {$in: [user.email, existingUser.email]}})
+
     await testServer.stop()
     await disconnect()
   })
@@ -43,13 +55,9 @@ describe("Login/Register", ()=>{
     expect(response.data?.registerUser.email).toBe(user.email)
   })
   it("Register: reject already existing user email", async ()=>{
-    const alreadyExistingUser = {
-      email: "existingemail@gmail.com",
-      password: "test"
-    }
     const response = await testServer.executeOperation({
       query: UserQueries.REGISTER_USER,
-      variables: { email: alreadyExistingUser.email, password: alreadyExistingUser.password}
+      variables: { email: existingUser.email, password: existingUser.password}
     })
     expect(response.errors?.at(0)?.extensions?.code).toBe(ERROR_LIST.ALREADY_EXISTS.code)
   })
