@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { StyleSheet, View, Text } from "react-native"
 import { Dimensions } from "react-native"
-import variables from "../styles.variables"
+import variables from "../styles/styles.variables"
 
 type ScaleState = "Saving What You Can" | "Avoiding Failure" |  "Stagnant" | "Chasing Success" | "Upgrading Goal"
 

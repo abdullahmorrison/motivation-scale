@@ -5,13 +5,13 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import { setContext } from "@apollo/client/link/context"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 
-import storage from './storage'
+import storage from './utils/storage'
 import AuthProvider from './utils/context/authContext'
 import { EXPO_PUBLIC_SERVER_URL } from '@env'
 
 import variables from './styles/styles.variables'
 
-import { screens } from './screens'
+import { screens } from './utils/screens'
 import Dashboard from "./screens/home/Dashboard"
 import LoginScreen from './screens/auth/Login'
 import SignupScreen from './screens/auth/Signup'

@@ -1,11 +1,11 @@
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Dimensions, BackHandler} from 'react-native';
 import Constants from 'expo-constants'
-import variables from "../styles.variables"
-import { screens } from '../screens';
-import ScaleQueries from '../utils/queries/scale';
+import variables from "../../styles/styles.variables"
+import { screens } from '../../utils/screens';
+import ScaleQueries from '../../utils/queries/scale';
 import { useMutation } from '@apollo/client';
-import { ScaleInput } from '../utils/types/scale';
-import useForm from '../utils/hooks/useForm';
+import { ScaleInput } from '../../utils/types/scale';
+import useForm from '../../utils/hooks/useForm';
 import { useEffect } from 'react';
 
 export default function MutateScale({route, navigation}: any) {

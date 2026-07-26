@@ -4,7 +4,7 @@ import { Slider } from '@miblanchard/react-native-slider'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faSortDown, faSortUp, faBars, faEdit} from "@fortawesome/free-solid-svg-icons";
 import { useMutation } from "@apollo/client";
-import variables from "../styles.variables";
+import variables from "../styles/styles.variables";
 import { ScaleData } from "../utils/types/scale";
 import ScaleQueries from "../utils/queries/scale";
 import { LinearGradient } from 'expo-linear-gradient'
