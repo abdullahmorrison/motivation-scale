@@ -54,15 +54,16 @@ describe("Scale", ()=>{
       token: "scaleNonJWTTestToken"
     }).save().catch((err: unknown)=>console.log("Failed to create test user: "+err))
 
+    // No userId: the mutation stopped accepting it when auth moved to the JWT,
+    // so GraphQL discards it. The resolver stamps ctx.id on the scale instead.
     testScaleData = {
-      userId: testUser?.id,
       goal: "Test Scale",
       sliderValue: 60,
       chasingSuccessDescription: "test chasing success description",
       avoidingFailureDescription: "test avoiding failure description",
     }
 
-    testScale = await new ScaleModel(testScaleData).save()
+    testScale = await new ScaleModel({...testScaleData, userId: testUser.id}).save()
       .catch((err: unknown)=>console.log("Failed to create test scale: "+err))
   })
   afterAll(async ()=>{
@@ -81,7 +82,7 @@ describe("Scale", ()=>{
     })
     const scaleObj = response.data?.createScale
 
-    expect(compareScales(testScaleData, scaleObj)).toBeTruthy()
+    expect(compareScales({...testScaleData, userId: testUser.id}, scaleObj)).toBeTruthy()
 
     await ScaleModel.findByIdAndRemove(scaleObj.id)
       .catch(()=>console.log("Create scale test cleanup error: Failed to delete test scale."))
@@ -100,8 +101,7 @@ describe("Scale", ()=>{
     const numScales = await ScaleModel.find({userId: testScale.userId}).count()
 
     const response = await testServer.executeOperation({
-      query: ScaleQueries.GET_SCALES,
-      variables: {userId: testScale.userId}
+      query: ScaleQueries.GET_SCALES
     })
     const scales = response.data?.scales
     expect(scales.length).toBe(numScales)
@@ -120,7 +120,6 @@ describe("Scale", ()=>{
     
     const expectedUpdatedScale = {
       id: newScale.id,
-      userId: testScale.userId,
       goal: "Updated Scale",
       sliderValue: 2,
       chasingSuccessDescription: "Updated chasing success description",
@@ -132,7 +131,7 @@ describe("Scale", ()=>{
       variables: expectedUpdatedScale
     })
     const updatedScale = response.data?.updateScale
-    expect(compareScales(expectedUpdatedScale, updatedScale)).toBeTruthy()
+    expect(compareScales({...expectedUpdatedScale, userId: testUser.id}, updatedScale)).toBeTruthy()
 
     await ScaleModel.findByIdAndRemove(newScale.id)
       .catch(()=>console.log("Create scale test cleanup error: Failed to delete test scale."))
