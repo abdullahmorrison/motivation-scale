@@ -1,6 +1,6 @@
 import { jwtDecode } from "jwt-decode"
 import { createContext, useEffect, useReducer } from "react"
-import storage from "../Storage"
+import storage from "../storage"
 
 let initialState: any = {
   user: null

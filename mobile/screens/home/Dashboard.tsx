@@ -3,15 +3,15 @@ import { BackHandler, Dimensions, TouchableOpacity, Text, FlatList, Animated, Pa
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, SafeAreaView, View} from 'react-native'
 import Constants from 'expo-constants'
-import Scale from '../components/Scale'
-import { emptyScaleInput, ScaleData } from '../utils/types/scale'
-import variables from "../styles.variables"
+import Scale from '../../components/Scale'
+import { emptyScaleInput, ScaleData } from '../../utils/types/scale'
+import variables from "../../styles/styles.variables"
 import { useMutation, useQuery } from "@apollo/client";
-import ScaleQueries from '../utils/queries/scale'
-import { screens } from "../screens"
+import ScaleQueries from '../../utils/queries/scale'
+import { screens } from "../../utils/screens"
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faUser } from '@fortawesome/free-regular-svg-icons'
-import { REORDER_SCALES } from '../utils/queries/scaleOrder'
+import { REORDER_SCALES } from '../../utils/queries/scaleOrder'
 
 export default function App({ navigation, route }: any) {
   const [scales, setScales] = useState<ScaleData[]>([])
@@ -146,7 +146,7 @@ export default function App({ navigation, route }: any) {
         />
       </View>
 
-      <View style={styles.actionBar}>
+      <View style={styles.actionBar.container}>
         <TouchableOpacity style={styles.actionBar.addScaleButton} onPress={()=>{navigation.navigate(screens.MutateScale, {modalType: "add", input: emptyScaleInput})}}>
           <Text style={styles.text} >+</Text>
         </TouchableOpacity>
@@ -158,7 +158,8 @@ export default function App({ navigation, route }: any) {
   )
 }
 
-const styles = StyleSheet.create({
+const styles = {
+  ...StyleSheet.create({
   contentContainer: {
     backgroundColor: variables.background,
     marginTop: Constants.statusBarHeight,
@@ -176,18 +177,20 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: variables.textPrimary,
   },
-  actionBar: {
-    backgroundColor: variables.background,
-    borderTopColor: variables.highlight,
-    borderWidth: 2,
-    position: 'absolute',
-    bottom: 0,
-    flexDirection: 'row', 
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10,
-    width: Dimensions.get('window').width,
-
+  }),
+  actionBar: StyleSheet.create({
+    container: {
+      backgroundColor: variables.background,
+      borderTopColor: variables.highlight,
+      borderWidth: 2,
+      position: 'absolute',
+      bottom: 0,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 10,
+      width: Dimensions.get('window').width,
+    },
     addScaleButton: {
       alignItems: 'center',
       justifyContent: 'center',
@@ -197,11 +200,11 @@ const styles = StyleSheet.create({
 
       width: 50,
       height: 50,
-    } as const,
+    },
     account: {
       position: 'absolute',
       right: 0,
       padding: 20,
-    } as const
-  }
-})
+    }
+  }),
+}
