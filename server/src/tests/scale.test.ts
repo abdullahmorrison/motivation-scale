@@ -116,7 +116,9 @@ describe("Scale", ()=>{
   })
 
   it("Update a scale for user with userId", async ()=>{
-    const newScale = await ScaleModel.create(testScale)
+    // Not ScaleModel.create(testScale): that clones the existing document
+    // including its _id, so the insert collides with the scale it copied.
+    const newScale = await ScaleModel.create({...testScaleData, userId: testUser.id})
     
     const expectedUpdatedScale = {
       id: newScale.id,
