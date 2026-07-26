@@ -4,7 +4,6 @@ import { ScaleModel } from '../models/scale';
 import { schema } from "../schema"
 import { connect, disconnect } from 'mongoose';
 import  ScaleQueries from "./queries/scale"
-import express from "express"
 import { ERROR_LIST } from '../utils/error-handler.helper';
 
 type ScaleProps = {
@@ -34,19 +33,18 @@ describe("Scale", ()=>{
   let testScaleData: any 
 
   beforeAll(async ()=>{
-    const app = express()
     // Apollo defaults context to {} when none is given. {} is truthy, so the
     // `if(!ctx)` guard in the resolvers passes and they run with ctx.id
     // undefined — silently operating on a user that does not exist.
     testServer = new ApolloServer({
       schema,
-      express: app,
       context: ()=> ({ id: testUser.id })
     } as any)
 
-    const port = process.env.PORT || 3002;
-    connect(process.env.DB_CONNECTION as string, { useNewUrlParser: true, useUnifiedTopology: true, dbName: process.env.DB_NAME })
-      .then(()=>{app.listen(port, ()=>console.log(`Scale test server started on port ${port}`))})
+    // Awaited: the model calls below used to race this, relying on mongoose
+    // command buffering. No express listener either — executeOperation runs
+    // in-process, and the listener was never closed, so jest hung on it.
+    await connect(process.env.DB_CONNECTION as string, { useNewUrlParser: true, useUnifiedTopology: true, dbName: process.env.DB_NAME })
 
     testUser = await new UserModel({
       email: "scaleTestEmail@gmail.com",
@@ -72,7 +70,8 @@ describe("Scale", ()=>{
     await UserModel.findByIdAndRemove(testUser.id)
       .catch((err: unknown)=>console.log("Failed to delete test user: "+err))
 
-    disconnect()
+    await testServer.stop()
+    await disconnect()
   })
 
   it("Create a scale for user with userId", async ()=>{
