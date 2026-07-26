@@ -1,7 +1,6 @@
 import { ApolloServer } from 'apollo-server';
 import { UserModel } from "../models/user"
 import { schema } from "../schema"
-import express from "express"
 import { connect, disconnect } from 'mongoose';
 import UserQueries  from "./queries/user"
 import { ERROR_LIST } from '../utils/error-handler.helper';
@@ -14,17 +13,19 @@ describe("Login/Register", ()=>{
     password: "test"
   }
 
+  // Seeded below. This test previously assumed the address was already in the
+  // database, which only held true against a dev database with leftover data.
+  const existingUser = {
+    email: "existingemail@gmail.com",
+    password: "test"
+  }
+
   beforeAll(async ()=>{
-    const app = express()
+    testServer = new ApolloServer({ schema } as any)
 
-    testServer = new ApolloServer({
-      schema,
-      express: app
-    } as any)
-
-    const port = process.env.PORT || 3003;
-    connect(process.env.DB_CONNECTION as string, { useNewUrlParser: true, useUnifiedTopology: true, dbName: process.env.DB_NAME })
-        .then(()=>{app.listen(port, ()=>console.log(`User test server started on port ${port}`))})
+    // Awaited, and without an express listener: executeOperation runs
+    // in-process, and the listener was never closed, so jest hung on it.
+    await connect(process.env.DB_CONNECTION as string, { useNewUrlParser: true, useUnifiedTopology: true, dbName: process.env.DB_NAME })
 
     // make sure we are only making queries to the test database
     const env = process.env.DB_NAME
@@ -34,10 +35,15 @@ describe("Login/Register", ()=>{
     // make sure the test user does not already exits (already registered)
     const response = await UserModel.find({email: user.email}).catch()
     if(response.length>0) await UserModel.findByIdAndDelete(response.at(0)._id) //remove from db if exists
+
+    await UserModel.deleteMany({email: existingUser.email})
+    await UserModel.create({...existingUser, token: "existingUserNonJWTTestToken"})
   })
   afterAll(async ()=>{
+    await UserModel.deleteMany({email: {$in: [user.email, existingUser.email]}})
+
     await testServer.stop()
-    disconnect()
+    await disconnect()
   })
 
   it("Registers a new user", async ()=>{
@@ -49,13 +55,9 @@ describe("Login/Register", ()=>{
     expect(response.data?.registerUser.email).toBe(user.email)
   })
   it("Register: reject already existing user email", async ()=>{
-    const alreadyExistingUser = {
-      email: "existingemail@gmail.com",
-      password: "test"
-    }
     const response = await testServer.executeOperation({
       query: UserQueries.REGISTER_USER,
-      variables: { email: alreadyExistingUser.email, password: alreadyExistingUser.password}
+      variables: { email: existingUser.email, password: existingUser.password}
     })
     expect(response.errors?.at(0)?.extensions?.code).toBe(ERROR_LIST.ALREADY_EXISTS.code)
   })

@@ -49,12 +49,7 @@ jobs:
           cache: npm
           cache-dependency-path: server/package-lock.json
       - run: npm ci
-      - run: npm run generate
-      # Not `npm test`: the suite starts an Express listener that afterAll never
-      # closes, so Jest hangs on the open handle instead of exiting. --forceExit
-      # works around it; fixing the teardown in src/tests would let this go back
-      # to `npm test`.
-      - run: npx jest --forceExit
+      - run: npm test
 
   website:
     name: Website lint + build
