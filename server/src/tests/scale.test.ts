@@ -82,6 +82,10 @@ describe("Scale", ()=>{
     })
     const scaleObj = response.data?.createScale
 
+    // Before comparing: compareScales returns false for undefined input, so a
+    // failed operation would otherwise surface as "scales didn't match"
+    // instead of the actual GraphQL error.
+    expect(response.errors).toBe(undefined)
     expect(compareScales({...testScaleData, userId: testUser.id}, scaleObj)).toBeTruthy()
 
     await ScaleModel.findByIdAndRemove(scaleObj.id)
@@ -104,6 +108,8 @@ describe("Scale", ()=>{
       query: ScaleQueries.GET_SCALES
     })
     const scales = response.data?.scales
+
+    expect(response.errors).toBe(undefined)
     expect(scales.length).toBe(numScales)
   })
 
@@ -133,6 +139,8 @@ describe("Scale", ()=>{
       variables: expectedUpdatedScale
     })
     const updatedScale = response.data?.updateScale
+
+    expect(response.errors).toBe(undefined)
     expect(compareScales({...expectedUpdatedScale, userId: testUser.id}, updatedScale)).toBeTruthy()
 
     await ScaleModel.findByIdAndRemove(newScale.id)
