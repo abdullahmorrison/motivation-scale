@@ -1,6 +1,7 @@
 import { ApolloServer } from 'apollo-server';
 import { UserModel } from '../models/user';
 import { ScaleModel } from '../models/scale';
+import { ScaleOrderModel } from '../models/scaleOrder';
 import { schema } from "../schema"
 import { connect, disconnect } from 'mongoose';
 import  ScaleQueries from "./queries/scale"
@@ -65,10 +66,9 @@ describe("Scale", ()=>{
       .catch((err: unknown)=>console.log("Failed to create test scale: "+err))
   })
   afterAll(async ()=>{
-    await ScaleModel.findByIdAndRemove(testScale.id)
-      .catch((err: unknown)=>console.log("Failed to delete test scale: "+err))
+    await ScaleModel.deleteMany({userId: testUser.id})
+    await ScaleOrderModel.deleteMany({userId: testUser.id})
     await UserModel.findByIdAndRemove(testUser.id)
-      .catch((err: unknown)=>console.log("Failed to delete test user: "+err))
 
     await testServer.stop()
     await disconnect()
@@ -88,7 +88,10 @@ describe("Scale", ()=>{
     expect(compareScales({...testScaleData, userId: testUser.id}, scaleObj)).toBeTruthy()
 
     await ScaleModel.findByIdAndRemove(scaleObj.id)
-      .catch(()=>console.log("Create scale test cleanup error: Failed to delete test scale."))
+    // createScale also appends the new id to the user's ScaleOrder. Deleting
+    // only the scale leaves a dangling id there, and GET_SCALES maps its
+    // results through that order — yielding null in a non-null list.
+    await ScaleOrderModel.deleteMany({userId: testUser.id})
   })
   it("Reject creating scale for nonexistant userID", async ()=>{
     const fakeUserId = "fAk3us3R1d" 
