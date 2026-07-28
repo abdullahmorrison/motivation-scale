@@ -13,13 +13,15 @@
     },
     "preview": {
       "extends": "production",
-      "distribution": "internal"
+      "distribution": "internal",
+      "channel": "preview"
     },
     "production": {
       "env": {
         "EXPO_PUBLIC_SERVER_URL": "https://abdullah-morrison-macbook-pro.tail4e587b.ts.net"
       },
-      "autoIncrement": true
+      "autoIncrement": true,
+      "channel": "production"
     }
   },
   "submit": {

@@ -36,7 +36,7 @@ export default function SignupScreen({ navigation }: {navigation: any}){
 
   return (
     <SafeAreaView style={styles.contentContainer}>
-      <StatusBar backgroundColor={variables.background} style='inverted'/>
+      <StatusBar style='inverted'/>
 
       {loginError &&
         <View style={styles.popup.container}>

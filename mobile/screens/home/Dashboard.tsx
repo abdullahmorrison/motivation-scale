@@ -96,7 +96,7 @@ export default function App({ navigation, route }: any) {
 
   return (
     <SafeAreaView>
-      <StatusBar backgroundColor={variables.background} style='inverted'/>
+      <StatusBar style='inverted'/>
 
       <View style={styles.contentContainer} >
         {draggingScale &&
