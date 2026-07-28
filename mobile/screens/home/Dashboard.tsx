@@ -21,9 +21,10 @@ export default function App({ navigation, route }: any) {
     scalesRef.current = scales
   },[scales])
 
-  useQuery(ScaleQueries.GET_SCALES, {
-    onCompleted(data){ setScales(data.scales) }
-  })
+  const { data: scalesData } = useQuery<{scales: ScaleData[]}>(ScaleQueries.GET_SCALES)
+  useEffect(()=>{
+    if(scalesData) setScales(scalesData.scales)
+  },[scalesData])
   const [reorderScales] = useMutation(REORDER_SCALES)
 
   useEffect(()=>{

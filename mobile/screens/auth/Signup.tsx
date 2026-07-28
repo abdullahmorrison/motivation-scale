@@ -9,7 +9,7 @@ import { REGISTER_USER } from "../../utils/queries/auth"
 import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../../utils/context/authContext"
 import { screens } from "../../utils/screens"
-import { AuthInput, emptyAuthInput } from "../../utils/types/auth"
+import { AuthInput, AuthUser, emptyAuthInput } from "../../utils/types/auth"
 
 export default function SignupScreen({ navigation }: {navigation: any}){
   const context = useContext(AuthContext)
@@ -26,8 +26,8 @@ export default function SignupScreen({ navigation }: {navigation: any}){
     registerUser({variables: values})
   }
 
-  const [registerUser] = useMutation(REGISTER_USER, {
-    onCompleted({loginUser: registerUser}){
+  const [registerUser] = useMutation<{registerUser: AuthUser}>(REGISTER_USER, {
+    onCompleted({registerUser}){
       context.login(registerUser)
       navigation.navigate(screens.Dashboard)
     },

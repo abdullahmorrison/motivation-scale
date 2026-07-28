@@ -9,7 +9,7 @@ import { LOGIN_USER } from "../../utils/queries/auth"
 import { useContext, useState } from "react"
 import { AuthContext } from "../../utils/context/authContext"
 import { screens } from "../../utils/screens"
-import { AuthInput, emptyAuthInput } from "../../utils/types/auth"
+import { AuthInput, AuthUser, emptyAuthInput } from "../../utils/types/auth"
 
 export default function LoginScreen({ navigation }: {navigation: any}){
   const context = useContext(AuthContext)
@@ -21,7 +21,7 @@ export default function LoginScreen({ navigation }: {navigation: any}){
     loginUser({variables: values})
   }
 
-  const [loginUser] = useMutation(LOGIN_USER, {
+  const [loginUser] = useMutation<{loginUser: AuthUser}>(LOGIN_USER, {
     onCompleted({loginUser}){
       context.login(loginUser)
       navigation.navigate(screens.Dashboard)

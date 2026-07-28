@@ -4,14 +4,14 @@ import variables from "../../styles/styles.variables"
 import { screens } from '../../utils/screens';
 import ScaleQueries from '../../utils/queries/scale';
 import { useMutation } from "@apollo/client/react"
-import { ScaleInput } from '../../utils/types/scale';
+import { ScaleData, ScaleInput } from '../../utils/types/scale';
 import useForm from '../../utils/hooks/useForm';
 import { useEffect } from 'react';
 
 export default function MutateScale({route, navigation}: any) {
   const { onChange, values } = useForm<ScaleInput>(route.params)
 
-  const [addScale] = useMutation(ScaleQueries.CREATE_SCALE, {
+  const [addScale] = useMutation<{createScale: ScaleData}>(ScaleQueries.CREATE_SCALE, {
     variables: values,
     onCompleted(data){ 
       navigation.navigate(screens.Dashboard, {mutationType: "add", scale: data.createScale}) 
@@ -20,7 +20,7 @@ export default function MutateScale({route, navigation}: any) {
       console.log(e)
     }
   })
-  const [updateScale] = useMutation(ScaleQueries.UPDATE_SCALE, {
+  const [updateScale] = useMutation<{updateScale: ScaleData}>(ScaleQueries.UPDATE_SCALE, {
     variables: {...route.params.input, ...values},
     onCompleted(data){
       navigation.navigate(screens.Dashboard, {mutationType: "edit", scale: data.updateScale}) 
@@ -29,7 +29,7 @@ export default function MutateScale({route, navigation}: any) {
       console.log(e)
     }
   })
-  const [deleteScale] = useMutation(ScaleQueries.DELETE_SCALE, {
+  const [deleteScale] = useMutation<{deleteScale: ScaleData}>(ScaleQueries.DELETE_SCALE, {
     variables: {id: route.params.input.id},
     onCompleted(data){
       navigation.navigate(screens.Dashboard, {mutationType: "delete", scale: data.deleteScale}) 
