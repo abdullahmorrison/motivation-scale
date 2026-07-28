@@ -9,11 +9,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#010101"
-    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -41,9 +36,17 @@
     "updates": {
       "url": "https://u.expo.dev/7a2f38be-efdf-4d14-8703-6356fbb6330f"
     },
-    "newArchEnabled": true,
     "plugins": [
-      "expo-font"
+      "expo-font",
+      "expo-status-bar",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#010101"
+        }
+      ]
     ]
   }
 }
