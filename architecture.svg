@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 660" width="880" font-family="ui-sans-serif, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7d8590"/>
+    </marker>
+  </defs>
+
+  <!-- ============ MOBILE PHONE ============ -->
+  <g transform="translate(91,39) scale(0.7)">
+    <rect x="230" y="30" width="130" height="220" rx="18" fill="none" stroke="#1f6feb" stroke-width="2.5"/>
+    <rect x="242" y="52" width="106" height="176" rx="6" fill="#1f6feb" fill-opacity="0.10" stroke="#1f6feb" stroke-opacity="0.45" stroke-width="1.5"/>
+    <rect x="275" y="40" width="40" height="5" rx="2.5" fill="#1f6feb" fill-opacity="0.55"/>
+    <rect x="272" y="234" width="46" height="5" rx="2.5" fill="#1f6feb" fill-opacity="0.55"/>
+    <!-- scale cards on the screen -->
+    <rect x="252" y="64" width="86" height="9" rx="4" fill="#1f6feb" fill-opacity="0.5"/>
+    <rect x="252" y="84" width="86" height="42" rx="5" fill="none" stroke="#1f6feb" stroke-opacity="0.6" stroke-width="2"/>
+    <line x1="260" y1="112" x2="330" y2="112" stroke="#1f6feb" stroke-opacity="0.6" stroke-width="2.5"/>
+    <circle cx="300" cy="112" r="5" fill="#1f6feb" fill-opacity="0.8"/>
+    <rect x="252" y="136" width="86" height="42" rx="5" fill="none" stroke="#1f6feb" stroke-opacity="0.6" stroke-width="2"/>
+    <line x1="260" y1="164" x2="330" y2="164" stroke="#1f6feb" stroke-opacity="0.6" stroke-width="2.5"/>
+    <circle cx="278" cy="164" r="5" fill="#1f6feb" fill-opacity="0.8"/>
+    <rect x="252" y="188" width="86" height="28" rx="5" fill="none" stroke="#1f6feb" stroke-opacity="0.35" stroke-width="2"/>
+  </g>
+  <text x="297" y="238" fill="#7d8590" font-size="14" text-anchor="middle">Mobile app</text>
+  <text x="297" y="256" fill="#7d8590" font-size="12" text-anchor="middle">React Native · Expo</text>
+
+  <!-- ============ BROWSER ============ -->
+  <g transform="translate(243,48) scale(0.7)">
+    <rect x="560" y="40" width="250" height="160" rx="8" fill="none" stroke="#1f6feb" stroke-width="2.5"/>
+    <line x1="560" y1="72" x2="810" y2="72" stroke="#1f6feb" stroke-width="2.5"/>
+    <circle cx="578" cy="56" r="4.5" fill="#1f6feb" fill-opacity="0.75"/>
+    <circle cx="594" cy="56" r="4.5" fill="#1f6feb" fill-opacity="0.5"/>
+    <circle cx="610" cy="56" r="4.5" fill="#1f6feb" fill-opacity="0.35"/>
+    <rect x="626" y="48" width="168" height="16" rx="8" fill="#1f6feb" fill-opacity="0.12" stroke="#1f6feb" stroke-opacity="0.4" stroke-width="1.5"/>
+    <rect x="580" y="92" width="120" height="10" rx="5" fill="#1f6feb" fill-opacity="0.45"/>
+    <rect x="580" y="112" width="210" height="60" rx="6" fill="none" stroke="#1f6feb" stroke-opacity="0.55" stroke-width="2"/>
+    <line x1="596" y1="142" x2="774" y2="142" stroke="#1f6feb" stroke-opacity="0.55" stroke-width="2.5"/>
+    <circle cx="700" cy="142" r="6" fill="#1f6feb" fill-opacity="0.8"/>
+  </g>
+  <text x="722" y="212" fill="#7d8590" font-size="14" text-anchor="middle">Browser</text>
+
+  <!-- ============ MAC MACHINE BOUNDARY ============ -->
+  <rect x="30" y="290" width="820" height="350" rx="14" fill="none" stroke="#7d8590" stroke-width="1.5" stroke-dasharray="7 6"/>
+  <text x="52" y="318" fill="#7d8590" font-size="14">Mac machine · Ubuntu</text>
+
+  <!-- ============ TAILSCALE ============ -->
+  <g>
+    <rect x="340" y="356" width="200" height="62" rx="10" fill="none" stroke="#8957e5" stroke-width="2"/>
+    <path d="M 372 388 v -8 a 8 8 0 0 1 16 0 v 8" fill="none" stroke="#8957e5" stroke-width="2"/>
+    <rect x="366" y="386" width="28" height="20" rx="4" fill="#8957e5" fill-opacity="0.18" stroke="#8957e5" stroke-width="2"/>
+    <text x="412" y="382" fill="#7d8590" font-size="14">Tailscale</text>
+    <text x="412" y="400" fill="#7d8590" font-size="12">tailnet · MagicDNS</text>
+  </g>
+
+  <!-- ============ GRAPHQL SERVER (rack) ============ -->
+  <g>
+    <rect x="70" y="490" width="210" height="96" rx="8" fill="none" stroke="#2ea043" stroke-width="2"/>
+    <rect x="86" y="506" width="150" height="18" rx="4" fill="none" stroke="#2ea043" stroke-opacity="0.7" stroke-width="1.5"/>
+    <rect x="86" y="530" width="150" height="18" rx="4" fill="none" stroke="#2ea043" stroke-opacity="0.7" stroke-width="1.5"/>
+    <rect x="86" y="554" width="150" height="18" rx="4" fill="none" stroke="#2ea043" stroke-opacity="0.7" stroke-width="1.5"/>
+    <circle cx="254" cy="515" r="4" fill="#2ea043"/>
+    <circle cx="254" cy="539" r="4" fill="#2ea043" fill-opacity="0.6"/>
+    <circle cx="254" cy="563" r="4" fill="#2ea043" fill-opacity="0.35"/>
+    <text x="175" y="610" fill="#7d8590" font-size="14" text-anchor="middle">GraphQL server</text>
+    <text x="175" y="628" fill="#7d8590" font-size="12" text-anchor="middle">Apollo · Nexus · :3001</text>
+  </g>
+
+  <!-- ============ MONGODB (cylinder) ============ -->
+  <g>
+    <path d="M 380 506 v 64 a 50 16 0 0 0 100 0 v -64" fill="#d29922" fill-opacity="0.10" stroke="#d29922" stroke-width="2"/>
+    <ellipse cx="430" cy="506" rx="50" ry="16" fill="#d29922" fill-opacity="0.16" stroke="#d29922" stroke-width="2"/>
+    <path d="M 380 538 a 50 16 0 0 0 100 0" fill="none" stroke="#d29922" stroke-width="1.5" stroke-opacity="0.5"/>
+    <text x="430" y="610" fill="#7d8590" font-size="14" text-anchor="middle">MongoDB</text>
+    <text x="430" y="628" fill="#7d8590" font-size="12" text-anchor="middle">:27017</text>
+  </g>
+
+  <!-- ============ NEXT.JS SERVER ============ -->
+  <g>
+    <rect x="600" y="490" width="210" height="96" rx="8" fill="none" stroke="#2ea043" stroke-width="2"/>
+    <!-- stack of served pages -->
+    <rect x="662" y="504" width="56" height="66" rx="4" fill="none" stroke="#2ea043" stroke-opacity="0.4" stroke-width="1.5"/>
+    <rect x="674" y="512" width="56" height="66" rx="4" fill="#2ea043" fill-opacity="0.10" stroke="#2ea043" stroke-width="1.5"/>
+    <line x1="684" y1="530" x2="720" y2="530" stroke="#2ea043" stroke-opacity="0.7" stroke-width="2"/>
+    <line x1="684" y1="544" x2="720" y2="544" stroke="#2ea043" stroke-opacity="0.7" stroke-width="2"/>
+    <line x1="684" y1="558" x2="706" y2="558" stroke="#2ea043" stroke-opacity="0.7" stroke-width="2"/>
+    <text x="705" y="610" fill="#7d8590" font-size="14" text-anchor="middle">Next.js server</text>
+    <text x="705" y="628" fill="#7d8590" font-size="12" text-anchor="middle">serves pages · :3000</text>
+  </g>
+
+  <!-- ============ WIRES ============ -->
+  <path d="M 297 266 C 297 310, 330 332, 372 356" fill="none" stroke="#7d8590" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="232" y="282" fill="#7d8590" font-size="12" font-style="italic" text-anchor="end">GraphQL · JWT</text>
+
+  <path d="M 722 226 C 722 300, 570 330, 512 356" fill="none" stroke="#7d8590" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="742" y="280" fill="#7d8590" font-size="12" font-style="italic">pages · GraphQL</text>
+
+  <path d="M 386 422 C 340 450, 240 460, 190 488" fill="none" stroke="#7d8590" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="272" y="438" fill="#7d8590" font-size="12" font-style="italic" text-anchor="end">serve · TLS :443</text>
+
+  <path d="M 500 422 C 560 450, 640 460, 690 488" fill="none" stroke="#7d8590" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="606" y="438" fill="#7d8590" font-size="12" font-style="italic">direct · :3000</text>
+
+  <path d="M 288 538 L 372 538" fill="none" stroke="#7d8590" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="330" y="528" fill="#7d8590" font-size="12" font-style="italic" text-anchor="middle">mongoose</text>
+</svg>
