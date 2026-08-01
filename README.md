@@ -6,19 +6,19 @@ A mindfulness tool that helps users visualize a mental framework for how their m
 
 ## What problem does this solve?
 
-***This tool prevents your emotions from getting in the way of your goals through self-awareness. Here's an example:***
+***This tool prevents your emotions from getting in the way of your goals through self-awareness.***
 
-In University, I was procrastinating studying for a test I had the following day. When I could not put it off any longer and started to study, I realized that I vastly underestimated how much studying I needed to do.
-
-That put me into the following anxiety death-spiral:
+A goal you care about starts to slip. The work turns out to be larger than you estimated, anxiety rises, and the instinctive response to anxiety is avoidance. Avoiding it costs time, which makes the work larger still — and the loop tightens with every pass.
 
 <div align="center">
-  <img width=600 src="https://github.com/user-attachments/assets/d57e411d-e229-4fe0-af85-3c5d58401b1f" />
+  <img src="anxiety-spiral.svg" width="680" alt="A four-step loop: the work turns out bigger than you thought, anxiety rises, you avoid the task, less time remains — feeding back into the first step. Naming the state you are in breaks the loop." />
 </div>
 
-This went on for hours without any studying being accomplished until I just gave up, decided to go to sleep, and accept whatever grade I got. That caused me to evaluate all the ways my emotions can affect the way I pursue my goals, which led me to create a framework for understanding this so that scenario never happens again. That framework is called the Motivation Scale!
+That spiral can run for hours and end in abandoning the goal entirely — not because it was unachievable, but because the emotional state made action hardest at the moment action mattered most.
 
-The framework was helpful, but it was difficult to keep track of all my goals and their correlation to my mood, so I created this tool to do that.
+The way out is noticing where you are while it is happening. Motivation is not on or off; it runs along a spectrum from *chasing success* to *avoiding failure*, and your position on it predicts how the next action will feel. Once you can name the state you are in, you can pick the action that moves you along the spectrum instead of reacting to whichever emotion is loudest.
+
+The Motivation Scale is a framework for doing exactly that. This tool tracks your goals against it, so the state you are in is something you can see rather than something you reconstruct afterwards.
 
 ## Tech Stack
 
