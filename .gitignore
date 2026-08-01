@@ -27,3 +27,6 @@ schema.graphql
 nexus-typegen.ts
 
 next-env.d.ts
+
+# claude code worktrees
+.claude/
