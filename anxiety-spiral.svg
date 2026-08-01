@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" width="960" font-family="ui-sans-serif, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <defs>
+    <marker id="spiral-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f85149"/>
+    </marker>
+    <marker id="exit-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2ea043"/>
+    </marker>
+  </defs>
+
+  <!-- ============ SPIRAL MOTIF (behind the label) ============ -->
+  <path d="M 480.0 250.0 L 480.7 250.1 L 481.3 250.3 L 482.0 250.7 L 482.5 251.2 L 482.9 251.8 L 483.3 252.5 L 483.5 253.4 L 483.5 254.3 L 483.4 255.2 L 483.1 256.1 L 482.7 257.1 L 482.1 258.0 L 481.3 258.9 L 480.3 259.7 L 479.2 260.3 L 477.9 260.8 L 476.6 261.2 L 475.1 261.4 L 473.5 261.4 L 471.9 261.2 L 470.2 260.7 L 468.6 260.0 L 467.0 259.1 L 465.5 258.0 L 464.1 256.6 L 462.8 255.0 L 461.6 253.2 L 460.7 251.2 L 460.0 249.1 L 459.6 246.8 L 459.4 244.4 L 459.5 241.9 L 459.9 239.3 L 460.6 236.8 L 461.6 234.3 L 463.0 231.9 L 464.7 229.6 L 466.7 227.4 L 468.9 225.5 L 471.5 223.8 L 474.3 222.3 L 477.3 221.1 L 480.5 220.3 L 483.8 219.9 L 487.2 219.8 L 490.8 220.1 L 494.3 220.9 L 497.7 222.0 L 501.1 223.6 L 504.4 225.6 L 507.5 228.0 L 510.3 230.8 L 512.8 233.9 L 515.1 237.4 L 516.9 241.1 L 518.3 245.2 L 519.3 249.4 L 519.8 253.8 L 519.9 258.3 L 519.4 262.8 L 518.4 267.3 L 516.8 271.8 L 514.8 276.1 L 512.2 280.2 L 509.1 284.1 L 505.6 287.7 L 501.6 290.9 L 497.3 293.6 L 492.6 295.9 L 487.6 297.7 L 482.3 298.9 L 476.9 299.6 L 471.3 299.6 L 465.8 299.0 L 460.2 297.8 L 454.7 296.0 L 449.4 293.5 L 444.4 290.4 L 439.7 286.7 L 435.3 282.4 L 431.5 277.7 L 428.1 272.5 L 425.3 266.8 L 423.1 260.9 L 421.5 254.6 L 420.7 248.1 L 420.6 241.5 L 421.2 234.9 L 422.6 228.3 L 424.7 221.8 L 427.5 215.5 L 431.1 209.5 L 435.3 203.9 L 440.2 198.8 L 445.8 194.1 L 451.8 190.1 L 458.3 186.7 L 465.2 184.0 L 472.5 182.1 L 480.0 181.0 L 487.6 180.7 L 495.4 181.3 L 503.0 182.8 L 510.6 185.1 L 517.9 188.2 L 524.8 192.2 L 531.4 197.0 L 537.4 202.5 L 542.9 208.7 L 547.6 215.5 L 551.6 222.9 L 554.9 230.8 L 557.2 239.0 L 558.6 247.5 L 559.1 256.2 L 558.6 265.0 L 557.2 273.7 L 554.7 282.3 L 551.3 290.7 L 547.0 298.7 L 541.8 306.2 L 535.7 313.1 L 528.8 319.4 L 521.2 325.0 L 513.0 329.7 L 504.3 333.5 L 495.1 336.3 L 485.5 338.1 L 475.8 338.9 L 466.0 338.6 L 456.1 337.2 L 446.5 334.7 L 437.1 331.1 L 428.0 326.5 L 419.5 320.8 L 411.6 314.2 L 404.4 306.8 L 398.0 298.5 L 392.6 289.5 L 388.1 279.9 L 384.7 269.7 L 382.5 259.2 L 381.3 248.5 L 381.4 237.5 L 382.7 226.6 L 385.2 215.9 L 388.9 205.4 L 393.8 195.3 L 399.8 185.7 L 406.8 176.8 L 414.9 168.7 L 423.8 161.4 L 433.6 155.2 L 444.0 150.0 L 455.0 146.0 L 466.5 143.2 L 478.3 141.7 L 490.3 141.5 L 502.2 142.6 L 514.1 145.0 L 525.7 148.8 L 536.9 153.8 L 547.5 160.1 L 557.5 167.5 L 566.6 176.1 L 574.7 185.6 L 581.8 196.1 L 587.8 207.3 L 592.5 219.2 L 595.9 231.7 L 597.9 244.4 L 598.4 257.5 L 597.6 270.5 L 595.3 283.5 L 591.6 296.2 L 586.4 308.5 L 579.9 320.2 L 572.1 331.2 L 563.1 341.4 L 553.0 350.5 L 541.9 358.5 L 529.9 365.3 L 517.1 370.7 L 503.8 374.7 L 490.0 377.3 L 476.0 378.3 L 461.8 377.7 L 447.7 375.6 L 433.9 372.0 L 420.5 366.8 L 407.6 360.2 L 395.6 352.1 L 384.4 342.7 L 374.2 332.0 L 365.3 320.3 L 357.6 307.6 L 351.4 294.0 L 346.7 279.8 L 343.5 265.1 L 342.0 250.0" fill="none" stroke="#f85149" stroke-opacity="0.11" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- ============ THE LOOP ============ -->
+
+  <!-- top -->
+  <g>
+    <rect x="380" y="60" width="200" height="54" rx="8" fill="#f85149" fill-opacity="0.07" stroke="#f85149" stroke-width="2"/>
+    <text x="480" y="84" fill="#7d8590" font-size="14" text-anchor="middle">The work turns out</text>
+    <text x="480" y="102" fill="#7d8590" font-size="14" text-anchor="middle">bigger than you thought</text>
+  </g>
+
+  <!-- right -->
+  <g>
+    <rect x="720" y="223" width="200" height="54" rx="8" fill="#f85149" fill-opacity="0.07" stroke="#f85149" stroke-width="2"/>
+    <text x="820" y="256" fill="#7d8590" font-size="14" text-anchor="middle">Anxiety rises</text>
+  </g>
+
+  <!-- bottom -->
+  <g>
+    <rect x="380" y="386" width="200" height="54" rx="8" fill="#f85149" fill-opacity="0.07" stroke="#f85149" stroke-width="2"/>
+    <text x="480" y="419" fill="#7d8590" font-size="14" text-anchor="middle">You avoid the task</text>
+  </g>
+
+  <!-- left -->
+  <g>
+    <rect x="40" y="223" width="200" height="54" rx="8" fill="#f85149" fill-opacity="0.07" stroke="#f85149" stroke-width="2"/>
+    <text x="140" y="256" fill="#7d8590" font-size="14" text-anchor="middle">Less time remains</text>
+  </g>
+
+  <!-- ============ LOOP ARROWS (clockwise) ============ -->
+  <path d="M 585 92 C 680 101, 780 150, 812 214" fill="none" stroke="#f85149" stroke-width="2" marker-end="url(#spiral-arrow)"/>
+  <path d="M 812 286 C 780 350, 680 397, 588 406" fill="none" stroke="#f85149" stroke-width="2" marker-end="url(#spiral-arrow)"/>
+  <path d="M 372 406 C 280 397, 180 350, 148 286" fill="none" stroke="#f85149" stroke-width="2" marker-end="url(#spiral-arrow)"/>
+  <path d="M 148 214 C 180 150, 280 101, 373 92" fill="none" stroke="#f85149" stroke-width="2" marker-end="url(#spiral-arrow)"/>
+
+  <!-- ============ CENTRE LABEL ============ -->
+  <g transform="rotate(-8 480 250)">
+    <text x="480" y="252" fill="#f85149" font-size="54" font-weight="bold" font-style="italic"
+          text-anchor="middle"
+          font-family="'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', 'Comic Neue', cursive">Anxiety Spiral</text>
+    <path d="M 322 275 C 420 288, 562 284, 646 266" fill="none" stroke="#f85149" stroke-opacity="0.45" stroke-width="3.5" stroke-linecap="round"/>
+  </g>
+  <text x="480" y="316" fill="#7d8590" font-size="14" font-style="italic" text-anchor="middle">each turn makes the next one harder</text>
+
+  <!-- ============ THE WAY OUT ============ -->
+  <path d="M 480 444 L 480 489" fill="none" stroke="#2ea043" stroke-width="2" marker-end="url(#exit-arrow)"/>
+  <text x="495" y="471" fill="#2ea043" font-size="12" font-style="italic">name the state you are in</text>
+
+  <g>
+    <rect x="310" y="493" width="340" height="54" rx="8" fill="#2ea043" fill-opacity="0.07" stroke="#2ea043" stroke-width="2"/>
+    <text x="480" y="526" fill="#7d8590" font-size="14" text-anchor="middle">Choose the next action deliberately</text>
+  </g>
+</svg>
