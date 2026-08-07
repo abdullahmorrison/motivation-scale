@@ -12,13 +12,13 @@
     "@apollo/client": "^3.8.5",
     "html-react-parser": "^5.1.10",
     "next": "13.5.4",
-    "react": "^18",
+    "react": "^19",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/react": "^19",
     "@types/react-beautiful-dnd": "^13.1.5",
     "@types/react-dom": "^18",
     "eslint": "^8",
